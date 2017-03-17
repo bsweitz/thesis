@@ -1,0 +1,203 @@
+% {{{ amsfonts }}}
+\usepackage{amsfonts}
+
+% {{{ amsthm }}}
+\usepackage{amsthm}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{itheorem}{Theorem}
+
+\newtheorem{subclaim}{Claim}[theorem]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{conjecture*}{Conjecture}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem*{fact*}{Fact}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem*{hypothesis*}{Hypothesis}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{openquestion}[theorem]{Open Question}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{protocol}[theorem]{Protocol}
+\newtheorem{assumption}[theorem]{Assumption}
+
+\theoremstyle{remark}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem*{claim*}{Claim}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{remark*}{Remark}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem*{observation*}{Observation}
+
+% {{{ prettyref }}}
+\usepackage{prettyref}
+
+\newcommand{\savehyperref}[2]{\texorpdfstring{\hyperref[#1]{#2}}{#2}}
+
+\newrefformat{eq}{\savehyperref{#1}{\textup{(\ref*{#1})}}}
+\newrefformat{eqn}{\savehyperref{#1}{\textup{(\ref*{#1})}}}
+\newrefformat{lem}{\savehyperref{#1}{Lemma~\ref*{#1}}}
+\newrefformat{def}{\savehyperref{#1}{Definition~\ref*{#1}}}
+\newrefformat{thm}{\savehyperref{#1}{Theorem~\ref*{#1}}}
+\newrefformat{cor}{\savehyperref{#1}{Corollary~\ref*{#1}}}
+\newrefformat{cha}{\savehyperref{#1}{Chapter~\ref*{#1}}}
+\newrefformat{sec}{\savehyperref{#1}{Section~\ref*{#1}}}
+\newrefformat{app}{\savehyperref{#1}{Appendix~\ref*{#1}}}
+\newrefformat{tab}{\savehyperref{#1}{Table~\ref*{#1}}}
+\newrefformat{fig}{\savehyperref{#1}{Figure~\ref*{#1}}}
+\newrefformat{hyp}{\savehyperref{#1}{Hypothesis~\ref*{#1}}}
+\newrefformat{alg}{\savehyperref{#1}{Algorithm~\ref*{#1}}}
+\newrefformat{rem}{\savehyperref{#1}{Remark~\ref*{#1}}}
+\newrefformat{item}{\savehyperref{#1}{Item~\ref*{#1}}}
+\newrefformat{step}{\savehyperref{#1}{step~\ref*{#1}}}
+\newrefformat{conj}{\savehyperref{#1}{Conjecture~\ref*{#1}}}
+\newrefformat{fact}{\savehyperref{#1}{Fact~\ref*{#1}}}
+\newrefformat{prop}{\savehyperref{#1}{Proposition~\ref*{#1}}}
+\newrefformat{prob}{\savehyperref{#1}{Problem~\ref*{#1}}}
+\newrefformat{claim}{\savehyperref{#1}{Claim~\ref*{#1}}}
+\newrefformat{relax}{\savehyperref{#1}{Relaxation~\ref*{#1}}}
+\newrefformat{red}{\savehyperref{#1}{Reduction~\ref*{#1}}}
+\newrefformat{part}{\savehyperref{#1}{Part~\ref*{#1}}}
+
+% {{{ mathtools }}}
+\usepackage{mathtools}
+
+% {{{ mathoperators }}}
+\DeclareMathOperator{\Inf}{Inf}
+\DeclareMathOperator{\Tr}{Tr}
+%\newcommand{\Tr}{\mathrm{Tr}}
+\DeclareMathOperator{\SDP}{SDP}
+\DeclareMathOperator{\sdp}{sdp}
+\DeclareMathOperator{\val}{val}
+\DeclareMathOperator{\LP}{LP}
+\DeclareMathOperator{\OPT}{OPT}
+\DeclareMathOperator{\opt}{opt}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\poly}{poly}
+\DeclareMathOperator{\qpoly}{qpoly}
+\DeclareMathOperator{\qpolylog}{qpolylog}
+\DeclareMathOperator{\qqpoly}{qqpoly}
+\DeclareMathOperator{\argmax}{argmax}
+\DeclareMathOperator{\polylog}{polylog}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\Conv}{Conv}
+
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Proj}{proj}
+
+% {{{ alphabet }}}
+
+\newcommand{\cA}{\mathcal A}
+\newcommand{\cB}{\mathcal B}
+\newcommand{\cC}{\mathcal C}
+\newcommand{\cD}{\mathcal D}
+\newcommand{\cE}{\mathcal E}
+\newcommand{\cF}{\mathcal F}
+\newcommand{\cG}{\mathcal G}
+\newcommand{\cH}{\mathcal H}
+\newcommand{\cI}{\mathcal I}
+\newcommand{\cJ}{\mathcal J}
+\newcommand{\cK}{\mathcal K}
+\newcommand{\cL}{\mathcal L}
+\newcommand{\cM}{\mathcal M}
+\newcommand{\cN}{\mathcal N}
+\newcommand{\cO}{\mathcal O}
+\newcommand{\cP}{\mathcal P}
+\newcommand{\cQ}{\mathcal Q}
+\newcommand{\cR}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cT}{\mathcal T}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\cV}{\mathcal V}
+\newcommand{\cW}{\mathcal W}
+\newcommand{\cX}{\mathcal X}
+\newcommand{\cY}{\mathcal Y}
+\newcommand{\cZ}{\mathcal Z}
+
+\newcommand{\scrA}{\mathscr A}
+\newcommand{\scrB}{\mathscr B}
+\newcommand{\scrC}{\mathscr C}
+\newcommand{\scrD}{\mathscr D}
+\newcommand{\scrE}{\mathscr E}
+\newcommand{\scrF}{\mathscr F}
+\newcommand{\scrG}{\mathscr G}
+\newcommand{\scrH}{\mathscr H}
+\newcommand{\scrI}{\mathscr I}
+\newcommand{\scrJ}{\mathscr J}
+\newcommand{\scrK}{\mathscr K}
+\newcommand{\scrL}{\mathscr L}
+\newcommand{\scrM}{\mathscr M}
+\newcommand{\scrN}{\mathscr N}
+\newcommand{\scrO}{\mathscr O}
+\newcommand{\scrP}{\mathscr P}
+\newcommand{\scrQ}{\mathscr Q}
+\newcommand{\scrR}{\mathscr R}
+\newcommand{\scrS}{\mathscr S}
+\newcommand{\scrT}{\mathscr T}
+\newcommand{\scrU}{\mathscr U}
+\newcommand{\scrV}{\mathscr V}
+\newcommand{\scrW}{\mathscr W}
+\newcommand{\scrX}{\mathscr X}
+\newcommand{\scrY}{\mathscr Y}
+\newcommand{\scrZ}{\mathscr Z}
+
+\newcommand{\bbB}{\mathbb B}
+\newcommand{\bbS}{\mathbb S}
+\newcommand{\bbR}{\mathbb R}
+\newcommand{\bbZ}{\mathbb Z}
+\newcommand{\bbI}{\mathbb I}
+\newcommand{\bbQ}{\mathbb Q}
+\newcommand{\bbP}{\mathbb P}
+\newcommand{\bbE}{\mathbb E}
+\newcommand{\bbN}{\mathbb N}
+
+\newcommand{\sfE}{\mathsf E}
+
+% {{{ probability }}}
+% expectation, probability, variance
+\newcommand{\Esymb}{\mathbb{E}}
+\newcommand{\Psymb}{\mathbb{P}}
+\newcommand{\Vsymb}{\mathbb{V}}
+
+\DeclareMathOperator*{\E}{\Esymb}
+\DeclareMathOperator*{\Var}{\Vsymb}
+\DeclareMathOperator*{\ProbOp}{\Psymb}
+
+\renewcommand{\Pr}{\ProbOp}
+
+% {{{ numbersets }}}
+% number sets
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Rnn}{\R_+}
+\newcommand{\varR}{\Re}
+\newcommand{\varRnn}{\varR_+}
+\newcommand{\varvarRnn}{\R_{\ge 0}}
+\newcommand{\psd}[1]{\mathbb{S}^{#1}_+}
+\newcommand{\diag}[1]{\text{diag}(#1)}
+
+\newcommand{\mcom}{\,,}
+\DeclareMathOperator{\Ind}{\mathbb{I}}
+
+% Sets
+\newcommand*{\Gset}[2]{\left\{#1\,\middle|\,#2\right\}}
+\newcommand{\face}[1]{\left\{#1\right\}}
+\newcommand{\gen}[1]{\langle #1 \rangle}

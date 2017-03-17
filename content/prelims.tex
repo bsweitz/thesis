@@ -1,18 +1,115 @@
 \chapter{Preliminaries}
 In this chapter we define and discuss the basic mathematical concepts needed for this dissertation.
-\subsection{Combinatorial Maximization Problems}
+\section{Combinatorial Maximization Problems}
 We define maximization problems here, but it is clear that the definition extends easily to minimization problems as well.
 \begin{definition}
-A \emph{combinatorial maximization problem} \(\cP = (\cS, \cF)\)
+An \emph{combinatorial maximization problem} \(\cP = (\cS, \cF)\)
 consists of a finite set
-\(\cS\) of feasible solutions and a finite set \(\cF\) of nonnegative
-objective functions.
-Given two functions \(\tilde{C}, \tilde{S} \colon \cF \rightarrow \R\)
+\(\cS\) of feasible solutions and a set \(\cF\) of nonnegative
+objective functions. An algorithm for such a problem takes as input an $f \in \cF$ and computes
+$\max_{s \in \cS} f(s)$.
+
+
+We can also generalize to approximate solutions: Given two functions \(\tilde{C}, \tilde{S} \colon \cF \rightarrow \R\)
 called approximation guarantees, we say
 an algorithm \((\tilde{C}, \tilde{S})\)-approximately solves \(\cP\)
 if given any \(f \in \cF\) with \(\max_{s \in \cS} f(s) \leq \tilde{S}(f)\) as input,
 it computes \(\tilde{f}\in \R\) satisfying
 \(\max_{s \in \cS} f(s) \leq \tilde{f} \leq \tilde{C}(f)\).
 \end{definition}
+We think of the functions $f \in \cF$ as defining the problem instances and the feasible solutions $s \in \cS$ as defining the combinatorial objects we are 
+trying to maximize over. $\tilde{C}$ and $\tilde{S}$ can be thought of as the usual approximation parameters \emph{completeness} and \emph{soundness}. Any
+algorithm which $(\tilde{C},\tilde{S})$-approximately solves $\cP$ can distinguish between when the input satisfies $\max_{s\in \cS} f(s) \leq \tilde{S}$ and when it satisfies $\max_{s \in\cS} f(s) \geq \tilde{C}$. Now we give a few concrete examples of combinatorial maximization problems:
 \begin{example}
-Recall that the Perfect Matching problem is, given a graph $G = (V,E)$ with an even number of vertices, find a disjoint set of edges that contain every vertex of the graph. We can express this as a combinatorial optimization problem for each even $n$ as follows: Let $K_n$ be the complete graph on $n$ vertices. The set of feasible solutions $\cS$ is the set of all perfect matchings 
+Recall that the Maximum Matching problem is, given a graph $G = (V,E)$, find a maximum set of disjoint edges. We can express this as a combinatorial optimization problem for each $n$ as follows: $K_n$ be the complete graph on $n$ vertices. The set of feasible solutions $\cS$ is the set of all maximum matchings on $K_n$. The objective functions will be indexed by edge subsets of $K_n$ and defined $f_E(M) = |E \cap M|$. It is clear that for a graph $G = (V, E)$ with $|V| = n$, the size of the maximum matching in $G$ is exactly $\max_{M \in \cS} f_E(M)$.
+\end{example}
+\begin{example}
+The Traveling Salesperson Problem (TSP) is, given a set $X$ and a function $c: X\times X \rightarrow \R^+$, find a permutation $\pi$ of $X$ that minimizes the total cost of adjacent pairs in the permutation (including the first and last elements). This can be cast in this framework easily: the set of feasible solutions $\cS$ is the set of all permutations of $n$ elements. The objective functions are indexed by the function $c$ and can be written $f_c(\pi) = \sum_{i=1}^n c(\pi(i),\pi(i+1))$, where $n+1$ is taken to be $1$. TSP is a minimization problem rather than a maximization problem, so we ask for the algorithm to compute $\min_{\pi \in \cS} f(\pi)$ instead. 
+\end{example}
+There are many ways one can try to solve these combinatorial optimization problems. In this dissertation we will mostly be concerned with the method of Semidefinite Programming (SDP) relaxations, which has emerged recently as a powerful and widely applicable technique. 
+
+\section{SDP Formulations for Optimization Problems}
+Here we will define the concepts necessary for solving optimization problems using SDP.
+\begin{definition}
+A symmetric matrix $A \in \R^{n \times n}$ is called \emph{positive semidefinite} (PSD) if it meets any of the following equivalent criteria:
+\begin{itemize}
+\item Every eigenvalue of $A$ is non-negative,
+\item $x^TAx \geq 0$ for every vector $x \in \R^n$,
+\item $A = UU^T$ for some matrix $U$.
+\end{itemize}
+We write $A \succeq 0$ to denote that $A$ is PSD. 
+\end{definition}
+It is a well-known fact that the set of PSD matrices forms a cone in the set of symmetric matrices. We denote this cone with $\psd{d}$.
+\begin{definition}
+A \emph{Semidefinite Program} (SDP) is simply a convex optimization over an affine slice of the cone of positive semi-definite matrices. In other words, an SDP is
+specified by a linear function $C: \psd{d} \rightarrow \R$ called the objective, and linear functions $A_i: \psd{d} \rightarrow \R$ and scalars $b_i$ 
+collectively called the constraints. The SDP is then the optimization problem $\max C(X)$ subject to $X \in \psd{d}$ and $\forall i: A_i(X) = b_i$.
+\end{definition}
+SDPs can be solved in time polynomial in $d$ using the Ellipsoid Method \cite{}\footnote{}. Because of this, there has been a huge effort to rewrite many combinatorial
+optimization problems as SDPs, see for example \cite{}. One of the main contributions of this dissertation is to prove some of the limits of this method, specifically
+that the Maximum Matching problem cannot be expressed as a symmetric SDP (which we will define a bit later) of polynomial size. First, however, we must say what exactly we mean when we say "`rewrite as an SDP"'.
+\begin{definition}
+Let $\cP = (\cS, \cF)$ be a combinatorial maximization problem with approximation guarantees $(\tilde{C}, \tilde{S})$. Then a
+  \emph{\((\tilde{C}, \tilde{S})\)-approximate SDP formulation of \(\cP\)}
+  of size \(d\)
+  consists of constraints $(A_i, b_i)$
+  together with
+  \begin{enumerate}
+  \item \emph{Feasible solutions:}
+    for each $s \in \cS$, there is an \(X^s \in \psd{d}\) with \(\forall i: A_i(X^s) = b_i\), i.e., the feasible region
+    \(\Gset{X \in \psd{d}}{\forall i: A_i(X) = b_i}\)
+    is a relaxation of \(\conv\face{X^s \mid s \in \cS}\),
+  \item \emph{Objective functions:}
+    an affine function \(w^f \colon \psd{d} \rightarrow \R\)
+	satisfying
+    \(w^f(X^s) = f(s)\) 
+    for all \(f \in \cF\) with \(\max_{s \in \cS} f(s) \leq \tilde{S}(f)\) and 	all \(s \in \cS\),
+    i.e., the linearizations are exact on solutions, and
+  \item \emph{Achieving guarantee:}
+    \(\max \face{ w^f(X) \mid \cA(X) = b, X \in \psd{d}} \leq \tilde{C}(f)\)
+    for all \(f \in \cF\) with \(\max_{s \in \cS} f(s) \leq \tilde{S}(f)\).
+  \end{enumerate}
+	If $\tilde{C}(f) = \tilde{S}(f) = \max_{s\in \cS} f(s)$, we say the formulation is \emph{exact}.
+\end{definition}
+Given a $(\tilde{C}, \tilde{S})$-approximate SDP formulation for $\cP$, we can $(\tilde{C}, \tilde{S})$-approximately solve $\cP$ on input $f$ simply by solving
+the SDP $\max w^f(X)$ subject to $X \in \psd{d}$ and $\forall i: A_i(X) = b_i$.
+
+\begin{example}
+The Matching Polytope is an exact formulation of the Maximum Matching problem. The Matching Polytope is defined as follows for each $n \in \Z$: Let $M$ be a maximum matching of the complete graph $K_n$, and let $\chi_M \in \R^{\binom{n}{2}}$ be the characteristic vector of this matching, i.e. $(\chi_M)_{ij} = 1$ iff $(i,j) \in M$. The matching polytope is $\conv\face{\chi_M | M \text{ a matching of $K_n$}}$. To embed this in the cone of PSD matrices rather than the positive orthant, we simply take $P_n = \conv\face{\diag{\chi_M} | M \text{ a matching of $K_n$}}$. Because $P_n$ is a polytope, there is another description $P_n = \{X: \forall i: A_i(X) \leq b_i\}$. To get the same form as in our definition, CLEAR THIS UP LATER
+
+%This can be seen to be an SDP formulation by taking the feasible solutions to be $\chi_M$, the objective function $f_E$ can be expressed as $w^{f_E} = \sum_{ij \in E} x_{ij}$. The achievement guarantee is satisfied because $\max_{x \in P_n} w^{f_E}(x)$ must be achieved at a vertex, and any vertex of the polytope must be a $\chi_M$, so $\max_{x \in P_n} w^{f_E}(x) = w^{f_E}(\chi_{M^*}) = f_E(M^*) = \max_{M \in \cS} f_E(M)$. 
+\end{example}
+
+\section{Polynomial Proof Systems}
+A polynomial proof system is a set of rules through which one derives facts about potentially very complicated polynomials given base assumptions about simpler polynomials. For example, say our goal is to prove that some polynomial $r$ is zero on some set of points $S$. Maybe we already have a set of polynomials $\{p_i\}$ which we know are zero on $S$. One natural way of proving that $r$ is zero is to express $r$ as a combination of the polynomials $\cP = \{p_i\}$, i.e. find an identity $r = \sum_i \lambda_i \cdot p_i$ for some polynomial multipliers $\lambda_i$. EXPLAIN MORE LATER
+\begin{definition}
+Let $\cP$ be any set of polynomials in $\R[x_1,\dots,x_n]$, and let $S$ be any set of points in $\R^n$.
+\begin{itemize}
+\item We call $V(\cP) = \{x \in \R^n | \forall p \in \cP: p(x) = 0\}$ the \emph{real variety} of $\cP$. 
+\item We call $I(S) = \{p \in R[x_1,\dots,x_n] | \forall x \in S: p(x) = 0\}$ the \emph{vanishing ideal} of $S$.
+\item We denote $\gen{\cP} = \{q \in R[x_1,\dots,x_n]: \exists \lambda_p: q = \sum_{p \in \cP} \lambda_p \cdot p\}$ for the \emph{ideal generated by $\cP$}.
+\end{definition}
+
+\begin{definition}
+Let $\cP = \{p_1, p_2, \dots, p_n\}$ be a set of polynomials. We say that \emph{$r$ is derived from $\cP$ in degree $d$} if there is a polynomial identity of the form
+\[r(x) = \sum_{i=1}^n \lambda_i(x) \cdot p_i(x),\]
+and $\max_i \deg(\lambda_i \cdot p_i) \leq d$. We often call this a Polynomial Calculus or PC proof.
+\end{definition}
+\begin{theorem}[Hilbert's Nullstellensatz]
+Let $\cP$ be such that if $r^k \in \gen{\cP}$ for some $k \in \Z$, then $r \in \gen{\cP$. Then $\gen{\cP} = I(V(\cP))$.
+\end{theorem}
+\begin{corollary}
+If $V(\cP) = \emptyset$, then $\gen{\cP} = \R[x_1,\dots,x_n] = \gen{1}$.
+\end{corollary}
+Hilbert's Nullstellensatz states that the PC proof system is complete (as long as the axioms $\cP$ generate an ideal with the above property). In other words, \emph{any} polynomial $r$ that is zero on $V(\cP)$ is an element of $\gen{\cP}$, i.e. has a derivation from $\cP$. 
+
+
+The PC proof system and Hilbert's Nullstellensatz give us powerful tools for trying to prove that a polynomial is zero on a certain set. However, this is not enough for our purposes. Something we would really like to be able to do is to prove that a polynomial is positive. TODO.
+\begin{definition}
+A polynomial $s(x) \in \R[x_1,\dots,x_n]$ is called a \emph{sum-of-squares (or SOS)} polynomial if $s(x) = \sum_i h_i^2(x)$ for some polynomials $h_i \in \R[x_1,\dots,x_n]$.
+\end{definition}
+\begin{definition}
+Let $\cP$ and $\cQ$ be two sets of polynomials. A polynomial $r(x)$ is said to have a \emph{degree $d$ proof of nonnegativity from $\cP$ and $\cQ$} if there is a polynomial identity of the form
+\[r(x) = s_0(x) + \sum_{q \in \cQ} s_q(x) \cdot q(x) + \sum_{p \in \cP} \lambda_p(x) \cdot p(x),\]
+where $s_0$, and each $s_q$ are SOS polynomials. We often call this a PC_$>$ proof. 
+\end{definition}

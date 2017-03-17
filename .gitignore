@@ -1,0 +1,12 @@
+University of California Berkeley Thesis.zip
+University of California Berkeley Thesis/
+*.aux
+*.bcf
+*.blg
+*.lof
+*.log
+*.lot
+*.out
+*.pdf
+*.run.xml
+*.toc

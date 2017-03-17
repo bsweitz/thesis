@@ -9,7 +9,16 @@
 % be indented (like the others), then include this line:
 % \usepackage{indentfirst}
 
-\newtheorem{theorem}{Jibberish}
+\def\showauthornotes{0}
+\def\showtableofcontents{0}
+\def\showkeys{0}
+\def\showdraftbox{0}
+\def\showcolorlinks{1}
+\def\usemicrotype{1}
+\def\showfixme{0}
+\def\showdefine{0}
+
+\input{preamble/macros}
 
 \bibliography{references}
 
@@ -79,7 +88,7 @@ I want to thank my advisor for advising me.
 
 % (Optional) \part{First Part}
 
-\include{prelims}
+\include{content/prelims}
 \include{chap2}
 
 % \appendix
