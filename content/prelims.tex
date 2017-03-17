@@ -1,0 +1,18 @@
+\chapter{Preliminaries}
+In this chapter we define and discuss the basic mathematical concepts needed for this dissertation.
+\subsection{Combinatorial Maximization Problems}
+We define maximization problems here, but it is clear that the definition extends easily to minimization problems as well.
+\begin{definition}
+A \emph{combinatorial maximization problem} \(\cP = (\cS, \cF)\)
+consists of a finite set
+\(\cS\) of feasible solutions and a finite set \(\cF\) of nonnegative
+objective functions.
+Given two functions \(\tilde{C}, \tilde{S} \colon \cF \rightarrow \R\)
+called approximation guarantees, we say
+an algorithm \((\tilde{C}, \tilde{S})\)-approximately solves \(\cP\)
+if given any \(f \in \cF\) with \(\max_{s \in \cS} f(s) \leq \tilde{S}(f)\) as input,
+it computes \(\tilde{f}\in \R\) satisfying
+\(\max_{s \in \cS} f(s) \leq \tilde{f} \leq \tilde{C}(f)\).
+\end{definition}
+\begin{example}
+Recall that the Perfect Matching problem is, given a graph $G = (V,E)$ with an even number of vertices, find a disjoint set of edges that contain every vertex of the graph. We can express this as a combinatorial optimization problem for each even $n$ as follows: Let $K_n$ be the complete graph on $n$ vertices. The set of feasible solutions $\cS$ is the set of all perfect matchings 
