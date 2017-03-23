@@ -1,0 +1,57 @@
+\chapter{Effective Derivations}
+In this section we prove that several sets of constraints corresponding to natural combinatorial optimization problems are effective.
+We first note that the very simplest sets of constraints are effective.
+\begin{lemma}\label{lem:grobnereffective}
+Let $\cP$ be a Gr\o bner basis. Then $\cP$ is $1$-effective in the PC proof system.
+\end{lemma}
+\begin{proof}
+Recall that if $\cP$ is a Gr\o bner basis, then multivariate polynomial division by $\cP$ is well-defined, and in fact there is a unique 
+remainder. Let $r \in \gen{\cP}$ be of degree $d$, and consider the division of $r$ by $\cP$. Because $r \in \gen{\cP}$, this division must have
+remainder zero. If we enumerate the polynomials that are produced in the course of this division $r = r_0, r_1, \dots, r_N = 0$, then 
+$r_i = r_{i+1} + q_{i+1}p_{i+1}$, where $p_{i+1} \in \cP$ and $\deg r_{i+1} \leq \deg r_i$. Combining all these sums into one, we get
+$r = \sum_i q_i p_i$, which is a derivation of degree $d$. 
+\end{proof}
+\prettyref{lem:grobnereffective} is trivial to prove, but there are several important combinatorial optimization problems that fall 
+under its umbrella.
+\begin{corollary}
+\textsc{CSP} is $1$-effective.
+\end{corollary}
+\begin{proof}
+Recall that \textsc{CSP} corresponds to the set of constraints $\cP = \{x_i^2 - x_i | i \in [n]\}$. We prove this is a Gr\o bner basis. 
+Let $p \in \gen{\cP}$. If $p$ is not multilinear, we can divide $p$ by elements of $\cP$ until we have a multilinear remainder $r$. Because 
+$p \in \gen{\cP}$ and each element of $\cP$ is zero on the hypercube $\{0, 1\}^n$, $r$ must also be zero on the hypercube. But the multilinear
+polynomials form a basis for functions on the hypercube, so if $r$ is a multilinear polynomial which is zero, then it must be the zero polynomial. 
+\end{proof}
+\begin{corollary}
+\textsc{CLIQUE} is $1$-effective.
+\end{corollary}
+\begin{proof}
+Recall that \textsc{CLIQUE}$(V,E)$ corresponds to the set of constraints $\cP = \{x_i^2 - x_i | i \in [|V|]\} \cup \{ x_ix_j | (i,j) \notin E\}$. 
+We prove this is a Gr\o bner basis. Let $p \in \gen{\cP}$. Just as above, if $p$ is not multilinear, we can divide it until we have a multilinear
+remainder $r_1$. Now by dividing $r_1$ by the polynomials in the second part of $\cP$, we can remove all monomials containing $x_ix_j$ where $(i,j) \notin E$
+to get $r_2$. Thus $r_2$ contains only monomials which are cliques of varying sizes in the graph $(V,E)$. Let $C$ be the smallest clique with a
+nonzero coefficient $\alpha_C$ in $r_2$. Let $\chi_C$ be the characteristic vector of $C$, i.e. $(\chi_C)_i = 1$ if $i \in C$, and $(\chi_C)_i = 0$ otherwise.
+Then $r_2(\chi_C) = \alpha_C$. But $p(\chi_C) = 0$ for every $p \in \cP$, and $r_2 \in \gen{\cP}$. Thus $\alpha_C = 0$, a contradiction, and so $r_2$ is the 
+zero polynomial.
+\end{proof}
+
+However, not every problem falls so neatly into this classification. There are many natural problems whose solution spaces have a small set of generating
+polynomials which are not Gr\o bner bases, and indeed their Gr\o bner bases can be exponentially large and exceedingly difficult to compute. Despite this,
+these problems can still admit effective derivations, as we prove here.
+
+\section{More Complicated Solution Spaces}
+In this section, we will prove that the \textsc{Matching} and \textsc{Balanced-CSP} problems have effective solution spaces. Both of the solution spaces have
+two properties that are important for our proofs. Firstly, they are very symmetric: one can permute the vertices of a matching however one wishes and still have a matching. Similarly, permuting the names of variables does not change the balance of an assignment. 
+Secondly, they are inductive: deleting an edge from a matching results in a matching on a smaller graph. 
+Similarly, removing a pair of variables with different values gives you an assignment, although it could be differently balanced.
+The proofs described in this section should be adaptable to any problem whose solution space has similar properties.
+
+Our proofs are by induction, and they proceed in two steps. 
+First, we show that any perfectly symmetric polynomial $p$ of degree $d$ can be derived from a constant polynomial in degree $d$.
+This step is easy and straightforward. 
+The second, and much harder, step is to show that given a $p$ which is constant on $V(\cP)$ and any permutation $\sigma$, the polynomial $p - \sigma p$ can be derived in low degree. 
+This second step is accomplished with an inductive argument that shows how to use $\cP$ to strip off two of the variables of the solutions. 
+The group action that determines the definition of "`perfectly symmetric"' and $\sigma p$ has not been specified yet, but it will be the natural permutation of the underlying solution space.
+
+%Intuitively speaking, this means that their solution spaces are simple and easily explained. Any polynomial fact over the solution space
+%can be proven using a proof of only roughly the same complexity of the fact.  
