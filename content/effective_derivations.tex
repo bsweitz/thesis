@@ -2,10 +2,10 @@
 In this section we prove that several sets of constraints corresponding to natural combinatorial optimization problems are effective.
 We first note that the very simplest sets of constraints are effective.
 \begin{lemma}\label{lem:grobnereffective}
-Let $\cP$ be a Gr\o bner basis. Then $\cP$ is $1$-effective in the PC proof system.
+Let $\cP$ be a Gr\"obner basis. Then $\cP$ is $1$-effective in the PC proof system.
 \end{lemma}
 \begin{proof}
-Recall that if $\cP$ is a Gr\o bner basis, then multivariate polynomial division by $\cP$ is well-defined, and in fact there is a unique 
+Recall that if $\cP$ is a Gr\"obner basis, then multivariate polynomial division by $\cP$ is well-defined, and in fact there is a unique 
 remainder. Let $r \in \gen{\cP}$ be of degree $d$, and consider the division of $r$ by $\cP$. Because $r \in \gen{\cP}$, this division must have
 remainder zero. If we enumerate the polynomials that are produced in the course of this division $r = r_0, r_1, \dots, r_N = 0$, then 
 $r_i = r_{i+1} + q_{i+1}p_{i+1}$, where $p_{i+1} \in \cP$ and $\deg r_{i+1} \leq \deg r_i$. Combining all these sums into one, we get
@@ -17,7 +17,7 @@ under its umbrella.
 \textsc{CSP} is $1$-effective.
 \end{corollary}
 \begin{proof}
-Recall that \textsc{CSP} corresponds to the set of constraints $\cP = \{x_i^2 - x_i | i \in [n]\}$. We prove this is a Gr\o bner basis. 
+Recall that \textsc{CSP} corresponds to the set of constraints $\cP = \{x_i^2 - x_i | i \in [n]\}$. We prove this is a Gr\"obner basis. 
 Let $p \in \gen{\cP}$. If $p$ is not multilinear, we can divide $p$ by elements of $\cP$ until we have a multilinear remainder $r$. Because 
 $p \in \gen{\cP}$ and each element of $\cP$ is zero on the hypercube $\{0, 1\}^n$, $r$ must also be zero on the hypercube. But the multilinear
 polynomials form a basis for functions on the hypercube, so if $r$ is a multilinear polynomial which is zero, then it must be the zero polynomial. 
@@ -27,7 +27,7 @@ polynomials form a basis for functions on the hypercube, so if $r$ is a multilin
 \end{corollary}
 \begin{proof}
 Recall that \textsc{CLIQUE}$(V,E)$ corresponds to the set of constraints $\cP = \{x_i^2 - x_i | i \in [|V|]\} \cup \{ x_ix_j | (i,j) \notin E\}$. 
-We prove this is a Gr\o bner basis. Let $p \in \gen{\cP}$. Just as above, if $p$ is not multilinear, we can divide it until we have a multilinear
+We prove this is a Gr\"obner basis. Let $p \in \gen{\cP}$. Just as above, if $p$ is not multilinear, we can divide it until we have a multilinear
 remainder $r_1$. Now by dividing $r_1$ by the polynomials in the second part of $\cP$, we can remove all monomials containing $x_ix_j$ where $(i,j) \notin E$
 to get $r_2$. Thus $r_2$ contains only monomials which are cliques of varying sizes in the graph $(V,E)$. Let $C$ be the smallest clique with a
 nonzero coefficient $\alpha_C$ in $r_2$. Let $\chi_C$ be the characteristic vector of $C$, i.e. $(\chi_C)_i = 1$ if $i \in C$, and $(\chi_C)_i = 0$ otherwise.
@@ -36,7 +36,7 @@ zero polynomial.
 \end{proof}
 
 However, not every problem falls so neatly into this classification. There are many natural problems whose solution spaces have a small set of generating
-polynomials which are not Gr\o bner bases, and indeed their Gr\o bner bases can be exponentially large and exceedingly difficult to compute. Despite this,
+polynomials which are not Gr\"obner bases, and indeed their Gr\"obner bases can be exponentially large and exceedingly difficult to compute. Despite this,
 these problems can still admit effective derivations, as we prove here.
 
 \section{More Complicated Solution Spaces}
@@ -55,3 +55,214 @@ The group action that determines the definition of "`perfectly symmetric"' and $
 
 %Intuitively speaking, this means that their solution spaces are simple and easily explained. Any polynomial fact over the solution space
 %can be proven using a proof of only roughly the same complexity of the fact.  
+\subsection{Effective Derivations for \textsc{Matching}}
+Fix an integer $n$, and recall that the matching constraints are polynomials in $\R^{\binom{n}{2}}$ (we abuse notation and use $x_{ij}$ and $x_{ji}$ equivalently):
+\[\cP = \{x_{ij}^2 - x_{ij} | i,j \in [n]\} \cup \{\sum_i x_{ij} - 1 | j \in [n]\} \cup \{x_{ij}x_{ik} | i,j,k \in [n]\}.\]
+For an element $\sigma$ of the symmetric group $\cS_n$, we define the action of $\sigma$ on a variable by $\sigma x_{ij} = x_{\sigma(i)\sigma(j)}$.
+We define the action of $\sigma$ on a monomial by extending this action multiplicatively, and the action of $\sigma$ on a full polynomial by extending linearly.
+Note that $\cP$ is fixed by the action of every $\sigma$, as are its solutions $V(\cP)$ corresponding to the matchings of $K_n$. 
+Thus for any $p \in \cP$, we also have $\sigma p \in \cP$. For a partial matching $M$, i.e. a set of disjoint pairs from $[n]$, define $x_M = \prod_e \in M x_e$.
+First, we note an easy lemma on the structure of polynomials in $\gen{\cP}$:
+\begin{lemma}\label{lem:monomials}
+  Let $p$ be any polynomial. Then there is a multilinear polynomial $q$ such that every monomial of $q$ is a partial matching monomial, and $p-q$ has a derivation from $\cP$ of degree $\deg p$.
+\end{lemma}
+\begin{proof}
+It suffices to prove the lemma when \(p\) is a monomial. Let
+\(p = \prod_{e \in A} x_{e}^{k_{e}}\)
+for a set \(A\) of edges with multiplicities \(k_{e} \geq 1\).
+From the constraint \(x_{e}^{2} - x_e\), it follows that
+$\prod_{e \in A} x_e^{k_e} - \prod_{e \in A} x_e$ has a derivation from $\cP$ in degree $\deg p$.
+Now if $A$ is a partial matching we are done, otherwise there exist edges $f,g \in A$ which are not disjoint.
+But then $x_fx_g \in \cP$, and so $\prod_{e \in A} x_e$ has a derivation from $\cP$ in degree $|A|$, which implies the statement.
+\end{proof}
+\prettyref{lem:monomials} will often simplify our analysis for the next section, where we prove that symmetric polynomials have effective derivations.
+
+\subsubsection{Effective Derivations for Symmetric Polynomials}
+
+We will prove the following lemma: 
+\begin{lemma}
+  \label{lem:constant}
+  Let $p$ be a polynomial in $\R^{\binom{n}{2}}$.
+	Then there is a constant $c_p$ such that $\sum_{\sigma \in \cS_n} \sigma p - c_p$ has a derivation from $\cP$ in degree at most $\deg p$. 
+\end{lemma}
+To do so, it will be useful to first prove a few lemmas on how we can simplify the structure of $p$. 
+
+Any partial matching monomial may be extended as a sum over partial matching monomials containing that partial matching using the constraint $\sum_j x_{ij} - 1 \in \cP$. The first lemma here shows how to extend by a single edge, and the second iteratively applies this process to extend by multiple edges.
+\begin{lemma}
+  \label{lem:matching+a}
+  For any partial matching \(M\) on \(2d\) vertices
+  and a vertex \(u\) not covered by \(M\),
+  \begin{equation}
+    \label{eq:matching+a}
+    x_{M}
+    \cong
+    \sum_{\substack{M_{1} = M \cup \{u,v\}: \\
+        v \in [n] \setminus (M \cup \{u\})}}
+    x_{M_{1}}
+    ,
+  \end{equation}
+	and the derivation can be done in degree $d+1$.
+\end{lemma}
+\begin{proof}
+We use the constraints \(\sum_{v} x_{uv} - 1\)
+to add variables corresponding to edges at \(u\),
+and then use \(x_{uv} x_{uw}\) to remove monomials
+not corresponding to a partial matching:
+\begin{equation*}
+  x_{M}
+  \cong
+  x_{M} \sum_{v \in K_n} x_{uv}
+  \cong
+  \sum_{\substack{M_{1} = M \cup \{u,v\}: \\
+      v \in K_{n} \setminus (M \cup \{u\})}}
+  x_{M_{1}}
+  .
+\end{equation*}
+It is easy to see that these derivations are done in degree $d+1$.
+\end{proof}
+\begin{lemma}
+  \label{lem:partial-matching}
+  For any partial matching \(M\) of \(2d\) vertices
+  and \(d \leq k \leq n/2\),
+  we have
+  \begin{equation}
+    \label{eq:partial-matching}
+    x_{M} \cong
+    \frac{1}{\binom{n/2 - d}{k - d}}
+    \sum_{\substack{M' \supset M \\ \size{M'} = k}} x_{M'}
+  \end{equation}
+\end{lemma}
+\begin{proof}
+We use induction on \(k - d\).
+The start of the induction is with \(k = d\),
+when the sides of \prettyref{eq:partial-matching}
+are actually equal. If \(k > d\), let \(u\) be a fixed vertex not covered by \(M\).
+Applying \prettyref{lem:matching+a} to \(M\) and \(u\)
+followed by the inductive hypothesis gives:
+\begin{equation*}
+	\begin{split}
+    x_{M}
+    &\cong
+    \sum_{\substack{M_{1} = M \cup \{u,v\}: \\
+        v \in K_{n} \setminus (M \cup \{u\})}}
+    x_{M_{1}} \\
+    &\cong
+    \frac{1}{\binom{n/2 - d - 1}{k - d - 1}}
+    \sum_{\substack{
+        M' \supset M_{1} \\ \size{M'} = k \\
+        M_{1} = M \cup \{u,v\}: \\
+        v \in K_{n} \setminus (M \cup \{u\})}}
+    x_{M'}
+    \end{split}
+    .
+\end{equation*}
+Averaging over all vertices \(u\) not covered by \(M\),
+we obtain:
+\begin{equation*}
+  \begin{split}
+  x_{M}
+  &\cong
+  \frac{1}{n - 2 d}
+  \frac{1}{\binom{n/2 - d - 1}{k - d - 1}}
+  \sum_{\substack{
+      M' \supset M_{1} \\ \size{M'} = k \\
+      M_{1} = M \cup \{u,v\}: \\
+      \{u, v\} \in K_{n} \setminus M}}
+  x_{M'} \\
+  &=
+  \frac{1}{n - 2 d}
+  \frac{1}{\binom{n/2 - d - 1}{k - d - 1}}
+  2 (k - d)
+  \sum_{\substack{
+      M' \supset M \\ \size{M'} = k}}
+  x_{M'} \\
+  &=
+  \frac{1}{\binom{n/2 - d}{k - d}}
+  \sum_{\substack{M' \supset M \\ \size{M'} = k}}
+  x_{M'}
+  \end{split}
+  .
+\end{equation*}
+where in the second step the factor \(2(k - d)\) accounts for the different choices of $\{u,v\}$ that can lead to extending $M$ to $M'$.
+\end{proof}
+For a partial matching \(M\),
+let \(x_{M} \coloneqq \prod_{e \in M} x_{e}\)
+denote the product of edge variables for the edges in \(M\).
+
+Finally, we can prove the first main lemma:
+\begin{proof}[Proof of \prettyref{lem:constant}]
+Given \prettyref{lem:monomials},
+it suffices to prove the claim for
+\(p = x_{M}\) for some partial matching \(M\).
+Let $\deg p = |M| = k$.
+Note that $\cS_n$ acts transitively on the monomials of degree $k$, and thus $2^k k! (n-2k)!$ elements of $\cS_n$ stabilize $p$.
+Thus $\sum_{\sigma \in S_n} \sigma x_M = 2^k k! (n-2k)!\sum_{M': |M'| = k} x_{M'}$.
+Finally, apply \prettyref{lem:partial-matching} with $d = 0$:
+\begin{equation*}
+  \begin{split}
+  \sum_{\sigma \in \cS_{n}} \sigma x_{M}
+  &= 2^{k} k! (n-2k)! \sum_{M' \colon \size{M'} = k} x_{M'} \\
+  &\cong
+  2^{k} k! (n-2k)! \binom{n/2}{k}.
+  \end{split}
+\end{equation*}
+\end{proof}
+As a corollary, we get that when $p \in \gen{\cP}$, then the constant must be zero 
+\begin{corollary}\label{cor:constantiszero}
+If $p \in \gen{\cP}$, then $\sum_{\sigma \in \cS_n} \sigma p$ has a derivation from $\cP$ in degree $\deg p$.
+\end{corollary}
+\begin{proof}
+Apply \prettyref{lem:constant} to obtain a constant $c_p$ such that $\sum_{\sigma \in \cS_n} \sigma p \cong c_p$. 
+Now since $p \in \gen{\cP}$, $c_p \in \gen{\cP}$ as well. But the only constant polynomial in $\gen{\cP}$ is $0$.
+\end{proof}
+
+\subsubsection{Getting to a Symmetric Polynomial}
+In order to apply \prettyref{lem:constant} to a general polynomial $p$, we need to show how to derive the difference polynomial $p - \sum_{\sigma \in \cS_n} \sigma p$ from $\cP$. Our proof will be by an induction on the number of vertices $n$. Because the number of vertices will be changing in this section, we will write $\cP_n$ for the matching constraints on graphs of size $n$. 
+The next lemma will allow us to apply induction:
+\begin{lemma}
+  \label{lem:degree-increase}
+  Let \(L\) be a polynomial with a degree $d$ derivation from $\cP_{n}$.
+	Then $Lx_{n+1,n+2}$ has a degree $d+1$ derivation from $\cP_{n+2}$.
+\end{lemma}
+\begin{proof}
+It suffices to prove the statement for $L \in \cP_n$. 
+If $L = x_{ij}^2 - x_{ij}$ or $L = x_{ij}x_{ik}$, the claim clearly true because $L \in \cP_{n+2}$.
+Then let $L = \sum_j x_{ij} - 1$, note that 
+\begin{align*}
+Lx_{n+1}x_{n+2} &= (\sum_{j=1}^n x_{ij} - 1)x_{n+1,n+2} \\
+&= (\sum_{j=1}^{n+2} x_{ij} - 1)x_{n+1,n+2} + (-1)\cdot x_{i,n+1}x_{n+1,n+2} + (-1)\cdot x_{i,n+2}x_{n+1,n+2},
+\end{align*}
+and realize that all three terms contain a factor in $\cP_{n+2}$.
+\end{proof}
+
+We are now ready to prove the main theorem of this section, that the matching constraints $\cP$ admit effective derivations. 
+\begin{theorem}\label{thm:matching-effective}
+Let $p \in \gen{\cP_n}$, and let $d = \deg p$. Then $p$ has a derivation from $\cP_n$ in degree $2d$. 
+\end{theorem}
+\begin{proof}
+By \prettyref{lem:monomials}, we can assume that $p$ is a multilinear polynomial whose monomials correspond to partial matchings.
+As promised, our proof is by induction on $n$. Consider the base case of $n = 2$. 
+Then $V(\cP_2) = \{1\}$ and either $p$ is a constant or linear polynomial.
+The only such polynomials that are zero on $V(\cP_2)$ are $0$ and scalar multiples of $x_{12} - 1$. 
+The former case has the trivial derivation, and the latter case is simply an element of $\cP_2$. 
+
+Now assume that for any $d$, the theorem statement holds for polynomials in $\gen{\cP_{n'}}$ for any $n' < n$. 
+Let $p \in \gen{\cP_n}$ be multilinear of degree $d$ whose monomials correspond to partial matchings, and let $\sigma = (u,v)$ be a transposition of two vertices.
+We consider the polynomial $\Delta = p - \sigma p$. Note that $\Delta \in \gen{\cP_n}$, and any monomial which does not match either $u$ or $v$, or a monomial which contains $x_{uv}$, will not appear in $\Delta$ as it will be canceled by the subtraction.
+Thus we can write
+\[\Delta = \sum_{e: u \in e \text{ or } v \in e} L_e x_e,\]
+with each $L_e$ having degree at most $d-1$. As foreshadowed earlier, our goal is to remove two of the variables in these matchings in order to apply induction. In order to do that, we will need each term to depend not only on either $u$ or $v$, but both. To this end, we multiply each term by the appropriate constraint $\sum_j x_{uj}$ or $\sum_j x_{vj}$ to obtain
+\[\Delta \cong \sum_{u',v'} L_{u'v'} x_{uu'}x_{vv'}.\]
+We can think of the RHS polynomial as being a partition over the possible different ways to match $u$ and $v$.
+Furthermore, because of the constraints of type $x_{ij}x_{ik}$, we can take $L_{u'v'}$ to be independent of any of $u,u',v,v'$. 
+We argue that $L_{u'v'} \in \cP_{n-4}$. We know that $\Delta(x) = 0$ for any $x \in V(\cP_n)$. Let $x \in V(\cP_n)$ such that $x_{uu'} = 1$ and $x_{vv'} = 1$. 
+Then it must be that $x_{uw} = 0$ and $x_{vw} = 0$ for any other $w$, since otherwise $x \notin V(\cP_n)$.
+Thus $\Delta(x) = L_{u'v'}(x)$. But $V(\cP_{n-4}) = V(\cP_n)|_{i,j \in [n-4]}$, and since $L_{u'v'}$ is independent of $u,u',v,v'$, $L(x) = L(x|_{i,j \neq u,u',v,v'})$, and so $L(x) = 0$ for each $x \in V(\cP_{n-4})$. Because $\cP_{n-4}$ is radical (TODO: EXPLAIN?), by \prettyref{thm:nullstellensatz} it must be that $L \in \gen{\cP_{n-4}}$. Now by the inductive hypothesis, $L_{u'v'}$ has a derivation from $\cP_{n-4}$ of degree at most $2d-2$. By two applications of \prettyref{lem:degree-increase}, $L_{u'v'}x_{uu'}x_{vv'}$ has a derivation from $\cP_n$ of degree at most $2d$, and thus so does $\Delta$.
+
+Because transpositions generate the symmetric group, the above argument implies that $p - \frac{1}{n!}\sum_{\sigma \in \cS_n} \sigma p$ has a derivation from $\cP_n$ of degree at most $2d$. Combined with \prettyref{lem:constantiszero}, this is enough to prove the theorem statement. 
+\end{proof}
+
+\subsection{Effective Derivations for \textsc{Balanced-CSP}}
+Fix an integer $n$, and recall that the \textsc{Balanced-CSP} constraints are polynomials in $\R^n$:
+\[\cP = \left\{x_i^2 - x_i| i \in [n]\right\} \cup \left\{\sum_i x_i - c\right\}.\]
+The \textsc{Bisection} constraints are the special case when $n$ is even and $c = n/2$. In this section we will show that 

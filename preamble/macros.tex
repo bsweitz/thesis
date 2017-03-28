@@ -42,6 +42,7 @@
 \newtheorem*{observation*}{Observation}
 
 % {{{ prettyref }}}
+\usepackage{hyperref}
 \usepackage{prettyref}
 
 \newcommand{\savehyperref}[2]{\texorpdfstring{\hyperref[#1]{#2}}{#2}}
@@ -197,7 +198,11 @@
 \newcommand{\mcom}{\,,}
 \DeclareMathOperator{\Ind}{\mathbb{I}}
 
-% Sets
+% New Commands
 \newcommand*{\Gset}[2]{\left\{#1\,\middle|\,#2\right\}}
 \newcommand{\face}[1]{\left\{#1\right\}}
 \newcommand{\gen}[1]{\langle #1 \rangle}
+\newcommand{\same}[1]{\simeq\sb{#1}}
+\DeclarePairedDelimiterXPP{\ispan}[1]{}{\langle}{\rangle}{\sb{I}}{#1}
+\newcommand*{\size}[1]{\left|#1\right|}
+
