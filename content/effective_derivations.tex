@@ -13,7 +13,7 @@ $r = \sum_i q_i p_i$, which is a derivation of degree $d$.
 \end{proof}
 \prettyref{lem:grobnereffective} is trivial to prove, but there are several important combinatorial optimization problems that fall 
 under its umbrella.
-\begin{corollary}
+\begin{corollary}\label{cor:csp-effective}
 \textsc{CSP} is $1$-effective.
 \end{corollary}
 \begin{proof}
@@ -464,7 +464,7 @@ and thus $(R_0 + R_2x_ix_j)(x_i - x_j)$ is derivable in degree $3d$. This implie
 
 \section{Optimization Problems with Effective Derivations}
 We include a theorem here summarizing all the results of this section:
-\begin{theorem}
+\begin{corollary}\label{cor:effective_list}
 The following sets of constraints admit $k$-effective derivations:
 \begin{itemize}
 \item
@@ -473,4 +473,4 @@ The following sets of constraints admit $(k,B)$-effective PC$_>$ derivations:
 \begin{itemize}
 \item
 \end{itemize}
-\end{theorem}
+\end{corollary}

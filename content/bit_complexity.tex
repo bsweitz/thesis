@@ -12,7 +12,7 @@ The Ellipsoid method is commonly cited as a tool that will solve SDPs in polynom
 As O'Donnell's counterexample shows, we cannot hope to prove that the Sum-of-Squares relaxation will always run in polynomial time. We must impose some conditions on the optimization problem defined by $(r, \cP, \cQ)$ in order to guarantee a polynomial time solution. Our conditions are quite general and we believe they apply to a wide swathe of problems beyond those that we prove here. We explain the three conditions we require below.
 
 \begin{definition}
-We say that a set $S$ \emph{$\epsilon$-robustly satisfies} the inequalities $\cQ$ if $q(\alpha) \geq \epsilon$ for each $\alpha \in S$ and $q \in \cQ$. 
+We say that a set $S \subseteq V(\cP)$ \emph{$\epsilon$-robustly satisfies} the inequalities $\cQ$ if $q(\alpha) \geq \epsilon$ for each $\alpha \in S$ and $q \in \cQ$. 
 \end{definition}
 We require $\epsilon$-robustness because our analysis will end up treating the constraints in $\cP$ differently from the constraints in $\cQ$.
 Because of this, we can only hope for our analysis to hold under $\epsilon$-robustness, since otherwise one could simulate a constraint from $\cP$ simply by having both $p$ and $-p$ in $\cQ$. 
@@ -28,25 +28,28 @@ In particular, if $c$ is a zero eigenvector of $M$, then $\tilde{c}(x)$ is zero 
 More generally, the eigenvalues of $M$ relate the size of the coefficients of a polynomial to its magnitude on $S$. 
 The second condition we require is that the size of the coefficients of a polynomial and the size of its evaluations on the solution space to $\cP$ be of a comparable magnitude.
 \begin{definition}
-We say that $S$ is \emph{$\delta$-spectrally rich up to degree $d$} if every nonzero eigenvalue of $M_{S,d}$ is at least $\delta$. 
+We say that $S \subseteq V(\cP)$ is \emph{$\delta$-spectrally rich up to degree $d$} if every nonzero eigenvalue of $M_{S,d}$ is at least $\delta$. 
 \end{definition}
 TODO: EXAMPLES?
 
 The previous condition can be thought of as ensuring that the polynomials which are not zero on $S$ are simple, or bounded in some way. What about the polynomials that are zero on $S$? We need to ensure that those are bounded as well. The final condition should come as no surprise, indeed it is the main topic of this dissertation. 
 \begin{definition}
-We say that $\cP$ is \emph{$k$-complete for $S$ up to degree $d$} if, for every zero eigenvector $c$ of $M_{S,d}$, the degree $d$ polynomial $\tilde{c}(x) = c^Tx^{\otimes d}$ has a derivation from $\cP$ in degree $k$.
+Let $S \subseteq V(\cP)$. We say that $\cP$ is \emph{$k$-complete for $S$ up to degree $d$} if, for every zero eigenvector $c$ of $M_{S,d}$, the degree $d$ polynomial $\tilde{c}(x) = c^Tx^{\otimes d}$ has a derivation from $\cP$ in degree $k$.
 \end{definition}
 If $S = V(\cP)$, then this completeness is implied by $\cP$ being $k/d$-effective. 
-But what if $S$ is some other set? Well, $S$ had better at least be very close to $V(\cP)$, otherwise there is no hope that $\cP$ is complete for $S$ up to degree $d$. In fact, if $S \neq V(\cP)$, it is impossible for every polynomial that is zero on $S$ to have a derivation from $\cP$, since in this case $I(S) \neq \gen{\cP}$. However, since we are only dealing with proofs of nonnegativity of degree $d$, we only actually care about polynomials up to degree $d$. In other words, we want $S$ to be close enough to $V(\cP)$ that only polynomials of degree higher than $d$ can tell the difference.
+But what if $S$ is some proper subset? Well, $S$ had better at least be very close to $V(\cP)$, otherwise there is no hope that $\cP$ is complete for $S$ up to degree $d$. In fact, if $S \neq V(\cP)$, it is impossible for every polynomial that is zero on $S$ to have a derivation from $\cP$, since in this case $I(S) \neq \gen{\cP}$. However, since we are only dealing with proofs of nonnegativity of degree $d$, we only actually care about polynomials up to degree $d$. In other words, we want $S$ to be close enough to $V(\cP)$ that only polynomials of degree higher than $d$ can tell the difference.
 \begin{example}
 Let $S = \{0,1\}^n \setminus (0,0,\dots,0)$. Then $\cP = \{x_i^2 - x_i | i \in [n]\}$ is $1$-complete for $S$ up to degree $n-1$. To see this, let $r(x)$ be a polynomial which is zero on all of $S$, but $r \notin \gen{\cP}$. Then $r(0,0,\dots,0) \neq 0$, and has the unique multilinearization 
 \[\tilde{r}(x) = r(0,0,\dots,0)\prod_{i=1}^n \left(1-x_i\right),\]
 and thus the degree of $r$ must be $n$.
 \end{example}
-\begin{example}
+\begin{example}\label{ex:not-complete}
 Let $S = \{0,1\}^n \setminus \{(1,y) | y \in \{0,1\}^{n-1}\}$. Then $\cP = \{x_i^2 - x_i | i \in [n]\}$ is not $k$-complete for $S$ up to degree $d$ for any $k \geq d \geq 1$. To see this, note that the polynomial $x_1$ is zero on all of $S$, and thus corresponds to a zero eigenvector of $M_{S,d}$. But $x_1$ is not zero on $V(\cP)$, so $x \notin \gen{\cP}$, and thus $x$ has no derivation from $\cP$ at all. 
 \end{example}
-In this manuscript we will usually choose $S = V(\cP) \cap H(\cQ)$ so that $S$ can simultaneously satisfy this condition and robustly satisfy $\cQ$. In this case, part of this condition is equivalent to asking that the additional constraints $q(x) \geq 0$ for each $q \in \cQ$ do not imply a low-degree polynomial equality not already implied by $\cP$. We consider this part of the condition to be extremely mild, because one could simply add such a polynomial equality to the constraints $\cP$ of the program. The interesting requirement is that $\cP$ has to be $k/d$-effective. 
+In this manuscript we will usually choose $S = V(\cP) \cap H(\cQ)$ so that $S$ can simultaneously satisfy this condition and robustly satisfy $\cQ$. In this case, completeness implies that the additional constraints $q(x) \geq 0$ for each $q \in \cQ$ do not themselves imply a low-degree polynomial equality not already derivable from $\cP$. We consider this part of the condition to be extremely mild, because one could simply add such a polynomial equality to the constraints $\cP$ of the program. 
+\begin{example}
+Let $\cP = \{x_i^2 - x_i | i \in [n]\}$ and $\cQ = \{2 - \sum_{i=2}^n x_i\}$. Then $S = V(\cP) \cap H(\cQ)$ is the set of binary strings with at most two ones. $\cP$ is not $k$-complete for $S$ for any $k$ because $x_1x_2x_3$ is zero on $S$ but clearly not on $V(\cP)$. However, $\cP' = \cP \cup \{x_ix_jx_k | i,j,k \in [n] \text{ and distinct}\}$ is $1$-complete for $S$.
+\end{example}
 
 Finally, we compile all of the conditions together:
 \begin{definition}
@@ -93,4 +96,85 @@ Let $\cP$ and $\cQ$ be such that $S \subseteq \{0,1\}^n$. Then $S$ is $\delta$-s
 \end{proof}
 
 \subsection{Completeness}
-Recall that if $\cQ$ is empty, we can pick $S = V(\cP)$, and then $\cP$ being $k$-complete for $S$ up to degree $d$ is equivalent to $\cP$ being $k/d$-effective. As we saw in \prettyref{cha:effective_derivations}, proving that $\cP$ is effective is often tricky and not at all straightforward. However, because the previous two conditions are so mild, it is often the case that proving completeness of $\cP$ for $S$ is equivalent to proving efficiency for the Sum-of-Squares relaxation. This is one of the two big applications for efficient derivations that are discussed in this thesis. Just like we do not have a general theory about which sets of constraints $\cP$ are effective, we do not have a general theory about when we can conclude that $\cP$ is complete for a subset $S$. However, it is easy to see that if there is a polynomial $p \in \gen{\cP}$ of degree $d$ which does not have a degree $k$ derivation from $\cP$, then $\cP$ cannot be complete for any subset $S \subseteq V(\cP)$. 
+Recall that if $S = V(\cP)$, then $\cP$ being $k$-complete for $S$ up to degree $d$ is equivalent to $\cP$ being $k/d$-effective. Furthermore, it is easy to see that if there is a polynomial $p \in \gen{\cP}$ of degree $d$ which does not have a degree $k$ derivation from $\cP$, then $\cP$ cannot be complete for any subset $S \subseteq V(\cP)$. Thus in order to prove that $\cP$ is $k$-complete for some subset $S$ up to degree $d$, we \emph{must} at least prove that $\cP$ is $k/d$-effective. As we saw in \prettyref{cha:effective_derivations}, proving this is often tricky, and there is not yet any general theory for it. On the bright side, because the previous two conditions are so mild, it is often the case that completeness is the only problem to deal with before being able to conclude that the Sum-of-Squares relaxation is efficient. This fact is one of the two important applications for efficient derivations that are discussed in this thesis. Because of the lack of a general theory for effective derivations, we also lack a general theory for giving low bit complexity proofs of nonnegativity, and must prove anew on a case-by-case basis. However, in this chapter we at least compile a list of the combinatorial problems to which \prettyref{thm:bit_complexity-main} applies.
+
+\subsection{Optimization Problems with Rich Solution Spaces}
+Before we assemble the list in full, we give two more problems that have rich solution spaces.
+\begin{lemma}
+Consider the \textsc{Unit-Vector} problem with constraints $\cP = \{\sum_{i=1}^n x_i^2 - 1\}$. Then $S = V(\cP)$ is rich for $\cP$ up to any degree. 
+\end{lemma}
+\begin{proof}
+To prove spectral-richness, we note that in \cite{10.2307/2695802} the author gives an exact formula for each entry of the matrix $M_{S,d} = \int_{S} m(x)$ for any monomial $p$. The formulas imply that $(n+d)!\pi^{-n/2} M$ is an integer matrix with entries (very loosely) bounded by $(n+d)!d!2^n$. By \prettyref{lem:integer}, we conclude that $S$ is $\delta$-spectrally rich with $1/\delta = 2^{\poly(n^d)}$.
+
+To prove completeness, first we prove that $I(S) = \gen{\cP}$. TODO: SAY WHY THIS ISNT TRIVIAL? Let $p(x)$ be any degree $d$ polynomial which is zero on the unit sphere $S = V(\cP)$, and define $p_0(x) = p(x) + p(-x)$. Clearly $p_0$ is also zero on the unit sphere, with degree $k = 2\lfloor (d+1)/2 \rfloor$. Note that $p_0$ has only terms of even degree. 
+%
+Define a sequence of polynomials $\{p_i\}_{i \in \{0,\ldots, k/2\}}$ as follows.
+Define $q_i$ to be the part of $p_i$ which has degree strictly less than $k$, and let $p_{i+1} = p_i + q_i\cdot(\sum_i x_i^2 - 1)$. Then each $p_i$ is zero on the unit sphere and has no monomials of degree strictly less than $2i$. Thus $p_{k/2}$ is homogeneous of degree $k$. But then $p_{k/2}(tx) = t^kp_{k/2}(x) = 0$ for any unit vector $x$ and $t > 0$, and thus $p_{k/2}(x)$ must be the zero polynomial. This implies that $p_0$ is a multiple of $\sum_i x_i^2 - 1$, since each $p_{i+1} - p_i$ is a multiple of $\sum_i x_i^2 -1$. The same logic shows that $p(x) - p(-x)$ is also a multiple of $\sum_i x_i^2 - 1$, and thus so is $p(x)$. Now $\langle \cP\rangle$ is principal and thus $1$-effective, so $\cP$ is complete for $S$. 
+\end{proof}
+\begin{lemma}
+Consider the \textsc{Balanced Separator} problem with constraints $\cP = \{x_i^2 - x_i| i \in [n]\}$ and $\cQ = \{1/100 + 2n/3 - \sum_i x_i, 1/100 + \sum_i x_i - n/3\}$. Then $S = V(\cP) \cap H(\cQ)$ is rich for $(\cP, \cQ)$ up to degree $n/3$.
+\end{lemma}
+\begin{proof}
+First, $S$ is clearly $1/100$-robust for $\cQ$, even if $n$ is divisible by three. Second, $S \subseteq \{0,1\}^n$, so by \prettyref{cor:integer-rich} it is spectrally rich. To prove completeness, we note that $\cP$ is $1$-effective by \prettyref{cor:csp-effective}. It remains to prove that $\cQ$ does not introduce additional low-degree polynomial equalities. 
+Suppose $r$ is a polynomial that is zero on $S$.  
+Without loss of generality, we may assume that $r$ is multilinear by using the constraints $\{x_i^2 - x_i | i \in [n]\}$.
+Suppose $r$ is a non-zero multilinear polynomial which evalutes to zero on $S$, then its symmetrized version $r^* = \frac{1}{n!}\sum_{\sigma \in \cS_n} \sigma r$ must also be zero on $S$, where $\sigma$ acts by permuting the variable names. Because $r^*$ is symmetric and multilinear, it is a linear combination of the elementary symmetric polynomials $e_k(x)$. However, each $e_k(x)$ is equivalent to a univariate polynomial $q(\sum_i x_i)$ TODO: COLLECT THIS IN A LEMMA IN PRELIMS?, and thus so is $r^*$. This univariate polynomial has $n/3$ zeros since $S$ has points with $n/3$ different possible values for $\sum_i x_i$. thus $r^*$ has degree at least $n/3$, and so does $r$. Thus every non-zero multilinear polynomial that is zero on $S$ but not in $\langle \cP\rangle$, has degree at least $n/3$, and $\cP$ is $1$-complete for $S$ up to degree $n/3$.
+\end{proof}
+Finally, we collect all the problems discussed:
+\begin{corollary}\label{cor:examples}
+For the following optimization problems, $S = V(\cP) \cap H(\cQ)$ is a rich solution space up to any degree:
+\begin{itemize}
+\item \textsc{CSP}: $\cP = \{x_i^2 - x_i | i \in [n]\}$. 
+\item \textsc{Clique}: $\cP = \{x_i^2 - x_i | i \in [n]\} \cup \{x_ix_j | (i,j) \notin E\}$.
+\item \textsc{Matching}: $\cP = \{x_{ij}^2 - x_{ij} | i,j \in [n]\} \cup \{\sum_i x_{ij} - 1 | i \in [n]\} \cup \{x_{ij}x_{ik} | i,j,k \in [n]\}$.
+\item \textsc{Bisection}: $\cP = \{x_i^2 - x_i | i \in [n]\} \cup \{\sum_i x_i - n/2\}$.
+\item \textsc{Unit-Vector}: $\cP = \{\sum_i x_i^2 - 1\}$.
+\end{itemize}
+For the following optimization problems, $S$ is a rich solution space up to degree $c$:
+\begin{itemize}
+\item \textsc{Balanced Separator}: $\cP = \{x_i^2 - x_i | i \in [3c]\}$, $\cQ = \{1/100 + 2c - \sum_i x_i, 1/100 + \sum_i x_i - c\}$.
+\item \textsc{Balanced CSP}: $\cP = \{x_i^2 - x_i | i \in [n]\} \cup \{\sum_i x_i - c\}$.
+\item \textsc{Boolean Sparse PCA}: $\cP = \{x_i^3-x_i | i \in [n]\} \cup \{\sum_i x_i^2 - 2c\}$.
+\end{itemize}
+\end{corollary}
+\begin{proof}
+\textsc{Unit-Vector} and \textsc{Balanced Separator} were discussed above. For all the other problems, $S \subseteq \{0,1\}^n$, so by \prettyref{cor:integer-rich}, $S$ is spectrally rich. Furthermore, for these problems, $\cP$ was proven to admit effective derivations in \prettyref{cha:effective_derivations} (see \prettyref{cor:effective_list}), and $\cQ$ is empty, so $S = V(\cP)$. Thus $\cP$ is complete for $S$ up to the appropriate degree. 
+\end{proof}
+
+\section{Proof of the Main Theorem}
+\begin{proof}[(Proof of \prettyref{thm:bit_complexity-main})]
+For convenience, we write $\cP = \{p_1,\dots,p_m\}$ and $\cQ = \{q_1,\dots,q_\ell\}$. We have a set $S$ which is $(\epsilon,\delta,k)$-rich for $(\cP,\cQ)$, and a degree $d$ polynomial $r(x)$ which has a PC$_>$ proof of nonnegativity from $(\cP,\cQ)$. In other words, there is a polynomial identity
+\[r(x) = \sum_{i=1}^{t_0} h_i^2 + \sum_{i=1}^\ell \left(\sum_{j=1}^{t_i} s_{ij}^2\right) q_i + \sum_{i=1}^m \lambda_i p_i.\]
+Our goal is to find a different PC$_>$ proof of nonnegativity for $r$ which uses only polynomials of bounded norm.
+
+First, we rewrite the original PC$_>$ proof into a more convenient form before proving bounds on each individual term. Because the elements of $\mbasis$ are a basis for $\R[x]_d$, every polynomial in the proof can be expressed as $c^T\mbasis$, where $c$ is a vector of reals:
+\begin{align*} r(x) &= \sum_{i=1}^{t_0} (c_i^T\mbasis)^2 + \sum_{i=1}^\ell \left(\sum_{j=1}^{t_i} (d_{ij}^T\mbasis)^2\right)q_i + \sum_{i=1}^m \lambda_i p_i \\
+&= \langle C, \mbasis(\mbasis)^T\rangle + \sum_{i=1}^\ell \langle D_i, \mbasis(\mbasis)^T\rangle q_i + \sum_{i=1}^m \lambda_i p_i
+\end{align*}
+for PSD matrices $C$, $D_1,\dots,D_\ell$. Next, we average this polynomial identity over all the points $\alpha \in S$:
+\begin{align*}
+\E_{\alpha \in S}\left[r(\alpha)\right] &= \left\langle C, \E_{\alpha \in S}\left[\mbasis(\alpha)\mbasis(\alpha)^T\right]\right\rangle + \sum_{i=1}^\ell \left\langle D_i, \E_{\alpha \in S}\left[\mbasis(\alpha)\mbasis(\alpha)^T\right]\right\rangle q_i(\alpha) + 0 \\
+\end{align*}
+The LHS is at most $\poly(\|r\|, \|S\|)$, and the RHS is a sum of positive numbers, so the LHS is a bound on each term of the RHS. 
+%
+We would like to say that since $S$ is $\delta$-spectrally rich, the first term is at least $\delta \Tr(C)$. 
+%
+Unfortunately the averaged matrix may have zero eigenvectors, and it is possible that $C$ could have very large eigenvalues in these directions. 
+%
+However, because $\cP$ is complete for $S$, these can be absorbed into the final term. More formally, let $\Pi = \sum_u uu^T$ be the projector onto the zero eigenspace of $M_{S,d} = \E_{\alpha \in S}[\mbasis(\alpha)\mbasis(\alpha)^T]$. Because $\cP$ is $k$-complete for $S$, for each $u$ there is a degree $k$ derivation $u^T\mbasis = \sum_i \sigma_{ui} p_i$. Then $\Pi \mbasis(\mbasis)^T = \sum_u (u^T\mbasis) \cdot u(\mbasis)^T$. Thus we can write
+\begin{align*}
+\Iprod{C, \mbasis(\mbasis)^T} &= \Iprod{C, (\Pi + \Pi^\perp)\mbasis(\mbasis)^T(\Pi + \Pi^\perp)} \\
+&= \Iprod{C, \Pi^\perp \mbasis(\mbasis)^T \Pi^\perp} + \sum_u u^T\mbasis\left(\Iprod{C, \Pi^\perp \mbasis u^T + \mbasis u^T\Pi^\perp + \mbasis u^T\Pi}\right) \\
+&= \Iprod{\Pi^\perp C \Pi^\perp, \mbasis(\mbasis)^T} + \sum_i \sigma_i p_i.
+\end{align*}
+Doing the same for the other terms and setting $C' = \Pi^\perp C \Pi^\perp$ and similarly for $D_i'$, we get a new proof:
+\[r(x) = \langle C', \mbasis(\mbasis)^T\rangle + \sum_{i=1}^\ell \langle D_i', \mbasis(\mbasis)^T\rangle q_i + \sum_{i=1}^m \lambda_i' p_i.\]
+Now the zero eigenspace of $C'$ is contained in the zero eigenspace of $M_{S,d}$. Further, the $\delta$-spectral richness of $S$ implies that each nonzero eigenvalue of $M_{S,d}$ is at least $\delta$, so $\Iprod{C',M_{S,d}} \geq \delta \Tr(C')$. Also, the $\epsilon$-robustness of $S$ implies that $q_i(\alpha) \geq \epsilon$ for each $i$ and $\alpha$. Thus, after averaging we have 
+\[\poly(\|r\|,\|S\|) \geq \delta \Tr(C) + \sum_{i=1}^\ell \delta \epsilon\Tr(D_i').\]
+Thus each of $C'$ and $D_i'$ have entries bounded by $\poly(\|r\|, \|S\|, \frac{1}{\delta}, \frac{1}{\epsilon})$.
+
+The only thing left to do is to bound the coefficients $\lambda_i'$. This turns out to be easy because the PC$_>$ proof is linear in these coefficients. If we imagine the coefficients of the $\lambda_i'$ as variables, then the linear system induced by the polynomial identity
+\[r(x) - \langle C', \mbasis(\mbasis)^T\rangle - \sum_{i=1}^\ell \langle D_i', \mbasis(\mbasis)^T\rangle = \sum_{i=1}^m \lambda_i' p_i\]
+is clearly feasible, and the coefficients of the LHS are bounded by $\poly(\|r\|, \|S\|, \frac{1}{\delta}, \frac{1}{\epsilon})$. There are $O(n^k)$ variables, so by Cramer's rule, the coefficients of the $\lambda_i'$ can be taken to be bounded by $\poly(\|\cP\|^{n^k}, \frac{1}{\delta}, \frac{1}{\epsilon}, \|r\|, \|S\|, n!)$. $\|\cP\|, \|r\| \leq 2^{\poly(n^d)}$ as they are considered part of the input. We assume that $\|S\| \leq 2^{\poly(n^d)}$, and clearly $d \leq k$. Thus, this bound is at most $2^{\poly(n^k, \log \frac{1}{\delta}, \log \frac{1}{\epsilon})}$. 
+\end{proof}
+
