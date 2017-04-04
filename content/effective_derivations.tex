@@ -390,7 +390,79 @@ Together, we now have a proof of the following theorem:
 The theorem is a direct corollary of \prettyref{lem:highdeg-easy}, \prettyref{lem:lowdeg-easy}, and \prettyref{lem:bisec-effective}.
 \end{proof}
 
-\section{Problems with Effective Derivations}
+\section{\textsc{Boolean Sparse PCA}}
+The last example we give for our proof strategy is the \textsc{Boolean Sparse PCA} problem, whose constraints are given by 
+\[\cP(n,c) = \left\{x_i^3 - x_i | i \in [n]\right\} \cup \left\{\sum_i x_i^2 - c\right\}.\]
+TODO: A DESCRIPTION OF THE BOOLEAN SPARSE PCA PROBLEM.
+
+These constraints are similar to the \textsc{Balanced-CSP} constraints of the previous section with one crucial difference: The variables are ternary instead of binary.
+This will complicate the analysis, but it turns out that with a bit more casework we will be able to push it through.
+However, the Pigeonhole Principle obstacle remains, and we will once again only be able to prove that low-degree polynomials have effective PC derivations.
+\subsubsection{Symmetric Polynomials}
+Once again, we prove a derivation lemma for symmetric polynomials. For this set of constraints, it is not as simple as saying that every symmetric polynomial is equal to some constant on $V(\cP)$ because we only have a constraint on $\sum_i x_i^2$ as opposed to $\sum_i x_i$. In particular, the polynomial $\sum_i x_i$ itself does not reduce to a constant on $V(\cP)$. We will have to make a slightly more general argument.
+\begin{lemma}\label{lem:bpca-symmetric}
+Let $p$ be a polynomial in $\R^n$. Then there exists a univariate polynomial $q$ of degree $\deg p$ such that $p' = \frac{1}{n!}\sum_{\sigma \in \cS_n} \sigma p \cong q(\sum_i x_i)$.
+\end{lemma}
+\begin{proof}
+We prove that for every elementary symmetric polynomial $e_k(x)$, there exists a univariate polynomial $q_k$ such that $e_k(x) - q_k(\sum_i x_i)$ has a derivation from $\cP$ in degree $k$, then the fundamental theorem of symmetric polynomials implies the lemma. For the base case, clearly $q_0(t) = 1$ and $q_1(t) = t$. For the general case, consider the terms of the expansion of $\left(\sum_i x_i\right)^k$. They are indexed by the nonincreasing partitions of $k$: $\lambda = (\lambda_1, \lambda_2, \dots, \lambda_\ell)$ and can be written $c_\lambda \sum_{i_1,\dots,i_\ell} x_{i_1}^{\lambda_1} x_{i_2}^{\lambda_2} \dots x_{i_\ell}^{\lambda_\ell}$. Now just by reducing by $x_i^3 - x_i$, we can reduce the exponents on each variable to either one or two. If any exponent is two, then by reducing by the constraint $\sum_i x_i^2 - c$, we can replace any of these exponents with a multiplicative constant. Thus after reducing, all of the exponents are one. But now this term is simply a multiple of some $e_{k'}(x)$, with $k' \leq k$. Since one term is exactly $k!e_k(x)$, we have
+\[\frac{1}{k!}\left(\sum_i x_i\right)^k - e_k(x) \cong \sum_{i=1}^{k-1} a_i e_i(x)\]
+for some real numbers $a_i$. Now by the inductive hypothesis, we know that there exist polynomials $q_i$ such that $e_i(x) - q_i(\sum_i x_i)$ has a derivation from $\cP$ in degree $i$. Thus we set $\frac{1}{k!}q_k(t) = t^k - \sum_i a_i q_i(t)$ to complete the induction and the lemma.
+\end{proof}
+\begin{corollary}
+Let $p \in \gen{\cP}$ with $\deg p \leq c$. Then $p' = \frac{1}{n!}\sum_{\sigma \in \cS_n} \sigma p$ has a derivation from $\cP$ in degree $\deg p$. 
+\end{corollary}
+\begin{proof}
+By \prettyref{lem:bpca-symmetric}, we know that there is a univariate polynomial $q(t)$ of degree $\deg p$ such that $p' \cong q(\sum_i x_i)$. Since $p \in \gen{\cP}$, so is $p'$ and $q(\sum_i x_i)$. Since there are $c+1$ possible values of $\sum_i x_i$ in $V(\cP)$, namely $\{-c, -c+2, \dots, c-2, c\}$, $q$ has $c+1$ zeros. But $\deg q = \deg p \leq c$, so $q$ must be the zero polynomial.
+\end{proof}
+
+\subsubsection{Getting to Symmetric Polynomials}
+This process should be familiar by now. Since there are more choices for values for the variables we are going to strip off, we are going to need to do a little more casework, but the general strategy is the same. We start with a lemma that allows us to perform induction.
+\begin{lemma}\label{lem:bcpa-induct}
+Let $L$ be a polynomial with a degree $d$ derivation from $\cP(n,c)$. Then $L(x_{n+1}^2-x_{n+2}^2)$ has a degree $d+2$ derivation from $\cP(n+2,c+1)$, and $L(x_{n+1}x_{n+2})$ has a degree $d+2$ derivation from $\cP(n+2,c+2)$.
+\end{lemma}
+\begin{proof}
+It suffices to prove the theorem for $L \in \cP(n,c)$. If $L = x_i^3 - x_i$ for some $i$, then clearly the statement is true as $L \in \cP(n+2,c+1)$ and $L \in \cP(n+2,c+2)$, so let $L = \sum_i x_i^2 - c$. Now notice that 
+\begin{align*}
+L(x_{n+1}^2 - x_{n+2}^2) - \left(\sum_{i=1}^{n+2} x_i^2 - (c+1)\right)(x_{n+1}^2-x_{n+2}^2) &= (1-x_{n+1}^2+x_{n+2}^2)(x_{n+1}^2-x_{n+2}^2) \\
+&= x_{n+1}^2 - x_{n+2}^2 - x_{n+1}^4 + x_{n+2}^4  \\
+&\cong x_{n+1}^2 - x_{n+2}^2 - x_{n+1}^2 + x_{n+2}^2 \\
+&= 0
+\end{align*}
+and 
+\begin{align*}
+Lx_{n+1}x_{n+2} - \left(\sum_{i=1}^{n-2} x_i^2 - (c+2)\right)x_{n+1}x_{n+2} &= (2-x_{n+1}^2 + x_{n+2}^2)x_{n+1}x_{n+2} \\
+&= 2x_{n+1}x_{n+2} - x_{n+1}^3x_{n+2} + x_{n+1}x_{n+2}^3 \\
+&\cong 2x_{n+1}x_{n+2} - x_{n+1}x_{n+2} + x_{n+1}x_{n+2} \\
+&= 0
+\end{align*}
+to conclude the lemma. 
+\end{proof}
+Now we prove that \textsc{Boolean Sparse PCA} admits effective derivations for low degree polynomials.
+\begin{lemma}
+Fix $c \leq n/2$. Let $p \in \gen{\cP(n,c)}$ with $\deg p \leq c/2$. Then $p$ has a derivation from $\cP(n,c)$ in degree at most $3\deg p$.
+\end{lemma}
+\begin{proof}
+We do double induction on $n$ and $c$. For the base case of $\cP(n,0)$, note that the only polynomial with degree at most $0$ is the constant polynomial $0$, which has the trivial derivation. Now let $p$ have degree at most $d \leq c$. We can assume the individual degree of each variable is at most two by reducing by the ternary constraints. Following the same argument as in \prettyref{thm:bisec-effective}, we define the polynomial $\Delta = p - \sigma p$ for the transposition $\sigma = (i,j)$, but now since $p$ is not multilinear, we write it as 
+\[p = r_{10}x_i + r_{01}x_j + r_{11}x_ix_j + r_{21}x_i^2x_j + r_{12}x_ix_j^2 + r_{22}x_i^2x_j^2 + q_{ij}\]
+where none of the $r$ or $q$ polynomials depend on $x_i$ or $x_j$. Then $\Delta$ can be written
+\begin{align*}
+\Delta &= (r_{10} - r_{01})(x_i - x_j) + (r_{20} - r_{02})(x_i^2 - x_j^2) + (r_{21} - r_{12})(x_i^2x_j - x_ix_j^2) \\
+&= ((r_{10} - r_{01}) + (r_{20} - r_{02})(x_i+x_j) + (r_{21} - r_{12})x_ix_j)(x_i - x_j) \\
+&= (R_0 + R_1(x_i + x_j) + R_2x_ix_j)(x_i - x_j)
+\end{align*}
+where we define $R_0 = (r_{10} - r_{01})$, $R_1 = (r_{20} - r_{02})$, and $R_2 = (r_{21} - r_{12})$, and note that they are polynomials of degree at most $d-1$. If we set $x_i = 1$ and $x_j = 0$, we obtain a polynomial $R_0 + R_1$ which must be zero on $V(\cP(n-2,c-1))$. Furthermore, if we set $x_i = -1$ and $x_j = 0$, then $R_0 - R_1$ is zero on $V(\cP(n-2,c-1))$, and setting $x_i = 1$ and $x_j = -1$, we also get that $R_0 - R_2$ is zero on $V(\cP(n-2,c-2))$. 
+
+Since $c \leq n/2$, clearly $c-2 \leq c-1 \leq (n-2)/2$. Since $d \leq c/2$, we also have $d-1 \leq (c-2)/2$. Then by the inductive hypothesis, all these polynomials have derivations of degree at most $3(d-1)$ from their constraints. By \prettyref{lem:bpca-induct}, we know $(R_0+R_1)(x_i^2-x_j^2)$, $(R_0 - R_1)(x_i^2-x_j^2)$, and $(R_0 - R_2)x_ix_j$ have derivations from $V(\cP(n,c))$ in degree $3d-1$.
+
+From the first two polynomials, it is clear that $R_0(x_i^2-x_j^2)$ and $R_1(x_i^2-x_j^2)$ have derivations in degree $3d-1$. We also have
+\begin{align*}
+R_0(x_i^2-x_j^2) \cdot (x_i+x_j) &- (R_0 - R_2)x_ix_j \cdot (x_i - x_j) = \\&= R_0((x_i^2 - x_j^2)(x_i+x_j) - x_ix_j(x_i - x_j)) + R_2x_ix_j(x_i - x_j) \\
+&\cong (R_0 + R_2x_ix_j)(x_i - x_j)
+\end{align*}
+and thus $(R_0 + R_2x_ix_j)(x_i - x_j)$ is derivable in degree $3d$. This implies that $\Delta$ has a derivation in degree $3d$, and taken together with \prettyref{lem:bpca-symmetric}, we conclude that $p$ has a derivation in degree $3d$. 
+\end{proof}
+
+\section{Optimization Problems with Effective Derivations}
 We include a theorem here summarizing all the results of this section:
 \begin{theorem}
 The following sets of constraints admit $k$-effective derivations:

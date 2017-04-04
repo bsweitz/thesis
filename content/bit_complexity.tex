@@ -36,11 +36,15 @@ The previous condition can be thought of as ensuring that the polynomials which 
 \begin{definition}
 We say that $\cP$ is \emph{$k$-complete for $S$ up to degree $d$} if, for every zero eigenvector $c$ of $M_{S,d}$, the degree $d$ polynomial $\tilde{c}(x) = c^Tx^{\otimes d}$ has a derivation from $\cP$ in degree $k$.
 \end{definition}
-If $S = V(\cP)$, then this completeness is implied by $\cP$ being $k/d$-effective. But what if $S$ is some other set? Well, $S$ had better at least be very close to $V(\cP)$, otherwise there is no hope that $\cP$ is complete for $S$ up to degree $d$. In fact, if $S \neq V(\cP)$, it is impossible for every polynomial that is zero on $S$ to have a derivation from $\cP$, since in this case $I(S) \neq \gen{\cP}$. However, since we are only dealing with proofs of nonnegativity of degree $d$, we only actually care about polynomials up to degree $d$. In other words, we want $S$ to be close enough to $V(\cP)$ that only polynomials of degree higher than $d$ can tell the difference.
+If $S = V(\cP)$, then this completeness is implied by $\cP$ being $k/d$-effective. 
+But what if $S$ is some other set? Well, $S$ had better at least be very close to $V(\cP)$, otherwise there is no hope that $\cP$ is complete for $S$ up to degree $d$. In fact, if $S \neq V(\cP)$, it is impossible for every polynomial that is zero on $S$ to have a derivation from $\cP$, since in this case $I(S) \neq \gen{\cP}$. However, since we are only dealing with proofs of nonnegativity of degree $d$, we only actually care about polynomials up to degree $d$. In other words, we want $S$ to be close enough to $V(\cP)$ that only polynomials of degree higher than $d$ can tell the difference.
 \begin{example}
 Let $S = \{0,1\}^n \setminus (0,0,\dots,0)$. Then $\cP = \{x_i^2 - x_i | i \in [n]\}$ is $1$-complete for $S$ up to degree $n-1$. To see this, let $r(x)$ be a polynomial which is zero on all of $S$, but $r \notin \gen{\cP}$. Then $r(0,0,\dots,0) \neq 0$, and has the unique multilinearization 
 \[\tilde{r}(x) = r(0,0,\dots,0)\prod_{i=1}^n \left(1-x_i\right),\]
 and thus the degree of $r$ must be $n$.
+\end{example}
+\begin{example}
+Let $S = \{0,1\}^n \setminus \{(1,y) | y \in \{0,1\}^{n-1}\}$. Then $\cP = \{x_i^2 - x_i | i \in [n]\}$ is not $k$-complete for $S$ up to degree $d$ for any $k \geq d \geq 1$. To see this, note that the polynomial $x_1$ is zero on all of $S$, and thus corresponds to a zero eigenvector of $M_{S,d}$. But $x_1$ is not zero on $V(\cP)$, so $x \notin \gen{\cP}$, and thus $x$ has no derivation from $\cP$ at all. 
 \end{example}
 In this manuscript we will usually choose $S = V(\cP) \cap H(\cQ)$ so that $S$ can simultaneously satisfy this condition and robustly satisfy $\cQ$. In this case, part of this condition is equivalent to asking that the additional constraints $q(x) \geq 0$ for each $q \in \cQ$ do not imply a low-degree polynomial equality not already implied by $\cP$. We consider this part of the condition to be extremely mild, because one could simply add such a polynomial equality to the constraints $\cP$ of the program. The interesting requirement is that $\cP$ has to be $k/d$-effective. 
 
@@ -57,6 +61,36 @@ Let $(r, \cP, \cQ)$ admit an $(\epsilon,\delta,k)$-rich solution space $S$ up to
 We delay the proof of \prettyref{thm:bit_complexity-main} until \prettyref{sec:TODO}. First, we offer some discussion on the restrictiveness of each of the three requirements of richness and collect some example optimization problems which we can prove admit rich solution spaces.
 
 \section{COME UP WITH A GOOD NAME}
-For this section, we will be taking $S = V(\cP) \cap H(\cQ)$ for an optimization problem $(r,\cP,\cQ)$. This is the most natural choice of $S$ to satisfy all of the conditions simultaneously. In principle, it could also make sense to pick $S$ as a proper subset of $V(\cP) \cap H(\cQ)$, but then we would need to prove that $I((V(\cP \cap H(\cQ)) \setminus S)$ contains only high-degree polynomials. 
+For this section, we will be taking $S = V(\cP) \cap H(\cQ)$ for an optimization problem $(r,\cP,\cQ)$. This is the most natural choice of $S$ to satisfy all of the conditions simultaneously. Here we will argue that if $S$ lies inside the hypercube $\{0,1\}^n$, then it is naturally robust and spectrally rich. Because most combinatorial optimization problems have booelean constraints, their solution spaces lie inside the hypercube. This means that the main interesting property is the completeness of $\cP$ for $S$. In particular, we will show the following lemma: TODO
 \subsection{Robust Satisfaction}
-How difficult is it to ensure that $S$ robustly satisfies the inequalities $\cQ$? For one, if $\epsilon = \min_{q \in \cQ} \min_{\alpha \in V(\cP)} |q(\alpha)| > 0$, then we can perturb the constraints in $\cQ$ slightly without changing the underlying solution space $S$ so that $S$ $\epsilon/2$-robustly satisfies $\cQ$. Simply make $\cQ'$ by replacing each $q \in \cQ$ with $q' = q + \epsilon/2$. Clearly for $\alpha \in S$, $q'(\alpha) = q(\alpha) + \epsilon/2 \geq \epsilon/2$. Furthermore, we still have $S = V(\cP) \cap H(\cQ')$ by the definition of $\epsilon$. For many combinatorial optimization problems, their solution spaces are discrete and separated, so that we can use this argument without issue. 
+TODO
+%How difficult is it to ensure that $S$ robustly satisfies the inequalities $\cQ$? For one, if $\epsilon = \min_{q \in \cQ} \min_{\alpha \in V(\cP) \setminus H(\cQ)} |q(\alpha)| > 0$, then we can perturb the constraints in $\cQ$ slightly without changing the underlying solution space $S$ so that $S$ $\epsilon/2$-robustly satisfies $\cQ$. Simply make $\cQ'$ by replacing each $q \in \cQ$ with $q' = q + \epsilon/2$. Clearly for $\alpha \in S$, $q'(\alpha) = q(\alpha) + \epsilon/2 \geq \epsilon/2$. Furthermore, we still have $S = V(\cP) \cap H(\cQ')$ by the definition of $\epsilon$. For many combinatorial optimization problems, their solution spaces are discrete and separated, so indeed $\epsilon > 0$ and we can use this argument without issue. 
+\begin{example}
+Consider the \textsc{Balanced-Separator} constraints: $\cP = \{x_i^2 - x_i | i \in [n]\}$ and $\cQ = \{2n/3 - \sum_i x_i, \sum_i x_i - n/3\}$. The solution space $S$ is the set of binary strings with between $n/3$ and $2n/3$ ones. If $n$ is divisble by $3$, then $S$ does not robustly satisfy $\cQ$, since there are strings with exactly $n/3$ ones. However there is a very simple fix by setting $\cQ' = \{2n/3 + 1/2 - \sum_i x_i, \sum_i x_i + 1/2 - n/3\}$. Then $S$ is $1/2$-robust for $\cQ'$, and since $\sum_i x_i$ is a sum of Boolean variables, any point in $V(\cP)$ changes the sum by integer numbers. Thus adding $1/2$ to the constraints does not change $V(\cP) \cap H(\cQ)$.
+\end{example}
+This argument leads us to believe that this constraint is not very restrictive and does not stop our main result from applying to many optimization problems. 
+
+\subsection{Spectral Richness}
+Recall that $S$ is $\delta$-spectrally rich if the moment matrix $M_{S,d}$ has only nonzero eigenvalues of size at least $\delta$. When $S$ lies in the hypercube, we can achieve a bound for its spectral richness using this simple lemma:
+\begin{lemma} \label{lem:integer}
+	Let $M \in \R^{N \times N}$ be an integer matrix with $|M_{ij}| \leq B$ for all $i,j \in [N]$.  The smallest non-zero eigenvalue of $M$ is at least 
+	$(BN)^{-N}$.
+\end{lemma}
+\begin{proof}
+Let $A$ be a full-rank principal minor of $M$ and w.l.o.g. let it be at the upper-left block of $M$. We claim the least eigenvalue of $A$ lower bounds the least nonzero eigenvalue of $M$.
+%
+Since $M$ is symmetric, there must be a $C$ such that
+\[M = \left[\begin{tabular}{c} $I$ \\ $C$\end{tabular}\right]A\left[\begin{tabular}{cc} $I$ & $C^T$\end{tabular}\right].\]
+Let $P = [I, C^T]$, $\rho$ be the least eigenvalue of $A$, and $x$ be a vector perpendicular to the zero eigenspace of $P$. Then we have $x^TMx \geq \rho x^TP^TPx$,
+but $x$ is perpendicular to the zero eigenspace of $P^TP$. Now $P^TP$ has the same nonzero eigenvalues as $PP^T = I + C^TC \succeq I$, and thus $x^TP^TPx \geq 1$, and so every nonzero eigenvalue of $M$ is at least $\rho$. Now $A$ is a full-rank bounded integer matrix with dimension at most $N$. The magnitude of its determinant is at least $1$ and all eigenvalues are at most $N \cdot B$.  Therefore, its least eigenvalue must be at least $(BN)^{-N}$ in magnitude. 
+\end{proof}
+As a corollary, we get:
+\begin{corollary}\label{cor:integer-rich}
+Let $\cP$ and $\cQ$ be such that $S \subseteq \{0,1\}^n$. Then $S$ is $\delta$-spectrally rich with $\frac{1}{\delta} = 2^{\poly(n^d)}$.
+\end{corollary}
+\begin{proof}
+	Recall $M_{S,d} = \E_{\alpha \in S}[x^{\otimes d}(\alpha)x^{\otimes d}(\alpha)^T]$, and note that $|S| \cdot M$ is an integer matrix with entries at most $2^n$.  The result follows by applying \prettyref{lem:integer}. 
+\end{proof}
+
+\subsection{Completeness}
+Recall that if $\cQ$ is empty, we can pick $S = V(\cP)$, and then $\cP$ being $k$-complete for $S$ up to degree $d$ is equivalent to $\cP$ being $k/d$-effective. As we saw in \prettyref{cha:effective_derivations}, proving that $\cP$ is effective is often tricky and not at all straightforward. However, because the previous two conditions are so mild, it is often the case that proving completeness of $\cP$ for $S$ is equivalent to proving efficiency for the Sum-of-Squares relaxation. This is one of the two big applications for efficient derivations that are discussed in this thesis. Just like we do not have a general theory about which sets of constraints $\cP$ are effective, we do not have a general theory about when we can conclude that $\cP$ is complete for a subset $S$. However, it is easy to see that if there is a polynomial $p \in \gen{\cP}$ of degree $d$ which does not have a degree $k$ derivation from $\cP$, then $\cP$ cannot be complete for any subset $S \subseteq V(\cP)$. 
