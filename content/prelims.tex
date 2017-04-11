@@ -9,7 +9,6 @@ consists of a finite set
 objective functions. An algorithm for such a problem takes as input an $f \in \cF$ and computes
 $\max_{s \in \cS} f(s)$.
 
-
 We can also generalize to approximate solutions: Given two functions \(\tilde{C}, \tilde{S} \colon \cF \rightarrow \R\)
 called approximation guarantees, we say
 an algorithm \((\tilde{C}, \tilde{S})\)-approximately solves \(\cP\)
@@ -17,6 +16,7 @@ if given any \(f \in \cF\) with \(\max_{s \in \cS} f(s) \leq \tilde{S}(f)\) as i
 it computes \(\tilde{f}\in \R\) satisfying
 \(\max_{s \in \cS} f(s) \leq \tilde{f} \leq \tilde{C}(f)\).
 \end{definition}
+
 We think of the functions $f \in \cF$ as defining the problem instances and the feasible solutions $s \in \cS$ as defining the combinatorial objects we are 
 trying to maximize over. $\tilde{C}$ and $\tilde{S}$ can be thought of as the usual approximation parameters \emph{completeness} and \emph{soundness}. Any
 algorithm which $(\tilde{C},\tilde{S})$-approximately solves $\cP$ can distinguish between when the input satisfies $\max_{s\in \cS} f(s) \leq \tilde{S}$ and when it satisfies $\max_{s \in\cS} f(s) \geq \tilde{C}$. Now we give a few concrete examples of combinatorial maximization problems:
@@ -79,6 +79,83 @@ The Matching Polytope is an exact formulation of the Maximum Matching problem. T
 
 %This can be seen to be an SDP formulation by taking the feasible solutions to be $\chi_M$, the objective function $f_E$ can be expressed as $w^{f_E} = \sum_{ij \in E} x_{ij}$. The achievement guarantee is satisfied because $\max_{x \in P_n} w^{f_E}(x)$ must be achieved at a vertex, and any vertex of the polytope must be a $\chi_M$, so $\max_{x \in P_n} w^{f_E}(x) = w^{f_E}(\chi_{M^*}) = f_E(M^*) = \max_{M \in \cS} f_E(M)$. 
 \end{example}
+
+\section{Polynomial Formulations}
+\begin{definition}
+A \emph{degree $d$-polynomial formulation on $n$ variables} for a combinatorial optimization problem $\cM = (\cS, \cF)$ is three sets of degree $d$ polynomials $\cP,\cQ,\cO \subseteq \R[x_1,\dots,x_n]_d$ and a bijection $\phi: \cS \leftrightarrow V(\cP) \cap H(\cQ)$ such that for each $f \in \cF$, there exists a polynomial $o^f \in \cO$ with $o^f(\phi(s)) = f(s)$. We call $\cP$ the equality constraints, $\cQ$ the inequality constraints, and $\cO$ the objective polynomials. The polynomial formulation is called \emph{boolean} if $V(\cP) \cap H(\cQ) \subseteq \{0,1\}^n$. 
+\end{definition}
+\begin{example}
+\textsc{Matching} on $n$ vertices has a degree two polynomial formulation on $\binom{n}{2}$ variables. Let $\cP = \{x_{ij}^2 - x_{ij} | i,j \in [n], i\neq j\} \cup \{\sum_j x_{ij} - 1 | i \in [n]\} \cup \{x_{ij}x_{ik} | i,j,k \in [n] \text{ all distinct.}\}$. For a matching $M$, let $\chi_M(x_{ij}) = 1$ if $(i,j) \in M$ and $0$ otherwise. Then clearly $\phi(M) = \chi_M$ is a bijection, and it is easily verified that every $\chi_M \in V(\cP)$. Finally, for an objective function $f_E(M) = |M \cap E|$, we define $p^{f_E}(x) = \sum_{ij: (i,j) \in E} x_{ij}$. 
+\end{example}
+A polynomial formulation for $\cM$ defines a polynomial optimization problem: given input $p^f$, maximize $p^f(x)$ subject to $p(x) = 0$ for each $p \in \cP$ and $q(x) \geq 0$ for each $q \in \cQ$. This optimization problem is equivalent to solving the combinatorial optimization $\cM$. 
+
+TODO: SEGWAY. When the objective polynomials are affine, $\conv(V(\cP))$ is an SDP formulation for $\cM$. Unfortunately, the objective polynomials are not always affine, and even when they are, sometimes $\conv(V(\cP))$ has too many facets and so its size as an SDP formulation is too large for efficient optimization. This is the case for the above formulation for \textsc{Matching}. However, there are other ways one can create SDP formulations.
+
+When the polynomial formulation has no inequality constraints, there is an interesting family of SDP relaxations. Let $(\cP, \cO, \phi)$ be a degree-$d$ polynomial formulation for $\cM$. Recall that every polynomial $p$ of degree at most $2d$ has a $d \times d$ matrix of coefficients $\widehat{p}$ such that $p(\alpha) = \widehat{p} \cdot \mbasis(\alpha)(\mbasis(\alpha))^T$.
+\begin{definition}
+For $D \geq d$, the \emph{$D$th Theta-Body Relaxation} of $(\cP,\cO,\phi)$ is an SDP relaxation for $\cM = (\cS, \cF)$ consisting of: 
+\begin{itemize}
+\item Semidefinite program: $\widehat{p} \cdot X = 0$ for every $p \in \gen{\cP}$ of degree at most $2D$, $\widehat{1} \cdot X = 1$, and $X \succeq 0$.
+\item Feasible solutions: $X^s = \Mbasis(\phi(s))(\Mbasis(\phi(s)))^T$.
+\item Affine objective functions: $w^o(X) = \widehat{o} \cdot X$.
+\end{itemize}
+\end{definition}
+This definition of the Theta Body Relaxation makes it obvious that it is an SDP relaxation for $\cM$, but we will frequently find it more convenient to work with the dual SDP. Working with the dual exposes the connection between SDP relaxations and polynomial proof systems.
+\begin{lemma}
+The dual of the Theta Body SDP Relaxation with objective function $\widehat{o}$ is $\min c$ subject to $c - o(x)$ is $2D$-SOS modulo $\gen{\cP}$.
+\end{lemma}
+\begin{proof}
+By TODO: CITE PRELIM, the dual is
+\[\begin{tabular}{ll} $\min y_1$ & subject to \\ $\widehat{1}y_1 - \widehat{o} = \widehat{s} + \sum_{p \in \gen{\cP}} \widehat{p}y_p$ \\ $\widehat{s} \succeq 0$\end{tabular}.\]
+The constraint of the dual is a constraint on matrices, but we can also think of it as a constraint on degree $2D$ polynomials via the map $\widehat{p} \leftrightarrow p$. Because $\widehat{s} \succeq 0$, $\widehat{s}$ is a sum-of-squares polynomial. Thus this constraint is equivalent to asking that the polynomial $c - o(x)$ be $2D$-SOS modulo $\gen{\cP}$.
+\end{proof}
+
+TODO: PROPERTIES OF THETA-BODY, LIKE CONVERGENCE AFTER N STEPS, AND OTHER STUFF. THETA BODY DEPENDS ONLY ON $\gen{\cP}$ AND NOT $\cP$.
+
+When the polynomial formulation contains inequality constraints, there is a different hierarchy of SDP relaxations one can define. Its ability to handle inequality constraints has made it an extremely popular choice for approximately solving many combinatorial or polynomial optimization problems.
+\begin{definition}
+Let $(\cP, \cQ, \cO, \phi)$ be a degree-$d$ polynomial formulation for $\cM = (\cS, \cF)$, and let $\cQ = \{q_1, \dots, q_k\}$. For $D \geq d$, the \emph{$D$th Lasserre Relaxation} or \emph{$D$th Sum-of-Squares Relaxation (SoS)} is an SDP relaxation for $\cM$ consisting of:
+\begin{itemize}
+\item Semidefinite program: $X = \diag{X_1, X_{q_1}, X_{q_2}, \dots, X_{q_k}}$. We include the constraints $(X_{q_i})_{UV} = X_1 \cdot \widehat{q_ix_Ux_V}$. This means if $X_1 = \widehat{p}$ for some polynomial $p$, then $X_{q_i} = \widehat{q_ip}$. For every $p \in \cP$ and polynomial $\lambda$ such that $\lambda p$ has degree at most $2d$, we have the constraint $\widehat{\lambda p} \cdot X_1 = 0$. Finally, we have $\widehat{1} \cdot X_1 = 1$ and $X \succeq 0$.
+\item Feasible solutions: Let $X_0^s = \Mbasis(\phi(s))(\Mbasis(\phi(s)))^T$ and $X_i^s = X_0^s q_i(s)$. Then let
+\[X^s = \diag{X_0^s, X_1^s,\dots,X_k^s}.\]
+\item Affine objective functions: $w^o(X) = \widehat{o} \cdot X_1$.
+\end{itemize}
+\end{definition}
+Once again, we will find it much more convenient to work with the dual to make the connections to polynomial proof systems more explicit.
+\begin{lemma}
+The dual of the degree $2D$ Sum-of-Squares SDP Relaxation with objective function $\widehat{o}$ is $\min c$ subject to $c - o(x)$ has a degree $2D$ PC$_>$ proof of nonnegativity from $\cP$ and $\cQ$.
+\end{lemma}
+\begin{proof}
+By TODO: CITE PRELIM, the dual of the SoS relaxation is $\min y_1$ subject to
+\begin{align*}
+\diag{\widehat{1}y_1,0,\dots,0} - \diag{\widehat{o},0,\dots,0} = \widehat{s} &+ \sum_{\substack{p \in \gen{\cP} \\ \lambda}} \diag{\widehat{\lambda p},0,\dots,0} y_{\lambda p} +\\
+&+ \sum_{\substack{i \in [k] \\ U,V}} \diag{\widehat{q_ix_Ux_V},0,\dots,0,\widehat{-x_Ux_V},0,\dots,0}y_{iUV}
+\end{align*}
+where in the last sum the second nonzero diagonal is in the $i$th place. Clearly $\widehat{s}$ must be block-diagonal since everything else is block-diagonal. Furthermore, we know that the $i$th block of $\widehat{s}$ is equal to $\sum_{UV} \widehat{x_Ux_V}y_{iUV}$ since the LHS is zero in every block but the first. Since $S \succeq 0$, this block must also be PSD, and thus must correspond to a sum-of-squares polynomial $s_i$. The constraint on the first block is then 
+\[\widehat{1}y_1 - \widehat{o} = \widehat{s_1} + \sum_{\substack{p \in \gen{\cP} \\ \lambda}} \widehat{\lambda p} y_{\lambda p} + \sum_{i=1}^k \widehat{s_i q_i}.\] 
+As a constraint on polynomials, this simply reads that $y_1 - o(x)$ must have a degree $2D$ PC$_>$ proof of nonnegativity from $\cP$ and $\cQ$. 
+\end{proof}
+
+\subsection{Relations Between Theta Body and Lasserre Relaxations}
+Here we compare and contrast the two different relaxations. Let $(\cP, \cO, \phi)$ be a polynomial formulation for $\cM$. Let $v_T^D(o)$ and $v_L^D(o)$ denote the values of the $D$th Theta Body and $D$th Lasserre relaxations of $(\cP, \cO, \phi)$ on $o(x)$ respectively.
+\begin{lemma}
+$v_T^D(o) \leq v_L^D(o)$.
+\end{lemma}
+\begin{proof}
+The lemma is obvious since every constraint of the Lasserre relaxation is present in the Theta Body relaxation, but not necessarily vice-versa.
+\end{proof}
+We can also prove a partial converse in some cases:
+\begin{proposition}\label{prop:tb_to_sos}
+If $\cP$ is $k$-effective, then $v_L^{kD}(o) \leq v_T^D(o)$.
+\end{proposition}
+\begin{proof}
+We use the dual formulation for the Theta Body Relaxation to conclude that $v_T^D(o) - o(x) = s(x) + g(x)$ for some sum-of-squares polynomial $s$ and polynomial $g \in \gen{\cP}$, both of degree at most $2D$. Because $\cP$ is $k$-effective, $g$ has a degree $2kD$ derivation $g(x) = \sum_{p \in \cP} \lambda_p p$. Thus there is a degree $2kD$ polynomial identity $v_T^D(o) - o(x) = s(x) + \sum_{p \in \cP} \lambda_p p$. By the definition of $v_L^{kD}(o)$, we must have $v_L^{kD}(o) \leq v_T^D(o)$.
+\end{proof}
+\begin{example}
+For \textsc{CSP}, $\cP = \{x_i^2 - 1 | i \in [n]\}$, and by \prettyref{lem:TODO}, $\cP$ is $1$-effective. Thus the $D$th Theta Body and Lasserre Relaxations are identical in this case.
+\end{example}
+\prettyref{prop:tb_to_sos} allows us to translate results about the Theta Body relaxations to Lasserre relaxations. In particular, in \prettyref{sec:symmetric_sdps} we will see how easy it is prove that Theta Body relaxations are optimal among symmetric relaxations of a given size. If the constraints are effective, this allows us to conclude that Lasserre relaxations which are not too much larger are just as good. This allows us to lower bound the size of \emph{any} symmetric SDP relaxation by finding lower bounds for Lasserre relaxations. 
 
 \section{Polynomial Proof Systems}
 A polynomial proof system is a set of rules through which one derives facts about potentially very complicated polynomials given base assumptions about simpler polynomials. For example, say our goal is to prove that some polynomial $r$ is zero on some set of points $S$. Maybe we already have a set of polynomials $\{p_i\}$ which we know are zero on $S$. One natural way of proving that $r$ is zero is to express $r$ as a combination of the polynomials $\cP = \{p_i\}$, i.e. find an identity $r = \sum_i \lambda_i \cdot p_i$ for some polynomial multipliers $\lambda_i$. EXPLAIN MORE LATER
