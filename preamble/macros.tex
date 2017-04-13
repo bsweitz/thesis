@@ -71,6 +71,8 @@
 \newrefformat{relax}{\savehyperref{#1}{Relaxation~\ref*{#1}}}
 \newrefformat{red}{\savehyperref{#1}{Reduction~\ref*{#1}}}
 \newrefformat{part}{\savehyperref{#1}{Part~\ref*{#1}}}
+\newrefformat{ex}{\savehyperref{#1}{Example~\ref*{#1}}}
+
 
 % {{{ mathtools }}}
 \usepackage{mathtools}
@@ -210,3 +212,7 @@
 \newcommand{\mbasis}{\mathbf{x^{\otimes d}}}
 \newcommand{\Iprod}[1]{\left\langle#1\right\rangle}
 \newcommand{\Mbasis}{\mathbf{x^{\otimes D}}}
+
+\newcommand{\matching}{\left\{x_{ij}^2 - x_{ij} | i,j \in [n]\right\} \cup \left\{\sum_i x_{ij} - 1 | j \in [n]\right\} \cup \left\{x_{ij}x_{ik} | i,j,k \in [n]\right\}}
+\newcommand{\tsp}{\left\{x_{ij}^2 - x_{ij} | i,j \in [n]\right\} \cup \left\{\sum_i x_{ij} - 1 | j \in [n]\right\} \cup \left\{x_{ij}x_{ik}, x_{ji}x_{ki} | i,j,k \in [n]\right\}}
+\newcommand{\bcsp}{\left\{x_i^2 - x_i | i \in [n]\right\} \cup \left\{\sum_{i=1}^n x_i - c\right\}}

@@ -138,19 +138,21 @@ As a constraint on polynomials, this simply reads that $y_1 - o(x)$ must have a 
 \end{proof}
 
 \subsection{Relations Between Theta Body and Lasserre Relaxations}
-Here we compare and contrast the two different relaxations. Let $(\cP, \cO, \phi)$ be a polynomial formulation for $\cM$. Let $v_T^D(o)$ and $v_L^D(o)$ denote the values of the $D$th Theta Body and $D$th Lasserre relaxations of $(\cP, \cO, \phi)$ on $o(x)$ respectively.
+Here we compare and contrast the two different relaxations. Let $(\cP, \cO, \phi)$ be a polynomial formulation for $\cM = (\cS, \cF)$. 
 \begin{lemma}
-$v_T^D(o) \leq v_L^D(o)$.
+If the $D$th Lasserre relaxation achieves $(C,S)$ approximation of $\cM$, then the $D$th Theta Body relaxation does as well. 
 \end{lemma}
 \begin{proof}
-The lemma is obvious since every constraint of the Lasserre relaxation is present in the Theta Body relaxation, but not necessarily vice-versa.
+The lemma follows immediately by noticing that any degree $2D$ PC$_>$ proof of nonnegativity from $\cP$ for a polynomial $r(x)$ implies that $r(x)$ is $2D$-SOS modulo $\gen{\cP}$. 
 \end{proof}
 We can also prove a partial converse in some cases:
 \begin{proposition}\label{prop:tb_to_sos}
-If $\cP$ is $k$-effective, then $v_L^{kD}(o) \leq v_T^D(o)$.
+If $\cP$ is $k$-effective and the $D$th Theta Body relaxation achieves $(C,S)$ approximation of $\cM$, then the $kD$th Lasserre relaxation does as well.
 \end{proposition}
 \begin{proof}
-We use the dual formulation for the Theta Body Relaxation to conclude that $v_T^D(o) - o(x) = s(x) + g(x)$ for some sum-of-squares polynomial $s$ and polynomial $g \in \gen{\cP}$, both of degree at most $2D$. Because $\cP$ is $k$-effective, $g$ has a degree $2kD$ derivation $g(x) = \sum_{p \in \cP} \lambda_p p$. Thus there is a degree $2kD$ polynomial identity $v_T^D(o) - o(x) = s(x) + \sum_{p \in \cP} \lambda_p p$. By the definition of $v_L^{kD}(o)$, we must have $v_L^{kD}(o) \leq v_T^D(o)$.
+Because the Theta Body relaxation is a $(C,S)$-approximation of $\cM$, we have that, for every $f \in \cF$ with $\max f \leq S(f)$, there exists a number $c_f \leq C(f)$ such that $c_f - o^f(x)$ is $2D$-SOS modulo $\gen{\cP}$. In other words, there is a polynomial identity $c_f - o^f(x) = s(x) + g(x)$, where $s$ is an SOS polynomial and $g \in \gen{\cP}$. Because $\cP$ is $k$-effective, $g$ has a degree $2kD$ derivation from $\cP$, so we have a polynomial identity
+\[c_f - o^f(x) = s(x) + \sum_{p \in \cP} \lambda_p(x)p(x).\]
+This implies that $(c_f, s, \lambda_p)$ are feasible solutions for the $kD$th Lasserre relaxation, and since $c_f \leq C(f)$, it achieves a $(C,S)$-approximation.
 \end{proof}
 \begin{example}
 For \textsc{CSP}, $\cP = \{x_i^2 - 1 | i \in [n]\}$, and by \prettyref{lem:TODO}, $\cP$ is $1$-effective. Thus the $D$th Theta Body and Lasserre Relaxations are identical in this case.
