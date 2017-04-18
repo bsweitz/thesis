@@ -46,6 +46,26 @@ Let $\cP,\cQ$ be any set of polynomials in $\R[x_1,\dots,x_n]$, and let $S$ be a
 \end{itemize}
 \end{definition}
 
+\begin{definition}\label{def:grobner}
+Let $\succ$ be an ordering on monomials such that if $x_U \succ x_V$ then $x_Ux_W \succ x_Vx_W$. We say that $\cP$ is a \emph{Gr\"obner Basis} for $\gen{\cP}$ (with respect to $\succ$) if, for every $r \in \gen{\cP}$, there exists a $p \in \cP$ such that the leading term of $r$ is divisble by the leading term of $p$.
+\end{definition}
+\begin{example}\label{ex:grobner}
+Consider the polynomials on $n$ variables $x_1,\dots,x_n$ and let $\succ$ be the degree-lexicographic ordering, so that $x_U \succ x_V$ if the vector of degrees of $x_U$ is larger than the vector of $x_V$ in the lexicographic ordering. Then $\cP = \csp$ is a Gr\"obner Basis. The proof is in the proof of \prettyref{cor:csp-effective}.
+\end{example}
+If $\cP$ is a Gr\"obner basis, then it completely explains $\gen{\cP}$ in the sense that it is possible to define a multivariate division algorithm for $\gen{\cP}$ with respect to $\cP$. 
+\begin{definition}
+Let $\succ$ be an ordering of monomials such that if $x_U \succ x_V$ then $x_Ux_W \succ x_Vx_W$. We say a polynomial $q$ is \emph{reducible} by a set of polynomials $\cP$ if there exists a $p \in \cP$ such that any term of $q$, $c_Qx_Q$, is divisble by the \emph{leading} term of $p$, $c_Px_P$. Then a \emph{reduction} of $q$ by $\cP$ is $q - \frac{c_Q}{c_P}x_{Q \setminus P}p$. We say that a \emph{total reduction} of $q$ by $\cP$ is a polynomial obtained by iteratively applying reductions until we reach a polynomial which is not reducible by $\cP$. 
+\end{definition}
+In general the complete reductions of a polynomial $q$ by a set of polynomials $\cP$ is not unique and depends on which polynomials one chooses from $\cP$ to reduce by, and in what order. So it does not make much sense to call this a division algorithm since there is not a unique remainder. However, when $\cP$ is a Gr\"obner basis, we can call it division.
+\begin{proposition}\label{prop:grobner-unique}
+Let $\cP$ be a Gr\"obner basis for $\gen{\cP}$ with respect to $\succ$. Then for any polynomial $q$, there is a unique total reduction of $q$ by $\cP$. In particular if $q \in \gen{\cP}$, then the total reduction of $q$ by $\cP$ is $0$. The converse is also true, so if $\cP$ is a set of polynomials such that any polynomial $q \in \gen{\cP}$ has unique total reduction by $\cP$ equal to $0$, then $\cP$ is a Gr\"obner basis. 
+\end{proposition}
+\begin{proof}
+When we reduce a polynomial $q$ by $\cP$, the resulting polynomial does not contain one term of $q$, and since it was canceled with a multiple of the leading term of a polynomial $p$, no higher monomials were introduced. Thus as we apply reduction, the position of the terms of $q$ monotonically decrease. This has to terminate at some point, so there is a remainder $r$ which is not reducible by $\cP$. To prove that $r$ is unique, first notice that the result of total reduction is a polynomial identity $q = p + r$, where $p \in \gen{\cP}$ and $r$ is not reducible by $\cP$. If there are multiple remainders $q = p_1 + r_1$ and $q = p_2 + r_2$, then clearly $r_1 - r_2 = p_2 - p_1 \in \gen{\cP}$. By the definition of Gr\"obner Basis, $r_1 - r_2$ must have its leading term divisble by the leading term of some $p \in \cP$. But the leading term of $r_1 - r_2$ must come from either $r_1$ or $r_2$, neither of which contain terms divisble by leading terms of any polynomial in $\cP$. Thus $r_1 - r_2 = 0$.
+
+For the converse, let $q \in \gen{\cP}$, and note again that any reduction of $q$ by a polynomial in $\cP$ does not include higher monomials than the one canceled. Since the only total reduction of $q$ is $0$, its leading term has to be canceled eventually, so it must be divisible by the leading term of some polynomial in $\cP$.
+\end{proof}
+
 \subsection{Testing Zero Polynomials}
 
 This section discusses how to certify that a polynomial $r(x)$ is zero on all of some set $S$. Later in \prettyref{cha:symmetric_sdps} we will see that this can be used to show that a specific SDP relaxation achieves the best approximation among small, symmetric SDP relaxations. 
@@ -107,9 +127,32 @@ If $\cQ = \emptyset$ and both $r(x)$ and $-r(x)$ have PC$_>$ proofs of nonnegati
 
 If $r$ has a PC$_>$ proof of nonnegativity from $\cP$ and $\cQ$, then $r$ is nonnegative on $S = V(\cP) \cap H(\cQ)$. This can be seen by noticing that the first two terms in the proof are nonnegative because they are sums of products of polynomials which are nonnegative on $S$, and the final term is of course zero on $S$ because it is in $\gen{\cP}$. 
 
-The problem of finding a degree-$d$ proof of nonnegativity can be expressed as a semidefinite program of size $d|\cQ|$ since a polynomial is SOS if and only if its matrix of coefficients is PSD. Then the Ellipsoid Alogorithm can be used to find a degree-$d$ proof of nonnegativity $\Pi$ in time polynomial in $\|r\|, \|\cP\|, \|\cQ\|, n^{d|\cQ|}$, and $\|\Pi\|$. This quantity $\|\Pi\|$ is worrisome; it is not part of the input unlike $\cP$ and $\cQ$, and \emph{a priori} we have no way to bound its size. \prettyref{cha:bit_complexity} explores some of the first techniques to bound $\|\Pi\|$.
+The problem of finding a degree-$d$ proof of nonnegativity can be expressed as a semidefinite program of size $d|\cQ|$ since a polynomial is SOS if and only if its matrix of coefficients is PSD. Then the Ellipsoid Alogorithm can be used to find a degree-$d$ proof of nonnegativity $\Pi$ in time polynomial in $\|r\|, \|\cP\|, \|\cQ\|, n^{d|\cQ|}$, and $\|\Pi\|$. The quantity $\|\Pi\|$ is worrisome; it is not part of the input unlike $\cP$ and $\cQ$, and \emph{a priori} we have no way to bound its size. One way to certify a proof of bounded norm is of course to simply exhibit one. If we suspect there are no proofs with small norm, there are also certificates we can find:
+\begin{lemma}\label{lem:prelim_dual_cert}
+Let $\cP$ and $\cQ$ be sets of polynomials and $r(x)$ be a polynomial. Pick any $p^* \in \cP$. If there exists a linear functional $\phi: \R[x_1,\dots,x_n] \rightarrow \R$ such that 
+\begin{enumerate}
+\item[(1)] $\phi[r] = -\epsilon < 0$,
+\item[(2)] $\phi[\lambda p] = 0$ for every $p \in \cP$ except $p^*$ and $\lambda$ such that $\deg \lambda p \leq 2d$,
+\item[(3)] $\phi[s^2q] \geq 0$ for every $q \in \cQ$ and polynomial $s$ such that $\deg s^2q \leq 2d$,
+\item[(4)] $\phi[s^2] \geq 0$ for every polynomial $s$ such that $\deg s^2 \leq 2d$,
+\item[(5)] $|\phi[\lambda p^*]| \leq \delta \|\lambda\|$ for every $\lambda$ such that $\deg \lambda p^* \leq 2d$,
+\end{enumerate}
+then every degree $d$ PC$_>$ proof of nonnegativity $\Pi$ for $r$ from $\cP$ and $\cQ$ has $\|\Pi\| \geq \frac{\epsilon}{\delta}$.
+\end{lemma}
+\begin{proof}
+The proof is very simple. Any degree $d$ proof of nonnegativity for $r$ is a polynomial identity
+\[r(x) = s(x) + \sum_{q \in \cQ} s_q(x)\cdot q(x) + \sum_{\substack{p \in \cP \\ p \neq p^*}} \lambda_p(x) \cdot p(x) + \lambda^*(x) \cdot p^*(x)\]
+with polynomial degrees appropriately bounded. If we apply $\phi$ to both sides, we have 
+\begin{align*}
+-\epsilon = \phi[r] &= \phi[s] + \sum_{q \in \cQ} \phi[s_qq] + \sum_{\substack{p \in \cP \\ p \neq p^*}} \phi[\lambda_p p] + \phi[\lambda^*p] \\
+&= a_1 + a_2 + 0 + \phi[\lambda^* p^*],
+\end{align*}
+where $a_1,a_2 \geq 0$ by properties (3) and (4) of $\phi$. Thus $\phi[\lambda^* p^*] \leq -\epsilon$, but by property (5), we must have $\|\lambda^*\| \geq \frac{\epsilon}{\delta}$, and thus $\|\Pi\|$ is at least this much as well.
+\end{proof}
+Strong duality actually implies that the converse of \prettyref{lem:prelim_dual_cert} is true as well (clever readers will notice that $\phi$ is a feasible solution to the dual of the SDP that finds degree $d$ PC$_>$ proofs), but as we only need this direction in this thesis we omit the proof of the converse. In
+\prettyref{cha:bit_complexity} we further explore the problem of finding PC$_>$ proofs of bounded norm. We present some of the first theory for finding proofs of bounded norm, and we paint a promising picture for many relevant sets $\cP$ and $\cQ$.
 
-\section{Combinatorial Maximization Problems}
+\section{Combinatorial Optimization Problems}\label{sec:prelims_comb_opt}
 We define maximization problems here, but it is clear that the definition extends easily to minimization problems as well.
 \begin{definition}
 An \emph{combinatorial maximization problem} \(\cM = (\cS, \cF)\)
@@ -139,7 +182,7 @@ For a problem $\cM = (\cS, \cF)$ and approximation guarantees $C,S$, the \emph{$
 \end{definition}
 The slack matrix encodes the combinatorial properties of $\cM$, and we will see in the next section that certain propreties of the slack matrix correspond to the existence of specific algorithms to $(C,S)$-approximately solve $\cM$. In particular, in this thesis we investigate the power of SDPs as a way to solve $\cM$. 
 
-\section{SDP Relaxations for Optimization Problems}
+\section{SDP Relaxations for Optimization Problems}\label{prelims_sdp_relaxations}
 A popular method for solving combinatorial optimization problems is to formulate them as SDPs, and use the generic algorithms for solving SDPs, see for example \cite{}
 One of the main contributions of this dissertation is to prove some of the limits of this method, for example in \prettyref{cha:symmetric_sdps} we will
 that the Maximum Matching problem cannot be efficiently solved this way. To give a precise statement, we need to define SDP relaxations.
@@ -171,7 +214,7 @@ Now for any For each vertex $s$ of $P$, there is a $(x_s^+,x_s^-,z_s)$ such that
 %The Matching Polytope is an exact formulation of the Maximum Matching problem. The Matching Polytope is defined as follows for each $n \in \Z$: Let $M$ be a maximum matching of the complete graph $K_n$, and let $\chi_M \in \R^{\binom{n}{2}}$ be the characteristic vector of this matching, i.e. $(\chi_M)_{ij} = 1$ iff $(i,j) \in M$. The matching polytope is $\conv\face{\chi_M | M \text{ a matching of $K_n$}}$. To embed this in the cone of PSD matrices rather than the positive orthant, we simply take $P_n = \conv\face{\diag{\chi_M} | M \text{ a matching of $K_n$}}$. Because $P_n$ is a polytope, there is another description $P_n = \{X: \forall i: A_i(X) \leq b_i\}$. To get the same form as in our definition, TODO
 %This can be seen to be an SDP formulation by taking the feasible solutions to be $\chi_M$, the objective function $f_E$ can be expressed as $w^{f_E} = \sum_{ij \in E} x_{ij}$. The achievement guarantee is satisfied because $\max_{x \in P_n} w^{f_E}(x)$ must be achieved at a vertex, and any vertex of the polytope must be a $\chi_M$, so $\max_{x \in P_n} w^{f_E}(x) = w^{f_E}(\chi_{M^*}) = f_E(M^*) = \max_{M \in \cS} f_E(M)$. 
 \end{example}
-\begin{theorem}[Yannakakis' Factorization Theorem]
+\begin{theorem}[Yannakakis' Factorization Theorem]\label{thm:yannakakis}
 Let $\cM$ be a combinatorial optimization problem with $(C,S)$-Slack Matrix $M(s,f)$. There exists an $(C,S)$-approximate SDP relaxation of size $d$ for $\cM$ if and only if there exists $X^s,Y_f \in \psd{d}$ and $\mu_f \in \R_+$ such that $X^s \cdot Y_f + \mu_f = M(s,f)$ for each $s \in \cS $ and $f \in \cF$ with $\max_{s \in \cS} f(s) \leq S(f)$. Such $X^s$ and $Y_f$ are called a \emph{PSD factorization of size $d$}.
 \end{theorem}
 \begin{proof}

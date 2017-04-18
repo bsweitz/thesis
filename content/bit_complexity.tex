@@ -1,10 +1,10 @@
-\chapter{Bit Complexity of Sum-of-Squares Proofs}
+\chapter{Bit Complexity of Sum-of-Squares Proofs}\label{cha:bit_complexity}
 In this chapter we will show how effective derivations can be applied to prove that the Ellipsoid algorithm runs in polynomial time for many practical inputs to the Sum-of-Squares algorithm. First, we recall the Sum-of-Squares relaxation for approximate polynomial optimization. We wish to solve the following optimization problem:
 \begin{align*}
 \max r(x)\text{ subject to } \\
 \forall p \in \cP: p(x) = 0 \text{ and } \forall q \in \cQ: q(x) \geq 0.
 \end{align*}
-One natural way to try and solve this optimization problem is to guess a $\theta$ and try to prove that $\theta - r(x) \geq 0$ for all $x$ satisfying the constraints. Then we can use binary search to try and find the smallest such $\theta$. One way to try to prove this is to try and find a PC$_>$ proof of nonnegativity for $\theta - r(x)$ from $\cP$ and $\cQ$. As discussed in TODO:REF, any such proof of degree at most $d$ can be found by writing a semidefinite program of size $O(n^d)$ whose constraints use numbers of size polynomial in $\|r\|$. Solving this SDP is called the $d$th round of the Sum-of-Squares relaxation. 
+One natural way to try and solve this optimization problem is to guess a $\theta$ and try to prove that $\theta - r(x) \geq 0$ for all $x$ satisfying the constraints. Then we can use binary search to try and find the smallest such $\theta$. One way to try to prove this is to try and find a PC$_>$ proof of nonnegativity for $\theta - r(x)$ from $\cP$ and $\cQ$. As discussed in \prettyref{sec:polyproofs}, any such proof of degree at most $d$ can be found by writing a semidefinite program of size $O(n^d)$ whose constraints use numbers of size polynomial in $\|r\|$. Solving this SDP is called the $d$th round of the Sum-of-Squares relaxation. 
 
 The Ellipsoid method is commonly cited as a tool that will solve SDPs in polynomial time, and so the Sum-of-Squares relaxation can be implemented in polynomial time. Except there is a catch. As first pointed out by Ryan O'Donnell in \cite{}, the Ellipsoid algorithm actually has some technical requirements to ensure that it actually runs in polynomial time, one of which is that the feasible region of the SDP must be contained in a ball of radius $R$ centered at the origin such that $\log R$ is polynomial. The catch is that $\theta - r(x)$ may have a degree $d$ proof of nonnegativity, but that proof may have to contain coefficients of enormous size so that $\log R$ is not polynomial in $\|r\|$. Indeed, O'Donnell gave an example of a constraint system and a polynomial $r$ which had degree two proofs of nonnegativity, but all of them necessarily contained coefficients of doubly exponential size. In this chapter we develop some of the first theory on when the Sum-of-Squares relaxation for the optimization problem described by $(r, \cP,\cQ)$ is guaranteed to run in polynomial time. In other words, we show how to use effective derivations to argue that the bit complexity of proofs of nonnegativity is polynomially bounded. 
 
@@ -28,13 +28,10 @@ For a set $S$, we define the \emph{$S$-moment matrix up to level $d$}:
 Clearly $M_{S,d}$ is a PSD matrix, and furthermore it encodes a lot of information about the set $S$. For example, if we let $c \in \R^{\binom{n+d-1}{d}}$, then $c$ corresponds to the polynomial $\tilde{c}(x) = c^T\mbasis$, and then $c^TM_{S,d}c = \E_{\alpha \in S}\left[\tilde{c}(\alpha)^2\right]$.
 In particular, if $c$ is a zero eigenvector of $M_{S,d}$, then $\tilde{c}(x)$ is zero on all of $S$. 
 More generally, the eigenvalues of $M_{S,d}$ relate the size of the coefficients of a polynomial to its magnitude on $S$. 
-The second condition we require is that the size of the coefficients of a polynomial and the size of its evaluations on the solution space to $\cP$ be of a comparable magnitude.
 \begin{definition}
 We say that $S \subseteq V(\cP)$ is \emph{$\delta$-spectrally rich up to degree $d$} if every nonzero eigenvalue of $M_{S,d}$ is at least $\delta$. 
 \end{definition}
-TODO: EXAMPLES?
-
-The previous condition can be thought of as ensuring that the polynomials which are not zero on $S$ are simple, or bounded in some way. What about the polynomials that are zero on $S$? We need to ensure that those are bounded as well. The final condition should come as no surprise, indeed it is the main topic of this dissertation. 
+If $S$ is $\delta$-spectrally rich up to degree $d$ and $p$ is an arbitrary polynomial of degree at most $d$, then there exists a polynomial $p'$ such that $p'(\alpha) = p(\alpha)$ for each $\alpha \in S$ and $\|p'\| \leq \frac{1}{\delta} \max_\alpha |p'(\alpha)|$. Thus spectral richness can be thought of as ensuring that the polynomials which are not zero on all of $S$ can be bounded. What about the polynomials that are zero on $S$? We need to ensure that those are bounded as well. The final condition should come as no surprise, indeed it is the main topic of this dissertation. 
 \begin{definition}
 Let $S \subseteq V(\cP)$. We say that $\cP$ is \emph{$k$-complete for $S$ up to degree $d$} if, for every zero eigenvector $c$ of $M_{S,d}$, the degree $d$ polynomial $\tilde{c}(x) = c^T\mbasis$ has a derivation from $\cP$ in degree $k$.
 \end{definition}
@@ -63,17 +60,16 @@ Armed with all of these definitions, we can finally formally state the main resu
 Let $(r, \cP, \cQ)$ admit an $(\epsilon,\delta,k)$-rich solution space $S$ up to degree $d$. Then if $r(x)$ has a PC$_>$ proof of nonnegativity from $\cP$ and $\cQ$ in degree at most $d$, it also has a PC$_>$ proof of nonnegativity from $\cP$ and $\cQ$ in degree $O(d)$ such that the coefficients of every polynomial appearing in the proof are bounded by $2^{\poly(n^k, \log \frac{1}{\delta}, \log \frac{1}{\epsilon})}$. In particular, if $S$ is rich, then every coefficient in the proof can be written with only $\poly(n^d)$ bits, and the $d$th round of the Sum-of-Squares relaxation of $(r, \cP, \cQ)$ runs in polynomial time via the Ellipsoid Algorithm.
 \end{theorem}
 
-We delay the proof of \prettyref{thm:bit_complexity-main} until \prettyref{sec:TODO}. First, we offer some discussion on the restrictiveness of each of the three requirements of richness and collect some example optimization problems which we can prove admit rich solution spaces.
+We delay the proof of \prettyref{thm:bit_complexity-main} until \prettyref{sec:bc_proof_main}. First, we offer some discussion on the restrictiveness of each of the three requirements of richness and collect some example optimization problems which admit rich solution spaces.
 
-\section{COME UP WITH A GOOD NAME}
-For this section, we will be taking $S = V(\cP) \cap H(\cQ)$ for an optimization problem $(\cP,\cQ)$. This is the most natural choice of $S$ to satisfy all of the conditions simultaneously. Here we will argue that if $S$ lies inside the hypercube $\{0,1\}^n$, then it is naturally robust and spectrally rich. Because most combinatorial optimization problems have booelean constraints, their solution spaces lie inside the hypercube. This means that the main interesting property is the completeness of $\cP$ for $S$. In particular, we will show the following lemma: TODO
+\section{How Hard is it to be Rich?}
+For this section, we will be taking $S = V(\cP) \cap H(\cQ)$ for an optimization problem $(\cP,\cQ)$. This is the most natural choice of $S$ to satisfy all of the conditions simultaneously. Here we will argue that if $S$ lies inside the hypercube $\{0,1\}^n$, then it is naturally robust and spectrally rich. Because most combinatorial optimization problems have booelean constraints, their solution spaces lie inside the hypercube. This means that the main interesting property is the completeness of $\cP$ for $S$.
 \subsection{Robust Satisfaction}
-TODO
-%How difficult is it to ensure that $S$ robustly satisfies the inequalities $\cQ$? For one, if $\epsilon = \min_{q \in \cQ} \min_{\alpha \in V(\cP) \setminus H(\cQ)} |q(\alpha)| > 0$, then we can perturb the constraints in $\cQ$ slightly without changing the underlying solution space $S$ so that $S$ $\epsilon/2$-robustly satisfies $\cQ$. Simply make $\cQ'$ by replacing each $q \in \cQ$ with $q' = q + \epsilon/2$. Clearly for $\alpha \in S$, $q'(\alpha) = q(\alpha) + \epsilon/2 \geq \epsilon/2$. Furthermore, we still have $S = V(\cP) \cap H(\cQ')$ by the definition of $\epsilon$. For many combinatorial optimization problems, their solution spaces are discrete and separated, so indeed $\epsilon > 0$ and we can use this argument without issue. 
+How difficult is it to ensure that $S$ robustly satisfies the inequalities $\cQ$? For one, if $\epsilon = \min_{q \in \cQ} \min_{\alpha \in V(\cP) \setminus H(\cQ)} |q(\alpha)| > 0$, then we can perturb the constraints in $\cQ$ slightly without changing the underlying solution space $S$ so that $S$ $\epsilon/2$-robustly satisfies $\cQ$. Simply make $\cQ'$ by replacing each $q \in \cQ$ with $q' = q + \epsilon/2$. Clearly for $\alpha \in S$, $q'(\alpha) = q(\alpha) + \epsilon/2 \geq \epsilon/2$. Furthermore, we still have $S = V(\cP) \cap H(\cQ')$ by the definition of $\epsilon$. For many combinatorial optimization problems, their solution spaces are discrete and separated, and so this $\epsilon$ is appreciably large, so there is no issue. 
 \begin{example}
 Consider the \textsc{Balanced-Separator} constraints: $\cP = \{x_i^2 - x_i | i \in [n]\}$ and $\cQ = \{2n/3 - \sum_i x_i, \sum_i x_i - n/3\}$. The solution space $S$ is the set of binary strings with between $n/3$ and $2n/3$ ones. If $n$ is divisble by $3$, then $S$ does not robustly satisfy $\cQ$, since there are strings with exactly $n/3$ ones. However there is a very simple fix by setting $\cQ' = \{2n/3 + 1/2 - \sum_i x_i, \sum_i x_i + 1/2 - n/3\}$. Then $S$ is $1/2$-robust for $\cQ'$, and since $\sum_i x_i$ is a sum of Boolean variables, any point in $V(\cP)$ changes the sum by integer numbers. Thus adding $1/2$ to the constraints does not change $V(\cP) \cap H(\cQ)$.
 \end{example}
-This argument leads us to believe that this constraint is not very restrictive and does not stop our main result from applying to many optimization problems. 
+While we do not have a generic theorem that shows most problems satisfy robust satisfaction, we have not yet encountered a situation where it was the bottleneck. The technique described above has always sufficed.
 
 \subsection{Spectral Richness}
 Recall that $S$ is $\delta$-spectrally rich if the moment matrix $M_{S,d}$ has only nonzero eigenvalues of size at least $\delta$. When $S$ lies in the hypercube, we can achieve a bound for its spectral richness using this simple lemma:
@@ -91,11 +87,12 @@ but $x$ is perpendicular to the zero eigenspace of $P^TP$. Now $P^TP$ has the sa
 \end{proof}
 As a corollary, we get:
 \begin{corollary}\label{cor:integer-rich}
-Let $\cP$ and $\cQ$ be such that $S \subseteq \{0,1\}^n$. Then $S$ is $\delta$-spectrally rich with $\frac{1}{\delta} = 2^{\poly(n^d)}$.
+Let $\cP$ and $\cQ$ be such that $S \subseteq \{0,\pm 1\}^n$. Then $S$ is $\delta$-spectrally rich with $\frac{1}{\delta} = 2^{\poly(n^d)}$.
 \end{corollary}
 \begin{proof}
-	Recall $M_{S,d} = \E_{\alpha \in S}[\mbasis(\alpha)\mbasis(\alpha)^T]$, and note that $|S| \cdot M$ is an integer matrix with entries at most $2^n$.  The result follows by applying \prettyref{lem:integer}. 
+	Recall $M_{S,d} = \E_{\alpha \in S}[\mbasis(\alpha)\mbasis(\alpha)^T]$, and note that $|S| \cdot M$ is an integer matrix with entries at most $3^n$.  The result follows by applying \prettyref{lem:integer}. 
 \end{proof}
+Most combinatorial optimization problems are inherently discrete by nature, and so their polynomial formulations can naturally be taken to have solution spaces in $\Z^n$. In this case some multiple of their moment matrices are integer matrices, and we can use \prettyref{lem:integer} to show spectral-richness. Even when not dealing with combinatorial optimization, it is possible to prove spectral richness as we will see with \textsc{Unit Vector} later. For these reasons, we consider spectral richness to be a mild condition as well.
 
 \subsection{Completeness}
 Recall that if $S = V(\cP)$, then $\cP$ being $k$-complete for $S$ up to degree $d$ is equivalent to $\cP$ being $k/d$-effective. Furthermore, it is easy to see that if there is a polynomial $p \in \gen{\cP}$ of degree $d$ which does not have a degree $k$ derivation from $\cP$, then $\cP$ cannot be complete for any subset $S \subseteq V(\cP)$. Thus in order to prove that $\cP$ is $k$-complete for some subset $S$ up to degree $d$, we \emph{must} at least prove that $\cP$ is $k/d$-effective. As we saw in \prettyref{cha:effective_derivations}, proving this is often tricky, and there is not yet any general theory for it. On the bright side, because the previous two conditions are so mild, it is often the case that completeness is the only problem to deal with before being able to conclude that the Sum-of-Squares relaxation is efficient. This fact is one of the two important applications for efficient derivations that are discussed in this thesis. Because of the lack of a general theory for effective derivations, we also lack a general theory for giving low bit complexity proofs of nonnegativity, and must prove anew on a case-by-case basis. However, in this chapter we at least compile a list of the combinatorial problems to which \prettyref{thm:bit_complexity-main} applies.
@@ -108,19 +105,20 @@ Consider the \textsc{Unit-Vector} problem with constraints $\cP = \{\sum_{i=1}^n
 \begin{proof}
 To prove spectral-richness, we note that in \cite{10.2307/2695802} the author gives an exact formula for each entry of the matrix $M_{S,d} = \int_{S} m(x)$ for any monomial $p$. The formulas imply that $(n+d)!\pi^{-n/2} M$ is an integer matrix with entries (very loosely) bounded by $(n+d)!d!2^n$. By \prettyref{lem:integer}, we conclude that $S$ is $\delta$-spectrally rich with $1/\delta = 2^{\poly(n^d)}$.
 
-To prove completeness, first we prove that $I(S) = \gen{\cP}$. TODO: SAY WHY THIS ISNT TRIVIAL? Let $p(x)$ be any degree $d$ polynomial which is zero on the unit sphere $S = V(\cP)$, and define $p_0(x) = p(x) + p(-x)$. Clearly $p_0$ is also zero on the unit sphere, with degree $k = 2\lfloor (d+1)/2 \rfloor$. Note that $p_0$ has only terms of even degree. 
+Since $\gen{\cP}$ is principal, to prove that $\cP$ is complete for $S$, all we have to do is show that $\cP$ is complete, i.e. that $I(S) = V(\cP)$. Let $p(x)$ be any degree $d$ polynomial which is zero on the unit sphere $S = V(\cP)$, and define $p_0(x) = p(x) + p(-x)$. Clearly $p_0$ is also zero on the unit sphere, with degree $k = 2\lfloor (d+1)/2 \rfloor$. Note that $p_0$ has only terms of even degree. 
 %
 Define a sequence of polynomials $\{p_i\}_{i \in \{0,\ldots, k/2\}}$ as follows.
 Define $q_i$ to be the part of $p_i$ which has degree strictly less than $k$, and let $p_{i+1} = p_i + q_i\cdot(\sum_i x_i^2 - 1)$. Then each $p_i$ is zero on the unit sphere and has no monomials of degree strictly less than $2i$. Thus $p_{k/2}$ is homogeneous of degree $k$. But then $p_{k/2}(tx) = t^kp_{k/2}(x) = 0$ for any unit vector $x$ and $t > 0$, and thus $p_{k/2}(x)$ must be the zero polynomial. This implies that $p_0$ is a multiple of $\sum_i x_i^2 - 1$, since each $p_{i+1} - p_i$ is a multiple of $\sum_i x_i^2 -1$. The same logic shows that $p(x) - p(-x)$ is also a multiple of $\sum_i x_i^2 - 1$, and thus so is $p(x)$. Now $\langle \cP\rangle$ is principal and thus $1$-effective, so $\cP$ is complete for $S$. 
 \end{proof}
 \begin{lemma}
-Consider the \textsc{Balanced Separator} problem with constraints $\cP = \{x_i^2 - x_i| i \in [n]\}$ and $\cQ = \{1/100 + 2n/3 - \sum_i x_i, 1/100 + \sum_i x_i - n/3\}$. Then $S = V(\cP) \cap H(\cQ)$ is rich for $(\cP, \cQ)$ up to degree $n/3$.
+Consider the \textsc{Balanced Separator} formulation $\cP = \{x_i^2 - x_i| i \in [n]\}$ and $\cQ = \{1/100 + 2n/3 - \sum_i x_i, 1/100 + \sum_i x_i - n/3\}$. Then $S = V(\cP) \cap H(\cQ)$ is rich for $(\cP, \cQ)$ up to degree $n/3$.
 \end{lemma}
 \begin{proof}
 First, $S$ is clearly $1/100$-robust for $\cQ$, even if $n$ is divisible by three. Second, $S \subseteq \{0,1\}^n$, so by \prettyref{cor:integer-rich} it is spectrally rich. To prove completeness, we note that $\cP$ is $1$-effective by \prettyref{cor:csp-effective}. It remains to prove that $\cQ$ does not introduce additional low-degree polynomial equalities. 
 Suppose $r$ is a polynomial that is zero on $S$.  
 Without loss of generality, we may assume that $r$ is multilinear by using the constraints $\{x_i^2 - x_i | i \in [n]\}$.
-Suppose $r$ is a non-zero multilinear polynomial which evalutes to zero on $S$, then its symmetrized version $r^* = \frac{1}{n!}\sum_{\sigma \in \cS_n} \sigma r$ must also be zero on $S$, where $\sigma$ acts by permuting the variable names. Because $r^*$ is symmetric and multilinear, it is a linear combination of the elementary symmetric polynomials $e_k(x)$. However, each $e_k(x)$ is equivalent to a univariate polynomial $q(\sum_i x_i)$ TODO: COLLECT THIS IN A LEMMA IN PRELIMS?, and thus so is $r^*$. This univariate polynomial has $n/3$ zeros since $S$ has points with $n/3$ different possible values for $\sum_i x_i$. thus $r^*$ has degree at least $n/3$, and so does $r$. Thus every non-zero multilinear polynomial that is zero on $S$ but not in $\langle \cP\rangle$, has degree at least $n/3$, and $\cP$ is $1$-complete for $S$ up to degree $n/3$.
+Suppose $r$ is a non-zero multilinear polynomial which evalutes to zero on $S$, then its symmetrized version $r^* = \frac{1}{n!}\sum_{\sigma \in \cS_n} \sigma r$ must also be zero on $S$, where $\sigma$ acts by permuting the variable names. Because $r^*$ is symmetric and multilinear, it is a linear combination of the elementary symmetric polynomials $e_k(x)$. However, a simple induction shows that there is a univariate polynomial $q_k$ of degree $k$ for each $k$ such that $e_k(x) - q_k(\sum_i x_i) \in \gen{\cP}$. In particular this implies there is a univariate polynomial $q(t)$ with $\deg q \leq = r^* = \deg r$ such that $q(\sum_i x_i)$ is zero on $S$.
+This univariate polynomial has $n/3$ zeros since $S$ has points with $n/3$ different possible values for $\sum_i x_i$. Thus $q$ has degree at least $n/3$, and so does $r$. Thus every non-zero multilinear polynomial that is zero on $S$ but not in $\langle \cP\rangle$, has degree at least $n/3$, and $\cP$ is $1$-complete for $S$ up to degree $n/3$.
 \end{proof}
 Finally, we collect all the problems discussed:
 \begin{corollary}\label{cor:examples}
@@ -140,10 +138,10 @@ For the following optimization problems, $S$ is a rich solution space up to degr
 \end{itemize}
 \end{corollary}
 \begin{proof}
-\textsc{Unit-Vector} and \textsc{Balanced Separator} were discussed above. For all the other problems, $S \subseteq \{0,1\}^n$, so by \prettyref{cor:integer-rich}, $S$ is spectrally rich. Furthermore, for these problems, $\cP$ was proven to admit effective derivations in \prettyref{cha:effective_derivations} (see \prettyref{cor:effective_list}), and $\cQ$ is empty, so $S = V(\cP)$. Thus $\cP$ is complete for $S$ up to the appropriate degree. 
+\textsc{Unit-Vector} and \textsc{Balanced Separator} were discussed above. For all the other problems, $S \subseteq \{0,\pm 1\}^n$, so by \prettyref{cor:integer-rich}, $S$ is spectrally rich. Furthermore, for these problems, $\cP$ was proven to admit effective derivations in \prettyref{cha:effective_derivations} (see \prettyref{cor:effective_list}), and $\cQ$ is empty, so $S = V(\cP)$. Thus $\cP$ is complete for $S$ up to the appropriate degree. 
 \end{proof}
 
-\section{Proof of the Main Theorem}
+\section{Proof of the Main Theorem}\label{sec:bc_proof_main}
 \begin{proof}[(Proof of \prettyref{thm:bit_complexity-main})]
 For convenience, we write $\cP = \{p_1,\dots,p_m\}$ and $\cQ = \{q_1,\dots,q_\ell\}$. We have a set $S$ which is $(\epsilon,\delta,k)$-rich for $(\cP,\cQ)$, and a degree $d$ polynomial $r(x)$ which has a PC$_>$ proof of nonnegativity from $(\cP,\cQ)$. In other words, there is a polynomial identity
 \[r(x) = \sum_{i=1}^{t_0} h_i^2 + \sum_{i=1}^\ell \left(\sum_{j=1}^{t_i} s_{ij}^2\right) q_i + \sum_{i=1}^m \lambda_i p_i.\]
@@ -203,10 +201,10 @@ To explain a little, consider the $i$th term $(A_i - B_ix_i)^2$. First notice th
 %
 Of course, the above proof involves coefficients of doubly-exponential size, which means that it will not be found by running a polynomial time version of the Ellipsoid Algorithm. Is it possible to find a proof for $\epsilon - x_1$ that does not use coefficients of such huge size?
 \begin{lemma}\label{lem:nonbool-complex}
-Let $\epsilon < 1/2$. Then any PC$_>$ proof of $\epsilon - x_1$ from $\cP$ of degree $d$ must involve polynomials of norm at least $\Omega(\frac{1}{n^d}\left(\frac{1}{2\epsilon}\right)^{2^n}$.
+Let $\epsilon < 1/2$. Then any PC$_>$ proof of $\epsilon - x_1$ from $\cP$ of degree $d$ must involve polynomials of norm at least $\Omega\left(\frac{1}{n^d}\left(\frac{1}{2\epsilon}\right)\right)^{2^n}$.
 \end{lemma}
 \begin{proof}
-We will define a linear functional $\phi: \R[X]_d \rightarrow \R$ as in TODO: CITE PRELIMS. Recall we want $\phi$ to satisfy the following:
+We will define a linear functional $\phi: \R[X]_d \rightarrow \R$ as in \prettyref{lem:prelim_dual_cert}. Recall we want $\phi$ to satisfy the following:
 \begin{enumerate}
 \item[(1)] $\phi[\epsilon - x_1] = -\epsilon$
 \item[(2)] $\phi[\sigma(x_i^2 - x_{i+1})] = 0$ for any $i \leq n-1$ and $\sigma$ of degree at most $d-2$
@@ -254,7 +252,7 @@ The lemma is equivalent to claiming that the infeasibility of the Knapsack syste
 Let $r = \epsilon - \left(\sum_j w_{ij} - k\right)$ and $\epsilon < 1/2$. Then any degree $Ck$ PC$_>$ proof of nonnegativity for $r$ from $\cP$ contains a polynomial of norm at least $\Omega\left(\frac{1}{(nk)^d} \cdot \left(\frac{1}{2\epsilon}\right)^{2^n}\right)$.
 \end{lemma}
 \begin{proof}
-Let $d \leq Ck$, $W_i = \{w_{i1}, w_{i2}, \dots, w_{i,2k}\}$, and $W = \bigcup_i W_i$. We will use $\sigma(W)$ to denote an arbitrary monomial, and $\sigma_1(W_1),\dots,\sigma_n(W_n)$ to be the monomials whose product is $\sigma$. We will use $\lambda$ to denote an arbitrary polynomial. We will define a linear functional satisfying the requirements of TODO: CITE PRELIMS, which will prove the theorem. Define a linear functional $\Phi: \R[W_1,W_2,\dots,W_n]_d \rightarrow \R$ by linearly extending its action on monomials the monomial $\sigma$:
+Let $d \leq Ck$, $W_i = \{w_{i1}, w_{i2}, \dots, w_{i,2k}\}$, and $W = \bigcup_i W_i$. We will use $\sigma(W)$ to denote an arbitrary monomial, and $\sigma_1(W_1),\dots,\sigma_n(W_n)$ to be the monomials whose product is $\sigma$. We will use $\lambda$ to denote an arbitrary polynomial. We will define a linear functional satisfying the requirements of \prettyref{lem:prelim_dual_cert}, which will prove the theorem. Define a linear functional $\Phi: \R[W_1,W_2,\dots,W_n]_d \rightarrow \R$ by linearly extending its action on monomials the monomial $\sigma$:
 \[\Phi[\sigma] = \phi_1(\sigma_1)\phi_2(\sigma_2)\dots\phi_n(\sigma_n),\]
 where each $\phi_i$ is the linear function $\phi_{(2\epsilon)^{2^{i-1}}}$ guaranteed to exist by \prettyref{lem:knapsack-pd}.
 
