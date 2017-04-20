@@ -1,4 +1,4 @@
-\chapter{Introduction}
+\chapter{Introduction}\label{cha:introduction}
 Combinatorial optimization problems have been intensely studied by mathematicians and computer scientists for many years.
 Here we mean any computational task which involves maximizing a function over some discrete set of feasible solutions, with the admissible functions and solutions changing depending on what the task is. 
 Here are a few examples of problems which will appear again throughout this thesis:
@@ -26,10 +26,12 @@ Given an instance of \text{TSP}, i.e. distance function $d: [n] \times [n] \righ
 and the function $f = \sum_{ij} x_{ij}$ is a convex relaxation for \textsc{TSP}. In fact, when $d$ is symmetric, $\min_K f$ is at least $2/3$ the true minimum. 
 \end{example}
 
+In this thesis we will consider a particular kind of convex relaxation, called a semidefinite program (SDP). In an SDP, the relaxed body is the intersection of an affine plane with the cone of positive semidefinite matrices. It is easy to tell when a matrix does not lie in this body (just compute its eigenvalues), so the Ellipsoid Algorithm\cite{} can be used to efficiently optimize a convex function ovre this body. SDPs first appeared in \cite{lovasz} as a way to solve the \textsc{Clique} problem. The work of \cite{GW} catapaulted SDPs to the cutting edge of research when they used them to get a nontrivial approximation for the \textsc{Max Cut} problem. Since then SDPs have seen a huge amount of success in the approximation world \cite{}, which of course has also prompted plenty of work on lower bounds against them \cite{}. 
+
 %Even with a convex relaxation which is a good approximation, we still do not really have an approximation algorithm because we need a way to return an actual feasible combinatorial solution with good value. The second piece of the puzzle is called a rounding scheme, which is a function that takes one of the feasible points in the convex relaxation and takes it to one of the combinatorial solutions. The rounding scheme should be structured in such a way that the value of its output should not be too far from the value of its input. With this, we can round the value of the relaxation to a value for the combinatorial optimization problem. Rounding schemes are generally very nontrivial and developing them is a very interesting problem in its own right. The reader 
 
 \section{Sum-of-Squares Relaxations}
-There is a particular family of convex relaxation which has received a large amount of attention recently as a promising tool for approximation algorithms. Called the Sum-of-Squares (SOS) or Lasserre relaxations, they first appeared in TODO\cite{}. They have recently been used in a huge number of different algorithms, for example in TODO \cite{}. There have even been rumblings of hope that the SOS relaxations could represent a single algorithm which achieves optimal approximation guarantees for many, seemingly unrelated problems \cite{barak,steurer}. We give a brief description of the SOS relaxations here and give a more precise definition in \prettyref{sec:polyforms}. 
+There is a particular family of SDP relaxations which has received a large amount of attention recently as a promising tool for approximation algorithms. Called the Sum-of-Squares (SOS) or Lasserre relaxations, they first appeared in TODO\cite{}. They have recently been used in a huge number of different algorithms, for example in TODO \cite{}. There have even been rumblings of hope that the SOS relaxations could represent a single algorithm which achieves optimal approximation guarantees for many, seemingly unrelated problems \cite{barak,steurer}. We give a brief description of the SOS relaxations here and give a more precise definition in \prettyref{sec:polyforms}. 
 
 We consider a polynomial embedding of a combinatorial optimization problem, i.e. there are sets of polynomials $\cP$ and $\cQ$ such that solving
 \begin{align*}
@@ -38,7 +40,7 @@ We consider a polynomial embedding of a combinatorial optimization problem, i.e.
 &q(x) \geq 0, \forall q \in \cQ
 \end{align*}
 is equivalent to solving the original combinatorial problem. This is not unusual, and indeed every combinatorial optimization problem has such an embedding because quadratic optimization is \np-hard \cite{}. One way to solve such an optimization problem is to pick some $\theta$ and check if $\theta - r(x)$ is nonnegative on the feasible points. If we can do this, then by binary search we can the maximum of $r$ quickly. But how are we going to check if $\theta - r(x)$ is nonnegative? The SOS relaxations attempt to express $\theta - r(x)$ as a sum-of-squares polynomial, modulo the constraints of the problem. In other words, it tries to find a polynomial identity of the form
-\[\theta - r(x) = \sum_i s_i^2(x) + \sum_{q \in \cQ} \left(\sum_j s_{qj}^2(x)\right)q(x) + \sum_{p\in\cP} \lambda_p(x)p(x)\label{eq:intro_sos_proof}]
+\[\theta - r(x) = \sum_i s_i^2(x) + \sum_{q \in \cQ} \left(\sum_j s_{qj}^2(x)\right)q(x) + \sum_{p\in\cP} \lambda_p(x)p(x)\label{eq:intro_sos_proof}\]
 for some polynomials $\{s_i\}, \{s_{qj}\}, \{\lambda_p\}$. 
 We call such an identity an SOS proof of nonnegativity for $\theta - r(x)$.
 If such an identity exists, then certainly $\theta - r(x)$ is nonnegative on any $x$ satisfying the constraints. Looking for \emph{any} such identity would be intractable, so the $d$th SOS relaxation checks for the existence of such an identity that uses only polynomials up to degree $d$. The existence of a degree $d$ identity is then equivalent to the feasibility of a certain SDP of size $O(n^d)$ (see \prettyref{sec:polyforms} for specifics), which we call the $d$th SOS relaxation.
@@ -73,12 +75,40 @@ There has been a good amount of work in this area, for example \cite{grigoriev} 
 One more question to ask, whose answer we will explore in this dissertation, is "Is it possible to improve the approximation by using a different SDP relaxation?"
 Given the popularity of the SOS relaxations, there has been a good amount of effort to show that the answer is no; the SOS relaxations provide the best approximation among SDPs of a comparable size \cite{lee and stuff}. We will explore a slightly more restricted setting, where the other SDP relaxations we consider must be symmetric in some sense, i.e. respect the natural symmetries of the corresponding combinatorial optimization problem. In this setting, we will show that the SOS relaxation is optimal for a few different problems, including \textsc{Matching}. Readers who have been paying attention will notice that this implies a general symmetric SDP lower bound for \textsc{Matching}, thanks to \cite{grigoriev}. 
 
-
 \section{Polynomial Ideal Membership}
+
+The polynomial ideal membership problem is the following computational task:
+Given a set of polynomials $\cP = \{p_1,\dots,p_n\}$ and a polynomial $p$, we want to determine if $p$ is in the ideal generated by $\cP$ or not, denoted $\gen{\cP}$. 
+This problem was first discussed by Hilbert \cite{}, but its computational complexity was not considered until \cite{}. 
+In general, the problem is horrendously difficult, namely \expspace-hard. 
+However, we will be studying this problem for the very special instances that correspond to common combinatorial optimization problems and its applications to the SOS relaxations. 
+
+For example, to see one way ideal membership relates to SOS relaxations, imagine we are given a set of polynomials $\{s_i\}, p$ which are claimed to form a slightly different kind of proof that $r$ is nonnegative on the zeros of $\cP$: the polynomial identity
+\begin{align}
+r = \sum_i s_i^2 + p,
+\end{align}
+and it is claimed that $p \in \gen{\cP}$. Clearly this implies that $r$ is nonnegative on the zeros of $\cP$, but how do we verify such a proof? Checking the identity is trivial, but we must also check that $p \in \gen{\cP}$.  
+This exact situation will come up later in the dissertation, because a different SDP relaxation, called the Theta Body, certifies nonnegativity of polynomials via low-degree certificates of this type. 
+For the SOS relaxation to perform as well as this SDP, it needs to be able to solve the ideal membership problem, at least for low-degree polynomials. 
+
+Clearly if $p \in \gen{\cP}$, there is a set of polynomials $\lambda_1, \dots, \lambda_n$ such that 
+\[p = \sum_i \lambda_i p_i.\]
+Moreover, if $\max_i \deg \lambda_ip_i \leq k\deg p$, then any Theta Body proof of degree $d$ can be translated into an SOS proof of degree $kd$. 
+If every polynomial in $\gen{\cP}$ has such a set of polynomials, we say that $\cP$ is $k$-effective. 
+If $\cP$ is $k$-effective, then that is enough to show that the SOS and Theta Body relaxations coincide (although you have to take the size of the SOS relaxation to be a factor of $k$ larger). 
+This is particularly interesting because it is often not difficult to prove that the Theta Body relaxation is optimal among SDP relaxations of a comparable size \cite{}\cite{}, which we will see more examples of in \prettyref{cha:symmetric_sdps}. In \prettyref{cha:bit_complexity} we will also see that $\cP$ being $k$-effective has consequences for the bit complexity of SOS proofs using the polynomials $\cP$.
 
 \section{Contribution of Thesis}\label{sec:intro_contrib}
 
-In this dissertation we give some of the first theory on the bit complexity of SOS proofs, and provide a checkable, sufficient criterion for the existence of SOS proofs involving only polynomials without enormous coefficients. 
-We also show how our criterion can be checked for some common examples of combinatorial optimization problems, including \textsc{Matching} and \textsc{TSP}. 
+In the first part of this thesis, to set the stage for analyzing the SOS relaxations, we develop a strategy to show that symmetric sets of polynomials $\cP$ are $k$-effective for various constant $k$. 
+We believe our strategy to be widely applicable for symmetric constraints, and show how to apply it to numerous examples, including \textsc{Matching}, \textsc{TSP}, and \textsc{Balanced CSP}. 
+We collect a wide variety of problems which are $k$-effective, which implies that the ideal membership problem for those ideals has a polynomial-time solution. 
+
+The second part of the thesis is devoted to studying the problem of bit complexity in SOS proofs. We present some of the first results in this area, both positive and negative. We give a set of checkable criteria, one of which is $k$-effectiveness, for $\cP$ and $\cQ$ that is sufficient to imply that any SOS proofs from $\cP$ and $\cQ$ can be taken to have small bit complexity. Armed with our library of $k$-effective combinatorial optimization problems, we show that the SOS relaxations run in polynomial time for many of their prior applications. This alleviates some of the worry following O'Donnell's result. However, our criteria does have limitations, and in particular cannot be used to show that \emph{refutations}, that is, SOS proofs of $-1 \geq 0$ for infeasible systems of polynomial constraints, can be taken to have polynomial bit complexity.
+Additionally, we strengthen O'Donnell's original example, and refute his hope that any set of constraints including boolean constraints has all SOS proofs with small bit complexity. 
+
+The final part of the thesis is about proving that the SOS relaxations achieve the best approximation compared to any other \emph{symmetric} SDP relaxations of a comparable size. In particular, we prove that the SOS relaxations are optimal for \textsc{Matching}, \textsc{TSP}, and \textsc{Balanced CSP}. Because a lower bound for approximating \textsc{Matching} is already known for SOS relaxations, this enables us to prove an exponential lower bound against approximating \textsc{Matching} using any symmetric SDP. 
 
 \section{Organization of Thesis}
+
+\prettyref{cha:prelims} will contain preliminary and background discussion on mathematical concepts needed for the contributions of the thesis. We will precisely define many of the objects discussed in this introduction, including combinatorial optimization problems, SDP relaxations, and the SOS relaxations themselves. In \prettyref{cha:effective_derivations} we will discuss how to prove $k$-effectiveness and compile a (nonexhaustive) list of combinatorial optimization problems whose constraints are $k$-effective. In \prettyref{cha:bit_complexity}, we discuss the bit complexity of SOS proofs, and show how $k$-effectiveness can be used to prove the existence of SOS proofs with small bit complexity. In \prettyref{cha:symmetric_sdps} we discuss the optimality of the SOS relaxations, and show how this implies an exponential size lower bound for approximating \textsc{Matching}. Finally, in \prettyref{cha:conclusion} we discuss a few open problems and open threads continuing the lines of research of this thesis.

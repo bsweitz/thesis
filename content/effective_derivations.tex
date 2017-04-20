@@ -4,7 +4,7 @@ In this section we prove that many natural sets of polynomials $\cP$ arising fro
 \section{Gr\"obner Bases}
 Recall the definition of Gr\"obner basis from \prettyref{def:grobner}.
 \begin{lemma}\label{lem:grobnereffective}
-Let $\cP$ be a Gr\"obner basis. Then $\cP$ is $1$-effective in the PC proof system.
+Let $\cP$ be a Gr\"obner basis. Then $\cP$ is $1$-effective.
 \end{lemma}
 \begin{proof}
 By \prettyref{prop:grobner-unique}, total reduction by $\cP$ is well-defined, and in fact there is a unique 
@@ -12,8 +12,9 @@ remainder. Let $r \in \gen{\cP}$ be of degree $d$, and consider the total reduct
 $r_i = r_{i+1} + q_{i+1}p_{i+1}$, where $p_{i+1} \in \cP$, $\deg r_{i+1} \leq \deg r_i$, and $\deg q_{i+1}p_{i+1} \leq \deg r_i$. Combining all these sums into one, we get
 $r = \sum_i q_i p_i$, which is a derivation of degree $d$. 
 \end{proof}
-\prettyref{lem:grobnereffective} is trivial to prove, but there are several important combinatorial optimization problems that fall 
-under its umbrella, like \prettyref{ex:grobner}:
+\prettyref{lem:grobnereffective} is unsurprising, as Gr\"obner bases first originated as a method to solve the polynomial ideal problem \cite{}. 
+While Gr\"obner bases yield positive results, they are often unwieldy, complicated, and above all extremely expensive to compute. 
+Even so, there are several important combinatorial optimization problems that have constraints which are Gr\"obner bases, like \prettyref{ex:grobner}:
 \begin{corollary}\label{cor:csp-effective}
 \textsc{CSP} is $1$-effective.
 \end{corollary}
@@ -36,9 +37,9 @@ Then $r_2(\chi_C) = \alpha_C$. But $p(\chi_C) = 0$ for every $p \in \cP$, and $r
 zero polynomial.
 \end{proof}
 
-However, not every problem falls so neatly into this classification. There are many natural problems whose solution spaces have a small set of generating
-polynomials which are not Gr\"obner bases, and indeed their Gr\"obner bases can be exponentially large and exceedingly difficult to compute. Despite this,
-these problems can still admit effective derivations, as we prove here.
+Of course, not every problem falls so neatly into this classification. There are many natural problems whose solution spaces have a small set of generating
+polynomials which are not Gr\"obner bases, and indeed their Gr\"obner bases can be exponentially large and exceedingly difficult to compute. 
+Even though the generating polynomials are not a Gr\"obner basis, they can still be $k$-effective for constant $k$.
 
 \section{Proof Strategy for Symmetric Solution Spaces}
 In this section we describe our main proof strategy to show that a set of polynomials $\cP$ is effective. 
