@@ -124,17 +124,17 @@ Finally, we collect all the problems discussed:
 \begin{corollary}\label{cor:examples}
 For the following optimization problems, $S = V(\cP) \cap H(\cQ)$ is a rich solution space up to any degree:
 \begin{itemize}
-\item \textsc{CSP}: $\cP = \{x_i^2 - x_i | i \in [n]\}$. 
-\item \textsc{Clique}: $\cP = \{x_i^2 - x_i | i \in [n]\} \cup \{x_ix_j | (i,j) \notin E\}$.
-\item \textsc{Matching}: $\cP = \{x_{ij}^2 - x_{ij} | i,j \in [n]\} \cup \{\sum_i x_{ij} - 1 | i \in [n]\} \cup \{x_{ij}x_{ik} | i,j,k \in [n]\}$.
-\item \textsc{Bisection}: $\cP = \{x_i^2 - x_i | i \in [n]\} \cup \{\sum_i x_i - n/2\}$.
-\item \textsc{Unit-Vector}: $\cP = \{\sum_i x_i^2 - 1\}$.
+\item \textsc{CSP}: $\pcsp(n) = \csp$. 
+\item \textsc{Clique}: $\pclique(V,E) = \clique$.
+\item \textsc{Matching}: $\pmatch(n) = \matching$.
+\item \textsc{Bisection}: $\pbcsp(n,n/2) = \bisec$.
+\item \textsc{Unit-Vector}: $\cP_{\textsc{UV}} = \left\{\sum_i x_i^2 - 1\right\}$.
 \end{itemize}
 For the following optimization problems, $S$ is a rich solution space up to degree $c$:
 \begin{itemize}
-\item \textsc{Balanced Separator}: $\cP = \{x_i^2 - x_i | i \in [3c]\}$, $\cQ = \{1/100 + 2c - \sum_i x_i, 1/100 + \sum_i x_i - c\}$.
-\item \textsc{Balanced CSP}: $\cP = \{x_i^2 - x_i | i \in [n]\} \cup \{\sum_i x_i - c\}$.
-\item \textsc{Boolean Sparse PCA}: $\cP = \{x_i^3-x_i | i \in [n]\} \cup \{\sum_i x_i^2 - 2c\}$.
+\item \textsc{Balanced Separator}: $\cP_{\textsc{BS}}(3c) = \{x_i^2 - x_i | i \in [3c]\}$, $\cQ_{\textsc{BS}}(3c,c) = \{1/100 + 2c - \sum_{i=1}^{3c} x_i, 1/100 + \sum_{i=1}^{3c} x_i - c\}$.
+\item \textsc{Balanced CSP}: $\pbcsp(n,c) = \bcsp{n}{c}$.
+\item \textsc{Boolean Sparse PCA}: $\pspca(n,2c) = \bspca{n}{2c}$.
 \end{itemize}
 \end{corollary}
 \begin{proof}

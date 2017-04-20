@@ -20,7 +20,7 @@ Then for a subset $I \subseteq [n]$ with $|I| < n/2$, we set $J = E(I,I)$, the s
 \begin{example}\label{ex:bcsp-blocktransitive}
 \textsc{Balanced CSP} is $(k,k)$-block transitive for every $k \leq n-3$. Recall the constraints for the polynomial formulation for \textsc{Balanced CSP} on $n$ variables with balance $c$:
 \begin{align*}
-&\cP_n = \bcsp \\
+&\cP(n,c) = \bcsp{n}{c} \\
 &\phi_n(A) = \chi_A \text{ such that } (\chi_A)_i = 1 \text{ if $A(i) = 1$ and $0$ otherwise.}
 \end{align*}
 Then for a subset $I \subseteq [n]$, we set $J = I$. Let two assignments $A_1$ and $A_2$ that agree on $J$, and define a permutation $\sigma$ as follows: $\chi_{A_1}$ and $\chi_{A_2}$ have the same number of indices which are zero, and indices which are one. Let $\sigma$ be any pair of bijections between the indices which are one in $\chi_{A_1}$ and the indices which are one in $\chi_{A_2}$, and likewise for the indices which are zero. Furthermore, since $\chi_{A_1}$ and $\chi_{A_2}$ agree on $J$, we can choose $\sigma$ to be a pair of bijections which are the identity on $J$, so $\sigma \in S([n] \setminus J)$. Clearly $\sigma(\chi_{A_1}) = \chi_{A_2}$. Finally, if $\sigma$ is not already even, since $|I| \leq n-3$, there are two indices $\ell_1$ and $\ell_2$ outside of $J$ such that $A_2(\ell_1) = A_2(\ell_2)$. Then $(\ell_1, \ell_2) \cdot \sigma$ is even and still fixes $J$ and maps $\chi_{A_1}$ to $\chi_{A_2}$.

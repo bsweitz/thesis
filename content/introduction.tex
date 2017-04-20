@@ -1,0 +1,84 @@
+\chapter{Introduction}
+Combinatorial optimization problems have been intensely studied by mathematicians and computer scientists for many years.
+Here we mean any computational task which involves maximizing a function over some discrete set of feasible solutions, with the admissible functions and solutions changing depending on what the task is. 
+Here are a few examples of problems which will appear again throughout this thesis:
+\begin{example}
+The \textsc{Matching} problem is, given a graph $G = (V,E)$, compute the size of the largest subset $F \subseteq E$ such that any two edges $e_1,e_2 \in F$ are disjoint.
+\end{example}
+\begin{example}
+The \textsc{Traveling Salesperson}, or \textsc{TSP} problem is, given a set of points $X$ and a distance function $d: X \times X \rightarrow \R_+$, compute the least distance incurred by visiting every point in $X$ exactly once and returning to the starting point. 
+\end{example}
+\begin{example}
+The \textsc{$c$-Balanced CSP} problem is, given boolean formulas $\phi_1,\dots,\phi_m$, compute the largest number of $\phi_1,\dots,\phi_m$ that can be simultaneously satisfied by an assignment with exactly $c$ variables assigned true. 
+\end{example}
+
+Because the framework of combinatorial optimization problems is so general, such computational tasks appear frequently in both practice and theory.
+For example, \textsc{TSP} naturally arises when trying to plan school bus routes and \textsc{Matching} clearly shows up when trying to match medical school graduates to hospitals. Unfortunately for the the school bus driver, solving \textsc{TSP} is computationally intractable because \textsc{TSP} is \np-complete\cite{}. Indeed, almost all combinatorial optimization problems are \np-complete (\textsc{Matching} is a notable exception), and this well-established barrier has been in place since the 1970s. 
+
+In an attempt to overcome the \np-complete barrier, the framework of approximation algorithms emerged in the TODOS\cite{}. Rather than trying to exactly solve \textsc{TSP} by finding the route that minimizes the distance traveled, an approximation algorithm attempts to find a route that is not too much longer than the minimum possible route. For example, maybe the algorithm finds a route that is guaranteed to be at most twice the length of the minimum route, even though the minimum route itself is impossible to efficiently compute. 
+
+\section{Convex Relaxations}
+A popular strategy in approximation algorithm design is to develop convex relaxations for combinatorial optimization problems, first started in TODOS\cite{}. 
+Because the feasible solution space for combinatorial problems is discrete, we frequently know of no better maximization technique than to simply evaluate a function on every point in the space. However, if we embed the combinatorial solutions somehow in $\R^n$ and the combinatorial function as a continuous $f: \R^n \rightarrow \R$, we can try to relax the solution space to a larger convex body. Then standard convex optimization techniques \cite{} can be applied to optimize $f$ over this larger body. Because the body is larger, the value we receive will be an overestimate of the true maximum of $f$ over just the combinatorial solutions. We want the convex relaxation to be a \emph{good approximation} in the sense that this overestimate is not too far from the true maximum of $f$. 
+\begin{example}[Held-Karp LP]
+Given an instance of \text{TSP}, i.e. distance function $d: [n] \times [n] \rightarrow \R$, for every tour $\tau$ (a cycle which visits each $i \in [n]$ exactly once), let $(\chi_\tau)_{ij} = 1$ if $\tau$ visits $j$ immediately after $i$. Each $\chi_\tau$ is an embedding of a tour $\tau$ in $\R^{\binom{n}{2}}$. Then 
+\[K = \left\{x | \forall S \subset [n]: \sum_{(i,j) \in S \times \overline{S}} x_{ij} \geq 2, \forall ij: 0 \leq x_{ij} \leq 1\right\}\]
+and the function $f = \sum_{ij} x_{ij}$ is a convex relaxation for \textsc{TSP}. In fact, when $d$ is symmetric, $\min_K f$ is at least $2/3$ the true minimum. 
+\end{example}
+
+%Even with a convex relaxation which is a good approximation, we still do not really have an approximation algorithm because we need a way to return an actual feasible combinatorial solution with good value. The second piece of the puzzle is called a rounding scheme, which is a function that takes one of the feasible points in the convex relaxation and takes it to one of the combinatorial solutions. The rounding scheme should be structured in such a way that the value of its output should not be too far from the value of its input. With this, we can round the value of the relaxation to a value for the combinatorial optimization problem. Rounding schemes are generally very nontrivial and developing them is a very interesting problem in its own right. The reader 
+
+\section{Sum-of-Squares Relaxations}
+There is a particular family of convex relaxation which has received a large amount of attention recently as a promising tool for approximation algorithms. Called the Sum-of-Squares (SOS) or Lasserre relaxations, they first appeared in TODO\cite{}. They have recently been used in a huge number of different algorithms, for example in TODO \cite{}. There have even been rumblings of hope that the SOS relaxations could represent a single algorithm which achieves optimal approximation guarantees for many, seemingly unrelated problems \cite{barak,steurer}. We give a brief description of the SOS relaxations here and give a more precise definition in \prettyref{sec:polyforms}. 
+
+We consider a polynomial embedding of a combinatorial optimization problem, i.e. there are sets of polynomials $\cP$ and $\cQ$ such that solving
+\begin{align*}
+&\max r(x) \\
+\text{s.t. } &p(x) = 0, \forall p \in \cP \\
+&q(x) \geq 0, \forall q \in \cQ
+\end{align*}
+is equivalent to solving the original combinatorial problem. This is not unusual, and indeed every combinatorial optimization problem has such an embedding because quadratic optimization is \np-hard \cite{}. One way to solve such an optimization problem is to pick some $\theta$ and check if $\theta - r(x)$ is nonnegative on the feasible points. If we can do this, then by binary search we can the maximum of $r$ quickly. But how are we going to check if $\theta - r(x)$ is nonnegative? The SOS relaxations attempt to express $\theta - r(x)$ as a sum-of-squares polynomial, modulo the constraints of the problem. In other words, it tries to find a polynomial identity of the form
+\[\theta - r(x) = \sum_i s_i^2(x) + \sum_{q \in \cQ} \left(\sum_j s_{qj}^2(x)\right)q(x) + \sum_{p\in\cP} \lambda_p(x)p(x)\label{eq:intro_sos_proof}]
+for some polynomials $\{s_i\}, \{s_{qj}\}, \{\lambda_p\}$. 
+We call such an identity an SOS proof of nonnegativity for $\theta - r(x)$.
+If such an identity exists, then certainly $\theta - r(x)$ is nonnegative on any $x$ satisfying the constraints. Looking for \emph{any} such identity would be intractable, so the $d$th SOS relaxation checks for the existence of such an identity that uses only polynomials up to degree $d$. The existence of a degree $d$ identity is then equivalent to the feasibility of a certain SDP of size $O(n^d)$ (see \prettyref{sec:polyforms} for specifics), which we call the $d$th SOS relaxation.
+
+While the SOS relaxations have been very popular and very successful, they are still relatively new, and so our knowledge about them is far from complete. 
+There are even very simple questions for which we do not know the answer.
+In particular, we do not even know when we can solve the SOS relaxations in polynomial time! 
+Because the $d$th SOS relaxation is a semidefinite program of size $O(n^d)$, it has been very common to claim that any degree $d$ proof can be found in time polynomial in $O(n^d)$ via the Ellipsoid algorithm. However, this claim was debunked very recently by Ryan O'Donnell in \cite{odonnel}. 
+He noted that complications can arise when every proof of nonnegativity involves polynomials with extremely large coefficients.
+The SOS SDP is usually solved using the Ellipsoid Algorithm, which runs in time polynomial in $\log R$, where $R$ is the radius of the smallest ball containing the feasible region of the SDP. 
+If every proof involves coefficients of doubly-exponential size, then the Ellipsoid Algorithm will run in exponential time. 
+O'Donnell even provides an example of a set of polynomial constraints and a polynomial whose degree two proofs of nonnegativity all \emph{must} contain coefficients of doubly exponential size, proving that there are some examples where we cannot solve the SOS relaxations in polynomial time.
+However, his example only held up to degree two, and in particular there were degree four proofs with small coefficients. 
+O'Donnell was able to prove that the SOS relaxation which only has the boolean constraints $\pcsp = \csp$, then any proof can be taken to have small coefficients. 
+Furthermore, he conjectured that any SOS relaxation which has constraints containing the boolean constraints can be solved efficiently by the Ellipsoid Algirthm.
+Expanding his work in this area is of paramount importance, as the SOS relaxations lie at the heart of so many approximation algorithms. 
+In this dissertation, we continue this line of work with some positive and negative results discussed in \prettyref{sec:intro_contrib}.
+
+%This phenomenon is not always an issue. 
+%Many applications of the SOS relaxations have an analysis that explicitly constructs proofs of nonnegativity, which naturally do not involve doubly exponential coefficients. 
+%However, it would be nice to have a criterion that tells us when the Ellipsoid Algorithm for the SOS SDP will run in polynomial time, without first finding the proofs themselves, which are often complicated and hard to construct.
+
+Another open area of research is the true power of the SOS relaxations. The SOS relaxations provide our current best approximation algorithms for a wide swathe of problems, including \textsc{Max-Cut}\cite{GW}, TODO. 
+A natural question to ask is, "For what other problems does the SOS relaxation provide good approximation algorithms?"
+This is an excellent question, but not one that will be explored in this dissertation.
+We can also ask, "For what problems does the SOS relaxation \emph{not} provide good approximation algorithms?"
+For many optimization problems, an SOS relaxation of large enough size exactly solves the problem. 
+However, this might be so large that, even given small bit complexity, we cannot solve the SDP in polynomial time. 
+So we usually rephrase this question by giving a lower bound on the size of an SOS relaxation required to achieve a good enough approximation. 
+There has been a good amount of work in this area, for example \cite{grigoriev} gives an exponential lower bound against the \textsc{Matching} problem and TODO\cite{}.
+
+One more question to ask, whose answer we will explore in this dissertation, is "Is it possible to improve the approximation by using a different SDP relaxation?"
+Given the popularity of the SOS relaxations, there has been a good amount of effort to show that the answer is no; the SOS relaxations provide the best approximation among SDPs of a comparable size \cite{lee and stuff}. We will explore a slightly more restricted setting, where the other SDP relaxations we consider must be symmetric in some sense, i.e. respect the natural symmetries of the corresponding combinatorial optimization problem. In this setting, we will show that the SOS relaxation is optimal for a few different problems, including \textsc{Matching}. Readers who have been paying attention will notice that this implies a general symmetric SDP lower bound for \textsc{Matching}, thanks to \cite{grigoriev}. 
+
+
+\section{Polynomial Ideal Membership}
+
+\section{Contribution of Thesis}\label{sec:intro_contrib}
+
+In this dissertation we give some of the first theory on the bit complexity of SOS proofs, and provide a checkable, sufficient criterion for the existence of SOS proofs involving only polynomials without enormous coefficients. 
+We also show how our criterion can be checked for some common examples of combinatorial optimization problems, including \textsc{Matching} and \textsc{TSP}. 
+
+\section{Organization of Thesis}
