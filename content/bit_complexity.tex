@@ -20,12 +20,12 @@ We require $\epsilon$-robustness because our analysis will end up treating the c
 Because of this, we can only hope for our analysis to hold under $\epsilon$-robustness, since otherwise one could simulate a constraint from $\cP$ simply by having both $p$ and $-p$ in $\cQ$. 
 
 \begin{definition}
-Let $\mbasis$ denote the vector whose entries are all the monomials in $\R[x_1,\dots,x_n]$ up to total degree $d$. 
-For a point $\alpha \in \R^n$, we use $\mbasis(\alpha)$ to denote the vector $\mbasis$ whose entries have each been evaluated at $\alpha$.
+TODO Recall we use $\mbasis{d}$ denote the vector whose entries are all the monomials in $\R[x_1,\dots,x_n]$ up to total degree $d$. 
+For a point $\alpha \in \R^n$, we use $\mbasis{d}(\alpha)$ to denote the vector whose entries have each been evaluated at $\alpha$.
 For a set $S$, we define the \emph{$S$-moment matrix up to level $d$}:
-\[M_{S,d} = \E_{\alpha \in S}\left[\mbasis(\alpha)\mbasis(\alpha)^T\right]\]
+\[M_{S,d} = \E_{\alpha \in S}\left[\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T\right]\]
 \end{definition}
-Clearly $M_{S,d}$ is a PSD matrix, and furthermore it encodes a lot of information about the set $S$. For example, if we let $c \in \R^{\binom{n+d-1}{d}}$, then $c$ corresponds to the polynomial $\tilde{c}(x) = c^T\mbasis$, and then $c^TM_{S,d}c = \E_{\alpha \in S}\left[\tilde{c}(\alpha)^2\right]$.
+Clearly $M_{S,d}$ is a PSD matrix, and furthermore it encodes a lot of information about the set $S$. For example, if we let $c \in \R^{\binom{n+d-1}{d}}$, then $c$ corresponds to the polynomial $\tilde{c}(x) = c^T\mbasis{d}$, and then $c^TM_{S,d}c = \E_{\alpha \in S}\left[\tilde{c}(\alpha)^2\right]$.
 In particular, if $c$ is a zero eigenvector of $M_{S,d}$, then $\tilde{c}(x)$ is zero on all of $S$. 
 More generally, the eigenvalues of $M_{S,d}$ relate the size of the coefficients of a polynomial to its magnitude on $S$. 
 \begin{definition}
@@ -33,7 +33,7 @@ We say that $S \subseteq V(\cP)$ is \emph{$\delta$-spectrally rich up to degree 
 \end{definition}
 If $S$ is $\delta$-spectrally rich up to degree $d$ and $p$ is an arbitrary polynomial of degree at most $d$, then there exists a polynomial $p'$ such that $p'(\alpha) = p(\alpha)$ for each $\alpha \in S$ and $\|p'\| \leq \frac{1}{\delta} \max_\alpha |p'(\alpha)|$. Thus spectral richness can be thought of as ensuring that the polynomials which are not zero on all of $S$ can be bounded. What about the polynomials that are zero on $S$? We need to ensure that those are bounded as well. The final condition should come as no surprise, indeed it is the main topic of this dissertation. 
 \begin{definition}
-Let $S \subseteq V(\cP)$. We say that $\cP$ is \emph{$k$-complete for $S$ up to degree $d$} if, for every zero eigenvector $c$ of $M_{S,d}$, the degree $d$ polynomial $\tilde{c}(x) = c^T\mbasis$ has a derivation from $\cP$ in degree $k$.
+Let $S \subseteq V(\cP)$. We say that $\cP$ is \emph{$k$-complete for $S$ up to degree $d$} if, for every zero eigenvector $c$ of $M_{S,d}$, the degree $d$ polynomial $\tilde{c}(x) = c^T\mbasis{d}$ has a derivation from $\cP$ in degree $k$.
 \end{definition}
 If $S = V(\cP)$, then $k$-completeness up to degree $d$ is implied by $\cP$ being $k/d$-effective. 
 But what if $S$ is some proper subset? Well, $S$ had better at least be very close to $V(\cP)$, otherwise there is no hope that $\cP$ is complete for $S$ up to degree $d$. In fact, if $S \neq V(\cP)$, it is impossible for every polynomial that is zero on $S$ to have a derivation from $\cP$, since in this case $I(S) \neq \gen{\cP}$. However, since we are only dealing with proofs of nonnegativity of degree $d$, we only actually care about polynomials up to degree $d$. In other words, we want $S$ to be close enough to $V(\cP)$ that only polynomials of degree higher than $d$ can tell the difference.
@@ -90,7 +90,7 @@ As a corollary, we get:
 Let $\cP$ and $\cQ$ be such that $S \subseteq \{0,\pm 1\}^n$. Then $S$ is $\delta$-spectrally rich with $\frac{1}{\delta} = 2^{\poly(n^d)}$.
 \end{corollary}
 \begin{proof}
-	Recall $M_{S,d} = \E_{\alpha \in S}[\mbasis(\alpha)\mbasis(\alpha)^T]$, and note that $|S| \cdot M$ is an integer matrix with entries at most $3^n$.  The result follows by applying \prettyref{lem:integer}. 
+	Recall $M_{S,d} = \E_{\alpha \in S}[\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T]$, and note that $|S| \cdot M$ is an integer matrix with entries at most $3^n$.  The result follows by applying \prettyref{lem:integer}. 
 \end{proof}
 Most combinatorial optimization problems are inherently discrete by nature, and so their polynomial formulations can naturally be taken to have solution spaces in $\Z^n$. In this case some multiple of their moment matrices are integer matrices, and we can use \prettyref{lem:integer} to show spectral-richness. Even when not dealing with combinatorial optimization, it is possible to prove spectral richness as we will see with \textsc{Unit Vector} later. For these reasons, we consider spectral richness to be a mild condition as well.
 
@@ -147,13 +147,13 @@ For convenience, we write $\cP = \{p_1,\dots,p_m\}$ and $\cQ = \{q_1,\dots,q_\el
 \[r(x) = \sum_{i=1}^{t_0} h_i^2 + \sum_{i=1}^\ell \left(\sum_{j=1}^{t_i} s_{ij}^2\right) q_i + \sum_{i=1}^m \lambda_i p_i.\]
 Our goal is to find a different PC$_>$ proof of nonnegativity for $r$ which uses only polynomials of bounded norm.
 
-First, we rewrite the original PC$_>$ proof into a more convenient form before proving bounds on each individual term. Because the elements of $\mbasis$ are a basis for $\R[x]_d$, every polynomial in the proof can be expressed as $c^T\mbasis$, where $c$ is a vector of reals:
-\begin{align*} r(x) &= \sum_{i=1}^{t_0} (c_i^T\mbasis)^2 + \sum_{i=1}^\ell \left(\sum_{j=1}^{t_i} (d_{ij}^T\mbasis)^2\right)q_i + \sum_{i=1}^m \lambda_i p_i \\
-&= \langle C, \mbasis(\mbasis)^T\rangle + \sum_{i=1}^\ell \langle D_i, \mbasis(\mbasis)^T\rangle q_i + \sum_{i=1}^m \lambda_i p_i
+First, we rewrite the original PC$_>$ proof into a more convenient form before proving bounds on each individual term. Because the elements of $\mbasis{d}$ are a basis for $\R[x]_d$, every polynomial in the proof can be expressed as $c^T\mbasis{d}$, where $c$ is a vector of reals:
+\begin{align*} r(x) &= \sum_{i=1}^{t_0} (c_i^T\mbasis{d})^2 + \sum_{i=1}^\ell \left(\sum_{j=1}^{t_i} (d_{ij}^T\mbasis{d})^2\right)q_i + \sum_{i=1}^m \lambda_i p_i \\
+&= \langle C, \mbasis{d}(\mbasis{d})^T\rangle + \sum_{i=1}^\ell \langle D_i, \mbasis{d}(\mbasis{d})^T\rangle q_i + \sum_{i=1}^m \lambda_i p_i
 \end{align*}
 for PSD matrices $C$, $D_1,\dots,D_\ell$. Next, we average this polynomial identity over all the points $\alpha \in S$:
 \begin{align*}
-\E_{\alpha \in S}\left[r(\alpha)\right] &= \left\langle C, \E_{\alpha \in S}\left[\mbasis(\alpha)\mbasis(\alpha)^T\right]\right\rangle + \sum_{i=1}^\ell \left\langle D_i, \E_{\alpha \in S}\left[\mbasis(\alpha)\mbasis(\alpha)^T\right]\right\rangle q_i(\alpha) + 0 \\
+\E_{\alpha \in S}\left[r(\alpha)\right] &= \left\langle C, \E_{\alpha \in S}\left[\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T\right]\right\rangle + \sum_{i=1}^\ell \left\langle D_i, \E_{\alpha \in S}\left[\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T\right]\right\rangle q_i(\alpha) + 0 \\
 \end{align*}
 The LHS is at most $\poly(\|r\|, \|S\|)$, and the RHS is a sum of positive numbers, so the LHS is a bound on each term of the RHS. 
 %
@@ -161,20 +161,20 @@ We would like to say that since $S$ is $\delta$-spectrally rich, the first term 
 %
 Unfortunately the averaged matrix may have zero eigenvectors, and it is possible that $C$ could have very large eigenvalues in these directions. 
 %
-However, because $\cP$ is complete for $S$, these can be absorbed into the final term. More formally, let $\Pi = \sum_u uu^T$ be the projector onto the zero eigenspace of $M_{S,d} = \E_{\alpha \in S}[\mbasis(\alpha)\mbasis(\alpha)^T]$. Because $\cP$ is $k$-complete for $S$, for each $u$ there is a degree $k$ derivation $u^T\mbasis = \sum_i \sigma_{ui} p_i$. Then $\Pi \mbasis(\mbasis)^T = \sum_u (u^T\mbasis) \cdot u(\mbasis)^T$. Thus we can write
+However, because $\cP$ is complete for $S$, these can be absorbed into the final term. More formally, let $\Pi = \sum_u uu^T$ be the projector onto the zero eigenspace of $M_{S,d} = \E_{\alpha \in S}[\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T]$. Because $\cP$ is $k$-complete for $S$, for each $u$ there is a degree $k$ derivation $u^T\mbasis{d} = \sum_i \sigma_{ui} p_i$. Then $\Pi \mbasis{d}(\mbasis{d})^T = \sum_u (u^T\mbasis{d}) \cdot u(\mbasis{d})^T$. Thus we can write
 \begin{align*}
-\Iprod{C, \mbasis(\mbasis)^T} &= \Iprod{C, (\Pi + \Pi^\perp)\mbasis(\mbasis)^T(\Pi + \Pi^\perp)} \\
-&= \Iprod{C, \Pi^\perp \mbasis(\mbasis)^T \Pi^\perp} + \sum_u u^T\mbasis\left(\Iprod{C, \Pi^\perp \mbasis u^T + \mbasis u^T\Pi^\perp + \mbasis u^T\Pi}\right) \\
-&= \Iprod{\Pi^\perp C \Pi^\perp, \mbasis(\mbasis)^T} + \sum_i \sigma_i p_i.
+\Iprod{C, \mbasis{d}(\mbasis{d})^T} &= \Iprod{C, (\Pi + \Pi^\perp)\mbasis{d}(\mbasis{d})^T(\Pi + \Pi^\perp)} \\
+&= \Iprod{C, \Pi^\perp \mbasis{d}(\mbasis{d})^T \Pi^\perp} + \sum_u u^T\mbasis{d}\left(\Iprod{C, \Pi^\perp \mbasis{d} u^T + \mbasis{d} u^T\Pi^\perp + \mbasis{d} u^T\Pi}\right) \\
+&= \Iprod{\Pi^\perp C \Pi^\perp, \mbasis{d}(\mbasis{d})^T} + \sum_i \sigma_i p_i.
 \end{align*}
 Doing the same for the other terms and setting $C' = \Pi^\perp C \Pi^\perp$ and similarly for $D_i'$, we get a new proof:
-\[r(x) = \langle C', \mbasis(\mbasis)^T\rangle + \sum_{i=1}^\ell \langle D_i', \mbasis(\mbasis)^T\rangle q_i + \sum_{i=1}^m \lambda_i' p_i.\]
+\[r(x) = \langle C', \mbasis{d}(\mbasis{d})^T\rangle + \sum_{i=1}^\ell \langle D_i', \mbasis{d}(\mbasis{d})^T\rangle q_i + \sum_{i=1}^m \lambda_i' p_i.\]
 Now the zero eigenspace of $C'$ is contained in the zero eigenspace of $M_{S,d}$. Further, the $\delta$-spectral richness of $S$ implies that each nonzero eigenvalue of $M_{S,d}$ is at least $\delta$, so $\Iprod{C',M_{S,d}} \geq \delta \Tr(C')$. Also, the $\epsilon$-robustness of $S$ implies that $q_i(\alpha) \geq \epsilon$ for each $i$ and $\alpha$. Thus, after averaging we have 
 \[\poly(\|r\|,\|S\|) \geq \delta \Tr(C) + \sum_{i=1}^\ell \delta \epsilon\Tr(D_i').\]
 Thus each of $C'$ and $D_i'$ have entries bounded by $\poly(\|r\|, \|S\|, \frac{1}{\delta}, \frac{1}{\epsilon})$.
 
 The only thing left to do is to bound the coefficients $\lambda_i'$. This turns out to be easy because the PC$_>$ proof is linear in these coefficients. If we imagine the coefficients of the $\lambda_i'$ as variables, then the linear system induced by the polynomial identity
-\[r(x) - \langle C', \mbasis(\mbasis)^T\rangle - \sum_{i=1}^\ell \langle D_i', \mbasis(\mbasis)^T\rangle = \sum_{i=1}^m \lambda_i' p_i\]
+\[r(x) - \langle C', \mbasis{d}(\mbasis{d})^T\rangle - \sum_{i=1}^\ell \langle D_i', \mbasis{d}(\mbasis{d})^T\rangle = \sum_{i=1}^m \lambda_i' p_i\]
 is clearly feasible, and the coefficients of the LHS are bounded by $\poly(\|r\|, \|S\|, \frac{1}{\delta}, \frac{1}{\epsilon})$. There are $O(n^k)$ variables, so by Cramer's rule, the coefficients of the $\lambda_i'$ can be taken to be bounded by $\poly(\|\cP\|^{n^k}, \frac{1}{\delta}, \frac{1}{\epsilon}, \|r\|, \|S\|, n!)$. $\|\cP\|, \|r\| \leq 2^{\poly(n^d)}$ as they are considered part of the input. We assume that $\|S\| \leq 2^{\poly(n^d)}$, and clearly $d \leq k$. Thus, this bound is at most $2^{\poly(n^k, \log \frac{1}{\delta}, \log \frac{1}{\epsilon})}$. 
 \end{proof}
 

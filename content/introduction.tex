@@ -22,7 +22,7 @@ A popular strategy in approximation algorithm design is to develop convex relaxa
 Because the feasible solution space for combinatorial problems is discrete, we frequently know of no better maximization technique than to simply evaluate a function on every point in the space. However, if we embed the combinatorial solutions somehow in $\R^n$ and the combinatorial function as a continuous $f: \R^n \rightarrow \R$, we can try to relax the solution space to a larger convex body. Then standard convex optimization techniques can be applied to optimize $f$ over this larger body. Because the body is larger, the value we receive will be an overestimate of the true maximum of $f$ over just the combinatorial solutions. We want the convex relaxation to be a \emph{good approximation} in the sense that this overestimate is not too far from the true maximum of $f$. 
 \begin{example}[Held-Karp LP]
 Given an instance of \text{TSP}, i.e. distance function $d: [n] \times [n] \rightarrow \R$, for every tour $\tau$ (a cycle which visits each $i \in [n]$ exactly once), let $(\chi_\tau)_{ij} = 1$ if $\tau$ visits $j$ immediately after $i$. Each $\chi_\tau$ is an embedding of a tour $\tau$ in $\R^{\binom{n}{2}}$. Then 
-\[K = \left\{x | \forall S \subset [n]: \sum_{(i,j) \in S \times \overline{S}} x_{ij} \geq 2, \forall ij: 0 \leq x_{ij} \leq 1\right\}\]
+\[K = \left\{x \mid \forall S \subset [n]: \sum_{(i,j) \in S \times \overline{S}} x_{ij} \geq 2, \forall ij: 0 \leq x_{ij} \leq 1\right\}\]
 and the function $f = \sum_{ij} x_{ij}$ is a convex relaxation for \textsc{TSP}. In fact, when $d$ is symmetric, $\min_K f$ is at least $2/3$ the true minimum. 
 \end{example}
 
