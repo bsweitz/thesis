@@ -1,8 +1,8 @@
 \chapter{Effective Derivations}\label{cha:effective_derivations}
-In this section we prove that many natural sets of polynomials $\cP$ arising from polynomial formulations for combinatorial optimization problems are effective. This means that the problem of determining if a polynomial $p$ is in the ideal $\gen{\cP}$ has a simple solution in time polynomial in $n^{\deg p}$. When $\cP$ is complete, this is equivalent to determining if $p(\alpha) = 0$ for every $\alpha \in V(\cP)$. In \prettyref{cha:bit_complexity} and \prettyref{cha:symmetric_sdps} we will see two applications of solving this problem. We start with the sets of polynomials that are "most complete" for their ideals.
+In this section we prove that many natural sets of polynomials $\cP$ arising from polynomial formulations for combinatorial optimization problems are effective. This means that the problem of determining if a polynomial $p$ is in the ideal $\gen{\cP}$ has a simple solution in time polynomial in $n^{\deg p}$ and $\log \|p\|$, which is the size required to specify the input $p$. When $\cP$ is complete, this is equivalent to determining if $p(\alpha) = 0$ for every $\alpha \in V(\cP)$. In \prettyref{cha:bit_complexity} and \prettyref{cha:symmetric_sdps} we will see two applications of solving this problem. We start with the sets of polynomials that are totally explain their ideals.
 
 \section{Gr\"obner Bases}
-Recall the definition of Gr\"obner basis from \prettyref{def:grobner}.
+Recall the definition of Gr\"obner basis from \prettyref{def:grobner}. The following lemma is an obvious consequence of the division algorithm.
 \begin{lemma}\label{lem:grobnereffective}
 Let $\cP$ be a Gr\"obner basis. Then $\cP$ is $1$-effective.
 \end{lemma}
@@ -16,42 +16,41 @@ $r = \sum_i q_i p_i$, which is a derivation of degree $d$.
 While Gr\"obner bases yield positive results, they are often unwieldy, complicated, and above all extremely expensive to compute. 
 Even so, there are several important combinatorial optimization problems that have constraints which are Gr\"obner bases, like \prettyref{ex:grobner}:
 \begin{corollary}\label{cor:csp-effective}
-\textsc{CSP} is $1$-effective.
+The \textsc{CSP} formulation $\pcsp = \csp$ is $1$-effective.
 \end{corollary}
 \begin{proof}
-Recall that \textsc{CSP} corresponds to the set of constraints $\cP = \{x_i^2 - x_i | i \in [n]\}$. We prove this is a Gr\"obner basis. 
-Let $p \in \gen{\cP}$. If $p$ is not multilinear, we can divide $p$ by elements of $\cP$ until we have a multilinear remainder $r$. Because 
-$p \in \gen{\cP}$ and each element of $\cP$ is zero on the hypercube $\{0, 1\}^n$, $r$ must also be zero on the hypercube. But the multilinear
+We prove that $\pcsp$ is a Gr\"obner basis. 
+Let $p \in \gen{\pcsp}$. If $p$ is not multilinear, we can divide $p$ by elements of $\pcsp$ until we have a multilinear remainder $r$. Because 
+$p \in \gen{\pcsp}$ and each element of $\pcsp$ is zero on the hypercube $\{0, 1\}^n$, $r$ must also be zero on the hypercube. But the multilinear
 polynomials form a basis for functions on the hypercube, so if $r$ is a multilinear polynomial which is zero, then it must be the zero polynomial. 
 \end{proof}
 \begin{corollary}
-\textsc{Clique} is $1$-effective.
+The \textsc{Clique} formulation $\pclique = \clique$ is $1$-effective.
 \end{corollary}
 \begin{proof}
-Recall that \textsc{Clique}$(V,E)$ corresponds to the set of constraints $\cP = \{x_i^2 - x_i | i \in [|V|]\} \cup \{ x_ix_j | (i,j) \notin E\}$. 
-We prove this is a Gr\"obner basis. Let $p \in \gen{\cP}$. If $p$ is not multilinear, we can divide it until we have a multilinear
-remainder $r_1$. Now by dividing $r_1$ by the polynomials in the second part of $\cP$, we can remove all monomials containing $x_ix_j$ where $(i,j) \notin E$
+We prove that $\pclique$ is a Gr\"obner basis. Let $p \in \gen{\pclique}$. If $p$ is not multilinear, we can divide it until we have a multilinear
+remainder $r_1$. Now by dividing $r_1$ by the non-edge polynomials in the second part of $\pclique$, we can remove all monomials containing $x_ix_j$ where $(i,j) \notin E$
 to get $r_2$. Thus $r_2$ contains only monomials which are cliques of varying sizes in the graph $(V,E)$. Let $C$ be the smallest clique with a
-nonzero coefficient $\alpha_C$ in $r_2$. Let $\chi_C$ be the characteristic vector of $C$, i.e. $(\chi_C)_i = 1$ if $i \in C$, and $(\chi_C)_i = 0$ otherwise.
-Then $r_2(\chi_C) = \alpha_C$. But $p(\chi_C) = 0$ for every $p \in \cP$, and $r_2 \in \gen{\cP}$. Thus $\alpha_C = 0$, a contradiction, and so $r_2$ is the 
+nonzero coefficient $r_C$ in $r_2$. Let $\chi_C$ be the characteristic vector of $C$, i.e. $(\chi_C)_i = 1$ if $i \in C$, and $(\chi_C)_i = 0$ otherwise.
+Then $r_2(\chi_C) = r_C$. But $p(\chi_C) = 0$ for every $p \in \cP$, and $r_2 \in \gen{\cP}$. Thus $r_C = 0$, a contradiction, and so $r_2$ is the 
 zero polynomial.
 \end{proof}
 
-Of course, not every problem falls so neatly into this classification. There are many natural problems whose solution spaces have a small set of generating
+Of course, not every problem is so neatly a Gr\"obner basis. There are many natural problems whose solution spaces have a small set of generating
 polynomials which are not Gr\"obner bases, and indeed their Gr\"obner bases can be exponentially large and exceedingly difficult to compute. 
-Even though the generating polynomials are not a Gr\"obner basis, they can still be $k$-effective for constant $k$.
+Even though the generating polynomials are not a Gr\"obner basis, they can still be $k$-effective for constant $k$, and thus admit a good algorithm for membership.
 
 \section{Proof Strategy for Symmetric Solution Spaces}
 In this section we describe our main proof strategy to show that a set of polynomials $\cP$ is effective. 
 We apply this strategy to combinatorial optimization problems which have a natural symmetry to their solution spaces $V(\cP)$. 
-For each of these problems, we will define an $S_m$-action on $[n]$, which extends to an action on $\R[x_1,\dots,x_n]$ as well as $\R^n$ by permutation of variable names and indices respectively. 
-The action will be a natural permutation of the solutions. For example, for \textsc{Matching}, the group action will correspond to simply permuting the vertices of the complete graph. 
+For each of these problems, we will define an $\sym{m}$-action on $[n]$, which extends to an action on $\R[x_1,\dots,x_n]$ as well as $\R^n$ by permutation of variable names and indices respectively. 
+The action will be a natural permutation of the solutions. For example, for \textsc{Matching}, the group action will correspond to simply permuting the vertices of the graph. 
 
-With the group action in hand, our proof strategy follows in three steps:
+After the group action is defined, our proof strategy follows in three steps:
 \begin{enumerate}
 \item[(1)] Prove that $\cP$ is complete. This is usually done by exhibiting a degree $n$ derivation from $\cP$ for any polynomial $p$ which is zero on $V(\cP)$. This step is essential for the induction in step (3). 
-\item[(2)] Prove that for every $p \in \gen{\cP}$, the polynomial $\frac{1}{n!} \sum_{\sigma \in S_m} \sigma p$ has a derivation from $\cP$ in degree $\deg p$. This is usually fairly easy from elements of $\cP$ that look like $\sum_i x_i$. 
-\item[(3)] Prove that for every $\sigma \in S_m$, $p - \sigma p$ has a derivation from $\cP$ in degree at most $k \deg p$, for some constant $k$. This is performed by induction on a natural parameter of the combinatorial optimization problem. The more complicated the solution space for the combinatorial optimization problem, the worse the constant $k$ gets. 
+\item[(2)] Prove that for every $p \in \gen{\cP}$, the polynomial $\frac{1}{n!} \sum_{\sigma \in \sym{m}} \sigma p$ has a derivation from $\cP$ in degree $\deg p$. This is usually fairly easy because of the high amount of structure this forces on the polynomial. 
+\item[(3)] Prove that for every $\sigma \in \sym{m}$, $p - \sigma p$ has a derivation from $\cP$ in degree at most $k \deg p$, for some constant $k$. This is performed by induction on a natural parameter of the combinatorial optimization problem. The more complicated the solution space for the problem, the worse the constant $k$ gets. 
 \end{enumerate}
 We use this general strategy to prove that many polynomial formulations for different natural combinatorial optimization problems admit effective derivations. 
 Our efforts to find a unifying theory that explains the effectiveness of this strategy on the different problems have failed, so we have to prove that each $\cP$ is effective on a case-by-case basis.  
@@ -63,13 +62,13 @@ Fix an even integer $n$, and recall that the matching constraints are polynomial
 \begin{align}
 \pmatch(n) = \matching.\label{eq:matching-formulation}
 \end{align}
-We omit the dependence on $n$ when it is clear from context. For an element $\sigma$ of the symmetric group $\cS_n$, we define the action of $\sigma$ on a variable by $\sigma x_{ij} = x_{\sigma(i)\sigma(j)}$.
+We omit the dependence on $n$ when it is clear from context. For an element $\sigma$ of the symmetric group $\sym{n}$, we define the action of $\sigma$ on a variable by $\sigma x_{ij} = x_{\sigma(i)\sigma(j)}$.
 We define the action of $\sigma$ on a monomial by extending this action multiplicatively, and the action of $\sigma$ on a full polynomial by extending linearly.
 Note that $\pmatch$ is fixed by the action of every $\sigma$, as are its solutions $V(\pmatch)$ corresponding to the matchings of $K_n$. 
 Thus for any $p \in \pmatch$, we also have $\sigma p \in \pmatch$. For a partial matching $M$, i.e. a set of disjoint pairs from $[n]$, define $x_M = \prod_{e \in M} x_e$ with the convention that $x_{\emptyset} = 1$.
 First, we note an easy lemma on the structure of polynomials in $\gen{\pmatch}$:
 \begin{lemma}\label{lem:monomials}
-  Let $p$ be any polynomial. Then there is a multilinear polynomial $q$ such that every monomial of $q$ is a partial matching monomial, and $p-q$ has a derivation from $\pmatch$ of degree $\deg p$.
+  Let $p$ be any polynomial. Then there is a multilinear polynomial $q$ such that every monomial of $q$ is a partial matching monomial, and $p-q \in \gen{\pmatch}_d$.
 \end{lemma}
 \begin{proof}
 It suffices to prove the lemma when \(p\) is a monomial. Let
@@ -80,12 +79,12 @@ $\prod_{e \in A} x_e^{k_e} - \prod_{e \in A} x_e$ has a derivation from $\pmatch
 Now if $A$ is a partial matching we are done, otherwise there exist edges $f,g \in A$ which are not disjoint.
 But then $x_fx_g \in \pmatch$, and so $\prod_{e \in A} x_e$ has a derivation from $\pmatch$ in degree $|A|$, which implies the statement.
 \end{proof}
-With \prettyref{lem:monomials} in hand, we prove the following easy result:
+With \prettyref{lem:monomials} in hand, we complete step (1) of our strategy:
 \begin{lemma}\label{lem:matching-complete}
 Then $\gen{\pmatch(n)}$ is complete for any even $n$. 
 \end{lemma}
 \begin{proof}
-Let $p$ be a polynomial such that $p(\alpha) = 0$ for each $\alpha \in V(\pmatch)$. By \prettyref{lem:monomials}, we can assume that $p(x)$ is a multilinear polynomial whose monomials correspond to partial matchings. For such a partial matching $M$, clearly $x_M - x_M\prod_{u \notin M} \sum_v x_{uv}$ has a derivation in degree $n$ using the constraints $\sum_v x_{uv} - 1 \in \pmatch$. By eliminating terms which do not correspond to partial matchings, we get $x_M - \sum_{M': M \subset M'} x_{M'} \in \gen{\pmatch}$. Doing this to every monomial, we determine there is a polynomial $p'$ which is homogeneous of degree $n$ such that $p - p' \in \gen{\pmatch}$. Now since the coefficients of $p'$ correspond exactly to perfect matchings, for each $\alpha \in V(\pmatch)$ there is a monomial in $p'$ whose coefficient is exactly $p'(\alpha)$. Since $p'(\alpha) = 0$ for every $\alpha \in V(\pmatch)$, it must be that $p' = 0$, and so $p \in \gen{\pmatch}$.
+Let $p$ be a polynomial such that $p(\alpha) = 0$ for each $\alpha \in V(\pmatch)$. By \prettyref{lem:monomials}, we can assume that $p(x)$ is a multilinear polynomial whose monomials correspond to partial matchings. For such a partial matching $M$, clearly $x_M - x_M\prod_{u \notin M} \sum_v x_{uv}$ has a derivation in degree $n$ using the constraints $\sum_v x_{uv} - 1 \in \pmatch$. By eliminating terms which do not correspond to partial matchings, we get $x_M - \sum_{M': M \subset M'} x_{M'} \in \gen{\pmatch}$. Doing this to every monomial, we determine there is a polynomial $p'$ which is homogeneous of degree $n$ such that $p - p' \in \gen{\pmatch}$. Now since the coefficients of $p'$ correspond exactly to perfect matchings, for each monomial in $p'$, theres an $\alpha \in V(\pmatch)$ such that the coefficient of the monomial is $p'(\alpha)$. Since $p'(\alpha) = 0$ for every $\alpha \in V(\pmatch)$, it must be that $p' = 0$, and so $p \in \gen{\pmatch}$.
 \end{proof}
 Now we move on to the second step of our proof. 
 
@@ -95,11 +94,10 @@ We will prove the following lemma:
 \begin{lemma}
   \label{lem:constant}
   Let $p$ be a polynomial in $\R^{\binom{n}{2}}$.
-	Then there is a constant $c_p$ such that $\sum_{\sigma \in \cS_n} \sigma p - c_p$ has a derivation from $\pmatch$ in degree at most $\deg p$. 
+	Then there is a constant $c_p$ such that $\sum_{\sigma \in \cS_n} \sigma p - c_p \in \gen{\pmatch}_{\deg p}$. 
 \end{lemma}
 To do so, it will be useful to first prove a few lemmas on how we can simplify the structure of $p$. 
-
-Any partial matching monomial may be extended as a sum over partial matching monomials containing that partial matching using the constraint $\sum_j x_{ij} - 1 \in \pmatch$. The first lemma here shows how to extend by a single edge, and the second iteratively applies this process to extend by multiple edges.
+Any partial matching monomial may be extended as a sum over partial matching monomials containing that partial matching using the constraint $\sum_j x_{ij} - 1 \in \pmatch$, as we did in the proof of \prettyref{lem:matching-complete}. The first lemma here shows how to extend by a single edge, and the second iteratively applies this process to extend by multiple edges.
 \begin{lemma}
   \label{lem:matching+a}
   For any partial matching \(M\) on \(2d\) vertices
@@ -107,26 +105,25 @@ Any partial matching monomial may be extended as a sum over partial matching mon
   \begin{equation}
     \label{eq:matching+a}
     x_{M}
-    \cong
-    \sum_{\substack{M_{1} = M \cup \{u,v\}: \\
-        v \in [n] \setminus (M \cup \{u\})}}
+    \cong_{d+1}
+    \sum_{\substack{M_{1} = M \cup \{i,j\}: \\
+        j \in [n] \setminus (M \cup \{i\})}}
     x_{M_{1}}
-    ,
+    .
   \end{equation}
-	and the derivation can be done in degree $d+1$.
 \end{lemma}
 \begin{proof}
-We use the constraints \(\sum_{v} x_{uv} - 1\)
+We use the constraints \(\sum_{v} x_{ij} - 1\)
 to add variables corresponding to edges at \(u\),
 and then use \(x_{uv} x_{uw}\) to remove monomials
 not corresponding to a partial matching:
 \begin{equation*}
   x_{M}
   \cong
-  x_{M} \sum_{v \in K_n} x_{uv}
+  x_{M} \sum_{v \in K_n} x_{ij}
   \cong
-  \sum_{\substack{M_{1} = M \cup \{u,v\}: \\
-      v \in K_{n} \setminus (M \cup \{u\})}}
+  \sum_{\substack{M_{1} = M \cup \{i,j\}: \\
+      j \in K_{n} \setminus (M \cup \{i\})}}
   x_{M_{1}}
   .
 \end{equation*}
@@ -139,7 +136,7 @@ It is easy to see that these derivations are done in degree $d+1$.
   we have
   \begin{equation}
     \label{eq:partial-matching}
-    x_{M} \cong
+    x_{M} \cong_k
     \frac{1}{\binom{n/2 - d}{k - d}}
     \sum_{\substack{M' \supset M \\ \size{M'} = k}} x_{M'}
   \end{equation}
@@ -154,32 +151,32 @@ followed by the inductive hypothesis gives:
 \begin{equation*}
 	\begin{split}
     x_{M}
-    &\cong
-    \sum_{\substack{M_{1} = M \cup \{u,v\}: \\
-        v \in K_{n} \setminus (M \cup \{u\})}}
+    &\cong_{d+1}
+    \sum_{\substack{M_{1} = M \cup \{i,j\}: \\
+        j \in K_{n} \setminus (M \cup \{i\})}}
     x_{M_{1}} \\
-    &\cong
+    &\cong_k
     \frac{1}{\binom{n/2 - d - 1}{k - d - 1}}
     \sum_{\substack{
         M' \supset M_{1} \\ \size{M'} = k \\
-        M_{1} = M \cup \{u,v\}: \\
-        v \in K_{n} \setminus (M \cup \{u\})}}
+        M_{1} = M \cup \{i,j\}: \\
+        j \in K_{n} \setminus (M \cup \{i\})}}
     x_{M'}
     \end{split}
     .
 \end{equation*}
-Averaging over all vertices \(u\) not covered by \(M\),
+Averaging over all vertices \(i\) not covered by \(M\),
 we obtain:
 \begin{equation*}
   \begin{split}
   x_{M}
-  &\cong
+  &\cong_k
   \frac{1}{n - 2 d}
   \frac{1}{\binom{n/2 - d - 1}{k - d - 1}}
   \sum_{\substack{
       M' \supset M_{1} \\ \size{M'} = k \\
-      M_{1} = M \cup \{u,v\}: \\
-      \{u, v\} \in K_{n} \setminus M}}
+      M_{1} = M \cup \{i,j\}: \\
+      \{i,j\} \in K_{n} \setminus M}}
   x_{M'} \\
   &=
   \frac{1}{n - 2 d}
@@ -197,31 +194,28 @@ we obtain:
 \end{equation*}
 where in the second step the factor \(2(k - d)\) accounts for the different choices of $\{u,v\}$ that can lead to extending $M$ to $M'$.
 \end{proof}
-For a partial matching \(M\),
-let \(x_{M} \coloneqq \prod_{e \in M} x_{e}\)
-denote the product of edge variables for the edges in \(M\).
-
 Finally, we can prove the first main lemma:
+
 \begin{proof}[Proof of \prettyref{lem:constant}]
 Given \prettyref{lem:monomials},
 it suffices to prove the claim for
 \(p = x_{M}\) for some partial matching \(M\).
 Let $\deg p = |M| = k$.
-Note that $\cS_n$ acts transitively on the monomials of degree $k$, and thus $2^k k! (n-2k)!$ elements of $\cS_n$ stabilize $p$.
-Thus $\sum_{\sigma \in S_n} \sigma x_M = 2^k k! (n-2k)!\sum_{M': |M'| = k} x_{M'}$.
+Note that $\sym{n}$ acts transitively on the monomials of degree $k$, and thus by the Orbit-Stabilizer theorem, $2^k k! (n-2k)!$ elements of $\sym{n}$ stabilize $p$.
+Thus $\sum_{\sigma \in \sym{n}} \sigma x_M = 2^k k! (n-2k)!\sum_{M': |M'| = k} x_{M'}$.
 Finally, apply \prettyref{lem:partial-matching} with $d = 0$:
 \begin{equation*}
   \begin{split}
-  \sum_{\sigma \in \cS_{n}} \sigma x_{M}
+  \sum_{\sigma \in \sym{n}} \sigma x_{M}
   &= 2^{k} k! (n-2k)! \sum_{M' \colon \size{M'} = k} x_{M'} \\
-  &\cong
+  &\cong_k
   2^{k} k! (n-2k)! \binom{n/2}{k}.
   \end{split}
 \end{equation*}
 \end{proof}
 As a corollary, we get that when $p \in \gen{\pmatch}$, then the constant must be zero 
 \begin{corollary}\label{cor:constantiszero}
-If $p \in \gen{\pmatch}$, then $\sum_{\sigma \in \cS_n} \sigma p$ has a derivation from $\pmatch$ in degree $\deg p$.
+If $p \in \gen{\pmatch}$, then $\sum_{\sigma \in \sym{n}} \sigma p$ has a derivation from $\pmatch$ in degree $\deg p$.
 \end{corollary}
 \begin{proof}
 Apply \prettyref{lem:constant} to obtain a constant $c_p$ such that $\sum_{\sigma \in \cS_n} \sigma p \cong c_p$. 
@@ -229,22 +223,21 @@ Now since $p \in \gen{\pmatch}$, $c_p \in \gen{\pmatch}$ as well. But the only c
 \end{proof}
 
 \subsection{Getting to a Symmetric Polynomial}
-In order to apply \prettyref{lem:constant} to a general polynomial $p$, we need to show how to derive the difference polynomial $p - \sum_{\sigma \in \cS_n} \sigma p$ from $\pmatch$. Our proof will be by an induction on the number of vertices $n$. Because the number of vertices will be changing in this section, we will stop omitting the dependence on $n$.
+In order to apply \prettyref{lem:constant} to a general polynomial $p$, we need to show how to derive the difference polynomial $p - \sum_{\sigma \in \sym{n}} \sigma p$ from $\pmatch$. Our proof will be by an induction on the number of vertices $n$. Because the number of vertices will be changing in this section, we will stop omitting the dependence on $n$.
 The next lemma will allow us to apply induction:
 \begin{lemma}
   \label{lem:degree-increase}
-  Let \(L\) be a polynomial with a degree $d$ derivation from $\pmatch(n)$.
-	Then $Lx_{n+1,n+2}$ has a degree $d+1$ derivation from $\pmatch(n+2)$.
+  Let \(L \in \gen{\pmatch(n)}_d\).
+	Then $L \cdot x_{n+1,n+2} \in \gen{\pmatch(n+2)}_{d+1}$.
 \end{lemma}
 \begin{proof}
 It suffices to prove the statement for $L \in \pmatch(n)$. 
 If $L = x_{ij}^2 - x_{ij}$ or $L = x_{ij}x_{ik}$, the claim clearly true because $L \in \pmatch(n+2)$.
-Then let $L = \sum_j x_{ij} - 1$, note that 
+Then let $L = \sum_j x_{ij} - 1$ for some $i$, and note that 
 \begin{align*}
-Lx_{n+1}x_{n+2} &= (\sum_{j=1}^n x_{ij} - 1)x_{n+1,n+2} \\
-&= (\sum_{j=1}^{n+2} x_{ij} - 1)x_{n+1,n+2} + (-1)\cdot x_{i,n+1}x_{n+1,n+2} + (-1)\cdot x_{i,n+2}x_{n+1,n+2},
+Lx_{n+1,n+2} - \left(\sum_{j=1}^{n+2} x_{ij} - 1\right)x_{n+1,n+2} &= -x_{i,n+1}x_{n+1,n+2} - x_{i,n+2}x_{n+1,n+2} \\
+&\cong_2 0.
 \end{align*}
-and realize that all three terms contain a factor in $\pmatch(n+2)$.
 \end{proof}
 
 We are now ready to prove the main theorem of this section, that the matching constraints $\pmatch(n)$ admit effective derivations. 
@@ -286,7 +279,7 @@ Then $\ptsp$ is fixed by the action of every $\sigma$, as are its solutions $V(\
 
 Note that $V(\ptsp)$ corresponds to a matching on $K_{n,n}$, the complete bipartite graph on $2n$ vertices. Thus it should come as no surprise that the same proof strategy as the one we used for matchings on the complete graph $K_n$ should go through. This section will be extremely similar to the previous one, and the reader loses very little by skipping ahead to \prettyref{sec:bcsp}. It would be much nicer if we just reduce to $\ptsp(n)$ from $\pmatch(2n)$. This requires proving that any polynomial which is zero on $V(\ptsp(n))$ is the projection of a polynomial of similar degree which is zero on $V(\pmatch(2n))$. Unfortunately I am not sure how to prove this except by proving that $\ptsp$ is effective, so we will have to live with some repetition. 
 
-For a partial matching $M$ of $K_{n,n}$, i.e. a set of disjoint pairs from $[n] \times [n]$, define $x_M = \prod_{e \in M} x_e$ with the convention that $x_{\emptyset} = 1$. We also define $M_L = \{i \in [n] | \exists j: (i,j) \in M\}$ and $M_R = \{j \in [n] | \exists i: (i,j) \in M\}$. 
+For a partial matching $M$ of $K_{n,n}$, i.e. a set of disjoint pairs from $[n] \times [n]$, define $x_M = \prod_{e \in M} x_e$ with the convention that $x_{\emptyset} = 1$. We also define $M_L = \{i \in [n] \mid \exists j: (i,j) \in M\}$ and $M_R = \{j \in [n] \mid \exists i: (i,j) \in M\}$. 
 \begin{lemma}\label{lem:tsp-monomials}
  Let $p$ be any polynomial. Then there is a multilinear polynomial $q$ such that every monomial of $q$ is a partial matching monomial, and $p-q$ has a derivation from $\cP$ of degree $\deg p$.
 \end{lemma}
@@ -483,13 +476,13 @@ Because transpositions generate the symmetric group, the above argument implies 
 \section{Effective Derivations for \textsc{Balanced-CSP}}\label{sec:bcsp}
 Fix an integer $n$, and recall that the \textsc{Balanced-CSP} constraints are polynomials in $\R^n$:
 \begin{align}
-\pbcsp(n,c) = \left\{x_i^2 - x_i| i \in [n]\right\} \cup \left\{\sum_i x_i - c\right\}.\label{eq:bcsp-formulation}
+\pbcsp(n,c) = \left\{x_i^2 - x_i\mid i \in [n]\right\} \cup \left\{\sum_i x_i - c\right\}.\label{eq:bcsp-formulation}
 \end{align}
 The \textsc{Bisection} constraints are the special case when $n$ is even and $c = n/2$. 
 As before, we need to define the appropriate symmetric action. For an element $\sigma \in \cS_n$, we define $\sigma x_i = x_{\sigma(i)}$ and extend this action multiplicatively and linearly to get an action on every polynomial. 
 Once again, note that $\pbcsp$ and $V(\pbcsp)$ are fixed by $\cS_n$ under this action, and thus if $p \in \gen{\pbcsp}$, then $\sigma p \in \gen{\pbcsp}$. 
 We will begin with the special case of \textsc{Bisection}, as we will encounter an obstacle for general $c$. 
-Because $\pbcsp$ contains the boolean constraints $\{x_i^2 - x_i | i \in [n]\}$, we will take $p$ to be a multilinear polynomial. 
+Because $\pbcsp$ contains the boolean constraints $\{x_i^2 - x_i \mid i \in [n]\}$, we will take $p$ to be a multilinear polynomial. 
 Our proof strategy is the same two-step strategy as before. 
 \begin{lemma}\label{lem:bcsp-complete}
 $\gen{\pbcsp(n,c)}$ is complete for any $n$ and $c \leq n$.
@@ -565,10 +558,10 @@ However, the polynomials of degree $c+1$ or greater actually have no derivations
 We will see that this phenomenon is because of the fact that the Pigeonhole Principle requires high degree to prove in the polynomial calculus. 
 The negation of the Pigeonhole Principle is the following set of constraints:
 \begin{align*}
-\nphp(m,n) &= \left\{x_{ij}^2 - x_{ij} | i \in [m], j \in [n]\right\} \\
-&\cup \left\{\sum_j x_{ij} - 1 | i \in [m]\right\} \\
-&\cup \left\{x_{ij}x_{ik} | i \in [m], j,k \in [n], j \neq k\right\} \\
-&\cup \left\{x_{ij}x_{kj} | i,k \in [m], j \in [n], i \neq k\right\}
+\nphp(m,n) &= \left\{x_{ij}^2 - x_{ij} \mid i \in [m], j \in [n]\right\} \\
+&\cup \left\{\sum_j x_{ij} - 1 \mid i \in [m]\right\} \\
+&\cup \left\{x_{ij}x_{ik} \mid i \in [m], j,k \in [n], j \neq k\right\} \\
+&\cup \left\{x_{ij}x_{kj} \mid i,k \in [m], j \in [n], i \neq k\right\}
 \end{align*}
 $\nphp(m,n)$ asserts the existence of an injective mapping from $[m]$ into $[n]$. If $m > n$, then clearly there is no such mapping, so the set of constraints is unsatisfiable. This implies that $1 \in \gen{\nphp(m,n)}$. However, Razborov proved that any derivation of $1$ from $\nphp(m,n)$ has degree at least $n/2 + 1$ \cite{Raz98}.
 This allows us to prove the following:
@@ -622,7 +615,7 @@ The theorem is a direct corollary of \prettyref{lem:highdeg-easy}, \prettyref{le
 \section{\textsc{Boolean Sparse PCA}}
 The last example we give for our proof strategy is the \textsc{Boolean Sparse PCA} problem, whose constraints are given by 
 \begin{align}
-\pspca(n,c) = \left\{x_i^3 - x_i | i \in [n]\right\} \cup \left\{\sum_i x_i^2 - c\right\}.\label{eq:bspca-formulation}
+\pspca(n,c) = \left\{x_i^3 - x_i \mid i \in [n]\right\} \cup \left\{\sum_i x_i^2 - c\right\}.\label{eq:bspca-formulation}
 \end{align}
 This problem arises when trying to reconstruct a planted sparse vector from noisy samples, see for example \cite{MW15}.
 

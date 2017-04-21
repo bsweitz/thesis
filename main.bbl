@@ -622,6 +622,35 @@
   \warn{\item Can't use 'location' + 'address'}
 \endentry
 
+\entry{Chri76}{book}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Christofides}{C.}%
+     {N.}{N.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {GROUP.}{G.}%
+     {CARNEGIE-MELLON UNIV PITTSBURGH PA MANAGEMENT SCIENCES~RESEARCH}{C.-M. U.
+  P. P. M. S.~R.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Defense Technical Information Center}%
+  }
+  \strng{namehash}{CNGCMUPPMSR1}
+  \strng{fullhash}{CNGCMUPPMSR1}
+  \field{sortinit}{C}
+  \field{series}{Management sciences research report}
+  \field{title}{Worst-Case Analysis of a New Heuristic for the Travelling
+  Salesman Problem}
+  \verb{url}
+  \verb https://books.google.com/books?id=2A7eygAACAAJ
+  \endverb
+  \field{year}{1976}
+\endentry
+
 \entry{CLO07}{book}{}
   \name{author}{3}{}{%
     {{}%

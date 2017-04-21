@@ -7,6 +7,5 @@ University of California Berkeley Thesis/
 *.log
 *.lot
 *.out
-*.pdf
 *.run.xml
 *.toc
