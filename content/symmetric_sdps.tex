@@ -1,7 +1,7 @@
 \chapter{Optimal Symmetric SDP Formulations and a Lower Bound}\label{cha:symmetric_sdps}
-The main result of this section is to show that when the solution space of a polynomial formulation for a combinatorial optimization problem satsfies certain symmetry properties, then the Theta Body SDP relaxation (see \prettyref{sec:polyforms}) achieves the best approximation among all symmetric SDPs of a comparable size. This is proven using an old theorem of Yannakakis that has been used time and time again to find optimal symmetric LP and SDP relaxations \cite{TODO}. 
+The main result of this section is to show that when the solution space of a polynomial formulation for a combinatorial optimization problem satsfies certain symmetry properties, then the Theta Body SDP relaxation (see \prettyref{sec:polyforms}) achieves the best approximation among all symmetric SDPs of a comparable size. This is proven using an old technique of Yannakakis on the size of certain permutation groups that has been used time and time again to find optimal symmetric LP and SDP relaxations. 
 
-We combine this result with some of our results in \prettyref{cha:effective_derivations} to prove that the Sum-of-Squares SDP relaxation (see \prettyref{sec:polyforms} again) performs no worse than the Theta Body relaxation, thus showing that the SOS SDP is optimal for problems including \textsc{Matching}, \textsc{TSP}, and \textsc{Balanced CSP}. Furthermore, this allows us to translate lower bounds against the SOS SDP to lower bounds against any symmetric SDP formulation. We apply this to the \textsc{Matching} problem using the lower bound of Grigoriev \cite{TODO}.
+We combine this result with some of our results in \prettyref{cha:effective_derivations} to prove that the Sum-of-Squares SDP relaxation (see \prettyref{sec:polyforms} again) performs no worse than the Theta Body relaxation, thus showing that the SOS SDP is optimal for problems including \textsc{Matching}, \textsc{TSP}, and \textsc{Balanced CSP}. Furthermore, this allows us to translate lower bounds against the SOS SDP to lower bounds against any symmetric SDP formulation. We apply this to the \textsc{Matching} problem using the lower bound of Grigoriev \cite{Gri01}.
 
 \section{Theta Body Optimality}
 Recall that a $S_m$-symmetric combinatorial optimization problem $\cM = (\cS, \cF)$ has a symmetric polynomial formulation if two conditions hold. First, there is a polynomial optimization problem $(\cP, \cQ, \cO, \phi)$ on $n$ variables such that solving the associated problem solves $\cM$ as well. Second, there is an action of $S_m$ on the coordinates $[n]$ (extending to an action on $\R^n$) that is compatible with the action on $\cS$: $\sigma\phi(s) = \phi(\sigma s)$. This action extends to an action on polynomials simply by $\sigma x_i = x_{\sigma i}$ and extending it linearly and multiplicatively. 
@@ -58,8 +58,8 @@ C(f) - f(s) &= X^s \cdot Y_f + \mu_f \\
 Lastly, $\sigma h_{ij}(s) = h_{ij}(\sigma^{-1}s) = \sqrt{X^{\sigma^{-1}s}}_{ij} = \sqrt{\sigma^{-1}X^s}_{ij}$. Because $\sigma^{-1}$ is a coordinate permutation, its action on $X^s$ can be written $\sigma^{-1} X^s = P(\sigma) X^s P(\sigma)^T$. Then since $\left(P(\sigma)\sqrt{X^s}P(\sigma)^T\right)^2 = P(\sigma)X^sP(\sigma)^T = \sigma^{-1}X^s$, and the PSD square root is unique, we have $\sqrt{\sigma^{-1}X^s} = \sigma^{-1}\sqrt{X^s}$. Thus $h_{ij}(\sigma^{-1}s) = \sigma^{-1}\sqrt{X^s}_{ij} = \sqrt{X^s}_{\sigma^{-1}i\sigma^{-1}j} = h_{\sigma^{-1}i\sigma^{-1}j}(s)$, so indeed $\cH$ is $G$-invariant. 
 \end{proof}
 
-The second lemma is an old group-theoretic result. It has been used frequently in the context of symmetric LP and SDP formulations, see for example \cite{}. 
-\begin{lemma}[(\cite{DIXANDMORT}, Theorems 5.2A and 5.2B)]\label{lem:dixandmort}
+The second lemma is an old group-theoretic result. It has been used frequently in the context of symmetric LP and SDP formulations, see for example \cite{LRST14,KPT10,BFPS12}. 
+\begin{lemma}[(\cite{DM96}, Theorems 5.2A and 5.2B)]\label{lem:dixandmort}
 Let $n \geq 10$ and let $G \leq S_n$. If $|S_n: G| < \binom{n}{k}$ for some $k < n/4$, then there is a subset $I \subseteq [n]$ such that $|I| < k$, and $A([n] \setminus I)$ is a subgroup of $G$.
 \end{lemma}
 We are ready to prove the main theorem.
@@ -125,7 +125,7 @@ Recall that matching has a polynomial formulation on $\binom{n}{2}$ variables:
 &\phi_n(M) = \chi_M.
 \end{align*}
 By \prettyref{cor:matching_bsp_optimal}, the Lasserre hierarchy provides the best approximation for matching among small SDPs. However, it is also known that the Lasserre hierarchy, which certifies nonnegativity via PC$_>$ proofs, does not perform well on matching. In particular, it is incapable of certifying that the number of edges in the matching of an $n$-clique with $n$ odd is at most $(n-1)/2$ until $\Omega(n)$ rounds:
-\begin{theorem}[Due to \cite{grigoriev}]\label{thm:grigoriev}
+\begin{theorem}[Due to \cite{Gri01}]\label{thm:grigoriev}
 If $n$ is odd, $V(\cP_n) = \emptyset$, but every PC$_>$ refutation of $\cP_n$ has degree $\Omega(n)$.
 \end{theorem}
 Since Lasserre does poorly on matchings, we should be able to prove that every small symmetric SDP formulation must do poorly: 

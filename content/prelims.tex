@@ -100,7 +100,7 @@ A polynomial $s(x) \in \R[x_1,\dots,x_n]$ is called a \emph{sum-of-squares (or S
 \end{definition}
 
 Clearly an SOS polynomial is nonnegative on all of $\R^n$. However, the converse is not always true.
-\begin{fact}[\cite{Motzkin}]
+\begin{fact}[\cite{Motz67}]
 The polynomial $p(x,y) = x^4y^2 + x^2y^4 - 3x^2y^2 + 1$ is nonnegative on $\R^n$ but is not a sum of squares.
 \end{fact}
 
@@ -153,7 +153,7 @@ Strong duality actually implies that the converse of \prettyref{lem:prelim_dual_
 \prettyref{cha:bit_complexity} we further explore the problem of finding PC$_>$ proofs of bounded norm. We present some of the first theory for finding proofs of bounded norm, and we paint a promising picture for many relevant sets $\cP$ and $\cQ$.
 
 \section{Combinatorial Optimization Problems}\label{sec:prelims_comb_opt}
-We follow the framework of \cite{sebastian,gabor} for combinatorial problems.
+We follow the framework of \cite{BPZ15} for combinatorial problems.
 We define only maximization problems here, but it is clear that the definition extends easily to minimization problems as well.
 \begin{definition}
 An \emph{combinatorial maximization problem} \(\cM = (\cS, \cF)\)
@@ -354,4 +354,4 @@ concluding the proof.
 When we have a $G$-symmetric combinatorial optimization problem, it makes some sense to write symmetric SDP relaxations for it.
 The structure and symmetries of the problem are reflected in the relaxation, and it can often be interpreted more easily. 
 In \prettyref{cha:symmetric_sdps} we will see that the Theta Body relaxation achieves the best approximation among any symmetric SDP of a similar size for \textsc{Matching}.
-However, there are examples where asymmetric SDP relaxations achieve better approximation, even when the underlying problem is symmetric \cite{}. 
+However, there are examples where asymmetric SDP relaxations achieve better approximation, even when the underlying problem is symmetric \cite{KPT10}. 

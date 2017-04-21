@@ -12,7 +12,7 @@ remainder. Let $r \in \gen{\cP}$ be of degree $d$, and consider the total reduct
 $r_i = r_{i+1} + q_{i+1}p_{i+1}$, where $p_{i+1} \in \cP$, $\deg r_{i+1} \leq \deg r_i$, and $\deg q_{i+1}p_{i+1} \leq \deg r_i$. Combining all these sums into one, we get
 $r = \sum_i q_i p_i$, which is a derivation of degree $d$. 
 \end{proof}
-\prettyref{lem:grobnereffective} is unsurprising, as Gr\"obner bases first originated as a method to solve the polynomial ideal problem \cite{}. 
+\prettyref{lem:grobnereffective} is unsurprising, as Gr\"obner bases first originated as a method to solve the polynomial ideal problem \cite{Buch65}. 
 While Gr\"obner bases yield positive results, they are often unwieldy, complicated, and above all extremely expensive to compute. 
 Even so, there are several important combinatorial optimization problems that have constraints which are Gr\"obner bases, like \prettyref{ex:grobner}:
 \begin{corollary}\label{cor:csp-effective}
@@ -570,7 +570,7 @@ The negation of the Pigeonhole Principle is the following set of constraints:
 &\cup \left\{x_{ij}x_{ik} | i \in [m], j,k \in [n], j \neq k\right\} \\
 &\cup \left\{x_{ij}x_{kj} | i,k \in [m], j \in [n], i \neq k\right\}
 \end{align*}
-$\nphp(m,n)$ asserts the existence of an injective mapping from $[m]$ into $[n]$. If $m > n$, then clearly there is no such mapping, so the set of constraints is unsatisfiable. This implies that $1 \in \gen{\nphp(m,n)}$. However, Razborov proved that any derivation of $1$ from $\nphp(m,n)$ has degree at least $n/2 + 1$ \cite{}.
+$\nphp(m,n)$ asserts the existence of an injective mapping from $[m]$ into $[n]$. If $m > n$, then clearly there is no such mapping, so the set of constraints is unsatisfiable. This implies that $1 \in \gen{\nphp(m,n)}$. However, Razborov proved that any derivation of $1$ from $\nphp(m,n)$ has degree at least $n/2 + 1$ \cite{Raz98}.
 This allows us to prove the following:
 \begin{lemma}\label{lem:bcsp-highdeg-hard}
 Let $p = x_1x_2\dots x_c x_{c+1}$. Then $p \in \gen{\pbcsp(n,c)}$, but any derivation of $p$ from $\pbcsp(n,c)$ has degree at least $(n-c+1)/2$. 
@@ -624,7 +624,7 @@ The last example we give for our proof strategy is the \textsc{Boolean Sparse PC
 \begin{align}
 \pspca(n,c) = \left\{x_i^3 - x_i | i \in [n]\right\} \cup \left\{\sum_i x_i^2 - c\right\}.\label{eq:bspca-formulation}
 \end{align}
-This problem arises when trying to reconstruct a planted sparse vector from noisy samples, see for example \cite{Ma, Wigderson}.
+This problem arises when trying to reconstruct a planted sparse vector from noisy samples, see for example \cite{MW15}.
 
 These constraints are similar to the \textsc{Balanced-CSP} constraints of the previous section with one crucial difference: The variables are ternary instead of binary.
 This will complicate the analysis, but it turns out that with a bit more casework we will be able to push it through.

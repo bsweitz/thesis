@@ -1,0 +1,1926 @@
+% $ biblatex auxiliary file $
+% $ biblatex version 2.4 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\entry{Akg84}{book}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Akg{\"u}l}{A.}%
+     {M.}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Pitman Advanced Pub. Program}%
+  }
+  \strng{namehash}{AM1}
+  \strng{fullhash}{AM1}
+  \field{sortinit}{A}
+  \field{isbn}{9780273086345}
+  \field{series}{Research notes in mathematics}
+  \field{title}{Topics in relaxation and ellipsoidal methods}
+  \verb{url}
+  \verb https://books.google.com/books?id=VCqCAAAAIAAJ
+  \endverb
+  \field{year}{1984}
+\endentry
+
+\entry{ARV09}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Arora}{A.}%
+     {Sanjeev}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Rao}{R.}%
+     {Satish}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Vazirani}{V.}%
+     {Umesh}{U.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{Graph partitioning, expanders, expansion, graph separators,
+  multicommodity flows, semidefinite programs}
+  \strng{namehash}{ASRSVU1}
+  \strng{fullhash}{ASRSVU1}
+  \field{sortinit}{A}
+  \verb{doi}
+  \verb 10.1145/1502793.1502794
+  \endverb
+  \field{issn}{0004-5411}
+  \field{number}{2}
+  \field{pages}{5:1\bibrangedash 5:37}
+  \field{title}{Expander Flows, Geometric Embeddings and Graph Partitioning}
+  \verb{url}
+  \verb http://doi.acm.org/10.1145/1502793.1502794
+  \endverb
+  \field{volume}{56}
+  \list{location}{1}{%
+    {New York, NY, USA}%
+  }
+  \field{journaltitle}{J. ACM}
+  \field{month}{04}
+  \field{year}{2009}
+\endentry
+
+\entry{AM10}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Arvind}{A.}%
+     {V.}{V.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Mukhopadhyay}{M.}%
+     {Partha}{P.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Academic Press, Inc.}%
+  }
+  \keyw{Arithmetic circuits, Ideal membership, Polynomial identity testing}
+  \strng{namehash}{AVMP1}
+  \strng{fullhash}{AVMP1}
+  \field{sortinit}{A}
+  \verb{doi}
+  \verb 10.1016/j.ic.2009.06.003
+  \endverb
+  \field{issn}{0890-5401}
+  \field{number}{4}
+  \field{pages}{351\bibrangedash 363}
+  \field{title}{The Ideal Membership Problem and Polynomial Identity Testing}
+  \verb{url}
+  \verb http://dx.doi.org/10.1016/j.ic.2009.06.003
+  \endverb
+  \field{volume}{208}
+  \list{location}{1}{%
+    {Duluth, MN, USA}%
+  }
+  \field{journaltitle}{Inf. Comput.}
+  \field{month}{04}
+  \field{year}{2010}
+\endentry
+
+\entry{BKS15}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Barak}{B.}%
+     {Boaz}{B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kelner}{K.}%
+     {Jonathan~A.}{J.~A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Steurer}{S.}%
+     {David}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{dictionary learning, sparse coding, sum of squares}
+  \strng{namehash}{BBKJASD1}
+  \strng{fullhash}{BBKJASD1}
+  \field{sortinit}{B}
+  \field{booktitle}{Proceedings of the Forty-seventh Annual ACM Symposium on
+  Theory of Computing}
+  \verb{doi}
+  \verb 10.1145/2746539.2746605
+  \endverb
+  \field{isbn}{978-1-4503-3536-2}
+  \field{pages}{143\bibrangedash 151}
+  \field{series}{STOC '15}
+  \field{title}{Dictionary Learning and Tensor Decomposition via the
+  Sum-of-Squares Method}
+  \verb{url}
+  \verb http://doi.acm.org/10.1145/2746539.2746605
+  \endverb
+  \list{location}{1}{%
+    {Portland, Oregon, USA}%
+  }
+  \field{year}{2015}
+  \warn{\item Can't use 'location' + 'address'}
+\endentry
+
+\entry{BS14}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Barak}{B.}%
+     {Boaz}{B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Steurer}{S.}%
+     {David}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{BBSD1}
+  \strng{fullhash}{BBSD1}
+  \field{sortinit}{B}
+  \field{title}{Sum-of-squares proofs and the quest toward optimal algorithms}
+  \field{journaltitle}{arXiv preprint arXiv:1404.5236}
+  \field{year}{2014}
+\endentry
+
+\entry{BHKKMP16}{article}{}
+  \name{author}{6}{}{%
+    {{}%
+     {Barak}{B.}%
+     {Boaz}{B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hopkins}{H.}%
+     {Samuel~B.}{S.~B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kelner}{K.}%
+     {Jonathan~A.}{J.~A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kothari}{K.}%
+     {Pravesh}{P.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Moitra}{M.}%
+     {Ankur}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Potechin}{P.}%
+     {Aaron}{A.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{BB+1}
+  \strng{fullhash}{BBHSBKJAKPMAPA1}
+  \field{sortinit}{B}
+  \field{title}{A Nearly Tight Sum-of-Squares Lower Bound for the Planted
+  Clique Problem}
+  \verb{url}
+  \verb http://arxiv.org/abs/1604.03084
+  \endverb
+  \field{volume}{abs/1604.03084}
+  \field{journaltitle}{CoRR}
+  \field{year}{2016}
+\endentry
+
+\entry{BCVVZ12}{inproceedings}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Bhaskara}{B.}%
+     {Aditya}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Charikar}{C.}%
+     {Moses}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Vijayaraghavan}{V.}%
+     {Aravindan}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Guruswami}{G.}%
+     {Venkatesan}{V.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Zhou}{Z.}%
+     {Yuan}{Y.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{2}{%
+    {Society for Industrial}%
+    {Applied Mathematics}%
+  }
+  \strng{namehash}{BA+1}
+  \strng{fullhash}{BACMVAGVZY1}
+  \field{sortinit}{B}
+  \field{booktitle}{Proceedings of the Twenty-third Annual ACM-SIAM Symposium
+  on Discrete Algorithms}
+  \field{pages}{388\bibrangedash 405}
+  \field{series}{SODA '12}
+  \field{title}{Polynomial Integrality Gaps for Strong SDP Relaxations of
+  Densest K-subgraph}
+  \verb{url}
+  \verb http://dl.acm.org/citation.cfm?id=2095116.2095150
+  \endverb
+  \list{location}{1}{%
+    {Kyoto, Japan}%
+  }
+  \field{year}{2012}
+  \warn{\item Can't use 'location' + 'address'}
+\endentry
+
+\entry{BCVGZ12}{inproceedings}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Bhaskara}{B.}%
+     {Aditya}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Charikar}{C.}%
+     {Moses}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Vijayaraghavan}{V.}%
+     {Aravindan}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Guruswami}{G.}%
+     {Venkatesan}{V.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Zhou}{Z.}%
+     {Yuan}{Y.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{2}{%
+    {Society for Industrial}%
+    {Applied Mathematics}%
+  }
+  \strng{namehash}{BA+1}
+  \strng{fullhash}{BACMVAGVZY1}
+  \field{sortinit}{B}
+  \field{booktitle}{Proceedings of the Twenty-third Annual ACM-SIAM Symposium
+  on Discrete Algorithms}
+  \field{pages}{388\bibrangedash 405}
+  \field{series}{SODA '12}
+  \field{title}{Polynomial Integrality Gaps for Strong SDP Relaxations of
+  Densest K-subgraph}
+  \verb{url}
+  \verb http://dl.acm.org/citation.cfm?id=2095116.2095150
+  \endverb
+  \list{location}{1}{%
+    {Kyoto, Japan}%
+  }
+  \field{year}{2012}
+  \warn{\item Can't use 'location' + 'address'}
+\endentry
+
+\entry{BPZ15}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Braun}{B.}%
+     {G\'{a}bor}{G.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Pokutta}{P.}%
+     {Sebastian}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Zink}{Z.}%
+     {Daniel}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{extended formulations, polyhedral approximation, restrictions, stable
+  sets}
+  \strng{namehash}{BGPSZD1}
+  \strng{fullhash}{BGPSZD1}
+  \field{sortinit}{B}
+  \field{booktitle}{Proceedings of the Forty-seventh Annual ACM Symposium on
+  Theory of Computing}
+  \verb{doi}
+  \verb 10.1145/2746539.2746550
+  \endverb
+  \field{isbn}{978-1-4503-3536-2}
+  \field{pages}{107\bibrangedash 116}
+  \field{series}{STOC '15}
+  \field{title}{Inapproximability of Combinatorial Problems via Small LPs and
+  SDPs}
+  \verb{url}
+  \verb http://doi.acm.org/10.1145/2746539.2746550
+  \endverb
+  \list{location}{1}{%
+    {Portland, Oregon, USA}%
+  }
+  \field{year}{2015}
+  \warn{\item Can't use 'location' + 'address'}
+\endentry
+
+\entry{BFPS12}{inproceedings}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Braun}{B.}%
+     {Gabor}{G.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Fiorini}{F.}%
+     {Samuel}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Pokutta}{P.}%
+     {Sebastian}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Steurer}{S.}%
+     {David}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {IEEE Computer Society}%
+  }
+  \keyw{extended formulations, communication complexity, nonnegative rank,
+  approximation algorithms, polyhedral combinatorics}
+  \strng{namehash}{BG+1}
+  \strng{fullhash}{BGFSPSSD1}
+  \field{sortinit}{B}
+  \field{booktitle}{Proceedings of the 2012 IEEE 53rd Annual Symposium on
+  Foundations of Computer Science}
+  \verb{doi}
+  \verb 10.1109/FOCS.2012.10
+  \endverb
+  \field{isbn}{978-0-7695-4874-6}
+  \field{pages}{480\bibrangedash 489}
+  \field{series}{FOCS '12}
+  \field{title}{Approximation Limits of Linear Programs (Beyond Hierarchies)}
+  \verb{url}
+  \verb http://dx.doi.org/10.1109/FOCS.2012.10
+  \endverb
+  \list{location}{1}{%
+    {Washington, DC, USA}%
+  }
+  \field{year}{2012}
+\endentry
+
+\entry{BDP15}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Bri{\"e}t}{B.}%
+     {Jop}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Dadush}{D.}%
+     {Daniel}{D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Pokutta}{P.}%
+     {Sebastian}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{BJDDPS1}
+  \strng{fullhash}{BJDDPS1}
+  \field{sortinit}{B}
+  \verb{doi}
+  \verb 10.1007/s10107-014-0785-x
+  \endverb
+  \field{issn}{1436-4646}
+  \field{number}{1}
+  \field{pages}{179\bibrangedash 199}
+  \field{title}{On the existence of 0/1 polytopes with high semidefinite
+  extension complexity}
+  \verb{url}
+  \verb http://dx.doi.org/10.1007/s10107-014-0785-x
+  \endverb
+  \field{volume}{153}
+  \field{journaltitle}{Mathematical Programming}
+  \field{year}{2015}
+\endentry
+
+\entry{Buch65}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Buchberger}{B.}%
+     {Bruno}{B.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Academic Press, Inc.}%
+  }
+  \strng{namehash}{BB1}
+  \strng{fullhash}{BB1}
+  \field{sortinit}{B}
+  \verb{doi}
+  \verb 10.1016/j.jsc.2005.09.007
+  \endverb
+  \field{issn}{0747-7171}
+  \field{number}{3-4}
+  \field{pages}{475\bibrangedash 511}
+  \field{title}{Bruno Buchberger's PhD Thesis 1965: An Algorithm for Finding
+  the Basis Elements of the Residue Class Ring of a Zero Dimensional Polynomial
+  Ideal}
+  \verb{url}
+  \verb http://dx.doi.org/10.1016/j.jsc.2005.09.007
+  \endverb
+  \field{volume}{41}
+  \list{location}{1}{%
+    {Duluth, MN, USA}%
+  }
+  \field{journaltitle}{J. Symb. Comput.}
+  \field{month}{03}
+  \field{year}{2006}
+\endentry
+
+\entry{CMM09}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Charikar}{C.}%
+     {Moses}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Makarychev}{M.}%
+     {Konstantin}{K.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Makarychev}{M.}%
+     {Yury}{Y.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{MAX 2CSP, MAX k-CSP, SDP}
+  \strng{namehash}{CMMKMY1}
+  \strng{fullhash}{CMMKMY1}
+  \field{sortinit}{C}
+  \verb{doi}
+  \verb 10.1145/1541885.1541893
+  \endverb
+  \field{issn}{1549-6325}
+  \field{number}{3}
+  \field{pages}{32:1\bibrangedash 32:14}
+  \field{title}{Near-optimal Algorithms for Maximum Constraint Satisfaction
+  Problems}
+  \verb{url}
+  \verb http://doi.acm.org/10.1145/1541885.1541893
+  \endverb
+  \field{volume}{5}
+  \list{location}{1}{%
+    {New York, NY, USA}%
+  }
+  \field{journaltitle}{ACM Trans. Algorithms}
+  \field{month}{07}
+  \field{year}{2009}
+\endentry
+
+\entry{Chlam07}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Chlamtac}{C.}%
+     {Eden}{E.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {IEEE Computer Society}%
+  }
+  \strng{namehash}{CE1}
+  \strng{fullhash}{CE1}
+  \field{sortinit}{C}
+  \field{booktitle}{Proceedings of the 48th Annual IEEE Symposium on
+  Foundations of Computer Science}
+  \verb{doi}
+  \verb 10.1109/FOCS.2007.13
+  \endverb
+  \field{isbn}{0-7695-3010-9}
+  \field{pages}{691\bibrangedash 701}
+  \field{series}{FOCS '07}
+  \field{title}{Approximation Algorithms Using Hierarchies of Semidefinite
+  Programming Relaxations}
+  \verb{url}
+  \verb http://dx.doi.org/10.1109/FOCS.2007.13
+  \endverb
+  \list{location}{1}{%
+    {Washington, DC, USA}%
+  }
+  \field{year}{2007}
+\endentry
+
+\entry{CS08}{inproceedings}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Chlamtac}{C.}%
+     {Eden}{E.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Singh}{S.}%
+     {Gyanit}{G.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer-Verlag}%
+  }
+  \strng{namehash}{CESG1}
+  \strng{fullhash}{CESG1}
+  \field{sortinit}{C}
+  \field{booktitle}{Proceedings of the 11th International Workshop, APPROX
+  2008, and 12th International Workshop, RANDOM 2008 on Approximation,
+  Randomization and Combinatorial Optimization: Algorithms and Techniques}
+  \verb{doi}
+  \verb 10.1007/978-3-540-85363-3_5
+  \endverb
+  \field{isbn}{978-3-540-85362-6}
+  \field{pages}{49\bibrangedash 62}
+  \field{series}{APPROX '08 / RANDOM '08}
+  \field{title}{Improved Approximation Guarantees Through Higher Levels of SDP
+  Hierarchies}
+  \verb{url}
+  \verb http://dx.doi.org/10.1007/978-3-540-85363-3_5
+  \endverb
+  \list{location}{1}{%
+    {Boston, MA, USA}%
+  }
+  \field{year}{2008}
+  \warn{\item Can't use 'location' + 'address'}
+\endentry
+
+\entry{CLO07}{book}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Cox}{C.}%
+     {David~A.}{D.~A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Little}{L.}%
+     {John}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {O'Shea}{O.}%
+     {Donal}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer-Verlag New York, Inc.}%
+  }
+  \strng{namehash}{CDALJOD1}
+  \strng{fullhash}{CDALJOD1}
+  \field{sortinit}{C}
+  \field{isbn}{0387356509}
+  \field{title}{Ideals, Varieties, and Algorithms: An Introduction to
+  Computational Algebraic Geometry and Commutative Algebra, 3/e (Undergraduate
+  Texts in Mathematics)}
+  \list{location}{1}{%
+    {Secaucus, NJ, USA}%
+  }
+  \field{year}{2007}
+\endentry
+
+\entry{DM96}{book}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Dixon}{D.}%
+     {J.D.}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Mortimer}{M.}%
+     {B.}{B.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer New York}%
+  }
+  \strng{namehash}{DJMB1}
+  \strng{fullhash}{DJMB1}
+  \field{sortinit}{D}
+  \field{isbn}{9780387945996}
+  \field{series}{Graduate Texts in Mathematics}
+  \field{title}{Permutation Groups}
+  \verb{url}
+  \verb https://books.google.com/books?id=4QDpFN6k61EC
+  \endverb
+  \field{year}{1996}
+\endentry
+
+\entry{Foll01}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Folland}{F.}%
+     {Gerald~B.}{G.~B.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Mathematical Association of America}%
+  }
+  \strng{namehash}{FGB1}
+  \strng{fullhash}{FGB1}
+  \field{sortinit}{F}
+  \field{issn}{00029890, 19300972}
+  \field{number}{5}
+  \field{pages}{446\bibrangedash 448}
+  \field{title}{How to Integrate a Polynomial over a Sphere}
+  \verb{url}
+  \verb http://www.jstor.org/stable/2695802
+  \endverb
+  \field{volume}{108}
+  \field{journaltitle}{The American Mathematical Monthly}
+  \field{year}{2001}
+\endentry
+
+\entry{FJ97}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Frieze}{F.}%
+     {A.}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Jerrum}{J.}%
+     {M.}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{FAJM1}
+  \strng{fullhash}{FAJM1}
+  \field{sortinit}{F}
+  \field{abstract}{%
+  Polynomial-time approximation algorithms with nontrivial performance
+  guarantees are presented for the problems of (a) partitioning the vertices of
+  a weighted graph intok blocks so as to maximize the weight of crossing edges,
+  and (b) partitioning the vertices of a weighted graph into two blocks of
+  equal cardinality, again so as to maximize the weight of crossing edges. The
+  approach, pioneered by Goemans and Williamson, is via a semidefinite
+  programming relaxation.%
+  }
+  \verb{doi}
+  \verb 10.1007/BF02523688
+  \endverb
+  \field{issn}{1432-0541}
+  \field{number}{1}
+  \field{pages}{67\bibrangedash 81}
+  \field{title}{Improved approximation algorithms for MAXk-CUT and MAX
+  BISECTION}
+  \verb{url}
+  \verb http://dx.doi.org/10.1007/BF02523688
+  \endverb
+  \field{volume}{18}
+  \field{journaltitle}{Algorithmica}
+  \field{year}{1997}
+\endentry
+
+\entry{GMT09}{inbook}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Georgiou}{G.}%
+     {Konstantinos}{K.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Magen}{M.}%
+     {Avner}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Tulsiani}{T.}%
+     {Madhur}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \name{editor}{4}{}{%
+    {{}%
+     {Dinur}{D.}%
+     {Irit}{I.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Jansen}{J.}%
+     {Klaus}{K.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Naor}{N.}%
+     {Joseph}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Rolim}{R.}%
+     {Jos{\'e}}{J.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer Berlin Heidelberg}%
+  }
+  \strng{namehash}{GKMATM1}
+  \strng{fullhash}{GKMATM1}
+  \field{sortinit}{G}
+  \field{booktitle}{Approximation, Randomization, and Combinatorial
+  Optimization. Algorithms and Techniques: 12th International Workshop, APPROX
+  2009, and 13th International Workshop, RANDOM 2009, Berkeley, CA, USA, August
+  21-23, 2009. Proceedings}
+  \verb{doi}
+  \verb 10.1007/978-3-642-03685-9_10
+  \endverb
+  \field{isbn}{978-3-642-03685-9}
+  \field{pages}{125\bibrangedash 139}
+  \field{title}{Optimal Sherali-Adams Gaps from Pairwise Independence}
+  \verb{url}
+  \verb http://dx.doi.org/10.1007/978-3-642-03685-9_10
+  \endverb
+  \list{location}{1}{%
+    {Berlin, Heidelberg}%
+  }
+  \field{year}{2009}
+\endentry
+
+\entry{GW95}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Goemans}{G.}%
+     {Michel~X.}{M.~X.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Williamson}{W.}%
+     {David~P.}{D.~P.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{Approximation algorithms, convex optimization, randomized algorithms,
+  satisfiability}
+  \strng{namehash}{GMXWDP1}
+  \strng{fullhash}{GMXWDP1}
+  \field{sortinit}{G}
+  \verb{doi}
+  \verb 10.1145/227683.227684
+  \endverb
+  \field{issn}{0004-5411}
+  \field{number}{6}
+  \field{pages}{1115\bibrangedash 1145}
+  \field{title}{Improved Approximation Algorithms for Maximum Cut and
+  Satisfiability Problems Using Semidefinite Programming}
+  \verb{url}
+  \verb http://doi.acm.org/10.1145/227683.227684
+  \endverb
+  \field{volume}{42}
+  \list{location}{1}{%
+    {New York, NY, USA}%
+  }
+  \field{journaltitle}{J. ACM}
+  \field{month}{11}
+  \field{year}{1995}
+\endentry
+
+\entry{Gri01b}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Grigoriev}{G.}%
+     {D.}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{GD1}
+  \strng{fullhash}{GD1}
+  \field{sortinit}{G}
+  \field{abstract}{%
+  A lower bound is established on degrees of Positivstellensatz calculus
+  refutations (over a real field) introduced in (Grigoriev {\&} Vorobjov 2001;
+  Grigoriev 2001) for the knapsack problem. The bound depends on the values of
+  coefficients of an instance of the knapsack problem: for certain values the
+  lower bound is linear and for certain values the upper bound is constant,
+  while in the polynomial calculus the degree is always linear (regardless of
+  the values of coefficients) (Impagliazzo et al. 1999). This shows that the
+  Positivstellensatz calculus can be strictly stronger than the polynomial
+  calculus from the point of view of the complexity of the proofs.%
+  }
+  \verb{doi}
+  \verb 10.1007/s00037-001-8192-0
+  \endverb
+  \field{issn}{1420-8954}
+  \field{number}{2}
+  \field{pages}{139\bibrangedash 154}
+  \field{title}{Complexity of Positivstellensatz proofs for the knapsack}
+  \verb{url}
+  \verb http://dx.doi.org/10.1007/s00037-001-8192-0
+  \endverb
+  \field{volume}{10}
+  \field{journaltitle}{computational complexity}
+  \field{year}{2001}
+\endentry
+
+\entry{Gri01}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Grigoriev}{G.}%
+     {Dima}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Elsevier}%
+  }
+  \strng{namehash}{GD2}
+  \strng{fullhash}{GD2}
+  \field{sortinit}{G}
+  \field{number}{1}
+  \field{pages}{613\bibrangedash 622}
+  \field{title}{Linear lower bound on degrees of Positivstellensatz calculus
+  proofs for the parity}
+  \field{volume}{259}
+  \field{journaltitle}{Theoretical Computer Science}
+  \field{year}{2001}
+\endentry
+
+\entry{HZ99}{inproceedings}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Halperin}{H.}%
+     {Eran}{E.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Zwick}{Z.}%
+     {Uri}{U.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer-Verlag}%
+  }
+  \strng{namehash}{HEZU1}
+  \strng{fullhash}{HEZU1}
+  \field{sortinit}{H}
+  \field{booktitle}{Proceedings of the 7th International IPCO Conference on
+  Integer Programming and Combinatorial Optimization}
+  \field{isbn}{3-540-66019-4}
+  \field{pages}{202\bibrangedash 217}
+  \field{title}{Approximation Algorithms for MAX 4-SAT and Rounding Procedures
+  for Semidefinite Programs}
+  \verb{url}
+  \verb http://dl.acm.org/citation.cfm?id=645589.757889
+  \endverb
+  \list{location}{1}{%
+    {London, UK, UK}%
+  }
+  \field{year}{1999}
+\endentry
+
+\entry{Hilbert1893}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Hilbert}{H.}%
+     {D.}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{HD1}
+  \strng{fullhash}{HD1}
+  \field{sortinit}{H}
+  \field{pages}{313\bibrangedash 373}
+  \field{title}{Ueber die vollen Invariantensysteme}
+  \verb{url}
+  \verb http://eudml.org/doc/157652
+  \endverb
+  \field{volume}{42}
+  \field{journaltitle}{Mathematische Annalen}
+  \field{year}{1893}
+\endentry
+
+\entry{HSS15}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Hopkins}{H.}%
+     {Samuel~B.}{S.~B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Shi}{S.}%
+     {Jonathan}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Steurer}{S.}%
+     {David}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{HSBSJSD1}
+  \strng{fullhash}{HSBSJSD1}
+  \field{sortinit}{H}
+  \field{title}{Tensor principal component analysis via sum-of-squares proofs}
+  \verb{url}
+  \verb http://arxiv.org/abs/1507.03269
+  \endverb
+  \field{volume}{abs/1507.03269}
+  \field{journaltitle}{CoRR}
+  \field{year}{2015}
+\endentry
+
+\entry{Huynh1985}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Huynh}{H.}%
+     {Dung~T.}{D.~T.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{HDT1}
+  \strng{fullhash}{HDT1}
+  \field{sortinit}{H}
+  \field{abstract}{%
+  In this paper we investigate the computational complexity of the word problem
+  for commutative semigroups of fixed dimension. It is shown that for
+  commutative semigroups of dimension k, k ≧ 6, the word problem is complete
+  for symmetric linear space, providing another complete problem for this
+  symmetric complexity class. We also show that in the case of one generator,
+  the word problem is solvable in polynomial time.%
+  }
+  \verb{doi}
+  \verb 10.1007/BF00288776
+  \endverb
+  \field{issn}{1432-0525}
+  \field{number}{4}
+  \field{pages}{421\bibrangedash 432}
+  \field{title}{Complexity of the word problem for commutative semigroups of
+  fixed dimension}
+  \verb{url}
+  \verb http://dx.doi.org/10.1007/BF00288776
+  \endverb
+  \field{volume}{22}
+  \field{journaltitle}{Acta Informatica}
+  \field{year}{1985}
+\endentry
+
+\entry{KPT10}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Kaibel}{K.}%
+     {Volker}{V.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Pashkovich}{P.}%
+     {Kanstantsin}{K.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Theis}{T.}%
+     {Dirk~Oliver}{D.~O.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer-Verlag}%
+  }
+  \strng{namehash}{KVPKTDO1}
+  \strng{fullhash}{KVPKTDO1}
+  \field{sortinit}{K}
+  \field{booktitle}{Proceedings of the 14th International Conference on Integer
+  Programming and Combinatorial Optimization}
+  \verb{doi}
+  \verb 10.1007/978-3-642-13036-6_11
+  \endverb
+  \field{isbn}{3-642-13035-6, 978-3-642-13035-9}
+  \field{pages}{135\bibrangedash 148}
+  \field{series}{IPCO'10}
+  \field{title}{Symmetry Matters for the Sizes of Extended Formulations}
+  \verb{url}
+  \verb http://dx.doi.org/10.1007/978-3-642-13036-6_11
+  \endverb
+  \list{location}{1}{%
+    {Lausanne, Switzerland}%
+  }
+  \field{year}{2010}
+  \warn{\item Can't use 'location' + 'address'}
+\endentry
+
+\entry{Kar09}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Karakostas}{K.}%
+     {George}{G.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{Approximation algorithm, semidefinite programming, vertex cover}
+  \strng{namehash}{KG1}
+  \strng{fullhash}{KG1}
+  \field{sortinit}{K}
+  \verb{doi}
+  \verb 10.1145/1597036.1597045
+  \endverb
+  \field{issn}{1549-6325}
+  \field{number}{4}
+  \field{pages}{41:1\bibrangedash 41:8}
+  \field{title}{A Better Approximation Ratio for the Vertex Cover Problem}
+  \verb{url}
+  \verb http://doi.acm.org/10.1145/1597036.1597045
+  \endverb
+  \field{volume}{5}
+  \list{location}{1}{%
+    {New York, NY, USA}%
+  }
+  \field{journaltitle}{ACM Trans. Algorithms}
+  \field{month}{11}
+  \field{year}{2009}
+\endentry
+
+\entry{KMN10}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Karlin}{K.}%
+     {Anna~R.}{A.~R.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Mathieu}{M.}%
+     {Claire}{C.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Nguyen}{N.}%
+     {C.~Thach}{C.~T.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{KARMCNCT1}
+  \strng{fullhash}{KARMCNCT1}
+  \field{sortinit}{K}
+  \field{title}{Integrality Gaps of Linear and Semi-definite Programming
+  Relaxations for Knapsack}
+  \verb{url}
+  \verb http://arxiv.org/abs/1007.1283
+  \endverb
+  \field{volume}{abs/1007.1283}
+  \field{journaltitle}{CoRR}
+  \field{year}{2010}
+\endentry
+
+\entry{Karp1972}{inbook}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Karp}{K.}%
+     {Richard~M.}{R.~M.}%
+     {}{}%
+     {}{}}%
+  }
+  \name{editor}{3}{}{%
+    {{}%
+     {Miller}{M.}%
+     {Raymond~E.}{R.~E.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Thatcher}{T.}%
+     {James~W.}{J.~W.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Bohlinger}{B.}%
+     {Jean~D.}{J.~D.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer US}%
+  }
+  \strng{namehash}{KRM1}
+  \strng{fullhash}{KRM1}
+  \field{sortinit}{K}
+  \field{booktitle}{Complexity of Computer Computations: Proceedings of a
+  symposium on the Complexity of Computer Computations, held March 20--22,
+  1972, at the IBM Thomas J. Watson Research Center, Yorktown Heights, New
+  York, and sponsored by the Office of Naval Research, Mathematics Program, IBM
+  World Trade Corporation, and the IBM Research Mathematical Sciences
+  Department}
+  \verb{doi}
+  \verb 10.1007/978-1-4684-2001-2_9
+  \endverb
+  \field{isbn}{978-1-4684-2001-2}
+  \field{pages}{85\bibrangedash 103}
+  \field{title}{Reducibility among Combinatorial Problems}
+  \verb{url}
+  \verb http://dx.doi.org/10.1007/978-1-4684-2001-2_9
+  \endverb
+  \list{location}{1}{%
+    {Boston, MA}%
+  }
+  \field{year}{1972}
+\endentry
+
+\entry{Las01}{inbook}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Lasserre}{L.}%
+     {Jean~B.}{J.~B.}%
+     {}{}%
+     {}{}}%
+  }
+  \name{editor}{2}{}{%
+    {{}%
+     {Aardal}{A.}%
+     {Karen}{K.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Gerards}{G.}%
+     {Bert}{B.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer Berlin Heidelberg}%
+  }
+  \strng{namehash}{LJB1}
+  \strng{fullhash}{LJB1}
+  \field{sortinit}{L}
+  \field{booktitle}{Integer Programming and Combinatorial Optimization: 8th
+  International IPCO Conference Utrecht, The Netherlands, June 13--15, 2001
+  Proceedings}
+  \verb{doi}
+  \verb 10.1007/3-540-45535-3_23
+  \endverb
+  \field{isbn}{978-3-540-45535-6}
+  \field{pages}{293\bibrangedash 303}
+  \field{title}{An Explicit Exact SDP Relaxation for Nonlinear 0-1 Programs}
+  \verb{url}
+  \verb http://dx.doi.org/10.1007/3-540-45535-3_23
+  \endverb
+  \list{location}{1}{%
+    {Berlin, Heidelberg}%
+  }
+  \field{year}{2001}
+\endentry
+
+\entry{LRS15}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Lee}{L.}%
+     {James~R.}{J.~R.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Raghavendra}{R.}%
+     {Prasad}{P.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Steurer}{S.}%
+     {David}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{approximation complexity, lower bounds on positive-semidefinite rank,
+  polynomial optimization, quantum learning, semidefinite programming,
+  sum-of-squares method}
+  \strng{namehash}{LJRRPSD1}
+  \strng{fullhash}{LJRRPSD1}
+  \field{sortinit}{L}
+  \field{booktitle}{Proceedings of the Forty-seventh Annual ACM Symposium on
+  Theory of Computing}
+  \verb{doi}
+  \verb 10.1145/2746539.2746599
+  \endverb
+  \field{isbn}{978-1-4503-3536-2}
+  \field{pages}{567\bibrangedash 576}
+  \field{series}{STOC '15}
+  \field{title}{Lower Bounds on the Size of Semidefinite Programming
+  Relaxations}
+  \verb{url}
+  \verb http://doi.acm.org/10.1145/2746539.2746599
+  \endverb
+  \list{location}{1}{%
+    {Portland, Oregon, USA}%
+  }
+  \field{year}{2015}
+  \warn{\item Can't use 'location' + 'address'}
+\endentry
+
+\entry{LRST14}{inproceedings}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Lee}{L.}%
+     {James~R.}{J.~R.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Raghavendra}{R.}%
+     {Prasad}{P.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Steurer}{S.}%
+     {David}{D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Tan}{T.}%
+     {Ning}{N.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {IEEE Computer Society}%
+  }
+  \keyw{semidefinite programs, extended formulations, linear programs,
+  constraint satisfaction problems, travelling salesman problem}
+  \strng{namehash}{LJR+1}
+  \strng{fullhash}{LJRRPSDTN1}
+  \field{sortinit}{L}
+  \field{booktitle}{Proceedings of the 2014 IEEE 29th Conference on
+  Computational Complexity}
+  \verb{doi}
+  \verb 10.1109/CCC.2014.10
+  \endverb
+  \field{isbn}{978-1-4799-3626-7}
+  \field{pages}{13\bibrangedash 21}
+  \field{series}{CCC '14}
+  \field{title}{On the Power of Symmetric LP and SDP Relaxations}
+  \verb{url}
+  \verb http://dx.doi.org/10.1109/CCC.2014.10
+  \endverb
+  \list{location}{1}{%
+    {Washington, DC, USA}%
+  }
+  \field{year}{2014}
+\endentry
+
+\entry{Li13}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Li}{L.}%
+     {Shi}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{Approximation, Facility location problem, Theory}
+  \strng{namehash}{LS1}
+  \strng{fullhash}{LS1}
+  \field{sortinit}{L}
+  \verb{doi}
+  \verb http://doi.org/10.1016/j.ic.2012.01.007
+  \endverb
+  \field{issn}{0890-5401}
+  \field{note}{38th International Colloquium on Automata, Languages and
+  Programming (ICALP 2011)}
+  \field{pages}{45 \bibrangedash  58}
+  \field{title}{A 1.488 approximation algorithm for the uncapacitated facility
+  location problem}
+  \verb{url}
+  \verb http://www.sciencedirect.com/science/article/pii/S0890540112001459
+  \endverb
+  \field{volume}{222}
+  \field{journaltitle}{Information and Computation}
+  \field{year}{2013}
+\endentry
+
+\entry{Lovasz79}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Lovasz}{L.}%
+     {L.}{L.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {IEEE Press}%
+  }
+  \strng{namehash}{LL1}
+  \strng{fullhash}{LL1}
+  \field{sortinit}{L}
+  \verb{doi}
+  \verb 10.1109/TIT.1979.1055985
+  \endverb
+  \field{issn}{0018-9448}
+  \field{number}{1}
+  \field{pages}{1\bibrangedash 7}
+  \field{title}{On the Shannon Capacity of a Graph}
+  \verb{url}
+  \verb http://dx.doi.org/10.1109/TIT.1979.1055985
+  \endverb
+  \field{volume}{25}
+  \list{location}{1}{%
+    {Piscataway, NJ, USA}%
+  }
+  \field{journaltitle}{IEEE Trans. Inf. Theor.}
+  \field{month}{09}
+  \field{year}{2006}
+\endentry
+
+\entry{MW15}{inproceedings}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Ma}{M.}%
+     {Tengyu}{T.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Wigderson}{W.}%
+     {Avi}{A.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {MIT Press}%
+  }
+  \strng{namehash}{MTWA1}
+  \strng{fullhash}{MTWA1}
+  \field{sortinit}{M}
+  \field{booktitle}{Proceedings of the 28th International Conference on Neural
+  Information Processing Systems}
+  \field{pages}{1612\bibrangedash 1620}
+  \field{series}{NIPS'15}
+  \field{title}{Sum-of-squares Lower Bounds for Sparse PCA}
+  \verb{url}
+  \verb http://dl.acm.org/citation.cfm?id=2969239.2969419
+  \endverb
+  \list{location}{1}{%
+    {Montreal, Canada}%
+  }
+  \field{year}{2015}
+  \warn{\item Can't use 'location' + 'address'}
+\endentry
+
+\entry{MPW15}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Meka}{M.}%
+     {Raghu}{R.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Potechin}{P.}%
+     {Aaron}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Wigderson}{W.}%
+     {Avi}{A.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \strng{namehash}{MRPAWA1}
+  \strng{fullhash}{MRPAWA1}
+  \field{sortinit}{M}
+  \field{booktitle}{Proceedings of the Forty-seventh Annual ACM Symposium on
+  Theory of Computing}
+  \verb{doi}
+  \verb 10.1145/2746539.2746600
+  \endverb
+  \field{isbn}{978-1-4503-3536-2}
+  \field{pages}{87\bibrangedash 96}
+  \field{series}{STOC '15}
+  \field{title}{Sum-of-squares Lower Bounds for Planted Clique}
+  \verb{url}
+  \verb http://doi.acm.org/10.1145/2746539.2746600
+  \endverb
+  \list{location}{1}{%
+    {Portland, Oregon, USA}%
+  }
+  \field{year}{2015}
+  \warn{\item Can't use 'location' + 'address'}
+\endentry
+
+\entry{Motz67}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Motzkin}{M.}%
+     {T.S.}{T.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{MT1}
+  \strng{fullhash}{MT1}
+  \field{sortinit}{M}
+  \field{booktitle}{Proc. Sympos. Inequalities}
+  \field{pages}{205\bibrangedash 224}
+  \field{title}{The arithmetic-geometric inequality}
+  \list{location}{1}{%
+    {Wright-Patterson, Air Force Base, Ohio}%
+  }
+  \field{year}{1967}
+\endentry
+
+\entry{ODon16}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {O'Donnell}{O.}%
+     {Ryan}{R.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{OR1}
+  \strng{fullhash}{OR1}
+  \field{sortinit}{O}
+  \field{pages}{141}
+  \field{title}{{SOS} is not obviously automatizable, even approximately}
+  \verb{url}
+  \verb http://eccc.hpi-web.de/report/2016/141
+  \endverb
+  \field{volume}{23}
+  \field{journaltitle}{Electronic Colloquium on Computational Complexity
+  {(ECCC)}}
+  \field{year}{2016}
+\endentry
+
+\entry{PW07}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Peng}{P.}%
+     {Jiming}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Wei}{W.}%
+     {Yu}{Y.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{2}{%
+    {Society for Industrial}%
+    {Applied Mathematics}%
+  }
+  \keyw{\$0\$-\$1\$ SDP, K-means clustering, approximation, computational
+  complexity, principal component analysis, relaxation}
+  \strng{namehash}{PJWY1}
+  \strng{fullhash}{PJWY1}
+  \field{sortinit}{P}
+  \verb{doi}
+  \verb 10.1137/050641983
+  \endverb
+  \field{issn}{1052-6234}
+  \field{number}{1}
+  \field{pages}{186\bibrangedash 205}
+  \field{title}{Approximating K-means-type Clustering via Semidefinite
+  Programming}
+  \verb{url}
+  \verb http://dx.doi.org/10.1137/050641983
+  \endverb
+  \field{volume}{18}
+  \list{location}{1}{%
+    {Philadelphia, PA, USA}%
+  }
+  \field{journaltitle}{SIAM J. on Optimization}
+  \field{month}{02}
+  \field{year}{2007}
+\endentry
+
+\entry{PS17}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Potechin}{P.}%
+     {Aaron}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Steurer}{S.}%
+     {David}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{PASD1}
+  \strng{fullhash}{PASD1}
+  \field{sortinit}{P}
+  \field{title}{Exact tensor completion with sum-of-squares}
+  \verb{url}
+  \verb http://arxiv.org/abs/1702.06237
+  \endverb
+  \field{volume}{abs/1702.06237}
+  \field{journaltitle}{CoRR}
+  \field{year}{2017}
+\endentry
+
+\entry{RS09}{inproceedings}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Raghavendra}{R.}%
+     {P.}{P.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Steurer}{S.}%
+     {D.}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{computational complexity;game theory;graph theory;mathematical
+  programming;SDP relaxation;Sherali-Adams hierarchy;UGC-hardness
+  reduction;constant-size metrics;integrality gap;metric labeling
+  problem;ordering constraint satisfaction problem;semidefinite
+  programming;unique games gap instance;Approximation algorithms;Computer
+  science;Labeling;Particle separators;User-generated content;Vectors;SDP
+  hierarchies;Sherali--Adams hierarchy;approximation algorithms;hardness of
+  approximation;integrality gap construction;semidefinite programming;unique
+  games conjecture}
+  \strng{namehash}{RPSD1}
+  \strng{fullhash}{RPSD1}
+  \field{sortinit}{R}
+  \field{booktitle}{2009 50th Annual IEEE Symposium on Foundations of Computer
+  Science}
+  \verb{doi}
+  \verb 10.1109/FOCS.2009.73
+  \endverb
+  \field{issn}{0272-5428}
+  \field{pages}{575\bibrangedash 585}
+  \field{title}{Integrality Gaps for Strong SDP Relaxations of UNIQUE GAMES}
+  \field{year}{2009}
+  \warn{\item Invalid format of field 'month'}
+\endentry
+
+\entry{Ragh08}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Raghavendra}{R.}%
+     {Prasad}{P.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{constraint satisfaction problem, dictatorship tests, rounding schemes,
+  semidefinite programming, unique games conjecture}
+  \strng{namehash}{RP1}
+  \strng{fullhash}{RP1}
+  \field{sortinit}{R}
+  \field{booktitle}{Proceedings of the Fortieth Annual ACM Symposium on Theory
+  of Computing}
+  \verb{doi}
+  \verb 10.1145/1374376.1374414
+  \endverb
+  \field{isbn}{978-1-60558-047-0}
+  \field{pages}{245\bibrangedash 254}
+  \field{series}{STOC '08}
+  \field{title}{Optimal Algorithms and Inapproximability Results for Every
+  CSP?}
+  \verb{url}
+  \verb http://doi.acm.org/10.1145/1374376.1374414
+  \endverb
+  \list{location}{1}{%
+    {Victoria, British Columbia, Canada}%
+  }
+  \field{year}{2008}
+  \warn{\item Can't use 'location' + 'address'}
+\endentry
+
+\entry{RS15}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Raghavendra}{R.}%
+     {Prasad}{P.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Schramm}{S.}%
+     {Tselil}{T.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{RPST1}
+  \strng{fullhash}{RPST1}
+  \field{sortinit}{R}
+  \field{title}{Tight Lower Bounds for Planted Clique in the Degree-4 {SOS}
+  Program}
+  \verb{url}
+  \verb http://arxiv.org/abs/1507.05136
+  \endverb
+  \field{volume}{abs/1507.05136}
+  \field{journaltitle}{CoRR}
+  \field{year}{2015}
+\endentry
+
+\entry{RT12}{inproceedings}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Raghavendra}{R.}%
+     {Prasad}{P.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Tan}{T.}%
+     {Ning}{N.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{2}{%
+    {Society for Industrial}%
+    {Applied Mathematics}%
+  }
+  \strng{namehash}{RPTN1}
+  \strng{fullhash}{RPTN1}
+  \field{sortinit}{R}
+  \field{booktitle}{Proceedings of the Twenty-third Annual ACM-SIAM Symposium
+  on Discrete Algorithms}
+  \field{pages}{373\bibrangedash 387}
+  \field{series}{SODA '12}
+  \field{title}{Approximating CSPs with Global Cardinality Constraints Using
+  SDP Hierarchies}
+  \verb{url}
+  \verb http://dl.acm.org/citation.cfm?id=2095116.2095149
+  \endverb
+  \list{location}{1}{%
+    {Kyoto, Japan}%
+  }
+  \field{year}{2012}
+  \warn{\item Can't use 'location' + 'address'}
+\endentry
+
+\entry{Raz98}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Razborov}{R.}%
+     {A.A.}{A.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{RA1}
+  \strng{fullhash}{RA1}
+  \field{sortinit}{R}
+  \verb{doi}
+  \verb 10.1007/s000370050013
+  \endverb
+  \field{issn}{1420-8954}
+  \field{number}{4}
+  \field{pages}{291\bibrangedash 324}
+  \field{title}{Lower bounds for the polynomial calculus}
+  \verb{url}
+  \verb http://dx.doi.org/10.1007/s000370050013
+  \endverb
+  \field{volume}{7}
+  \field{journaltitle}{computational complexity}
+  \field{year}{1998}
+\endentry
+
+\entry{SG76}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Sahni}{S.}%
+     {Sartaj}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Gonzalez}{G.}%
+     {Teofilo}{T.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \strng{namehash}{SSGT1}
+  \strng{fullhash}{SSGT1}
+  \field{sortinit}{S}
+  \verb{doi}
+  \verb 10.1145/321958.321975
+  \endverb
+  \field{issn}{0004-5411}
+  \field{number}{3}
+  \field{pages}{555\bibrangedash 565}
+  \field{title}{P-Complete Approximation Problems}
+  \verb{url}
+  \verb http://doi.acm.org/10.1145/321958.321975
+  \endverb
+  \field{volume}{23}
+  \list{location}{1}{%
+    {New York, NY, USA}%
+  }
+  \field{journaltitle}{J. ACM}
+  \field{month}{07}
+  \field{year}{1976}
+\endentry
+
+\entry{Sch08}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Schoenebeck}{S.}%
+     {Grant}{G.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {IEEE Computer Society}%
+  }
+  \keyw{Lasserre, semidefinite program hierarchies}
+  \strng{namehash}{SG1}
+  \strng{fullhash}{SG1}
+  \field{sortinit}{S}
+  \field{booktitle}{Proceedings of the 2008 49th Annual IEEE Symposium on
+  Foundations of Computer Science}
+  \verb{doi}
+  \verb 10.1109/FOCS.2008.74
+  \endverb
+  \field{isbn}{978-0-7695-3436-7}
+  \field{pages}{593\bibrangedash 602}
+  \field{series}{FOCS '08}
+  \field{title}{Linear Level Lasserre Lower Bounds for Certain k-CSPs}
+  \verb{url}
+  \verb http://dx.doi.org/10.1109/FOCS.2008.74
+  \endverb
+  \list{location}{1}{%
+    {Washington, DC, USA}%
+  }
+  \field{year}{2008}
+\endentry
+
+\entry{TS15}{inproceedings}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Tang}{T.}%
+     {Gongguo}{G.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Shah}{S.}%
+     {Parikshit}{P.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {JMLR.org}%
+  }
+  \strng{namehash}{TGSP1}
+  \strng{fullhash}{TGSP1}
+  \field{sortinit}{T}
+  \field{booktitle}{Proceedings of the 32Nd International Conference on
+  International Conference on Machine Learning - Volume 37}
+  \field{pages}{1491\bibrangedash 1500}
+  \field{series}{ICML'15}
+  \field{title}{Guaranteed Tensor Decomposition: A Moment Approach}
+  \verb{url}
+  \verb http://dl.acm.org/citation.cfm?id=3045118.3045277
+  \endverb
+  \list{location}{1}{%
+    {Lille, France}%
+  }
+  \field{year}{2015}
+\endentry
+
+\entry{Tul09}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Tulsiani}{T.}%
+     {Madhur}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{constraint satisfaction, integrality gaps, semidefinite programming}
+  \strng{namehash}{TM1}
+  \strng{fullhash}{TM1}
+  \field{sortinit}{T}
+  \field{booktitle}{Proceedings of the Forty-first Annual ACM Symposium on
+  Theory of Computing}
+  \verb{doi}
+  \verb 10.1145/1536414.1536457
+  \endverb
+  \field{isbn}{978-1-60558-506-2}
+  \field{pages}{303\bibrangedash 312}
+  \field{series}{STOC '09}
+  \field{title}{CSP Gaps and Reductions in the Lasserre Hierarchy}
+  \verb{url}
+  \verb http://doi.acm.org/10.1145/1536414.1536457
+  \endverb
+  \list{location}{1}{%
+    {Bethesda, MD, USA}%
+  }
+  \field{year}{2009}
+  \warn{\item Can't use 'location' + 'address'}
+\endentry
+
+\entry{VY99}{inproceedings}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Vempala}{V.}%
+     {Santosh}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Yannakakis}{Y.}%
+     {Mihalis}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{2}{%
+    {Society for Industrial}%
+    {Applied Mathematics}%
+  }
+  \strng{namehash}{VSYM1}
+  \strng{fullhash}{VSYM1}
+  \field{sortinit}{V}
+  \field{booktitle}{Proceedings of the Tenth Annual ACM-SIAM Symposium on
+  Discrete Algorithms}
+  \field{isbn}{0-89871-434-6}
+  \field{pages}{975\bibrangedash 976}
+  \field{series}{SODA '99}
+  \field{title}{A Convex Relaxation for the Asymmetric TSP}
+  \verb{url}
+  \verb http://dl.acm.org/citation.cfm?id=314500.314955
+  \endverb
+  \list{location}{1}{%
+    {Baltimore, Maryland, USA}%
+  }
+  \field{year}{1999}
+  \warn{\item Can't use 'location' + 'address'}
+\endentry
+
+\lossort
+\endlossort
+
+\endinput
