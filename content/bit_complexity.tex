@@ -1,73 +1,75 @@
 \chapter{Bit Complexity of Sum-of-Squares Proofs}\label{cha:bit_complexity}
 In this chapter we will show how effective derivations can be applied to prove that the Ellipsoid algorithm runs in polynomial time for many practical inputs to the Sum-of-Squares algorithm. First, we recall the Sum-of-Squares relaxation for approximate polynomial optimization. We wish to solve the following optimization problem:
 \begin{align*}
-\max r(x)\text{ subject to } \\
-\forall p \in \cP: p(x) = 0 \text{ and } \forall q \in \cQ: q(x) \geq 0.
+&\max r(x)\\
+\text{s.t. } &p(x) = 0, \forall p \in \cP \\
+&q(x) \geq 0, \forall q \in \cQ.
 \end{align*}
-One natural way to try and solve this optimization problem is to guess a $\theta$ and try to prove that $\theta - r(x) \geq 0$ for all $x$ satisfying the constraints. Then we can use binary search to try and find the smallest such $\theta$. One way to try to prove this is to try and find a PC$_>$ proof of nonnegativity for $\theta - r(x)$ from $\cP$ and $\cQ$. As discussed in \prettyref{sec:polyproofs}, any such proof of degree at most $d$ can be found by writing a semidefinite program of size $O(n^d)$ whose constraints use numbers of size polynomial in $\|r\|$. Solving this SDP is called the $d$th round of the Sum-of-Squares relaxation. 
+One natural way to try and solve this optimization problem is to guess a $\theta$ and try to prove that $\theta - r(x) \geq 0$ for all $x$ satisfying the constraints. Then we can use binary search to try and find the smallest such $\theta$. One way to try to prove this is to try and find a PC$_>$ proof of nonnegativity for $\theta - r(x)$ from $\cP$ and $\cQ$. As discussed in \prettyref{sec:polyproofs}, any such proof of degree at most $d$ can be found by writing a semidefinite program of size $O(n^d)$ whose constraints use numbers of size polynomial in $\|r\|$, $\|\cP\|$, and $\|\cQ\|$. Solving this SDP is called the $d$th round of the Sum-of-Squares relaxation. 
 
-The Ellipsoid method is commonly cited as a tool that will solve SDPs in polynomial time, and so the Sum-of-Squares relaxation can be implemented in polynomial time. Except there is a catch. As first pointed out by Ryan O'Donnell in \cite{ODon16}, the Ellipsoid algorithm actually has some technical requirements to ensure that it actually runs in polynomial time, one of which is that the feasible region of the SDP must be contained in a ball of radius $R$ centered at the origin such that $\log R$ is polynomial. The catch is that $\theta - r(x)$ may have a degree $d$ proof of nonnegativity, but that proof may have to contain coefficients of enormous size so that $\log R$ is not polynomial in $\|r\|$. Indeed, O'Donnell gave an example of a constraint system and a polynomial $r$ which had degree two proofs of nonnegativity, but all of them necessarily contained coefficients of doubly exponential size. In this chapter we develop some of the first theory on when the Sum-of-Squares relaxation for the optimization problem described by $(r, \cP,\cQ)$ is guaranteed to run in polynomial time. In other words, we show how to use effective derivations to argue that the bit complexity of proofs of nonnegativity is polynomially bounded. 
+The Ellipsoid method is commonly cited as a tool that will solve SDPs in polynomial time, and so the Sum-of-Squares relaxation can be implemented in polynomial time. Except there is a catch. As first pointed out by Ryan O'Donnell in \cite{ODon16}, the Ellipsoid algorithm actually has some technical requirements to ensure that it actually runs in polynomial time, one of which is that the feasible region of the SDP must be contained in a ball of radius $R$ centered at the origin such that $\log R$ is polynomial. The catch is that $\theta - r(x)$ may have a degree $d$ proof of nonnegativity, but that proof may have to contain coefficients of enormous size so that $\log R$ is not polynomial in $\|r\|$. In this case if our intention is to use the SOS SDP to brute force over all degree $d$ PC$_>$ proofs of nonnegativity, we would have to run the Ellipsoid Algorithm for exponential time. Indeed, O'Donnell gave an example of a constraint system and a polynomial $r$ which had degree two proofs of nonnegativity, but all of them necessarily contained coefficients of doubly exponential size. In this chapter we develop some of the first theory on when the Sum-of-Squares relaxation for the optimization problem described by $(r, \cP,\cQ)$ is guaranteed to run in polynomial time. In other words, we show how to use effective derivations to argue that the bit complexity of PC$_>$ proofs of nonnegativity is polynomially bounded. 
 
 We conclude this chapter by strengthening an example of Ryan O'Donnell which showed that there are polynomial optimization problems whose low-degree proofs of nonnegativity always contain coefficients of doubly exponential size. We show that, despite his hopes in \cite{ODon16}, there are even boolean polynomial optimization problems exhibiting this phenomenon. 
 
 \section{Conditions, Definitions, and the Main Result}
-As O'Donnell's counterexample shows, we cannot hope to prove that the Sum-of-Squares relaxation will always run in polynomial time. We must impose some conditions on the optimization problem defined by $(r, \cP, \cQ)$ in order to guarantee a polynomial time solution. Our conditions are quite general and we believe they apply to a wide swathe of problems beyond those that we prove here. In fact, they depend only on the solution space of $(\cP, \cQ)$, so we drop the dependence on $r$. We explain the three conditions we require below.
+As O'Donnell's counterexample shows, we cannot hope to prove that the Sum-of-Squares relaxation will always run in polynomial time. We must impose some conditions on the optimization problem defined by $(r, \cP, \cQ)$ in order to guarantee a polynomial runtime. 
+We will require the existence of a special certificate $\mu$, which is a probability distribution on $V(\cP)$. 
+$\mu$ must satisfy three conditions in order to be considered a valid certificate, but if such a distribution exists we can prove that any PC$_>$ proof of nonnegativity can be taken to have polynomial bit complexity. The conditions are quite general and we believe they apply to a wide swathe of problems beyond those that we prove here. In fact, they depend only on the solution space of $(\cP, \cQ)$, so we drop the dependence on $r$. We explain the three conditions we require below.
 
 \begin{definition}
-We say that a set $S \subseteq V(\cP)$ \emph{$\epsilon$-robustly satisfies} the inequalities $\cQ$ if $q(\alpha) \geq \epsilon$ for each $\alpha \in S$ and $q \in \cQ$. 
+For $\epsilon > 0$, we say that $\mu$ \emph{$\epsilon$-robustly satisfies} the inequalities $\cQ$ if $q(\alpha) \geq \epsilon$ for each $\alpha \in \supp(\mu)$ and $q \in \cQ$. 
 \end{definition}
 We require $\epsilon$-robustness because our analysis will end up treating the constraints in $\cP$ differently from the constraints in $\cQ$.
 Because of this, we can only hope for our analysis to hold under $\epsilon$-robustness, since otherwise one could simulate a constraint from $\cP$ simply by having both $p$ and $-p$ in $\cQ$. 
 
 \begin{definition}
-TODO Recall we use $\mbasis{d}$ denote the vector whose entries are all the monomials in $\R[x_1,\dots,x_n]$ up to total degree $d$. 
+Recall we use $\mbasis{d}$ denote the vector whose entries are all the monomials in $\R[x_1,\dots,x_n]$ up to total degree $d$. 
 For a point $\alpha \in \R^n$, we use $\mbasis{d}(\alpha)$ to denote the vector whose entries have each been evaluated at $\alpha$.
-For a set $S$, we define the \emph{$S$-moment matrix up to level $d$}:
-\[M_{S,d} = \E_{\alpha \in S}\left[\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T\right]\]
+For a distribution $\mu$ on $V(\cP)$, we define the \emph{$\mu$-moment matrix up to level $d$}:
+\[M_{\mu,d} = \E_{\alpha \sim \mu}\left[\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T\right]\]
 \end{definition}
-Clearly $M_{S,d}$ is a PSD matrix, and furthermore it encodes a lot of information about the set $S$. For example, if we let $c \in \R^{\binom{n+d-1}{d}}$, then $c$ corresponds to the polynomial $\tilde{c}(x) = c^T\mbasis{d}$, and then $c^TM_{S,d}c = \E_{\alpha \in S}\left[\tilde{c}(\alpha)^2\right]$.
-In particular, if $c$ is a zero eigenvector of $M_{S,d}$, then $\tilde{c}(x)$ is zero on all of $S$. 
-More generally, the eigenvalues of $M_{S,d}$ relate the size of the coefficients of a polynomial to its magnitude on $S$. 
+Clearly $M_{\mu,d}$ is a PSD matrix, and furthermore it encodes a lot of information about the distribution $\mu$. For example, if we let $\tilde{c} \in \R^{\binom{n+d-1}{d}}$, then $\tilde{c}$ corresponds to the polynomial $c(x) = \tilde{c} \cdot \mbasis{d}$, and then $\tilde{c}^TM_{\mu,d}\tilde{c} = \E_{\alpha \sim \mu}\left[c(\alpha)^2\right]$.
+In particular, if $\tilde{c}$ is a zero eigenvector of $M_{S,d}$, then $c(x)$ is zero on all of $S$.  
 \begin{definition}
-We say that $S \subseteq V(\cP)$ is \emph{$\delta$-spectrally rich up to degree $d$} if every nonzero eigenvalue of $M_{S,d}$ is at least $\delta$. 
+We say that $\mu$ is \emph{$\delta$-spectrally rich up to degree $d$} if every nonzero eigenvalue of $M_{\mu,d}$ is at least $\delta$. 
 \end{definition}
-If $S$ is $\delta$-spectrally rich up to degree $d$ and $p$ is an arbitrary polynomial of degree at most $d$, then there exists a polynomial $p'$ such that $p'(\alpha) = p(\alpha)$ for each $\alpha \in S$ and $\|p'\| \leq \frac{1}{\delta} \max_\alpha |p'(\alpha)|$. Thus spectral richness can be thought of as ensuring that the polynomials which are not zero on all of $S$ can be bounded. What about the polynomials that are zero on $S$? We need to ensure that those are bounded as well. The final condition should come as no surprise, indeed it is the main topic of this dissertation. 
+If $\mu$ is $\delta$-spectrally rich up to degree $d$ and $p$ is an arbitrary polynomial of degree at most $d$, then there exists a polynomial $p'$ such that $p'(\alpha) = p(\alpha)$ for each $\alpha \in \supp(\mu)$ and $\|p'\| \leq \frac{1}{\delta} \max_\alpha |p'(\alpha)|$. Thus spectral richness can be thought of as ensuring that the polynomials which are not zero on all of $\supp(\mu)$ can be bounded. What about the polynomials that are zero on $\supp(\mu)$? We need to ensure that we can bound those as well, or else a PC$_>$ proof could require one with enormous coefficients. The key is that, since a bounded degree PC derivation is a \emph{linear} system, its solution can be taken to have bounded coefficients.
 \begin{definition}
-Let $S \subseteq V(\cP)$. We say that $\cP$ is \emph{$k$-complete for $S$ up to degree $d$} if, for every zero eigenvector $c$ of $M_{S,d}$, the degree $d$ polynomial $\tilde{c}(x) = c^T\mbasis{d}$ has a derivation from $\cP$ in degree $k$.
+We say that $\cP$ is \emph{$k$-complete for $\supp(\mu)$ up to degree $d$} if, for every zero eigenvector $\tilde{c}$ of $M_{S,d}$, the degree $d$ polynomial $c(x) = c^T\mbasis{d}$ has a derivation from $\cP$ in degree $k$.
 \end{definition}
-If $S = V(\cP)$, then $k$-completeness up to degree $d$ is implied by $\cP$ being $k/d$-effective. 
-But what if $S$ is some proper subset? Well, $S$ had better at least be very close to $V(\cP)$, otherwise there is no hope that $\cP$ is complete for $S$ up to degree $d$. In fact, if $S \neq V(\cP)$, it is impossible for every polynomial that is zero on $S$ to have a derivation from $\cP$, since in this case $I(S) \neq \gen{\cP}$. However, since we are only dealing with proofs of nonnegativity of degree $d$, we only actually care about polynomials up to degree $d$. In other words, we want $S$ to be close enough to $V(\cP)$ that only polynomials of degree higher than $d$ can tell the difference.
+If $\mu$ has support over all of $V(\cP)$, then $k$-completeness up to degree $d$ is implied by $\cP$ being $k/d$-effective. 
+What if the support of $\mu$ is some proper subset? Well, $\supp(\mu)$ had better at least be very close to $V(\cP)$, otherwise there is no hope that $\cP$ is complete for $\supp(\mu)$ up to degree $d$. In fact, if $\supp(\mu) \neq V(\cP)$, it is impossible for every polynomial that is zero on $\supp(\mu)$ to have a derivation from $\cP$, since in this case $I(\supp(\mu)) \neq \gen{\cP}$. However, since we are only dealing with proofs of nonnegativity of degree $d$, we only actually care about polynomials up to degree $d$. In other words, we want $\supp(\mu)$ to be close enough to $V(\cP)$ that only polynomials of degree higher than $d$ can tell the difference.
 \begin{example}
-Let $S = \{0,1\}^n \setminus (0,0,\dots,0)$. Then $\cP = \{x_i^2 - x_i | i \in [n]\}$ is $1$-complete for $S$ up to degree $n-1$. To see this, let $r(x)$ be a polynomial which is zero on all of $S$, but $r \notin \gen{\cP}$. Then $r(0,0,\dots,0) \neq 0$, and has the unique multilinearization 
+Let $\mu$ be the uniform distribution over $S = \{0,1\}^n \setminus (0,0,\dots,0)$. Then $\cP = \{x_i^2 - x_i \mid i \in [n]\}$ is $1$-complete for $S$ up to degree $n-1$. To see this, let $r(x)$ be a polynomial which is zero on all of $S$, but $r \notin \gen{\cP}$. Then $r(0,0,\dots,0) \neq 0$, and has the unique multilinearization 
 \[\tilde{r}(x) = r(0,0,\dots,0)\prod_{i=1}^n \left(1-x_i\right),\]
 and thus the degree of $r$ must be $n$.
 \end{example}
 \begin{example}\label{ex:not-complete}
-Let $S = \{0,1\}^n \setminus \{(1,y) | y \in \{0,1\}^{n-1}\}$. Then $\cP = \{x_i^2 - x_i | i \in [n]\}$ is not $k$-complete for $S$ up to degree $d$ for any $k \geq d \geq 1$. To see this, note that the polynomial $x_1$ is zero on all of $S$, and thus corresponds to a zero eigenvector of $M_{S,d}$. But $x_1$ is not zero on $V(\cP)$, so $x \notin \gen{\cP}$, and thus $x$ has no derivation from $\cP$ at all. 
+Let $\mu$ be the uniform distribution over $S = \{0,1\}^n \setminus \{(1,y) \mid y \in \{0,1\}^{n-1}\}$. Then $\cP = \{x_i^2 - x_i \mid i \in [n]\}$ is not $k$-complete for $S$ up to degree $d$ for any $k \geq d \geq 1$. To see this, note that the polynomial $x_1$ is zero on all of $S$, and thus corresponds to a zero eigenvector of $M_{S,d}$. But $x_1$ is not zero on $V(\cP)$, so $x \notin \gen{\cP}$, and thus $x$ has no derivation from $\cP$ at all. 
 \end{example}
-In this chapter we will usually choose $S = V(\cP) \cap H(\cQ)$ so that $S$ can simultaneously satisfy this condition and robustly satisfy $\cQ$. In this case, completeness implies that the additional constraints $q(x) \geq 0$ for each $q \in \cQ$ do not themselves imply a low-degree polynomial equality not already derivable from $\cP$. We consider this part of the condition to be extremely mild, because one could simply add such a polynomial equality to the constraints $\cP$ of the program. 
+In order for $\mu$ to be robust, it must have support only in $S = V(\cP) \cap H(\cQ)$. In this case, completeness implies that the additional constraints $q(x) \geq 0$ for each $q \in \cQ$ do not themselves imply a low-degree polynomial equality not already derivable from $\cP$. We consider this part of the condition to be extremely mild, because one could simply add such a polynomial equality to the constraints $\cP$ of the program. 
 \begin{example}
-Let $\cP = \{x_i^2 - x_i | i \in [n]\}$ and $\cQ = \{2 - \sum_{i=2}^n x_i\}$. Then $S = V(\cP) \cap H(\cQ)$ is the set of binary strings with at most two ones. $\cP$ is not $k$-complete for $S$ for any $k$ because $x_1x_2x_3$ is zero on $S$ but clearly not on $V(\cP)$. However, $\cP' = \cP \cup \{x_ix_jx_k | i,j,k \in [n] \text{ and distinct}\}$ is $1$-complete for $S$.
+Let $\cP = \{x_i^2 - x_i \mid i \in [n]\}$ and $\cQ = \{2 - \sum_{i=2}^n x_i\}$. Then $S = V(\cP) \cap H(\cQ)$ is the set of binary strings with at most two ones. $\cP$ is not $k$-complete for any distribution with $\supp(\mu) = S$ for any $k$ because $x_1x_2x_3$ is zero on $S$ but clearly not on $V(\cP)$. However, $\cP' = \cP \cup \{x_ix_jx_k \mid i,j,k \in [n] \text{ and distinct}\}$ is $1$-complete for $S$.
 \end{example}
 
 Finally, we compile all of the conditions together:
 \begin{definition}
-We say that an optimization problem $(r, \cP, \cQ)$ admits a \emph{$(\epsilon,\delta,k)$-rich up to degree $d$} solution space $S$ if there exists an $S$ which $\epsilon$-robustly satisfies $\cQ$, is $\delta$-spectrally rich, and for which $\cP$ is $k$-complete, all up to degree $d$. If $1/\epsilon = 2^{\poly(n^d)}$, $1/\delta = 2^{\poly(n^d)}$, and $k = O(d)$, we simply say that $(r, \cP, \cQ)$ has a \emph{rich} solution space $S$ up to degree $d$.
+We say that $(\cP, \cQ)$ admits a \emph{$(\epsilon,\delta,k)$-rich up to degree $d$} solution space with certificate $\mu$ if there exists a distribution $\mu$ over $V(\cP) \cap H(\cQ)$ which $\epsilon$-robustly satisfies $\cQ$, is $\delta$-spectrally rich, and for which $\cP$ is $k$-complete, all up to degree $d$. If $1/\epsilon = 2^{\poly(n^d)}$, $1/\delta = 2^{\poly(n^d)}$, and $k = O(d)$, we simply say that $(\cP, \cQ)$ has a \emph{rich} solution space up to degree $d$.
 \end{definition}
 
 Armed with all of these definitions, we can finally formally state the main result of this chapter:
 \begin{theorem}\label{thm:bit_complexity-main}
-Let $(r, \cP, \cQ)$ admit an $(\epsilon,\delta,k)$-rich solution space $S$ up to degree $d$. Then if $r(x)$ has a PC$_>$ proof of nonnegativity from $\cP$ and $\cQ$ in degree at most $d$, it also has a PC$_>$ proof of nonnegativity from $\cP$ and $\cQ$ in degree $O(d)$ such that the coefficients of every polynomial appearing in the proof are bounded by $2^{\poly(n^k, \log \frac{1}{\delta}, \log \frac{1}{\epsilon})}$. In particular, if $S$ is rich, then every coefficient in the proof can be written with only $\poly(n^d)$ bits, and the $d$th round of the Sum-of-Squares relaxation of $(r, \cP, \cQ)$ runs in polynomial time via the Ellipsoid Algorithm.
+Let $(\cP, \cQ)$ admit an $(\epsilon,\delta,k)$-rich solution space up to degree $d$ with certificate $\mu$. Then if $r(x)$ has a PC$_>$ proof of nonnegativity from $\cP$ and $\cQ$ in degree at most $d$, it also has a PC$_>$ proof of nonnegativity from $\cP$ and $\cQ$ in degree $O(d)$ such that the coefficients of every polynomial appearing in the proof are bounded by $2^{\poly(n^k, \log \frac{1}{\delta}, \log \frac{1}{\epsilon})}$. In particular, if $(\cP,\cQ)$ has a rich solution space up to degree $d$, then every coefficient in the proof can be written with only $\poly(n^d)$ bits, and the $d$th round of the Sum-of-Squares relaxation of $(r, \cP, \cQ)$ runs in polynomial time via the Ellipsoid Algorithm.
 \end{theorem}
 
 We delay the proof of \prettyref{thm:bit_complexity-main} until \prettyref{sec:bc_proof_main}. First, we offer some discussion on the restrictiveness of each of the three requirements of richness and collect some example optimization problems which admit rich solution spaces.
 
 \section{How Hard is it to be Rich?}
-For this section, we will be taking $S = V(\cP) \cap H(\cQ)$ for an optimization problem $(\cP,\cQ)$. This is the most natural choice of $S$ to satisfy all of the conditions simultaneously. Here we will argue that if $S$ lies inside the hypercube $\{0,1\}^n$, then it is naturally robust and spectrally rich. Because most combinatorial optimization problems have booelean constraints, their solution spaces lie inside the hypercube. This means that the main interesting property is the completeness of $\cP$ for $S$.
+For the rest of this chapter, we pick $\mu$ to be the uniform distribution over $S = V(\cP) \cap H(\cQ)$. For all of the examples we considered, this was sufficient to exhibit a rich certificate. We will abuse terminology a little bit and use $\mu$ and $S$ interchangeably. Here we will argue that if $S$ lies inside the hypercube $\{0,1\}^n$, then it is naturally robust and spectrally rich. Because most combinatorial optimization problems have booelean constraints, their solution spaces lie inside the hypercube. This means that the main interesting property is the completeness of $\cP$ for $S$.
 \subsection{Robust Satisfaction}
 How difficult is it to ensure that $S$ robustly satisfies the inequalities $\cQ$? For one, if $\epsilon = \min_{q \in \cQ} \min_{\alpha \in V(\cP) \setminus H(\cQ)} |q(\alpha)| > 0$, then we can perturb the constraints in $\cQ$ slightly without changing the underlying solution space $S$ so that $S$ $\epsilon/2$-robustly satisfies $\cQ$. Simply make $\cQ'$ by replacing each $q \in \cQ$ with $q' = q + \epsilon/2$. Clearly for $\alpha \in S$, $q'(\alpha) = q(\alpha) + \epsilon/2 \geq \epsilon/2$. Furthermore, we still have $S = V(\cP) \cap H(\cQ')$ by the definition of $\epsilon$. For many combinatorial optimization problems, their solution spaces are discrete and separated, and so this $\epsilon$ is appreciably large, so there is no issue. 
 \begin{example}
-Consider the \textsc{Balanced-Separator} constraints: $\cP = \{x_i^2 - x_i | i \in [n]\}$ and $\cQ = \{2n/3 - \sum_i x_i, \sum_i x_i - n/3\}$. The solution space $S$ is the set of binary strings with between $n/3$ and $2n/3$ ones. If $n$ is divisble by $3$, then $S$ does not robustly satisfy $\cQ$, since there are strings with exactly $n/3$ ones. However there is a very simple fix by setting $\cQ' = \{2n/3 + 1/2 - \sum_i x_i, \sum_i x_i + 1/2 - n/3\}$. Then $S$ is $1/2$-robust for $\cQ'$, and since $\sum_i x_i$ is a sum of Boolean variables, any point in $V(\cP)$ changes the sum by integer numbers. Thus adding $1/2$ to the constraints does not change $V(\cP) \cap H(\cQ)$.
+Consider the \textsc{Balanced-Separator} constraints: $\cP = \{x_i^2 - x_i \mid i \in [n]\}$ and $\cQ = \{2n/3 - \sum_i x_i, \sum_i x_i - n/3\}$. The solution space $S$ is the set of binary strings with between $n/3$ and $2n/3$ ones. If $n$ is divisble by $3$, then $S$ does not robustly satisfy $\cQ$, since there are strings with exactly $n/3$ ones. However there is a very simple fix by setting $\cQ' = \{2n/3 + 1/2 - \sum_i x_i, \sum_i x_i + 1/2 - n/3\}$. Then $S$ is $1/2$-robust for $\cQ'$, and since $\sum_i x_i$ is a sum of Boolean variables, any point in $V(\cP)$ changes the sum by integer numbers. Thus adding $1/2$ to the constraints does not change $V(\cP) \cap H(\cQ)$.
 \end{example}
 While we do not have a generic theorem that shows most problems satisfy robust satisfaction, we have not yet encountered a situation where it was the bottleneck. The technique described above has always sufficed.
 
@@ -100,29 +102,29 @@ Recall that if $S = V(\cP)$, then $\cP$ being $k$-complete for $S$ up to degree 
 \section{Optimization Problems with Rich Solution Spaces}
 Before we assemble the list in full, we give two more problems that have rich solution spaces.
 \begin{lemma}
-Consider the \textsc{Unit-Vector} problem with constraints $\cP = \{\sum_{i=1}^n x_i^2 - 1\}$. Then $S = V(\cP)$ is rich for $\cP$ up to any degree. 
+The \textsc{Unit-Vector} problem has a formulation on $n$ variables with constraints $\cP_{\textsc{UV}} = \{\sum_{i=1}^n x_i^2 - 1\}$. Then the uniform distribution over $S = V(\cP)$ is rich for $\cP$ up to any degree. 
 \end{lemma}
 \begin{proof}
 To prove spectral-richness, we note that in \cite{Foll01} the author gives an exact formula for each entry of the matrix $M_{S,d} = \int_{S} m(x)$ for any monomial $p$. The formulas imply that $(n+d)!\pi^{-n/2} M$ is an integer matrix with entries (very loosely) bounded by $(n+d)!d!2^n$. By \prettyref{lem:integer}, we conclude that $S$ is $\delta$-spectrally rich with $1/\delta = 2^{\poly(n^d)}$.
 
-Since $\gen{\cP}$ is principal, to prove that $\cP$ is complete for $S$, all we have to do is show that $\cP$ is complete, i.e. that $I(S) = V(\cP)$. Let $p(x)$ be any degree $d$ polynomial which is zero on the unit sphere $S = V(\cP)$, and define $p_0(x) = p(x) + p(-x)$. Clearly $p_0$ is also zero on the unit sphere, with degree $k = 2\lfloor (d+1)/2 \rfloor$. Note that $p_0$ has only terms of even degree. 
+Since $\gen{\cP}$ is principal, to prove that $\cP$ is complete for $S$, all we have to do is show that $I(S) = V(\cP)$. Let $p(x)$ be any degree $d$ polynomial which is zero on the unit sphere $S = V(\cP)$, and define $p_0(x) = p(x) + p(-x)$. Clearly $p_0$ is also zero on the unit sphere, with degree $k = 2\lfloor (d+1)/2 \rfloor$. Note that $p_0$ has only terms of even degree. 
 %
 Define a sequence of polynomials $\{p_i\}_{i \in \{0,\ldots, k/2\}}$ as follows.
 Define $q_i$ to be the part of $p_i$ which has degree strictly less than $k$, and let $p_{i+1} = p_i + q_i\cdot(\sum_i x_i^2 - 1)$. Then each $p_i$ is zero on the unit sphere and has no monomials of degree strictly less than $2i$. Thus $p_{k/2}$ is homogeneous of degree $k$. But then $p_{k/2}(tx) = t^kp_{k/2}(x) = 0$ for any unit vector $x$ and $t > 0$, and thus $p_{k/2}(x)$ must be the zero polynomial. This implies that $p_0$ is a multiple of $\sum_i x_i^2 - 1$, since each $p_{i+1} - p_i$ is a multiple of $\sum_i x_i^2 -1$. The same logic shows that $p(x) - p(-x)$ is also a multiple of $\sum_i x_i^2 - 1$, and thus so is $p(x)$. Now $\langle \cP\rangle$ is principal and thus $1$-effective, so $\cP$ is complete for $S$. 
 \end{proof}
 \begin{lemma}
-Consider the \textsc{Balanced Separator} formulation $\cP = \{x_i^2 - x_i| i \in [n]\}$ and $\cQ = \{1/100 + 2n/3 - \sum_i x_i, 1/100 + \sum_i x_i - n/3\}$. Then $S = V(\cP) \cap H(\cQ)$ is rich for $(\cP, \cQ)$ up to degree $n/3$.
+Consider the \textsc{Balanced Separator} formulation $\cP = \{x_i^2 - x_i\mid i \in [n]\}$ and $\cQ = \{1/100 + 2n/3 - \sum_i x_i, 1/100 + \sum_i x_i - n/3\}$. Then the uniform distribution over $S = V(\cP) \cap H(\cQ)$ is rich for $(\cP, \cQ)$ up to degree $n/3$.
 \end{lemma}
 \begin{proof}
 First, $S$ is clearly $1/100$-robust for $\cQ$, even if $n$ is divisible by three. Second, $S \subseteq \{0,1\}^n$, so by \prettyref{cor:integer-rich} it is spectrally rich. To prove completeness, we note that $\cP$ is $1$-effective by \prettyref{cor:csp-effective}. It remains to prove that $\cQ$ does not introduce additional low-degree polynomial equalities. 
 Suppose $r$ is a polynomial that is zero on $S$.  
-Without loss of generality, we may assume that $r$ is multilinear by using the constraints $\{x_i^2 - x_i | i \in [n]\}$.
+Without loss of generality, we may assume that $r$ is multilinear by using the constraints $\{x_i^2 - x_i \mid i \in [n]\}$.
 Suppose $r$ is a non-zero multilinear polynomial which evalutes to zero on $S$, then its symmetrized version $r^* = \frac{1}{n!}\sum_{\sigma \in \cS_n} \sigma r$ must also be zero on $S$, where $\sigma$ acts by permuting the variable names. Because $r^*$ is symmetric and multilinear, it is a linear combination of the elementary symmetric polynomials $e_k(x)$. However, a simple induction shows that there is a univariate polynomial $q_k$ of degree $k$ for each $k$ such that $e_k(x) - q_k(\sum_i x_i) \in \gen{\cP}$. In particular this implies there is a univariate polynomial $q(t)$ with $\deg q \leq = r^* = \deg r$ such that $q(\sum_i x_i)$ is zero on $S$.
 This univariate polynomial has $n/3$ zeros since $S$ has points with $n/3$ different possible values for $\sum_i x_i$. Thus $q$ has degree at least $n/3$, and so does $r$. Thus every non-zero multilinear polynomial that is zero on $S$ but not in $\langle \cP\rangle$, has degree at least $n/3$, and $\cP$ is $1$-complete for $S$ up to degree $n/3$.
 \end{proof}
 Finally, we collect all the problems discussed:
 \begin{corollary}\label{cor:examples}
-For the following optimization problems, $S = V(\cP) \cap H(\cQ)$ is a rich solution space up to any degree:
+For the following optimization problems, the uniform distribution over $S = V(\cP) \cap H(\cQ)$ is a rich certificate up to any degree:
 \begin{itemize}
 \item \textsc{CSP}: $\pcsp(n) = \csp$. 
 \item \textsc{Clique}: $\pclique(V,E) = \clique$.
@@ -130,9 +132,9 @@ For the following optimization problems, $S = V(\cP) \cap H(\cQ)$ is a rich solu
 \item \textsc{Bisection}: $\pbcsp(n,n/2) = \bisec$.
 \item \textsc{Unit-Vector}: $\cP_{\textsc{UV}} = \left\{\sum_i x_i^2 - 1\right\}$.
 \end{itemize}
-For the following optimization problems, $S$ is a rich solution space up to degree $c$:
+For the following optimization problems, $S$ is a rich certificate up to degree $c$:
 \begin{itemize}
-\item \textsc{Balanced Separator}: $\cP_{\textsc{BS}}(3c) = \{x_i^2 - x_i | i \in [3c]\}$, $\cQ_{\textsc{BS}}(3c,c) = \{1/100 + 2c - \sum_{i=1}^{3c} x_i, 1/100 + \sum_{i=1}^{3c} x_i - c\}$.
+\item \textsc{Balanced Separator}: $\cP_{\textsc{BS}}(3c) = \{x_i^2 - x_i \mid i \in [3c]\}$, $\cQ_{\textsc{BS}}(3c,c) = \{1/100 + 2c - \sum_{i=1}^{3c} x_i, 1/100 + \sum_{i=1}^{3c} x_i - c\}$.
 \item \textsc{Balanced CSP}: $\pbcsp(n,c) = \bcsp{n}{c}$.
 \item \textsc{Boolean Sparse PCA}: $\pspca(n,2c) = \bspca{n}{2c}$.
 \end{itemize}
@@ -144,24 +146,24 @@ For the following optimization problems, $S$ is a rich solution space up to degr
 \section{Proof of the Main Theorem}\label{sec:bc_proof_main}
 \begin{proof}[(Proof of \prettyref{thm:bit_complexity-main})]
 For convenience, we write $\cP = \{p_1,\dots,p_m\}$ and $\cQ = \{q_1,\dots,q_\ell\}$. We have a set $S$ which is $(\epsilon,\delta,k)$-rich for $(\cP,\cQ)$, and a degree $d$ polynomial $r(x)$ which has a PC$_>$ proof of nonnegativity from $(\cP,\cQ)$. In other words, there is a polynomial identity
-\[r(x) = \sum_{i=1}^{t_0} h_i^2 + \sum_{i=1}^\ell \left(\sum_{j=1}^{t_i} s_{ij}^2\right) q_i + \sum_{i=1}^m \lambda_i p_i.\]
+\[r(x) = \sum_{i=1}^{t_0} h_i^2 + \sum_{i=1}^\ell \left(\sum_{j=1}^{t_i} h_{ij}^2\right) q_i + \sum_{i=1}^m \lambda_i p_i.\]
 Our goal is to find a different PC$_>$ proof of nonnegativity for $r$ which uses only polynomials of bounded norm.
 
 First, we rewrite the original PC$_>$ proof into a more convenient form before proving bounds on each individual term. Because the elements of $\mbasis{d}$ are a basis for $\R[x]_d$, every polynomial in the proof can be expressed as $c^T\mbasis{d}$, where $c$ is a vector of reals:
 \begin{align*} r(x) &= \sum_{i=1}^{t_0} (c_i^T\mbasis{d})^2 + \sum_{i=1}^\ell \left(\sum_{j=1}^{t_i} (d_{ij}^T\mbasis{d})^2\right)q_i + \sum_{i=1}^m \lambda_i p_i \\
 &= \langle C, \mbasis{d}(\mbasis{d})^T\rangle + \sum_{i=1}^\ell \langle D_i, \mbasis{d}(\mbasis{d})^T\rangle q_i + \sum_{i=1}^m \lambda_i p_i
 \end{align*}
-for PSD matrices $C$, $D_1,\dots,D_\ell$. Next, we average this polynomial identity over all the points $\alpha \in S$:
+for PSD matrices $C$, $D_1,\dots,D_\ell$. Next, we average this polynomial identity via the distribution $\mu$:
 \begin{align*}
-\E_{\alpha \in S}\left[r(\alpha)\right] &= \left\langle C, \E_{\alpha \in S}\left[\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T\right]\right\rangle + \sum_{i=1}^\ell \left\langle D_i, \E_{\alpha \in S}\left[\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T\right]\right\rangle q_i(\alpha) + 0 \\
+\E_{\alpha \sim \mu}\left[r(\alpha)\right] &= \left\langle C, \E_{\alpha \sim \mu}\left[\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T\right]\right\rangle + \sum_{i=1}^\ell \left\langle D_i, \E_{\alpha \sim \mu}\left[q_i(\alpha)\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T\right]\right\rangle q_i(\alpha) + 0 \\
 \end{align*}
-The LHS is at most $\poly(\|r\|, \|S\|)$, and the RHS is a sum of positive numbers, so the LHS is a bound on each term of the RHS. 
+The LHS is at most $\poly(\|r\|, \|S\|)$, and the RHS is a sum of positive numbers (since $q_i(\alpha) \geq \epsilon > 0$), so the LHS is a bound on each term of the RHS. 
 %
 We would like to say that since $S$ is $\delta$-spectrally rich, the first term is at least $\delta \Tr(C)$. 
 %
 Unfortunately the averaged matrix may have zero eigenvectors, and it is possible that $C$ could have very large eigenvalues in these directions. 
 %
-However, because $\cP$ is complete for $S$, these can be absorbed into the final term. More formally, let $\Pi = \sum_u uu^T$ be the projector onto the zero eigenspace of $M_{S,d} = \E_{\alpha \in S}[\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T]$. Because $\cP$ is $k$-complete for $S$, for each $u$ there is a degree $k$ derivation $u^T\mbasis{d} = \sum_i \sigma_{ui} p_i$. Then $\Pi \mbasis{d}(\mbasis{d})^T = \sum_u (u^T\mbasis{d}) \cdot u(\mbasis{d})^T$. Thus we can write
+However, because $\cP$ is complete for $S$, these can be absorbed into the final term. More formally, let $\Pi = \sum_u uu^T$ be the projector onto the zero eigenspace of $M_{\mu,d} = \E_{\alpha \sim \mu}[\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T]$. Because $\cP$ is $k$-complete for $S$, for each $u$ there is a degree $k$ derivation $u^T\mbasis{d} = \sum_i \sigma_{ui} p_i$. Then $\Pi \mbasis{d}(\mbasis{d})^T = \sum_u (u^T\mbasis{d}) \cdot u(\mbasis{d})^T$. Thus we can write
 \begin{align*}
 \Iprod{C, \mbasis{d}(\mbasis{d})^T} &= \Iprod{C, (\Pi + \Pi^\perp)\mbasis{d}(\mbasis{d})^T(\Pi + \Pi^\perp)} \\
 &= \Iprod{C, \Pi^\perp \mbasis{d}(\mbasis{d})^T \Pi^\perp} + \sum_u u^T\mbasis{d}\left(\Iprod{C, \Pi^\perp \mbasis{d} u^T + \mbasis{d} u^T\Pi^\perp + \mbasis{d} u^T\Pi}\right) \\
@@ -169,17 +171,19 @@ However, because $\cP$ is complete for $S$, these can be absorbed into the final
 \end{align*}
 Doing the same for the other terms and setting $C' = \Pi^\perp C \Pi^\perp$ and similarly for $D_i'$, we get a new proof:
 \[r(x) = \langle C', \mbasis{d}(\mbasis{d})^T\rangle + \sum_{i=1}^\ell \langle D_i', \mbasis{d}(\mbasis{d})^T\rangle q_i + \sum_{i=1}^m \lambda_i' p_i.\]
-Now the zero eigenspace of $C'$ is contained in the zero eigenspace of $M_{S,d}$. Further, the $\delta$-spectral richness of $S$ implies that each nonzero eigenvalue of $M_{S,d}$ is at least $\delta$, so $\Iprod{C',M_{S,d}} \geq \delta \Tr(C')$. Also, the $\epsilon$-robustness of $S$ implies that $q_i(\alpha) \geq \epsilon$ for each $i$ and $\alpha$. Thus, after averaging we have 
+Now the zero eigenspace of $C'$ is contained in the zero eigenspace of $M_{S,d}$. Further, the $\delta$-spectral richness of $\mu$ implies that each nonzero eigenvalue of $M_{\mu,d}$ is at least $\delta$, so $\Iprod{C',M_{\mu,d}} \geq \delta \Tr(C')$. Also, the $\epsilon$-robustness of $\mu$ implies that $q_i(\alpha) \geq \epsilon$ for each $i$ and $\alpha$. Thus 
+\[\Iprod{D'_i, \E_{\alpha \sim \mu}\left[q_i(\alpha)\mbasis{d}(\alpha)(\mbasis{d}(\alpha))^T\right] \geq \Iprod{D'_i, \E_{\alpha \sim \mu}\left[\epsilon\mbasis{d}(\alpha)(\mbasis{d}(\alpha))^T\right] \geq \epsilon \delta \Tr(D'_i).\]
+Thus, after averaging we have 
 \[\poly(\|r\|,\|S\|) \geq \delta \Tr(C) + \sum_{i=1}^\ell \delta \epsilon\Tr(D_i').\]
-Thus each of $C'$ and $D_i'$ have entries bounded by $\poly(\|r\|, \|S\|, \frac{1}{\delta}, \frac{1}{\epsilon})$.
+Thus each of $C'$ and $D_i'$ have entries bounded by $\poly(\|r\|, \|\supp(\mu)\|, \frac{1}{\delta}, \frac{1}{\epsilon})$.
 
 The only thing left to do is to bound the coefficients $\lambda_i'$. This turns out to be easy because the PC$_>$ proof is linear in these coefficients. If we imagine the coefficients of the $\lambda_i'$ as variables, then the linear system induced by the polynomial identity
 \[r(x) - \langle C', \mbasis{d}(\mbasis{d})^T\rangle - \sum_{i=1}^\ell \langle D_i', \mbasis{d}(\mbasis{d})^T\rangle = \sum_{i=1}^m \lambda_i' p_i\]
-is clearly feasible, and the coefficients of the LHS are bounded by $\poly(\|r\|, \|S\|, \frac{1}{\delta}, \frac{1}{\epsilon})$. There are $O(n^k)$ variables, so by Cramer's rule, the coefficients of the $\lambda_i'$ can be taken to be bounded by $\poly(\|\cP\|^{n^k}, \frac{1}{\delta}, \frac{1}{\epsilon}, \|r\|, \|S\|, n!)$. $\|\cP\|, \|r\| \leq 2^{\poly(n^d)}$ as they are considered part of the input. We assume that $\|S\| \leq 2^{\poly(n^d)}$, and clearly $d \leq k$. Thus, this bound is at most $2^{\poly(n^k, \log \frac{1}{\delta}, \log \frac{1}{\epsilon})}$. 
+is clearly feasible, and the coefficients of the LHS are bounded by $\poly(\|r\|, \|\supp(\mu)\|, \frac{1}{\delta}, \frac{1}{\epsilon})$. There are $O(n^k)$ variables, so by Cramer's rule, the coefficients of the $\lambda_i'$ can be taken to be bounded by $\poly(\|\cP\|^{n^k}, \frac{1}{\delta}, \frac{1}{\epsilon}, \|r\|, \|\supp(\mu)\|, n!)$. $\|\cP\|, \|r\| \leq 2^{\poly(n^d)}$ as they are considered part of the input. We assume that $\|\supp(\mu)\| \leq 2^{\poly(n^d)}$, and clearly $d \leq k$. Thus, this bound is at most $2^{\poly(n^k, \log \frac{1}{\delta}, \log \frac{1}{\epsilon})}$. 
 \end{proof}
 
 \section{A Polynomial System with No Efficient Proofs}
-In \cite{ODon16}, Ryan O'Donnell gave the first example of a set of constraints $\cP$ and a polynomial $r$ which has a degree two PC$_>$ proof of nonnegativity from $\cP$, but \emph{any} such degree two proof must necessarily contain polynomials with doubly exponential norm. In his paper, he was the first to point out the problem with the Sum-of-Squares relaxation that we have endeavored to alleviate in this chapter. He conjectured several possible positive results to aim for. He hoped that if $\{x_i^2 - x_i | i \in [n]\} \subseteq \cP$, then any PC$_>$ proof from $\cP$ could be taken to have polynomial bit complexity. Unfortunately, we can answer this question in the negative. This section is devoted to developing a polynomial system containing the boolean constraints but still has polynomials with proofs of nonnegativity that require polynomials with huge norm. Furthermore, our construction also improves the degree at which the proofs become small. In O'Donnell's original example, the polynomial $r$ has efficient proofs at degree four. In our example, the polynomial $r$ has no efficient proofs until degree $\Omega(\sqrt{n})$, thus scuttling any hope of solving the bit complexity problem by simply running more rounds of the Sum-of-Squares relaxation by a constant factor.
+In \cite{ODon16}, Ryan O'Donnell gave the first example of a set of constraints $\cP$ and a polynomial $r$ which has a degree two PC$_>$ proof of nonnegativity from $\cP$, but \emph{any} such degree two proof must necessarily contain polynomials with doubly exponential norm. In his paper, he was the first to point out the problem with the Sum-of-Squares relaxation that we have endeavored to alleviate in this chapter. He conjectured several possible positive results to aim for. He hoped that if $\{x_i^2 - x_i \mid i \in [n]\} \subseteq \cP$, then any PC$_>$ proof from $\cP$ could be taken to have polynomial bit complexity. Unfortunately, we can answer this question in the negative. This section is devoted to developing a polynomial system containing the boolean constraints but still has polynomials with proofs of nonnegativity that require polynomials with huge norm. Furthermore, our construction also improves the degree at which the proofs become small. In O'Donnell's original example, the polynomial $r$ has efficient proofs at degree four. In our example, the polynomial $r$ has no efficient proofs until degree $\Omega(\sqrt{n})$, thus scuttling any hope of solving the bit complexity problem by simply running more rounds of the Sum-of-Squares relaxation by a constant factor.
 
 \subsection{A First Example}
 The original example given in \cite{ODon16} essentially contains the following system whose repeated squaring is responsible for the blowup of the coefficients in the proofs:
@@ -196,12 +200,12 @@ The following polynomial identity implies the lemma statement:
 \epsilon - x_1 &\cong\left(\sqrt{\frac{\epsilon}{n}} - \left(\frac{n}{4\epsilon}\right)^{1/2}x_1\right)^2 + \left(\sqrt{\frac{\epsilon}{n}} - \left(\frac{n}{4\epsilon}\right)^{3/2}x_2\right)^2 + \left(\sqrt{\frac{\epsilon}{n}} - \left(\frac{n}{4\epsilon}\right)^{7/2}x_3\right)^2 + \nonumber\\
 &+\dots + \left(\sqrt{\frac{\epsilon}{n}} - \left(\frac{n}{4\epsilon}\right)^{(2^n-1)/2}x_n\right)^2.\label{eq:proof}\tag{$*$}
 \end{align}
-To explain a little, consider the $i$th term $(A_i - B_ix_i)^2$. First notice that $\sum_i A_i^2 = \epsilon$. Second, notice that $-2A_iB_ix_i = -\left(\frac{n}{4\epsilon}\right)^{2^{i-1}-1}x_i$. Finally, $(B_ix_i)^2 = \left(\frac{n}{4\epsilon}\right)^{2^i-1}x_i^2 \cong \left(\frac{n}{4\epsilon}\right)^{2^i-1}x_{i+1}$. Everything has been carefully set up so that $(B_ix_i)^2 \cong -2A_{i+1}B_{i+1}$. Finally, clearly $B_n^2x_n^2 \cong 0$. Thus every term cancels out except $A_1^2-2A_1B_1x_1 = \epsilon-x_1$. 
+To explain a little, let the $i$th term in the proof be $(A_i - B_ix_i)^2$. First notice that $\sum_i A_i^2 = \epsilon$. Second, notice that $-2A_iB_ix_i = -\left(\frac{n}{4\epsilon}\right)^{2^{i-1}-1}x_i$. Finally, $(B_ix_i)^2 = \left(\frac{n}{4\epsilon}\right)^{2^i-1}x_i^2 \cong \left(\frac{n}{4\epsilon}\right)^{2^i-1}x_{i+1}$. Everything has been carefully set up so that $(B_ix_i)^2 \cong -2A_{i+1}B_{i+1}$. Finally, clearly $B_n^2x_n^2 \cong 0$. Thus every term cancels out except $\sum_i A_i^2-2A_1B_1x_1 = \epsilon-x_1$. 
 \end{proof}
 %
 Of course, the above proof involves coefficients of doubly-exponential size, which means that it will not be found by running a polynomial time version of the Ellipsoid Algorithm. Is it possible to find a proof for $\epsilon - x_1$ that does not use coefficients of such huge size?
 \begin{lemma}\label{lem:nonbool-complex}
-Let $\epsilon < 1/2$. Then any PC$_>$ proof of $\epsilon - x_1$ from $\cP$ of degree $d$ must involve polynomials of norm at least $\Omega\left(\frac{1}{n^d}\left(\frac{1}{2\epsilon}\right)\right)^{2^n}$.
+Let $\epsilon < 1/2$. Then any PC$_>$ proof of $\epsilon - x_1$ from $\cP$ of degree $d$ must involve polynomials with coefficients of size at least $\Omega\left(\frac{1}{n^d}\left(\frac{1}{2\epsilon}\right)\right)^{2^n}$.
 \end{lemma}
 \begin{proof}
 We will define a linear functional $\phi: \R[X]_d \rightarrow \R$ as in \prettyref{lem:prelim_dual_cert}. Recall we want $\phi$ to satisfy the following:
@@ -212,7 +216,9 @@ We will define a linear functional $\phi: \R[X]_d \rightarrow \R$ as in \prettyr
 \item[(4)] $\phi[p^2] \geq 0$ for any $p^2$ of degree at most $d$
 \end{enumerate}
 
-Note that any monomial is equivalent to some power of $x_1$. For example, $x_1x_2x_3 \cong x_1^7$.  More generally, it is clear from $\cP$ that $\prod_{i = 1}^n x_i^{\beta_i} \cong x_1^{\sum_{j = 1}^n 2^{j-1} \beta_j}$.  Define $\phi$ by linearly extending its action on monomials, defined by:
+Note that any monomial is equivalent to some power of $x_1$. For example, $x_1x_2x_3 \cong x_1^7$.  More generally, it is clear from $\cP$ that 
+\[\prod_{i = 1}^n x_i^{\beta_i} \cong x_1^{\sum_{j = 1}^n 2^{j-1} \beta_j}.\] 
+Define $\phi$ by linearly extending its action on monomials, defined by:
 \[\phi\left[ \prod_{i = 1}^n x_i^{\beta_i}\right] = (2\epsilon)^{\sum_{i} 2^{i-1} \beta_i }. \]
 Clearly $\phi[\epsilon - x_1] = -\epsilon$, thus satisfying condition (1). Condition (2) is obviously satisfied if $\sigma$ is a monomial, and linearity of $\phi$ implies that it holds for any polynomial $\sigma$. For condition (3), if $\lambda$ is a monomial, then $\phi[\lambda x_n^2] \leq \phi[x_n^2] = (2\epsilon)^{2^{n}}$. If $\lambda$ is not a monomial, it has at most $n^d$ monomials, and maximum coefficient at most $\|\lambda\|$. Then by linearity of $\phi$, we have $\phi[\lambda x_n^2] \leq (2\epsilon)^{2^n}n^d\|\lambda\|$. For condition (4), note that $\phi$ is multiplicative. Then clearly $\phi[p^2] = \phi[p]^2 \geq 0$. 
 \end{proof}
@@ -228,12 +234,12 @@ We draw inspiration from the Knapsack problem, which is known to be difficult to
 &\cup \left\{\left(\sum_j w_{nj} - k\right)^2 \right\} \\
 &\cup \left\{w_{ij}^2 - w_{ij} \mid i \in [n], j \in [2k]\right\}.
 \end{align*}
-The solution space $V(\cP)$ is the set of $n$ bit strings of $2k$ bits, each with exactly $k$ ones.
+The solution space $V(\cP')$ is the set of $n$ bit strings of $2k$ bits, each with exactly $k$ ones.
 \begin{lemma}\label{lem:boolean-degtwoproof}
-The polynomial $r = \epsilon - \left(\sum_j w_{1j} - k\right)$ is nonnegative on $V(\cP)$, and has a degree two PC$_>$ proof of nonnegativity from $\cP$.
+The polynomial $r = \epsilon - \left(\sum_j w_{1j} - k\right)$ is nonnegative on $V(\cP')$, and has a degree two PC$_>$ proof of nonnegativity from $\cP'$.
 \end{lemma}
 \begin{proof}
-The polynomial $r$ is nonnegative because there are exactly $k$ ones among the $w_{1j}$, so $r(\alpha) = \epsilon > 0$ on $V(\cP)$.
+The polynomial $r$ is nonnegative because there are exactly $k$ ones among the $w_{1j}$, so $r(\alpha) = \epsilon > 0$ on $V(\cP')$.
 Further, $r$ has a proof of non-negativity since we can just replace each instance of $x_i$ with $\left(\sum_j w_{ij} - k\right)$ in (\ref{eq:proof}). 
 \end{proof}
 
@@ -249,7 +255,7 @@ Let $0 < \delta < 1$. Then there exists a linear function $\phi_\delta: \R[X]_d 
 The lemma is equivalent to claiming that the infeasibility of the Knapsack system is difficult to certify using PC$_>$ proofs. Since $\delta$ is not an integer and each $w_{ij}$ is boolean, obviously $\sum_j w_{ij} - k - \delta = 0$ is unsatisfiable, but because there is no PC$_>$ proof of this fact, the pseudodistribution $\phi_\delta$ exists. We will use these pseudodistributions to "pretend" that $\sum_j w_{ij} - k = (2\epsilon)^{2^{i-1}}$ and mimic the proof in \prettyref{lem:nonbool-complex}.
 
 \begin{lemma}\label{lem:boolean-complex}
-Let $r = \epsilon - \left(\sum_j w_{ij} - k\right)$ and $\epsilon < 1/2$. Then any degree $Ck$ PC$_>$ proof of nonnegativity for $r$ from $\cP$ contains a polynomial of norm at least $\Omega\left(\frac{1}{(nk)^d} \cdot \left(\frac{1}{2\epsilon}\right)^{2^n}\right)$.
+Let $r = \epsilon - \left(\sum_j w_{ij} - k\right)$ and $\epsilon < 1/2$. Then any degree $Ck$ PC$_>$ proof of nonnegativity for $r$ from $\cP'$ contains a polynomial of norm at least $\Omega\left(\frac{1}{(nk)^d} \cdot \left(\frac{1}{2\epsilon}\right)^{2^n}\right)$.
 \end{lemma}
 \begin{proof}
 Let $d \leq Ck$, $W_i = \{w_{i1}, w_{i2}, \dots, w_{i,2k}\}$, and $W = \bigcup_i W_i$. We will use $\sigma(W)$ to denote an arbitrary monomial, and $\sigma_1(W_1),\dots,\sigma_n(W_n)$ to be the monomials whose product is $\sigma$. We will use $\lambda$ to denote an arbitrary polynomial. We will define a linear functional satisfying the requirements of \prettyref{lem:prelim_dual_cert}, which will prove the theorem. Define a linear functional $\Phi: \R[W_1,W_2,\dots,W_n]_d \rightarrow \R$ by linearly extending its action on monomials the monomial $\sigma$:
@@ -284,13 +290,13 @@ If we define a matrix $M(V,V') = \phi_2[w_Vw_{V'}]$, then because $\phi_2$ is no
 
 Finally, we prove our main theorem.
 \begin{theorem}
-There exists a set of quadratic polynomials $\cP$ on $n$ variables and a polynomial $r$ nonnegative on $V(\cP)$ such that
+There exists a set of quadratic polynomials $\cP'$ on $n$ variables and a polynomial $r$ nonnegative on $V(\cP')$ such that
 \begin{itemize}
-\item $\cP$ contains the polynomial $x_i^2 - x_i$ for every $i \in [n]$.
-\item $r$ has a degree two PC$_>$ proof of nonnegativity from $\cP$. 
-\item Every PC$_>$ proof of nonnegativity for $r$ from $\cP$ of degree at most $O(\sqrt{n})$ has a polynomial with a coefficient of size at least $\Omega(\frac{1}{n^d}2^{\exp \sqrt{n}})$.
+\item $\cP'$ contains the polynomial $x_i^2 - x_i$ for every $i \in [n]$.
+\item $r$ has a degree two PC$_>$ proof of nonnegativity from $\cP'$. 
+\item Every PC$_>$ proof of nonnegativity for $r$ from $\cP'$ of degree at most $O(\sqrt{n})$ has a polynomial with a coefficient of size at least $\Omega(\frac{1}{n^d}2^{\exp \sqrt{n}})$.
 \end{itemize}
 \end{theorem}
 \begin{proof}
-We take the polynomial system $\cP$ discussed in this section with $k = n$. Then there are $N = n^2$ variables total, and the properties follow directly from \prettyref{lem:boolean-degtwoproof} and \prettyref{lem:boolean-complex}.
+We take the polynomial system $\cP'$ discussed in this section with $k = n$. Then there are $N = n^2$ variables total, and the properties follow directly from \prettyref{lem:boolean-degtwoproof} and \prettyref{lem:boolean-complex}.
 \end{proof}
