@@ -188,7 +188,7 @@ an algorithm \((c,s)\)-approximately solves \(\cM\) or achieves approximation $(
 if given any \(f \in \cF\) with \(\max_{s \in \cS} f(s) \leq s(f)\) as input,
 it computes \(\val \in \R\) satisfying
 \(\max_{\alpha \in \cS} f(\alpha) \leq \val \leq c(f)\).
-If $c(f) = \rho s(f)$, we also say the algorithm $\rho$-approximately solves $\cM$ or achieves approximation ratio $\rho$ o n$\cM$. 
+If $c(f) = \rho s(f)$, we also say the algorithm $\rho$-approximately solves $\cM$ or achieves approximation ratio $\rho$ on $\cM$. 
 \end{definition}
 
 We think of the functions $f \in \cF$ as defining the problem instances and the feasible solutions $\alpha \in \cS$ as defining the combinatorial objects we are 
@@ -218,9 +218,9 @@ Let $\cM = (\cS, \cF)$ be a combinatorial maximization problem. Then an
 	We say that the SDP relaxation is a $(c,s)$-approximate relaxation or that it achieves $(c,s)$-approximation if, for each
 	$f \in \cF$ with $\max_{\alpha \in \cS} f(\alpha) \leq s(f)$, 
 	\[\max \face{ w^f(X) \mid \forall i: A_i \cdot X = b_i, X \in \psd{d}} \leq c(f).\]
-	If the SDP relaxation achieves a $(\max_{\alpha\in \cS} f(\alpha), \max_{\alpha\in \cS} f(\alpha))$-approximation, we say it is \emph{exact}.
+	If the SDP relaxation achieves a $(\max_{\alpha\in \cS} f(\alpha), \max_{\alpha\in \cS} f(\alpha))$-approximation, we say it is \emph{exact}. If $c(f) = \rho s(f)$, then we also say the SDP relaxation achieves a $\rho$-approximation. 
 \end{definition}
-Given a $(\tilde{C}, \tilde{S})$-approximate SDP formulation for $\cP$, we can $(\tilde{C}, \tilde{S})$-approximately solve $\cP$ on input $f$ simply by solving
+Given a $(c,s)$-approximate SDP formulation for $\cM$, we can $(c,s)$-approximately solve $\cM$ on input $f$ simply by solving
 the SDP $\max w^f(X)$ subject to $X \in \psd{d}$ and $\forall i: A_i(X) = b_i$.
 
 \begin{example}

@@ -29,13 +29,13 @@ For a distribution $\mu$ on $V(\cP)$, we define the \emph{$\mu$-moment matrix up
 \[M_{\mu,d} = \E_{\alpha \sim \mu}\left[\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T\right]\]
 \end{definition}
 Clearly $M_{\mu,d}$ is a PSD matrix, and furthermore it encodes a lot of information about the distribution $\mu$. For example, if we let $\tilde{c} \in \R^{\binom{n+d-1}{d}}$, then $\tilde{c}$ corresponds to the polynomial $c(x) = \tilde{c} \cdot \mbasis{d}$, and then $\tilde{c}^TM_{\mu,d}\tilde{c} = \E_{\alpha \sim \mu}\left[c(\alpha)^2\right]$.
-In particular, if $\tilde{c}$ is a zero eigenvector of $M_{S,d}$, then $c(x)$ is zero on all of $S$.  
+In particular, if $\tilde{c}$ is a zero eigenvector of $M_{\mu,d}$, then $c(x)$ is zero on all of $S$.  
 \begin{definition}
 We say that $\mu$ is \emph{$\delta$-spectrally rich up to degree $d$} if every nonzero eigenvalue of $M_{\mu,d}$ is at least $\delta$. 
 \end{definition}
 If $\mu$ is $\delta$-spectrally rich up to degree $d$ and $p$ is an arbitrary polynomial of degree at most $d$, then there exists a polynomial $p'$ such that $p'(\alpha) = p(\alpha)$ for each $\alpha \in \supp(\mu)$ and $\|p'\| \leq \frac{1}{\delta} \max_\alpha |p'(\alpha)|$. Thus spectral richness can be thought of as ensuring that the polynomials which are not zero on all of $\supp(\mu)$ can be bounded. What about the polynomials that are zero on $\supp(\mu)$? We need to ensure that we can bound those as well, or else a PC$_>$ proof could require one with enormous coefficients. The key is that, since a bounded degree PC derivation is a \emph{linear} system, its solution can be taken to have bounded coefficients.
 \begin{definition}
-We say that $\cP$ is \emph{$k$-complete for $\supp(\mu)$ up to degree $d$} if, for every zero eigenvector $\tilde{c}$ of $M_{S,d}$, the degree $d$ polynomial $c(x) = c^T\mbasis{d}$ has a derivation from $\cP$ in degree $k$.
+We say that $\cP$ is \emph{$k$-complete for $\supp(\mu)$ up to degree $d$} if, for every zero eigenvector $\tilde{c}$ of $M_{\mu,d}$, the degree $d$ polynomial $c(x) = \tilde{c}^T\mbasis{d}$ has a derivation from $\cP$ in degree $k$.
 \end{definition}
 If $\mu$ has support over all of $V(\cP)$, then $k$-completeness up to degree $d$ is implied by $\cP$ being $k/d$-effective. 
 What if the support of $\mu$ is some proper subset? Well, $\supp(\mu)$ had better at least be very close to $V(\cP)$, otherwise there is no hope that $\cP$ is complete for $\supp(\mu)$ up to degree $d$. In fact, if $\supp(\mu) \neq V(\cP)$, it is impossible for every polynomial that is zero on $\supp(\mu)$ to have a derivation from $\cP$, since in this case $I(\supp(\mu)) \neq \gen{\cP}$. However, since we are only dealing with proofs of nonnegativity of degree $d$, we only actually care about polynomials up to degree $d$. In other words, we want $\supp(\mu)$ to be close enough to $V(\cP)$ that only polynomials of degree higher than $d$ can tell the difference.
@@ -45,7 +45,7 @@ Let $\mu$ be the uniform distribution over $S = \{0,1\}^n \setminus (0,0,\dots,0
 and thus the degree of $r$ must be $n$.
 \end{example}
 \begin{example}\label{ex:not-complete}
-Let $\mu$ be the uniform distribution over $S = \{0,1\}^n \setminus \{(1,y) \mid y \in \{0,1\}^{n-1}\}$. Then $\cP = \{x_i^2 - x_i \mid i \in [n]\}$ is not $k$-complete for $S$ up to degree $d$ for any $k \geq d \geq 1$. To see this, note that the polynomial $x_1$ is zero on all of $S$, and thus corresponds to a zero eigenvector of $M_{S,d}$. But $x_1$ is not zero on $V(\cP)$, so $x \notin \gen{\cP}$, and thus $x$ has no derivation from $\cP$ at all. 
+Let $\mu$ be the uniform distribution over $S = \{0,1\}^n \setminus \{(1,y) \mid y \in \{0,1\}^{n-1}\}$. Then $\cP = \{x_i^2 - x_i \mid i \in [n]\}$ is not $k$-complete for $S$ up to degree $d$ for any $k \geq d \geq 1$. To see this, note that the polynomial $x_1$ is zero on all of $S$, and thus corresponds to a zero eigenvector of $M_{\mu,d}$. But $x_1$ is not zero on $V(\cP)$, so $x \notin \gen{\cP}$, and thus $x$ has no derivation from $\cP$ at all. 
 \end{example}
 In order for $\mu$ to be robust, it must have support only in $S = V(\cP) \cap H(\cQ)$. In this case, completeness implies that the additional constraints $q(x) \geq 0$ for each $q \in \cQ$ do not themselves imply a low-degree polynomial equality not already derivable from $\cP$. We consider this part of the condition to be extremely mild, because one could simply add such a polynomial equality to the constraints $\cP$ of the program. 
 \begin{example}
@@ -145,41 +145,41 @@ For the following optimization problems, $S$ is a rich certificate up to degree 
 
 \section{Proof of the Main Theorem}\label{sec:bc_proof_main}
 \begin{proof}[(Proof of \prettyref{thm:bit_complexity-main})]
-For convenience, we write $\cP = \{p_1,\dots,p_m\}$ and $\cQ = \{q_1,\dots,q_\ell\}$. We have a set $S$ which is $(\epsilon,\delta,k)$-rich for $(\cP,\cQ)$, and a degree $d$ polynomial $r(x)$ which has a PC$_>$ proof of nonnegativity from $(\cP,\cQ)$. In other words, there is a polynomial identity
+For convenience, we write $\cP = \{p_1,\dots,p_m\}$ and $\cQ = \{q_1,\dots,q_\ell\}$. Let $\mu$ be the certificate for $(\epsilon,\delta,k)$-richness of $(\cP,\cQ)$, let $S = \supp(\mu)$, and let $r(x)$ be a degree $d$ polynomial which has a PC$_>$ proof of nonnegativity from $(\cP,\cQ)$. In other words, there is a polynomial identity
 \[r(x) = \sum_{i=1}^{t_0} h_i^2 + \sum_{i=1}^\ell \left(\sum_{j=1}^{t_i} h_{ij}^2\right) q_i + \sum_{i=1}^m \lambda_i p_i.\]
 Our goal is to find a different PC$_>$ proof of nonnegativity for $r$ which uses only polynomials of bounded norm.
 
-First, we rewrite the original PC$_>$ proof into a more convenient form before proving bounds on each individual term. Because the elements of $\mbasis{d}$ are a basis for $\R[x]_d$, every polynomial in the proof can be expressed as $c^T\mbasis{d}$, where $c$ is a vector of reals:
-\begin{align*} r(x) &= \sum_{i=1}^{t_0} (c_i^T\mbasis{d})^2 + \sum_{i=1}^\ell \left(\sum_{j=1}^{t_i} (d_{ij}^T\mbasis{d})^2\right)q_i + \sum_{i=1}^m \lambda_i p_i \\
-&= \langle C, \mbasis{d}(\mbasis{d})^T\rangle + \sum_{i=1}^\ell \langle D_i, \mbasis{d}(\mbasis{d})^T\rangle q_i + \sum_{i=1}^m \lambda_i p_i
+First, we rewrite the original PC$_>$ proof into a more convenient form before proving bounds on each individual term. Because the elements of $\mbasis{d}$ are a basis for $\R[x]_d$, every polynomial in the proof can be expressed as $\tilde{c}^T\mbasis{d}$, where $\tilde{c}$ is a vector of reals:
+\begin{align*} r(x) &= \sum_{i=1}^{t_0} (\tilde{h}_i^T\mbasis{d})^2 + \sum_{i=1}^\ell \left(\sum_{j=1}^{t_i} (\tilde{h}_{ij}^T\mbasis{d})^2\right)q_i + \sum_{i=1}^m \lambda_i p_i \\
+&= \langle H, \mbasis{d}(\mbasis{d})^T\rangle + \sum_{i=1}^\ell \langle H_i, \mbasis{d}(\mbasis{d})^T\rangle q_i + \sum_{i=1}^m \lambda_i p_i
 \end{align*}
-for PSD matrices $C$, $D_1,\dots,D_\ell$. Next, we average this polynomial identity via the distribution $\mu$:
+for PSD matrices $H$, $H_1,\dots,H_\ell$. Next, we average this polynomial identity via the distribution $\mu$:
 \begin{align*}
-\E_{\alpha \sim \mu}\left[r(\alpha)\right] &= \left\langle C, \E_{\alpha \sim \mu}\left[\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T\right]\right\rangle + \sum_{i=1}^\ell \left\langle D_i, \E_{\alpha \sim \mu}\left[q_i(\alpha)\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T\right]\right\rangle q_i(\alpha) + 0 \\
+\E_{\alpha \sim \mu}\left[r(\alpha)\right] &= \left\langle H, \E_{\alpha \sim \mu}\left[\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T\right]\right\rangle + \sum_{i=1}^\ell \left\langle H_i, \E_{\alpha \sim \mu}\left[q_i(\alpha)\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T\right]\right\rangle + 0 \\
 \end{align*}
-The LHS is at most $\poly(\|r\|, \|S\|)$, and the RHS is a sum of positive numbers (since $q_i(\alpha) \geq \epsilon > 0$), so the LHS is a bound on each term of the RHS. 
+The LHS is at most $\poly(\|r\|, \|S\|)$, and the RHS is a sum of positive numbers. This is because the inner products are over pairs of PSD matrices (recall $q_i(\alpha) \geq \epsilon > 0$). Thus the LHS is an upper bound on each term of the RHS. 
 %
-We would like to say that since $S$ is $\delta$-spectrally rich, the first term is at least $\delta \Tr(C)$. 
+We would like to say that since $S$ is $\delta$-spectrally rich, the first term is at least $\delta \Tr(H)$. 
 %
-Unfortunately the averaged matrix may have zero eigenvectors, and it is possible that $C$ could have very large eigenvalues in these directions. 
+Unfortunately the averaged matrix may have zero eigenvectors, and it is possible that $H$ could have very large eigenvalues in these directions. 
 %
 However, because $\cP$ is complete for $S$, these can be absorbed into the final term. More formally, let $\Pi = \sum_u uu^T$ be the projector onto the zero eigenspace of $M_{\mu,d} = \E_{\alpha \sim \mu}[\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T]$. Because $\cP$ is $k$-complete for $S$, for each $u$ there is a degree $k$ derivation $u^T\mbasis{d} = \sum_i \sigma_{ui} p_i$. Then $\Pi \mbasis{d}(\mbasis{d})^T = \sum_u (u^T\mbasis{d}) \cdot u(\mbasis{d})^T$. Thus we can write
 \begin{align*}
-\Iprod{C, \mbasis{d}(\mbasis{d})^T} &= \Iprod{C, (\Pi + \Pi^\perp)\mbasis{d}(\mbasis{d})^T(\Pi + \Pi^\perp)} \\
-&= \Iprod{C, \Pi^\perp \mbasis{d}(\mbasis{d})^T \Pi^\perp} + \sum_u u^T\mbasis{d}\left(\Iprod{C, \Pi^\perp \mbasis{d} u^T + \mbasis{d} u^T\Pi^\perp + \mbasis{d} u^T\Pi}\right) \\
-&= \Iprod{\Pi^\perp C \Pi^\perp, \mbasis{d}(\mbasis{d})^T} + \sum_i \sigma_i p_i.
+\Iprod{H, \mbasis{d}(\mbasis{d})^T} &= \Iprod{H, (\Pi + \Pi^\perp)\mbasis{d}(\mbasis{d})^T(\Pi + \Pi^\perp)} \\
+&= \Iprod{H, \Pi^\perp \mbasis{d}(\mbasis{d})^T \Pi^\perp} + \sum_u u^T\mbasis{d}\left(\Iprod{H, \Pi^\perp \mbasis{d} u^T + \mbasis{d} u^T\Pi^\perp + \mbasis{d} u^T\Pi}\right) \\
+&= \Iprod{\Pi^\perp H \Pi^\perp, \mbasis{d}(\mbasis{d})^T} + \sum_i \sigma_i p_i.
 \end{align*}
-Doing the same for the other terms and setting $C' = \Pi^\perp C \Pi^\perp$ and similarly for $D_i'$, we get a new proof:
-\[r(x) = \langle C', \mbasis{d}(\mbasis{d})^T\rangle + \sum_{i=1}^\ell \langle D_i', \mbasis{d}(\mbasis{d})^T\rangle q_i + \sum_{i=1}^m \lambda_i' p_i.\]
-Now the zero eigenspace of $C'$ is contained in the zero eigenspace of $M_{S,d}$. Further, the $\delta$-spectral richness of $\mu$ implies that each nonzero eigenvalue of $M_{\mu,d}$ is at least $\delta$, so $\Iprod{C',M_{\mu,d}} \geq \delta \Tr(C')$. Also, the $\epsilon$-robustness of $\mu$ implies that $q_i(\alpha) \geq \epsilon$ for each $i$ and $\alpha$. Thus 
-\[\Iprod{D'_i, \E_{\alpha \sim \mu}\left[q_i(\alpha)\mbasis{d}(\alpha)(\mbasis{d}(\alpha))^T\right] \geq \Iprod{D'_i, \E_{\alpha \sim \mu}\left[\epsilon\mbasis{d}(\alpha)(\mbasis{d}(\alpha))^T\right] \geq \epsilon \delta \Tr(D'_i).\]
+Doing the same for the other terms and setting $H' = \Pi^\perp H \Pi^\perp$ and similarly for $H_i'$, we get a new proof:
+\[r(x) = \langle H', \mbasis{d}(\mbasis{d})^T\rangle + \sum_{i=1}^\ell \langle H_i', \mbasis{d}(\mbasis{d})^T\rangle q_i + \sum_{i=1}^m \lambda_i' p_i.\]
+Now the zero eigenspace of $H'$ is contained in the zero eigenspace of $M_{\mu,d}$. Further, the $\delta$-spectral richness of $\mu$ implies that each nonzero eigenvalue of $M_{\mu,d}$ is at least $\delta$, so $\Iprod{H',M_{\mu,d}} \geq \delta \Tr(H')$. Also, the $\epsilon$-robustness of $\mu$ implies that $q_i(\alpha) \geq \epsilon$ for each $i$ and $\alpha$. Thus 
+\[\Iprod{H'_i, \E_{\alpha \sim \mu}\left[q_i(\alpha)\mbasis{d}(\alpha)(\mbasis{d}(\alpha))^T\right]} \geq \Iprod{H'_i, \E_{\alpha \sim \mu}\left[\epsilon\mbasis{d}(\alpha)(\mbasis{d}(\alpha))^T\right]} \geq \epsilon \delta \Tr(H'_i).\]
 Thus, after averaging we have 
-\[\poly(\|r\|,\|S\|) \geq \delta \Tr(C) + \sum_{i=1}^\ell \delta \epsilon\Tr(D_i').\]
-Thus each of $C'$ and $D_i'$ have entries bounded by $\poly(\|r\|, \|\supp(\mu)\|, \frac{1}{\delta}, \frac{1}{\epsilon})$.
+\[\poly(\|r\|,\|S\|) \geq \delta \Tr(C) + \sum_{i=1}^\ell \delta \epsilon\Tr(H'_i).\]
+Thus each of $H'$ and $H_i'$ have entries bounded by $\poly(\|r\|, \|S\|, \frac{1}{\delta}, \frac{1}{\epsilon})$.
 
 The only thing left to do is to bound the coefficients $\lambda_i'$. This turns out to be easy because the PC$_>$ proof is linear in these coefficients. If we imagine the coefficients of the $\lambda_i'$ as variables, then the linear system induced by the polynomial identity
-\[r(x) - \langle C', \mbasis{d}(\mbasis{d})^T\rangle - \sum_{i=1}^\ell \langle D_i', \mbasis{d}(\mbasis{d})^T\rangle = \sum_{i=1}^m \lambda_i' p_i\]
-is clearly feasible, and the coefficients of the LHS are bounded by $\poly(\|r\|, \|\supp(\mu)\|, \frac{1}{\delta}, \frac{1}{\epsilon})$. There are $O(n^k)$ variables, so by Cramer's rule, the coefficients of the $\lambda_i'$ can be taken to be bounded by $\poly(\|\cP\|^{n^k}, \frac{1}{\delta}, \frac{1}{\epsilon}, \|r\|, \|\supp(\mu)\|, n!)$. $\|\cP\|, \|r\| \leq 2^{\poly(n^d)}$ as they are considered part of the input. We assume that $\|\supp(\mu)\| \leq 2^{\poly(n^d)}$, and clearly $d \leq k$. Thus, this bound is at most $2^{\poly(n^k, \log \frac{1}{\delta}, \log \frac{1}{\epsilon})}$. 
+\[r(x) - \langle H', \mbasis{d}(\mbasis{d})^T\rangle - \sum_{i=1}^\ell \langle H_i', \mbasis{d}(\mbasis{d})^T\rangle = \sum_{i=1}^m \lambda_i' p_i\]
+is clearly feasible, and the coefficients of the LHS are bounded by $\poly(\|r\|, \|S\|, \frac{1}{\delta}, \frac{1}{\epsilon})$. There are $O(n^k)$ variables, so by Cramer's rule, the coefficients of the $\lambda_i'$ can be taken to be bounded by $\poly(\|\cP\|^{n^k}, \frac{1}{\delta}, \frac{1}{\epsilon}, \|r\|, \|S\|, n!)$. $\|\cP\|, \|r\| \leq 2^{\poly(n^d)}$ as they are considered part of the input. We assume that $\|S\| \leq 2^{\poly(n^d)}$, and clearly $d \leq k$. Thus, this bound is at most $2^{\poly(n^k, \log \frac{1}{\delta}, \log \frac{1}{\epsilon})}$. 
 \end{proof}
 
 \section{A Polynomial System with No Efficient Proofs}
@@ -205,7 +205,7 @@ To explain a little, let the $i$th term in the proof be $(A_i - B_ix_i)^2$. Firs
 %
 Of course, the above proof involves coefficients of doubly-exponential size, which means that it will not be found by running a polynomial time version of the Ellipsoid Algorithm. Is it possible to find a proof for $\epsilon - x_1$ that does not use coefficients of such huge size?
 \begin{lemma}\label{lem:nonbool-complex}
-Let $\epsilon < 1/2$. Then any PC$_>$ proof of $\epsilon - x_1$ from $\cP$ of degree $d$ must involve polynomials with coefficients of size at least $\Omega\left(\frac{1}{n^d}\left(\frac{1}{2\epsilon}\right)\right)^{2^n}$.
+Let $\epsilon < 1/2$. Then any PC$_>$ proof of $\epsilon - x_1$ from $\cP$ of degree $d$ must involve polynomials with coefficients of size at least $\Omega\left(\frac{1}{n^d}\left(\frac{1}{2\epsilon}\right)^{2^n}\right)$.
 \end{lemma}
 \begin{proof}
 We will define a linear functional $\phi: \R[X]_d \rightarrow \R$ as in \prettyref{lem:prelim_dual_cert}. Recall we want $\phi$ to satisfy the following:
@@ -265,24 +265,24 @@ where each $\phi_i$ is the linear function $\phi_{(2\epsilon)^{2^{i-1}}}$ guaran
 First, clearly 
 \[\Phi\left[\epsilon - \left(\sum_j w_{1j} - k\right)\right] = \phi_1\left[\epsilon - \left(\sum_j w_{1j} - k\right)\right] = -\epsilon.\]
 Second, 
-\[\Phi[\sigma\cdot(w_{ij}^2 - w_{ij})] = \phi_i[\sigma_i\cdot (w_{ij}^2 - w_{ij})]\prod_{j \neq i}\phi_j[\sigma_j] = 0.\] 
+\[\Phi\left[\sigma\cdot(w_{ij}^2 - w_{ij})\right] = \phi_i\left[\sigma_i\cdot (w_{ij}^2 - w_{ij})\right]\prod_{j \neq i}\phi_j[\sigma_j] = 0.\] 
 Linearity of $\Phi$ implies the same is true for any polynomial of degree at most $Ck$. Similarly, 
 \begin{align*}
-\Phi[\sigma\cdot\left(\sum_j w_{ij} - k\right)] &= \phi_i[\sigma_i \cdot \left(\sum_j w_{ij} - k\right)]\prod_{j \neq i}\phi_j[\sigma_j] \\
-&= \phi_i[\sigma_i \cdot (2\epsilon)^{2^{i-1}}] \prod_{j \neq i}\phi_j[\sigma_j] \\
+\Phi\left[\sigma\cdot\left(\sum_j w_{ij} - k\right)\right] &= \phi_i\left[\sigma_i \cdot \left(\sum_j w_{ij} - k\right)\right]\prod_{j \neq i}\phi_j[\sigma_j] \\
+&= \phi_i\left[\sigma_i \cdot (2\epsilon)^{2^{i-1}}\right] \prod_{j \neq i}\phi_j[\sigma_j] \\
 &= (2\epsilon)^{2^{i-1}} \Phi[\sigma].
 \end{align*}
 Again, linearity implies that the same holds for any polynomial of degree at most $Ck$. This implies that for any polynomial $\lambda$, 
-\[\Phi[\lambda\cdot \left((\sum_{j} w_{ij} - k)^2 - (\sum_j w_{i+1,j} - k)\right)] = 0,\]
+\[\Phi\left[\lambda\cdot \left((\sum_{j} w_{ij} - k)^2 - (\sum_j w_{i+1,j} - k)\right)\right] = 0,\]
 as well as
-\[\left|\Phi[\lambda \cdot \left(\sum_j w_{nj} - k\right)^2]\right| = (2\epsilon)^{2^n}\left|\Phi[\lambda]\right| \leq (2\epsilon)^{2^n}(nk)^d\|\lambda\|,\]
+\[\left|\Phi\left[\lambda \cdot \left(\sum_j w_{nj} - k\right)^2\right]\right| = (2\epsilon)^{2^n}\left|\Phi[\lambda]\right| \leq (2\epsilon)^{2^n}(nk)^d\|\lambda\|,\]
 where the $(nk)^d$ appears because there are at most that many monomials of degree $d$, and since every variable is boolean, $\Phi$ is at most $1$ on any monomial. 
 
 The only remaining condition to prove is that $\Phi$ is nonnegative on squares. Define the linear operator $T_i: \R[W_1, W_2,\dots,W_i] \rightarrow \R[W_1,\dots,W_{i-1}]$ with $T_i[\prod_{j\leq i} \sigma_j] = \phi_i[\sigma_i] \cdot \prod_{j < i} \sigma_j$. Clearly $\Phi[\lambda] = T_1T_2\dots T_n[\lambda]$. We claim that for any $i$, and any $\lambda$, $T_i[\lambda^2]$ is a sum-of-squares polynomial. This, together with the fact that each $\phi_i$ is nonnegative on squares, implies that $\Phi$ is nonnegative on squares.
 
 It is sufficient to prove the claim for $T_2$. For multisets $U$ with elements from $W_1$ and $V$ with elements from $W_2$, and we define $w_U = \prod_{w \in U} w$ and similarly for $w_V$. Write $\lambda = \sum_{UV} \alpha_{UV}w_Uw_V$. Then
 \begin{align*}
-T_2[\lambda^2] &= T_2[\sum_{UVU'V'} \alpha_{UV}\alpha_{U'V'} w_Uw_Vw_{U'}w_{V'}] \\
+T_2[\lambda^2] &= T_2\left[\sum_{UVU'V'} \alpha_{UV}\alpha_{U'V'} w_Uw_Vw_{U'}w_{V'}\right] \\
 &= \sum_{UVU'V'} \alpha_{UV}\alpha_{U'V'}w_{U}w_{U'}\phi_2[w_Vw_{V'}].
 \end{align*}
 If we define a matrix $M(V,V') = \phi_2[w_Vw_{V'}]$, then because $\phi_2$ is nonnegative on squares, this matrix is PSD. Furthermore, define $\mathbf{w}(V) = \sum_U \alpha_{UV}w_U$. Then $T_2[\lambda^2] = \mathbf{w}^TM\mathbf{w}$. Since $M$ is PSD, it can be written $\sum_u uu^T$ for some vectors $u$. Then $T_2[\lambda^2] = \sum_u \mathbf{w}^Tuu^T\mathbf{w} = \sum_u (u^T\mathbf{w})^2$ is a sum of squares. 

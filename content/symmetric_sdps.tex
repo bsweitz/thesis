@@ -3,142 +3,141 @@ The main result of this section is to show that when the solution space of a pol
 
 We combine this result with some of our results in \prettyref{cha:effective_derivations} to prove that the Sum-of-Squares SDP relaxation (see \prettyref{sec:polyforms} again) performs no worse than the Theta Body relaxation, thus showing that the SOS SDP is optimal for problems including \textsc{Matching}, \textsc{TSP}, and \textsc{Balanced CSP}. Furthermore, this allows us to translate lower bounds against the SOS SDP to lower bounds against any symmetric SDP formulation. We apply this to the \textsc{Matching} problem using the lower bound of Grigoriev \cite{Gri01}.
 
-\section{Theta Body Optimality}
-Recall that a $S_m$-symmetric combinatorial optimization problem $\cM = (\cS, \cF)$ has a symmetric polynomial formulation if two conditions hold. First, there is a polynomial optimization problem $(\cP, \cQ, \cO, \phi)$ on $n$ variables such that solving the associated problem solves $\cM$ as well. Second, there is an action of $S_m$ on the coordinates $[n]$ (extending to an action on $\R^n$) that is compatible with the action on $\cS$: $\sigma\phi(s) = \phi(\sigma s)$. This action extends to an action on polynomials simply by $\sigma x_i = x_{\sigma i}$ and extending it linearly and multiplicatively. 
+\section{Theta Body Optimality}\label{sec:thetabodyoptimality}
+Recall that a $\sym{m}$-symmetric combinatorial optimization problem $\cM = (\cS, \cF)$ has a symmetric polynomial formulation if two conditions hold. First, there is a polynomial optimization problem $(\cP, \cQ, \cO, \phi)$ on $n$ variables such that solving the associated optimization problem solves $\cM$ as well. Second, there is an action of $\sym{m}$ on the coordinates $[n]$ (extending naturally to an action on $\R^n$ and $\R[x_1,\dots,x_n]$) that is compatible with the action on $\cS$: $\sigma\phi(\alpha) = \phi(\sigma \alpha)$. 
 \begin{definition}
-We say that the symmetric polynomial formulation is \emph{$(k_1,k_2)$-block transitive} if, for each $U \subseteq [m]$ of size at most $k_1$, there exists a $V \subseteq [n]$ of size at most $k_2$ such that $A([m] \setminus U)$ acts transitively on each $S_{V,c} = \{x \in \R^n: x \in V(\cP), x|_V = c\}$.
+We say that the symmetric polynomial formulation is \emph{$(k_1,k_2)$-block transitive} if, for each $U \subseteq [m]$ of size at most $k_1$, there exists a $V \subseteq [n]$ of size at most $k_2$ such that $A([m] \setminus U)$ acts transitively on each $S_{V,c} = \{x \in \R^n: x \in V(\cP), x|_V = c\}$, i.e. each set of solutions in $V(\cP)$ which agree on $J$.
 \end{definition}
 \begin{example}\label{ex:matching-blocktransitive}
-\textsc{Matching} is $\left(k,\binom{k}{2}\right)$-block transitive for each $k < n/2$. Recall the constraints of the polynomial formulation for \textsc{Matching} on $\binom{n}{2}$ variables:
+The usual formulation for \textsc{Matching} is $\left(k,\binom{k}{2}\right)$-block transitive for each $k < n/2$. Recall the constraints of the polynomial formulation for \textsc{Matching} on $\binom{n}{2}$ variables:
 \begin{align*}
-&\cP_n = \matching \\
+&\pmatch(n) = \matching \\
 &\phi_n(M) = \chi_M \text{ such that } (\chi_M)_{ij} = 1 \text{ if $(i,j) \in M$ and $0$ otherwise.}
 \end{align*}
-Then for a subset $I \subseteq [n]$ with $|I| < n/2$, we set $J = E(I,I)$, the set of edges that lie entirely in $I$. Let $M_1$ and $M_2$ be two matchings that agree on $J$. We define a permutation $\sigma$ as follows: Set $\sigma$ to fix $I$. Because $M_1$ and $M_2$ are perfect matchings, they must have the same number of edges in both $E(I, \overline{I})$ and $E(\overline{I},\overline{I})$. For a vertex $v \in \overline{I}$, if $M_1(v) \in I$, then we set $\sigma(v) = M_2(M_1(v))$. Otherwise, we set $\sigma$ to be an arbitrary bijection between the edges of $M_1$ in $E(\overline{I},\overline{I})$ and the edges of $M_2$ in $E(\overline{I},\overline{I})$. Clearly $\sigma \in S([n]\setminus I)$ and $\sigma(\chi_{M_1}) = \chi_{M_2}$. If $\sigma$ is even, we are done. Otherwise, since $|I| < n/2$, there is an edge $(u,v) \in M_2 \cap E(\overline{I},\overline{I})$. Then $(u,v) \cdot \sigma$ is an even permutation which still fixes $J$ and maps $\chi_{M_1}$ to $\chi_{M_2}$.
+Then for a subset $I \subseteq [n]$ with $|I| < n/2$, we set $J = E(I,I)$, the set of edges that lie entirely in $I$. Let $M_1$ and $M_2$ be two matchings that agree on $J$. We define a permutation $\sigma$ as follows: Set $\sigma$ to fix $I$. Because $M_1$ and $M_2$ are perfect matchings, they must have the same number of edges in both $E(I, \overline{I})$ and $E(\overline{I},\overline{I})$. For a vertex $v \in \overline{I}$, if $M_1(v) \in I$, then we set $\sigma(v) = M_2(M_1(v))$. Otherwise, we set $\sigma$ to be an arbitrary bijection between the edges of $M_1$ in $E(\overline{I},\overline{I})$ and the edges of $M_2$ in $E(\overline{I},\overline{I})$. Clearly $\sigma \in S([n]\setminus I)$ and $\sigma(\chi_{M_1}) = \chi_{M_2}$. If $\sigma$ is even, we are done. Otherwise, since $|I| < n/2$, there is an edge $(u,v) \in M_2 \cap E(\overline{I},\overline{I})$. Then if $\sigma_{uv}$ is the transposition of $u$ and $v$, $\sigma_{uv}\sigma$ is an even permutation which still fixes $J$ and maps $\chi_{M_1}$ to $\chi_{M_2}$.
 \end{example}
 
 \begin{example}\label{ex:bcsp-blocktransitive}
-\textsc{Balanced CSP} is $(k,k)$-block transitive for every $k \leq n-3$. Recall the constraints for the polynomial formulation for \textsc{Balanced CSP} on $n$ variables with balance $c$:
+The usual formulation for \textsc{Balanced CSP} is $(k,k)$-block transitive for every $k \leq n-3$. Recall the constraints for the polynomial formulation for \textsc{Balanced CSP} on $n$ variables with balance $c$:
 \begin{align*}
-&\cP(n,c) = \bcsp{n}{c} \\
-&\phi_n(A) = \chi_A \text{ such that } (\chi_A)_i = 1 \text{ if $A(i) = 1$ and $0$ otherwise.}
+&\pbcsp(n,c) = \bcsp{n}{c} \\
+&\phi_{nc}(A) = \chi_A \text{ such that } (\chi_A)_i = 1 \text{ if $A(i) = 1$ and $0$ otherwise.}
 \end{align*}
 Then for a subset $I \subseteq [n]$, we set $J = I$. Let two assignments $A_1$ and $A_2$ that agree on $J$, and define a permutation $\sigma$ as follows: $\chi_{A_1}$ and $\chi_{A_2}$ have the same number of indices which are zero, and indices which are one. Let $\sigma$ be any pair of bijections between the indices which are one in $\chi_{A_1}$ and the indices which are one in $\chi_{A_2}$, and likewise for the indices which are zero. Furthermore, since $\chi_{A_1}$ and $\chi_{A_2}$ agree on $J$, we can choose $\sigma$ to be a pair of bijections which are the identity on $J$, so $\sigma \in S([n] \setminus J)$. Clearly $\sigma(\chi_{A_1}) = \chi_{A_2}$. Finally, if $\sigma$ is not already even, since $|I| \leq n-3$, there are two indices $\ell_1$ and $\ell_2$ outside of $J$ such that $A_2(\ell_1) = A_2(\ell_2)$. Then $(\ell_1, \ell_2) \cdot \sigma$ is even and still fixes $J$ and maps $\chi_{A_1}$ to $\chi_{A_2}$.
 \end{example}
 
-The point of block-transitivity is that it allows us determine that certain functions can be represented with low-degree polynomials. Going from arbitrary functions to low-degree polynomials is crucial to showing optimality for the Theta Body.  
-\begin{lemma}
-Let $(\cP, \cO, \phi)$ be a $A_m$-symmetric, boolean, $(k_1,k_2)$-block transitive polynomial formulation and $h: V(\cP) \rightarrow \R$ be a function with group action $\sigma h(x) = h(\sigma^{-1} s)$. If there is a set $I$ of size $|I| \leq k_1$ such that $h$ is stabilized by $A([m] \setminus I)$, then there is a polynomial $h'(x)$ such that $h'(\phi(s)) = h(\phi(s))$ and the degree of $h'$ is at most $k_2$. 
+The point of block-transitivity is that if a polynomial formulation is block-transitive, then it is easy to show that invariant functions can be represented with low-degree polynomials. Going from arbitrary functions to low-degree polynomials is crucial to showing optimality for the Theta Body.  
+\begin{lemma}\label{lem:functopoly}
+Let $(\cP, \cO, \phi)$ be a $A_m$-symmetric, boolean, $(k_1,k_2)$-block transitive polynomial formulation and $h: V(\cP) \rightarrow \R$ be a function. If there is a set $I$ of size $|I| \leq k_1$ such that $h$ is stabilized by $A([m] \setminus I)$ under the group action $\sigma h(\alpha) = h(\sigma^{-1} \alpha)$, then there is a polynomial $h'(x)$ such that $h'(\phi(\alpha)) = h(\phi(\alpha))$ and the degree of $h'$ is at most $k_2$. 
 \end{lemma}
 \begin{proof}
-For any $\sigma \in A([n] \setminus I)$ and $\alpha \in V(\cP)$, we know $h(\alpha) = \sigma h(\alpha) = h(\sigma^{-1} \alpha)$. By block-transitivity, there exists a set $J$ of size $|J| \leq k_2$ such that $A([m]\setminus I)$ acts transitively on elements of $V(\cP)$ which agree on $J$. Thus if $\alpha,\beta \in V(\cP)$ such that $\alpha|_J = \beta|_J$, $h(\alpha) = h(\beta)$. Thus $h$ depends only on the coordinates $J$, and since the polynomial formulation is boolean, any such function can be expressed as a degree $|J|$ polynomial. 
+For any $\sigma \in A([m] \setminus I)$ and $\alpha \in V(\cP)$, we know $h(\alpha) = \sigma h(\alpha) = h(\sigma^{-1} \alpha)$. By block-transitivity, there exists a set $J$ of size $|J| \leq k_2$ such that $A([m]\setminus I)$ acts transitively on elements of $V(\cP)$ which agree on $J$. Thus if $\alpha,\beta \in V(\cP)$ such that $\alpha|_J = \beta|_J$, $h(\alpha) = h(\beta)$. Thus $h$ depends only on the coordinates $J$, and since the polynomial formulation is boolean, any such function can be expressed as a degree $|J|$ polynomial. 
 \end{proof} 
 
-Before we state our main theorme, we recall that when $\cM$ has a polynomial formulation where $\cQ = \emptyset$, we can define the $d$th Theta Body relaxation with objective $o(x)$ as 
-\[\begin{tabular}{ll} $\min c$ & subject to \\ $c - o(x)$ is $d$-SOS modulo $\gen{\cP}$.\end{tabular}\] 
+Before we state our main theorem, we recall that the $d$th Theta Body relaxation with objective $o(x)$ is
+\begin{align*}
+&\min c \\
+\text{s.t. } &c - o(x) \text{ is $d$-SOS modulo $\gen{\cP}$.}
+\end{align*} 
 \begin{theorem}\label{thm:symmetric-main}
-Let $\cM = (\cS, \cF)$ have a $S_m$-symmetric $(k_1,k_2)$-block transitive boolean polynomial formulation $(\cP, \cO, \phi)$ on $n$ variables. Then if $\cM$ has any $(C,S)$-approximate, $S_m$-symmetric SDP relaxation of size $r < \sqrt{\binom{n}{k_1}}$ the $k_2$th Theta Body relaxation is a $(C,S)$-approximate relaxation as well.
+Let $\cM = (\cS, \cF)$ have a $\sym{m}$-symmetric $(k_1,k_2)$-block transitive boolean polynomial formulation $(\cP, \cO, \phi)$ on $n$ variables. Then if $\cM$ has any $(c,s)$-approximate, $\sym{m}$-symmetric SDP relaxation of size $r < \sqrt{\binom{n}{k_1}}$ the $k_2$th Theta Body relaxation is a $(c,s)$-approximate relaxation as well.
 \end{theorem}
-Before we prove the main theorem, we need two lemmas. One has to do with obtaining sum-of-squares representations for the objective functions given a small SDP formulation:
+Recall that the size of the $k_2$th Theta Body relaxation is $O(n^{k_2})$, so if $k_2 = O(k_1)$, then the size of the Theta Body relaxation is polynomial in the size of the original symmetric formulation. Before we prove the main theorem, we need two lemmas. One has to do with obtaining sum-of-squares representations for the objective functions given a small SDP formulation:
 
 \begin{lemma}\label{lem:sdptosos}
-If $\cM = (\cS, \cF)$ has a $(S,C)$-approximate SDP formulation of size at most $k$, then there exist a family of $\binom{k+1}{2}$ functions $\cH$ from $\cS$ into $\R$ such that for every $f \in \cF$, with $\max f \leq S(f)$,
-\[C(f) - f = \sum_i g_i^2\]
+If $\cM = (\cS, \cF)$ has a $(c,s)$-approximate SDP formulation of size at most $k$, then there exist a family of $\binom{k+1}{2}$ functions $\cH$ from $\cS$ into $\R$ such that for every $f \in \cF$, with $\max_{\alpha \in \cS} f(\alpha) \leq s(f)$,
+\[c(f) - f = \sum_i g_i^2\]
 where each $g_i \in \gen{\cH}$. Furthermore, if the SDP formulation is $G$-coordinate-symmetric for some group $G$, then $\cH$ is $G$-invariant under the action $\sigma h(s) = h(\sigma^{-1}s)$.
 \end{lemma} 
 \begin{proof}
-Consider the slack matrix for $\cM$: $M(s,f) = C(f) - f(s)$. By \prettyref{thm:yannakakis}, if there exists an SDP formulation for $\cM$ of size $k_1$, then there are $k_1 \times k_1$ PSD matrices $X^s$ and $Y_f$ such that $M(s,f) = X^s \cdot Y_f + \mu_f$ for some $\mu_f > 0$. Let $\sqrt{\cdot}$ denote the unique PSD square root. We define a set of functions $\cH$ by $h_{ij}(s) = (\sqrt{X^s})_{ij}$. Since $h_{ij} = h_{ji}$ there are only $\binom{k_1}{2}$ functions in $\cH$. We have
+Consider the slack matrix for $\cM$: $M(\alpha,f) = c(f) - f(\alpha)$. By \prettyref{thm:yannakakis}, if there exists an SDP formulation for $\cM$ of size $k_1$, then there are $k_1 \times k_1$ PSD matrices $X^\alpha$ and $Y_f$ such that $M(\alpha,f) = X^\alpha \cdot Y_f + \mu_f$ for some $\mu_f > 0$. Let $\sqrt{\cdot}$ denote the unique PSD square root. We define a set of functions $\cH$ by $h_{ij}(\alpha) = (\sqrt{X^\alpha})_{ij}$. Since $h_{ij} = h_{ji}$ there are only $\binom{k_1}{2}$ functions in $\cH$. We have
 \begin{align*}
-C(f) - f(s) &= X^s \cdot Y_f + \mu_f \\
-&= \Tr[\sqrt{X^s}\sqrt{X^s}\sqrt{Y_f}\sqrt{Y_f}] + \mu_f \\
-&= \Tr[(\sqrt{X^s}\sqrt{Y_f})^T\sqrt{X^s}\sqrt{Y_f}] + \mu_f \\
-&= \sum_{ij} \left(\sum_k (\sqrt{X^s})_{ik}(\sqrt{Y_f})_{kj}\right)^2 + \mu_f \\
-&= \sum_{ij} \left(\sum_k (\sqrt{Y_f})_{kj}h_{ik}(s)\right)^2 + \mu_f.
+c(f) - f(\alpha) &= X^\alpha \cdot Y_f + \mu_f \\
+&= \Tr[\sqrt{X^\alpha}\sqrt{X^\alpha}\sqrt{Y_f}\sqrt{Y_f}] + \mu_f \\
+&= \Tr[(\sqrt{X^\alpha}\sqrt{Y_f})^T\sqrt{X^\alpha}\sqrt{Y_f}] + \mu_f \\
+&= \sum_{ij} \left(\sum_k (\sqrt{X^\alpha})_{ik}(\sqrt{Y_f})_{kj}\right)^2 + \mu_f \\
+&= \sum_{ij} \left(\sum_k (\sqrt{Y_f})_{kj}h_{ik}(\alpha)\right)^2 + \mu_f.
 \end{align*}
-Lastly, $\sigma h_{ij}(s) = h_{ij}(\sigma^{-1}s) = \sqrt{X^{\sigma^{-1}s}}_{ij} = \sqrt{\sigma^{-1}X^s}_{ij}$. Because $\sigma^{-1}$ is a coordinate permutation, its action on $X^s$ can be written $\sigma^{-1} X^s = P(\sigma) X^s P(\sigma)^T$. Then since $\left(P(\sigma)\sqrt{X^s}P(\sigma)^T\right)^2 = P(\sigma)X^sP(\sigma)^T = \sigma^{-1}X^s$, and the PSD square root is unique, we have $\sqrt{\sigma^{-1}X^s} = \sigma^{-1}\sqrt{X^s}$. Thus $h_{ij}(\sigma^{-1}s) = \sigma^{-1}\sqrt{X^s}_{ij} = \sqrt{X^s}_{\sigma^{-1}i\sigma^{-1}j} = h_{\sigma^{-1}i\sigma^{-1}j}(s)$, so indeed $\cH$ is $G$-invariant. 
+Lastly, $\sigma h_{ij}(\alpha) = h_{ij}(\sigma^{-1}\alpha) = \sqrt{X^{\sigma^{-1}\alpha}}_{ij} = \sqrt{\sigma^{-1}X^\alpha}_{ij}$. Because $\sigma^{-1}$ is a coordinate permutation, its action on $X^\alpha$ can be written $\sigma^{-1} X^\alpha = P(\sigma) X^\alpha P(\sigma)^T$. Then since 
+\[\left(P(\sigma)\sqrt{X^\alpha}P(\sigma)^T\right)^2 = P(\sigma)X^\alpha P(\sigma)^T = \sigma^{-1}X^\alpha,\] 
+and the PSD square root is unique, we have $\sqrt{\sigma^{-1}X^\alpha} = \sigma^{-1}\sqrt{X^\alpha}$. Thus $h_{ij}(\sigma^{-1}\alpha) = \sigma^{-1}\sqrt{X^\alpha}_{ij} = \sqrt{X^\alpha}_{\sigma^{-1}i\sigma^{-1}j} = h_{\sigma^{-1}i\sigma^{-1}j}(\alpha)$, so indeed $\cH$ is $G$-invariant. 
 \end{proof}
 
-The second lemma is an old group-theoretic result. It has been used frequently in the context of symmetric LP and SDP formulations, see for example \cite{LRST14,KPT10,BFPS12}. 
-\begin{lemma}[(\cite{DM96}, Theorems 5.2A and 5.2B)]\label{lem:dixandmort}
-Let $n \geq 10$ and let $G \leq S_n$. If $|S_n: G| < \binom{n}{k}$ for some $k < n/4$, then there is a subset $I \subseteq [n]$ such that $|I| < k$, and $A([n] \setminus I)$ is a subgroup of $G$.
+The second lemma we need is an old group-theoretic result. It has been used frequently in the context of symmetric LP and SDP formulations, see for example \cite{LRST14,KPT10,BFPS12}. 
+\begin{lemma}\label{lem:dixandmort}[(\cite{DM96}, Theorems 5.2A and 5.2B)]
+Let $n \geq 10$ and let $G \leq \sym{n}$. If $|\sym{n}: G| < \binom{n}{k}$ for some $k < n/4$, then there is a subset $I \subseteq [n]$ such that $|I| < k$, and $A([n] \setminus I)$ is a subgroup of $G$.
 \end{lemma}
 We are ready to prove the main theorem.
 \begin{proof}[Proof of \prettyref{thm:symmetric-main}]
-We start with the family of $\binom{r+1}{2} < \binom{n}{k_1}$ functions $\cH$ with the properties specified in \prettyref{lem:sdptosos}. We abuse notation slightly and just continue to write $\cH$ for the family of functions whose domain is $V(\cP)$ instead of $\cS$. There is no real difference since they are in bijection via $\phi$. For $h \in \cH$, obviously $|\text{Orb}(h)| \leq |\cH| < \binom{n}{k_1}$. By the orbit-stabilizer theorem, $|S_m : \text{Stab}(h)| = |\text{Orb}(h)| < \binom{n}{d}$, so by \prettyref{lem:dixandmort}, there is a $I \subseteq [m]$ of size at most $k_1$ such that $A([m] \setminus I) \leq \text{Stab}(h)$. Applying \prettyref{lem:functopoly}, we obtain polynomials $h'(x)$ of degree at most $k_2$ which agree with $h$ on $V(\cP)$. Then for each $f$ satisfying $\max f \leq S(f)$,
-\[C(f) - o^f(\phi(s)) = \sum_i \left(\sum_{h \in \cH} \alpha_h \cdot h'_j(\phi(s))\right)^2 + \mu_f\]
-for every $s \in \cS$. This is an equality on every point of $V(\cP)$ and each $h'$ is degree at most $k_2$, so $C(f) - o^f(x)$ is $2k_2$-SOS modulo $\gen{\cP}$. Thus the $k_2$th Theta Body relaxation is a $(C,S)$-approximate SDP relaxation of $\cM$. 
+We start with the family of $\binom{r+1}{2} < \binom{n}{k_1}$ functions $\cH$ with the properties specified in \prettyref{lem:sdptosos}. We abuse notation slightly and just continue to write $\cH$ for the family of functions whose domain is $V(\cP)$ instead of $\cS$. There is no real difference since they are in bijection via $\phi$. For $h \in \cH$, obviously $|\text{Orb}(h)| \leq |\cH| < \binom{n}{k_1}$. By the orbit-stabilizer theorem, $|\sym{m} : \text{Stab}(h)| = |\text{Orb}(h)| < \binom{n}{d}$, so by \prettyref{lem:dixandmort}, there is a $I \subseteq [m]$ of size at most $k_1$ such that $A([m] \setminus I) \leq \text{Stab}(h)$. Applying \prettyref{lem:functopoly}, we obtain polynomials $h'(x)$ of degree at most $k_2$ which agree with $h$ on $V(\cP)$. Then for each $f$ satisfying $\max_{\alpha \in \cS} f(\alpha) \leq s(f)$,
+\[c(f) - o^f(\phi(\alpha)) = \sum_i \left(\sum_{h \in \cH} \alpha_h \cdot h'(\phi(\alpha))\right)^2 + \mu_f\]
+for every $\alpha \in \cS$. This is an equality on every point of $V(\cP)$ and each $h'$ is degree at most $k_2$, so $C(f) - o^f(x)$ is $2k_2$-SOS modulo $\gen{\cP}$. Thus the $k_2$th Theta Body relaxation is a $(c,s)$-approximate SDP relaxation of $\cM$. 
 \end{proof}
 
 \prettyref{thm:symmetric-main} and \prettyref{prop:tb_to_sos} immediately imply the following corollary:
 \begin{corollary}\label{cor:lass-optimal}
-Let $\cM = (\cS, \cF)$ have a $S_m$-symmetric $(k_1,k_2)$-block transitive boolean polynomial formulation $(\cP, \cO, \phi)$ on $n$ variables. If $\cP$ is $\ell$-effective, then if $\cM$ has any $(C,S)$-approximate, $S_m$-symmetric SDP relaxation of size $r < \sqrt{\binom{n}{k_1}}$ the $\ell k_2$th Lasserre relaxation is a $(C,S)$-approximate relaxation as well.
+Let $\cM = (\cS, \cF)$ have a $\sym{m}$-symmetric $(k_1,k_2)$-block transitive boolean polynomial formulation $(\cP, \cO, \phi)$ on $n$ variables. If $\cP$ is $\ell$-effective, then if $\cM$ has any $(c,s)$-approximate, $\sym{m}$-symmetric SDP relaxation of size $r < \sqrt{\binom{n}{k_1}}$ the $\ell k_2$th Lasserre relaxation is a $(c,s)$-approximate relaxation as well.
 \end{corollary}
 We also have collected several examples of combinatorial problems that we can apply \prettyref{cor:lass-optimal} to:
 \begin{corollary}\label{cor:matching_bcsp_optimal}
 \leavevmode
 \begin{itemize}
-\item If \textsc{Matching} has a $S_m$-symmetric SDP relaxation of size $r < \sqrt{\binom{n}{k}}$ achieving $(C,S)$-approximation, the $2k^2$ Lasserre relaxation is a $(C,S)$-approximate relaxation as well.
-\item If \textsc{Balanced CSP} has a $S_m$-symmetric SDP relaxation of size $r < \sqrt{\binom{n}{k}}$ achieving $(C,S)$-approximation, the $k$th Lasserre relaxation is a $(C,S)$-approximate relaxation as well.
+\item If \textsc{Matching} has a $\sym{m}$-symmetric SDP relaxation of size $r < \sqrt{\binom{n}{k}}$ achieving $(c,s)$-approximation, the $2k^2$ Lasserre relaxation is a $(c,s)$-approximate relaxation as well.
+\item If \textsc{Balanced CSP} has a $\sym{m}$-symmetric SDP relaxation of size $r < \sqrt{\binom{n}{k}}$ achieving $(c,s)$-approximation, the $k$th Lasserre relaxation is a $(c,s)$-approximate relaxation as well.
 \end{itemize}
 \end{corollary}
 \begin{proof}
-Follows immediately from \prettyref{ex:matching-blocktransitive}, \prettyref{ex:bcsp-blocktransitive}, \prettyref{thm:matching-effective}, \prettyref{thm:bcsp-effective}, and \prettyref{cor:lass-optimal}.
+Follows immediately from \prettyref{ex:matching-blocktransitive}, \prettyref{ex:bcsp-blocktransitive}, \prettyref{thm:matching-effective}, \prettyref{lem:lowdeg-easy}, \prettyref{lem:highdeg-easy} and \prettyref{cor:lass-optimal}.
 \end{proof}
 
 \section{Optimality for \textsc{TSP}}
-In this section we will prove that the Lasserre hierarchy is optimal for \textsc{TSP}. 
+While block-transitivity is a useful categorization for capturing the symmetries of many problems, sometimes it is not sufficient. Unfortunately, \textsc{TSP} is not block-transitive, so we are unable to exactly apply the framework of the previous section. However, we will find out that is very nearly block-transitive, and a few modifications are enough to prove that the SOS relaxations are optimal for \textsc{TSP}. 
 Recall that \textsc{TSP} has the following polynomial formulation on $n^2$ variables:
 \begin{align*}
-&\cP_n = \tsp \\
-&\cO_n = \{\sum_{ij} d_{ij}\left(\sum_{k} x_{ik}x_{j,k+1}\right) | d_{ij} \in \R^+\} \\
-&\phi_n(\tau) = \chi_{\tau}.
+&\ptsp(n) = \tsp \\
+&\cO_{\textsc{TSP}}(n) = \left\{\sum_{ij} d_{ij}\left(\sum_{k} x_{ik}x_{j,k+1}\right) | d_{ij} \in \R^+\right\} \\
+&\phi_n(\tau) = \chi_{\tau} \text{ such that $(\chi_\tau)_{ij} = 1$ if $\tau(i) = j$ and $0$ otherwise.}
 \end{align*}
-This polynomial formulation is $S_m$-symmetric by the action $\tau(x_{ij}) = x_{\tau(i)j}$. Unfortunately, \textsc{TSP} is not block-transitive, so we are unable to exactly apply the framework of the previous section. However, it is very nearly block-transitive: 
+This polynomial formulation is $\sym{m}$-symmetric by the action $\sigma(x_{ij}) = x_{\sigma(i)j}$, which represents simply composing a tour $\tau$ with $\sigma$ on the left. Under this action, the above formulation for \textsc{TSP} is almost block-transitive:
 \begin{lemma}\label{lem:tsp-blocktransitive}
-If $I \subseteq [m]$, then let $J = I \times [m]$. Then $A([m] \setminus I)$ acts transitively on the elements of $V(\cP)$ that agree on $J$ and have the same sign.
+If $I \subseteq [m]$, then let $J = I \times [m]$. Then $A([m] \setminus I)$ acts transitively on the elements of $V(\cP)$ that agree on $J$ \emph{and} have the same parity (as tours).
 \end{lemma}
 \begin{proof}
-If $\tau,\tau'$ are tours with $\phi(\tau)|_J = \phi(\tau')|_J$ and $\text{sign}(\tau) = \text{sign}(\tau')$, then let $\sigma = \tau'\tau^{-1}$. Clearly $\sigma\tau = \tau'$. For $i \in I$, $\sigma(i) = \tau'(\tau^{-1}(i)) = i$ since $\tau'$ and $\tau$ agree on $I$, thus $\sigma \in S([m]\setminus I)$. Because both $\tau'$ and $\tau$ have the same sign, $\sigma$ must be even, so $\sigma \in A([m]\setminus I)$.
+If $\tau,\tau'$ are tours with $\phi(\tau)|_J = \phi(\tau')|_J$ and $\text{sign}(\tau) = \text{sign}(\tau')$, then let $\sigma = \tau'\tau^{-1}$. Clearly $\sigma\tau = \tau'$. For $i \in I$, $\sigma(i) = \tau'(\tau^{-1}(i)) = i$ since $\tau'$ and $\tau$ agree on $I$, thus $\sigma \in S([m]\setminus I)$. Because both $\tau'$ and $\tau$ have the same parity, $\sigma$ must be even, so $\sigma \in A([m]\setminus I)$.
 \end{proof}
 
-If we naively attempt the same strategy as in the previous section, we will run into the problem that the functions $\cH$ depend on the sign of the tour, which is a high degree function in this polynomial formulation. To handle the dependence on the sign of a tour, we need to embed any tour as an even tour on more vertices, then find a good approximation for \textsc{TSP} on the set of larger vertices. To this end, define the function $T: S_n \rightarrow A_{2n}$ by $T(\tau) = \tau \tau'$, where $\tau'$ fixes $[m]$, and $\tau'(i) = \tau(i)+m$ for $i \in \{m+1,\dots,2m\}$. Since $\sign(\tau) = \sign(\tau')$, $T(\tau)$ is indeed an even permutation. Also note that $T(\tau)|_{[m]}$ is a permutation of $[m]$, and indeed equal to $\tau$. Now we are ready to prove our main theorem:
+If we naively attempt the same strategy as in the previous section, we will show that the functions in $\cH$ depend only on the placement of a small number of vertices in the tour, \emph{and} the parity of the tour. Unfortunately, the parity of the tour is a high degree function in this polynomial formulation. To handle this dependence, we embed any tour as an even tour on a larger set of vertices, then find a good approximation for \textsc{TSP} on the set of larger vertices. To this end, define the function $T: \sym{n} \rightarrow A_{2n}$ by $T(\tau) = \tau \tau'$, where $\tau'$ fixes $[m]$, and $\tau'(i) = \tau(i)+m$ for $i \in \{m+1,\dots,2m\}$. Since $\sign(\tau) = \sign(\tau')$, $T(\tau)$ is indeed an even permutation. Also note that $T(\tau)|_{[m]}$ is a permutation of $[m]$, and indeed equal to $\tau$. Now we are ready to prove our main theorem:
 \begin{theorem}\label{thm:tsp-opt}
-If \textsc{TSP} on $2m$ vertices has an $A_{2m}$-coordinate symmetric SDP relaxation of size $r < \sqrt{\binom{n}{k}}$ achieving a $(C,S)$-approximation, then the $2k$th Lasserre relaxation is a $(C,S)$-approximate relaxation on \textsc{TSP} on $m$ vertices.
+If \textsc{TSP} on $2m$ vertices has an $A_{2m}$-coordinate symmetric SDP relaxation of size $r < \sqrt{\binom{n}{k}}$ with approximation guarantees $s(f) = \min_{\alpha \in \cS} f(\alpha)$ and $c(f) = \rho s(f)$, then the $2k$th Lasserre relaxation is a $(c,s)$-approximate relaxation on \textsc{TSP} on $m$ vertices.
 \end{theorem}
 \begin{proof}
 Let $f$ be an objective function for \textsc{TSP} on $m$ vertices, and let $F$ be the objective function for \textsc{TSP} on $2m$ vertices which has 
 \[d_F(i,j+m) = d_F(i+m, j) = d_F(i+m, j+m) = d_F(i,j) = d_f(i,j).\] 
-Then $F(T(\tau)) = 2f(\tau)$. Furthermore, if $\Pi \in S_{2m}$, then there exist tours $\tau_1$ of $[m]$ and $\tau_2$ of $\{m+1,\dots,2m\}$ such that $F(\Pi) = F(\tau_1\tau_2)$. This can be seen just by setting $\tau_1(i) = \Pi(i)$ or $\Pi(i) - m$, whichever is in $[m]$, and $\tau_2(i) = \Pi(i)$ or $\Pi(i)+m$, whichever is in $\{m+1,\dots,2m\}$. Clearly from the definition of $F$ this does not change the value. This implies that $\min_\Pi F(\Pi) = 2\min_{\tau} f(\tau)$.
+Then $F(T(\tau)) = 2f(\tau)$. Furthermore, if $\Pi \in S_{2m}$, then there exist tours $\tau_1$ of $[m]$ and $\tau_2$ of $\{m+1,\dots,2m\}$ such that $F(\Pi) = F(\tau_1\tau_2) = f(\tau_1) + f(\tau_2)$. This can be seen just by setting $\tau_1(i) = \Pi(i)$ or $\Pi(i) - m$, whichever is in $[m]$, and $\tau_2(i) = \Pi(i)$ or $\Pi(i)+m$, whichever is in $\{m+1,\dots,2m\}$. Clearly from the definition of $F$ this does not change the value. This implies that $\min_\Pi F(\Pi) = 2\min_{\tau} f(\tau)$.
 
 Now if \textsc{TSP} has a symmetric SDP relaxation as in the theorem statement, by starting identically to \prettyref{thm:symmetric-main}, we obtain a family of $\binom{r+1}{2}$ functions $\cH$ which are $A_{2m}$-invariant and
 \[F(\Pi) - \rho\min_{\Pi} F(\Pi) = \sum_i g_i^2(\Pi)\]
-where each $g_i \in \gen{\cH}$. Furthermore, each $h \in \cH$ has a subset $I_h$ such that $h$ is stabilized by $A([2m] \setminus I_h)$ and $|I_h| \leq k$. Then by \prettyref{lem:tsp-blocktransitive}, the function $h$ depends only on the variables in $I_h \times [2m]$ and the sign of the permutation. The restriction of $h$ to the image of $T$ must then depend only on the variables in $I_h \times [2m]$, since every image of $T$ is an even permutation. Thus there exists a polynomial $h'(x)$ which depends only on the variables in $I_h \times [2m]$ which agrees with $h$ on the image of $T$. Because the polynomial formulation for \textsc{TSP} is boolean and we can eliminate monomials of the form $x_{ij}x_{i\ell}$ for $j \neq \ell$, the polynomial $h'(x)$ can be taken to have degree at most $|I| \leq k$. Finally, we note that $x_{ij} = x_{i+m,j+m}$ and $x_{i,j+m} = x_{i+m,j} = 0$ for every $i,j \in [m]$ on the image of $T$. Thus we can replace each instance of $x_{i+m,j+m}$ in $h'(x)$ with $x_{ij}$, and each instance of $x_{i,j+m}$ or $x_{i+m,j}$ with $0$ and not change the value of $h'(x)$ on the image of $T$. Now $h'$ depends only on variables $[m] \times [m]$, and since $T(\tau)$ restricted to these variables is $\tau$, we have the following polynomial identity:
-\[F(T(\tau)) - \rho\min_{\Pi} F(\Pi) = \sum_i \left(\sum_{h \in \cH} \alpha_{ih} h'(\tau)\right)^2.\]
+where each $g_i \in \gen{\cH}$. Furthermore, each $h \in \cH$ has a subset $I_h$ such that $h$ is stabilized by $A([2m] \setminus I_h)$ and $|I_h| \leq k$. Then by \prettyref{lem:tsp-blocktransitive}, the function $h$ depends only on the variables in $I_h \times [2m]$ and the sign of the permutation. The restriction of $h$ to the image of $T$ must then depend only on the variables in $I_h \times [2m]$, since every image of $T$ is an even permutation. Thus there exists a polynomial $h'(x)$ which depends only on the variables in $I_h \times [2m]$ which agrees with $h$ on the image of $T$. Because the polynomial formulation for \textsc{TSP} is boolean and we can eliminate monomials of the form $x_{ij}x_{i\ell}$ for $j \neq \ell$, the polynomial $h'(x)$ can be taken to have degree at most $|I_h| \leq k$. Finally, we note that $x_{ij} = x_{i+m,j+m}$ and $x_{i,j+m} = x_{i+m,j} = 0$ for every $i,j \in [m]$ on the image of $T$. Thus we can replace each instance of $x_{i+m,j+m}$ in $h'(x)$ with $x_{ij}$, and each instance of $x_{i,j+m}$ or $x_{i+m,j}$ with $0$ and not change the value of $h'(x)$ on the image of $T$. Now $h'$ depends only on variables with indices in $[m] \times [m]$, and since $T(\tau)$ restricted to these variables is $\tau$, we have the following polynomial identity:
+\[F(T(\tau)) - \rho\min_{\Pi} F(\Pi) = \sum_i \left(\sum_{h \in \cH} \alpha_{ih} h'(\phi(\tau))\right)^2.\]
 Now the LHS is equal to $2f(\tau) - 2\rho \min_{\tau} f(\tau)$, and thus $o^f(x) - \rho \min_{\tau} f(\tau)$ is $2k$-SOS modulo $\gen{\cP}$. Since this is true for every objective $f$, this implies that the $k$th Theta Body on $m$ vertices is a $\rho$-approximate SDP relaxation. Finally, by \prettyref{thm:tsp-effective}, we know that $\cP$ is $2$-effective, so the $2k$th Lasserre relaxation is also a $\rho$-approximate SDP relaxation.
 \end{proof}
 
 \section{Lower Bounds for \textsc{Matching}}
-Recall that matching has a polynomial formulation on $\binom{n}{2}$ variables:
-\begin{align*}
-&\cP_n = \matching \\
-&\cO_n = \{\sum_{(i,j) \in E} x_{ij} | E \subseteq [\binom{n}{2}]\} \\
-&\phi_n(M) = \chi_M.
-\end{align*}
-By \prettyref{cor:matching_bsp_optimal}, the Lasserre hierarchy provides the best approximation for matching among small SDPs. However, it is also known that the Lasserre hierarchy, which certifies nonnegativity via PC$_>$ proofs, does not perform well on matching. In particular, it is incapable of certifying that the number of edges in the matching of an $n$-clique with $n$ odd is at most $(n-1)/2$ until $\Omega(n)$ rounds:
+In \prettyref{sec:thetabodyoptimality} we proved that the SOS relaxation provides the best approximation for \textsc{Matching} among small symmetric SDPs. However, it is also known that the SOS relaxations, which certify nonnegativity via PC$_>$ proofs, do not perform well on \textsc{Matching}. In particular, they are incapable of certifying that the number of edges in the matching of an $n$-clique with $n$ odd is at most $(n-1)/2$ until $\Omega(n)$ rounds:
 \begin{theorem}[Due to \cite{Gri01}]\label{thm:grigoriev}
-If $n$ is odd, $V(\cP_n) = \emptyset$, but every PC$_>$ refutation of $\cP_n$ has degree $\Omega(n)$.
+If $n$ is odd, $V(\pmatch(n)) = \emptyset$, but every PC$_>$ refutation of $\pmatch(n)$ has degree $\Omega(n)$.
 \end{theorem}
-Since Lasserre does poorly on matchings, we should be able to prove that every small symmetric SDP formulation must do poorly: 
+Since the SOS relaxations do poorly on matchings, we can prove that every small symmetric SDP formulation must do poorly.
 \begin{theorem}
-Let \textsc{Matching} have an $S_n$-coordinate-symmetric SDP relaxation of size $d$ that achieves a $(C,S)$-approximation with $C(f) = \max f + \epsilon/2$ and $S(f) = \max f$ for some $0 \leq \epsilon < 1$. Then $d \geq 2^{\Omega(n)}$.
+Let \textsc{Matching} have an $\sym{n}$-coordinate-symmetric SDP relaxation of size $d$ that achieves a $(c,s)$-approximation with $c(f) = \max f + \epsilon/2$ and $s(f) = \max f$ for some $0 \leq \epsilon < 1$. Then $d \geq 2^{\Omega(n)}$.
 \end{theorem}
 \begin{proof}
-Let $k$ be the smallest integer such that $d < \sqrt{\binom{n}{k}}$. Taking \prettyref{ex:matching-blocktransitive}, \prettyref{thm:matching-effective}, and \prettyref{cor:lass-optimal} together, the $2\binom{k}{2}$th Lasserre relaxation is a $(C,S)$-approximate SDP formulation for \textsc{Matching}. Actually if we are slightly more careful in our application of \prettyref{lem:functopoly}, we can show that the $k$th Lasserre relaxation suffices. For a set $I \subseteq [n]$, the associated subset of $\left[\binom{n}{2}\right]$ that satisfies the block-transitivity is $E(I,I)$, the set of edges lying entirely in $I$. This has size $\binom{k}{2}$, and so we can conclude that the polynomials $h'$ have degree at most $\binom{k}{2}$. However, by eliminating monomials containing $x_{ij}x_{i\ell}$ for $\ell \neq j$ (which are zero on $V(\cP)$), we can actually take the polynomials $h'$ to have degree at most $k/2$. 
+Let $k$ be the smallest integer such that $d < \sqrt{\binom{n}{k}}$. Taking \prettyref{ex:matching-blocktransitive}, \prettyref{thm:matching-effective}, and \prettyref{cor:lass-optimal} together, the $2\binom{k}{2}$th Lasserre relaxation is a $(C,S)$-approximate SDP formulation for \textsc{Matching}. Actually if we are slightly more careful in our application of \prettyref{lem:functopoly}, we can show that the $k$th Lasserre relaxation suffices. For a set $I \subseteq [n]$, the associated subset of $\left[\binom{n}{2}\right]$ that satisfies the block-transitivity is $E(I,I)$, the set of edges lying entirely in $I$. This has size $\binom{k}{2}$, and so we can conclude that the polynomials $h'$ have degree at most $\binom{k}{2}$. However, by eliminating monomials containing $x_{ij}x_{i\ell}$ for $\ell \neq j$ (which are zero on $V(\pmatch)$), we can actually take the polynomials $h'$ to have degree at most $k/2$. 
 
-Now let $m = n/2$ or $n/2-1$, whichever is odd. Let $A = [m]$, $B = \{m,\dots, 2m\}$, and if $m = n/2-1$, let $C = \{2m+1,2m+2\}$, otherwise $C = \emptyset$. Note that $A \cup B \cup C = [n]$ and they are all disjoint. Consider the objective function $f = f_{E(A,A)}$ and its associated polynomial $o^f(x) = \sum_{ij \in E(A,A)} x_{ij}$. Because the $k$th Lasserre relaxation achieves a $(\max f + \epsilon/2,\max f)$-approximation, and every $f$ satisfies the soundness condition, we know
+Now let $m = n/2$ or $n/2-1$, whichever is odd. Let $A = [m]$, $B = \{m,\dots, 2m\}$, and if $m = n/2-1$, let $C = \{2m+1,2m+2\}$, otherwise $C = \emptyset$. Note that $A \cup B \cup C = [n]$ and they are all disjoint. Consider the objective function $f = f_{E(A,A)}$ and its associated polynomial $o^f(x) = \sum_{ij \in E(A,A)} x_{ij}$. Because the $k$th Lasserre relaxation achieves a $(\max f + \epsilon/2,\max f)$-approximation, and by choice of $s(f)$, every $f$ satisfies the soundness condition, we know
 \begin{align*}
 C(f) - o^f(x) &= \frac{m-1}{2} + \frac{\epsilon}{2} - \sum_{ij \in E(A,A)} x_{ij} \\
-&= \frac{1}{2}\sum_{\substack{i \in A \\ j \in B,C}} x_{ij} - \frac{1-\epsilon}{2}
+&\cong_1 \frac{1}{2}\sum_{\substack{i \in A \\ j \in B,C}} x_{ij} - \frac{1-\epsilon}{2}
 \end{align*}
-has a PC$_>$ proof of nonnegativity from $\cP_n$ of degree at most $2k$. Now we make a substitution in the polynomial identity: replace each instance of $x_{ij}$ with either $x_{i-m, j-m}$ if $i,j \in B$, or $0$ if $(i,j) \in (A,B), (A,C), (B,C)$. If $(i,j) \in (C,C)$, replace $x_{ij}$ with $1$. Note that under this substitution, every polynomial in $\cP_n$ is mapped to either $0$ or a polynomial in $\cP_m$. So if this substitution is made on a PC$_>$ proof from $\cP_n$, the result is a PC$_>$ proof from $\cP_m$, clearly of no higher degree. This implies that $-(1-\epsilon)/2$ has a degree-$2k$ PC$_>$ proof of nonnegativity from $\cP_m$. By \prettyref{thm:grigoriev}, this means that $k = \Omega(m)$, and since $m = \Theta(n)$, clearly $d \geq 2^{\Omega(n)}$.
+has a PC$_>$ proof of nonnegativity from $\pmatch(n)$ of degree at most $2k$. Now we make a substitution in the polynomial identity: replace each instance of $x_{ij}$ with either $x_{i-m, j-m}$ if $i,j \in B$, or $0$ if $(i,j) \in (A,B), (A,C), (B,C)$. If $(i,j) \in (C,C)$, replace $x_{ij}$ with $1$. Note that under this substitution, every polynomial in $\pmatch(n)$ is mapped to either $0$ or a polynomial in $\pmatch(m)$. So if this substitution is made on a PC$_>$ proof from $\pmatch(n)$, the result is a PC$_>$ proof from $\pmatch(m)$, clearly of no higher degree. Since this substitution maps $\sum_{ij: (i,j) \in (A,B) \text{ or } (A,C)} x_{ij}$ to the zero polynomial, this implies that $-(1-\epsilon)/2$ has a degree-$2k$ PC$_>$ proof of nonnegativity from $\pmatch(m)$. By \prettyref{thm:grigoriev}, this means that $k = \Omega(m)$, and since $m = \Theta(n)$, clearly $d \geq 2^{\Omega(n)}$.
 \end{proof}
