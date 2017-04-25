@@ -162,10 +162,9 @@
   \verb http://doi.acm.org/10.1145/2746539.2746605
   \endverb
   \list{location}{1}{%
-    {Portland, Oregon, USA}%
+    {New York, NY, USA}%
   }
   \field{year}{2015}
-  \warn{\item Can't use 'location' + 'address'}
 \endentry
 
 \entry{BS14}{article}{}
@@ -280,10 +279,9 @@
   \verb http://dl.acm.org/citation.cfm?id=2095116.2095150
   \endverb
   \list{location}{1}{%
-    {Kyoto, Japan}%
+    {Philadelphia, PA, USA}%
   }
   \field{year}{2012}
-  \warn{\item Can't use 'location' + 'address'}
 \endentry
 
 \entry{BCVGZ12}{inproceedings}{}
@@ -331,10 +329,9 @@
   \verb http://dl.acm.org/citation.cfm?id=2095116.2095150
   \endverb
   \list{location}{1}{%
-    {Kyoto, Japan}%
+    {Philadelphia, PA, USA}%
   }
   \field{year}{2012}
-  \warn{\item Can't use 'location' + 'address'}
 \endentry
 
 \entry{BPZ15}{inproceedings}{}
@@ -377,10 +374,9 @@
   \verb http://doi.acm.org/10.1145/2746539.2746550
   \endverb
   \list{location}{1}{%
-    {Portland, Oregon, USA}%
+    {New York, NY, USA}%
   }
   \field{year}{2015}
-  \warn{\item Can't use 'location' + 'address'}
 \endentry
 
 \entry{BFPS12}{inproceedings}{}
@@ -616,10 +612,9 @@
   \verb http://dx.doi.org/10.1007/978-3-540-85363-3_5
   \endverb
   \list{location}{1}{%
-    {Boston, MA, USA}%
+    {Berlin, Heidelberg}%
   }
   \field{year}{2008}
-  \warn{\item Can't use 'location' + 'address'}
 \endentry
 
 \entry{Chri76}{book}{}
@@ -1103,10 +1098,9 @@
   \verb http://dx.doi.org/10.1007/978-3-642-13036-6_11
   \endverb
   \list{location}{1}{%
-    {Lausanne, Switzerland}%
+    {Berlin, Heidelberg}%
   }
   \field{year}{2010}
-  \warn{\item Can't use 'location' + 'address'}
 \endentry
 
 \entry{Kar09}{article}{}
@@ -1311,10 +1305,9 @@
   \verb http://doi.acm.org/10.1145/2746539.2746599
   \endverb
   \list{location}{1}{%
-    {Portland, Oregon, USA}%
+    {New York, NY, USA}%
   }
   \field{year}{2015}
-  \warn{\item Can't use 'location' + 'address'}
 \endentry
 
 \entry{LRST14}{inproceedings}{}
@@ -1456,10 +1449,9 @@
   \verb http://dl.acm.org/citation.cfm?id=2969239.2969419
   \endverb
   \list{location}{1}{%
-    {Montreal, Canada}%
+    {Cambridge, MA, USA}%
   }
   \field{year}{2015}
-  \warn{\item Can't use 'location' + 'address'}
 \endentry
 
 \entry{MPW15}{inproceedings}{}
@@ -1499,10 +1491,9 @@
   \verb http://doi.acm.org/10.1145/2746539.2746600
   \endverb
   \list{location}{1}{%
-    {Portland, Oregon, USA}%
+    {New York, NY, USA}%
   }
   \field{year}{2015}
-  \warn{\item Can't use 'location' + 'address'}
 \endentry
 
 \entry{Motz67}{misc}{}
@@ -1648,7 +1639,6 @@
   \field{pages}{575\bibrangedash 585}
   \field{title}{Integrality Gaps for Strong SDP Relaxations of UNIQUE GAMES}
   \field{year}{2009}
-  \warn{\item Invalid format of field 'month'}
 \endentry
 
 \entry{Ragh08}{inproceedings}{}
@@ -1681,10 +1671,9 @@
   \verb http://doi.acm.org/10.1145/1374376.1374414
   \endverb
   \list{location}{1}{%
-    {Victoria, British Columbia, Canada}%
+    {New York, NY, USA}%
   }
   \field{year}{2008}
-  \warn{\item Can't use 'location' + 'address'}
 \endentry
 
 \entry{RS15}{article}{}
@@ -1743,10 +1732,9 @@
   \verb http://dl.acm.org/citation.cfm?id=2095116.2095149
   \endverb
   \list{location}{1}{%
-    {Kyoto, Japan}%
+    {Philadelphia, PA, USA}%
   }
   \field{year}{2012}
-  \warn{\item Can't use 'location' + 'address'}
 \endentry
 
 \entry{Raz98}{article}{}
@@ -1907,10 +1895,9 @@
   \verb http://doi.acm.org/10.1145/1536414.1536457
   \endverb
   \list{location}{1}{%
-    {Bethesda, MD, USA}%
+    {New York, NY, USA}%
   }
   \field{year}{2009}
-  \warn{\item Can't use 'location' + 'address'}
 \endentry
 
 \entry{VY99}{inproceedings}{}
@@ -1943,10 +1930,9 @@
   \verb http://dl.acm.org/citation.cfm?id=314500.314955
   \endverb
   \list{location}{1}{%
-    {Baltimore, Maryland, USA}%
+    {Philadelphia, PA, USA}%
   }
   \field{year}{1999}
-  \warn{\item Can't use 'location' + 'address'}
 \endentry
 
 \lossort

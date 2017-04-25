@@ -128,7 +128,14 @@ For the following optimization problems, the uniform distribution over $S = V(\c
 \begin{itemize}
 \item \textsc{CSP}: $\pcsp(n) = \csp$. 
 \item \textsc{Clique}: $\pclique(V,E) = \clique$.
-\item \textsc{Matching}: $\pmatch(n) = \matching$.
+\item \textsc{Matching}: 
+\begin{align*}
+\pmatch(n) &= \alignmatching.
+\end{align*}
+\item \textsc{TSP}:
+\begin{align*}
+\ptsp(n) &= \aligntsp.
+\end{align*}
 \item \textsc{Bisection}: $\pbcsp(n,n/2) = \bisec$.
 \item \textsc{Unit-Vector}: $\cP_{\textsc{UV}} = \left\{\sum_i x_i^2 - 1\right\}$.
 \end{itemize}
@@ -165,7 +172,7 @@ Unfortunately the averaged matrix may have zero eigenvectors, and it is possible
 %
 However, because $\cP$ is complete for $S$, these can be absorbed into the final term. More formally, let $\Pi = \sum_u uu^T$ be the projector onto the zero eigenspace of $M_{\mu,d} = \E_{\alpha \sim \mu}[\mbasis{d}(\alpha)\mbasis{d}(\alpha)^T]$. Because $\cP$ is $k$-complete for $S$, for each $u$ there is a degree $k$ derivation $u^T\mbasis{d} = \sum_i \sigma_{ui} p_i$. Then $\Pi \mbasis{d}(\mbasis{d})^T = \sum_u (u^T\mbasis{d}) \cdot u(\mbasis{d})^T$. Thus we can write
 \begin{align*}
-\Iprod{H, \mbasis{d}(\mbasis{d})^T} &= \Iprod{H, (\Pi + \Pi^\perp)\mbasis{d}(\mbasis{d})^T(\Pi + \Pi^\perp)} \\
+\langle H, \mbasis{d}&(\mbasis{d})^T\rangle = \Iprod{H, (\Pi + \Pi^\perp)\mbasis{d}(\mbasis{d})^T(\Pi + \Pi^\perp)} \\
 &= \Iprod{H, \Pi^\perp \mbasis{d}(\mbasis{d})^T \Pi^\perp} + \sum_u u^T\mbasis{d}\left(\Iprod{H, \Pi^\perp \mbasis{d} u^T + \mbasis{d} u^T\Pi^\perp + \mbasis{d} u^T\Pi}\right) \\
 &= \Iprod{\Pi^\perp H \Pi^\perp, \mbasis{d}(\mbasis{d})^T} + \sum_i \sigma_i p_i.
 \end{align*}

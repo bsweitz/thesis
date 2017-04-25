@@ -1,4 +1,4 @@
-\chapter{Optimal Symmetric SDP Formulations and a Lower Bound}\label{cha:symmetric_sdps}
+\chapter{Optimal Symmetric SDP Relaxations}\label{cha:symmetric_sdps}
 The main result of this section is to show that when the solution space of a polynomial formulation for a combinatorial optimization problem satsfies certain symmetry properties, then the Theta Body SDP relaxation (see \prettyref{sec:polyforms}) achieves the best approximation among all symmetric SDPs of a comparable size. This is proven using an old technique of Yannakakis on the size of certain permutation groups that has been used time and time again to find optimal symmetric LP and SDP relaxations. 
 
 We combine this result with some of our results in \prettyref{cha:effective_derivations} to prove that the Sum-of-Squares SDP relaxation (see \prettyref{sec:polyforms} again) performs no worse than the Theta Body relaxation, thus showing that the SOS SDP is optimal for problems including \textsc{Matching}, \textsc{TSP}, and \textsc{Balanced CSP}. Furthermore, this allows us to translate lower bounds against the SOS SDP to lower bounds against any symmetric SDP formulation. We apply this to the \textsc{Matching} problem using the lower bound of Grigoriev \cite{Gri01}.
@@ -9,21 +9,15 @@ Recall that a $\sym{m}$-symmetric combinatorial optimization problem $\cM = (\cS
 We say that the symmetric polynomial formulation is \emph{$(k_1,k_2)$-block transitive} if, for each $U \subseteq [m]$ of size at most $k_1$, there exists a $V \subseteq [n]$ of size at most $k_2$ such that $A([m] \setminus U)$ acts transitively on each $S_{V,c} = \{x \in \R^n: x \in V(\cP), x|_V = c\}$, i.e. each set of solutions in $V(\cP)$ which agree on $J$.
 \end{definition}
 \begin{example}\label{ex:matching-blocktransitive}
-The usual formulation for \textsc{Matching} is $\left(k,\binom{k}{2}\right)$-block transitive for each $k < n/2$. Recall the constraints of the polynomial formulation for \textsc{Matching} on $\binom{n}{2}$ variables:
-\begin{align*}
-&\pmatch(n) = \matching \\
-&\phi_n(M) = \chi_M \text{ such that } (\chi_M)_{ij} = 1 \text{ if $(i,j) \in M$ and $0$ otherwise.}
-\end{align*}
-Then for a subset $I \subseteq [n]$ with $|I| < n/2$, we set $J = E(I,I)$, the set of edges that lie entirely in $I$. Let $M_1$ and $M_2$ be two matchings that agree on $J$. We define a permutation $\sigma$ as follows: Set $\sigma$ to fix $I$. Because $M_1$ and $M_2$ are perfect matchings, they must have the same number of edges in both $E(I, \overline{I})$ and $E(\overline{I},\overline{I})$. For a vertex $v \in \overline{I}$, if $M_1(v) \in I$, then we set $\sigma(v) = M_2(M_1(v))$. Otherwise, we set $\sigma$ to be an arbitrary bijection between the edges of $M_1$ in $E(\overline{I},\overline{I})$ and the edges of $M_2$ in $E(\overline{I},\overline{I})$. Clearly $\sigma \in S([n]\setminus I)$ and $\sigma(\chi_{M_1}) = \chi_{M_2}$. If $\sigma$ is even, we are done. Otherwise, since $|I| < n/2$, there is an edge $(u,v) \in M_2 \cap E(\overline{I},\overline{I})$. Then if $\sigma_{uv}$ is the transposition of $u$ and $v$, $\sigma_{uv}\sigma$ is an even permutation which still fixes $J$ and maps $\chi_{M_1}$ to $\chi_{M_2}$.
+The usual formulation for \textsc{Matching} is $\left(k,\binom{k}{2}\right)$-block transitive for each $k < n/2$. Recall the constraints of the polynomial formulation for \textsc{Matching} on $\binom{n}{2}$ variables from \prettyref{eq:matching-formulation}. The map $\phi$ is defined so that for a matching $M$, $\phi(M) = \chi_M$, where $(\chi_M)_{ij} = 1$ if $(i,j) \in M$ and $0$ otherwise. Then $\sym{n}$ acts by permuting the vertices of the graph.
+
+For a subset $I \subseteq [n]$ with $|I| < n/2$, we set $J = E(I,I)$, the set of edges that lie entirely in $I$. Let $M_1$ and $M_2$ be two matchings that agree on $J$. We define a permutation $\sigma$ as follows: Set $\sigma$ to fix $I$. Because $M_1$ and $M_2$ are perfect matchings, they must have the same number of edges in both $E(I, \overline{I})$ and $E(\overline{I},\overline{I})$. For a vertex $v \in \overline{I}$, if $M_1(v) \in I$, then we set $\sigma(v) = M_2(M_1(v))$. Otherwise, we set $\sigma$ to be an arbitrary bijection between the edges of $M_1$ in $E(\overline{I},\overline{I})$ and the edges of $M_2$ in $E(\overline{I},\overline{I})$. Clearly $\sigma \in S([n]\setminus I)$ and $\sigma(\chi_{M_1}) = \chi_{M_2}$. If $\sigma$ is even, we are done. Otherwise, since $|I| < n/2$, there is an edge $(u,v) \in M_2 \cap E(\overline{I},\overline{I})$. Then if $\sigma_{uv}$ is the transposition of $u$ and $v$, $\sigma_{uv}\sigma$ is an even permutation which still fixes $J$ and maps $\chi_{M_1}$ to $\chi_{M_2}$.
 \end{example}
 
 \begin{example}\label{ex:bcsp-blocktransitive}
-The usual formulation for \textsc{Balanced CSP} is $(k,k)$-block transitive for every $k \leq n-3$. Recall the constraints for the polynomial formulation for \textsc{Balanced CSP} on $n$ variables with balance $c$:
-\begin{align*}
-&\pbcsp(n,c) = \bcsp{n}{c} \\
-&\phi_{nc}(A) = \chi_A \text{ such that } (\chi_A)_i = 1 \text{ if $A(i) = 1$ and $0$ otherwise.}
-\end{align*}
-Then for a subset $I \subseteq [n]$, we set $J = I$. Let two assignments $A_1$ and $A_2$ that agree on $J$, and define a permutation $\sigma$ as follows: $\chi_{A_1}$ and $\chi_{A_2}$ have the same number of indices which are zero, and indices which are one. Let $\sigma$ be any pair of bijections between the indices which are one in $\chi_{A_1}$ and the indices which are one in $\chi_{A_2}$, and likewise for the indices which are zero. Furthermore, since $\chi_{A_1}$ and $\chi_{A_2}$ agree on $J$, we can choose $\sigma$ to be a pair of bijections which are the identity on $J$, so $\sigma \in S([n] \setminus J)$. Clearly $\sigma(\chi_{A_1}) = \chi_{A_2}$. Finally, if $\sigma$ is not already even, since $|I| \leq n-3$, there are two indices $\ell_1$ and $\ell_2$ outside of $J$ such that $A_2(\ell_1) = A_2(\ell_2)$. Then $(\ell_1, \ell_2) \cdot \sigma$ is even and still fixes $J$ and maps $\chi_{A_1}$ to $\chi_{A_2}$.
+The usual formulation for \textsc{Balanced CSP} is $(k,k)$-block transitive for every $k \leq n-3$. Recall the constraints for the polynomial formulation for \textsc{Balanced CSP} on $n$ variables from \prettyref{eq:bcsp-formulation}. The map $\phi$ is defined so that for an assignment $A$, $\phi(A) = \chi_A$, where $(\chi_A)_i = 1$ if $A(i) = 1$ and $0$ otherwise. Then $\sym{n}$ acts by permuting the labels of the variables.
+
+For a subset $I \subseteq [n]$, we set $J = I$. Let two assignments $A_1$ and $A_2$ that agree on $J$, and define a permutation $\sigma$ as follows: $\chi_{A_1}$ and $\chi_{A_2}$ have the same number of indices which are zero, and indices which are one. Let $\sigma$ be any pair of bijections between the indices which are one in $\chi_{A_1}$ and the indices which are one in $\chi_{A_2}$, and likewise for the indices which are zero. Furthermore, since $\chi_{A_1}$ and $\chi_{A_2}$ agree on $J$, we can choose $\sigma$ to be a pair of bijections which are the identity on $J$, so $\sigma \in S([n] \setminus J)$. Clearly $\sigma(\chi_{A_1}) = \chi_{A_2}$. Finally, if $\sigma$ is not already even, since $|I| \leq n-3$, there are two indices $\ell_1$ and $\ell_2$ outside of $J$ such that $A_2(\ell_1) = A_2(\ell_2)$. Then $(\ell_1, \ell_2) \cdot \sigma$ is even and still fixes $J$ and maps $\chi_{A_1}$ to $\chi_{A_2}$.
 \end{example}
 
 The point of block-transitivity is that if a polynomial formulation is block-transitive, then it is easy to show that invariant functions can be represented with low-degree polynomials. Going from arbitrary functions to low-degree polynomials is crucial to showing optimality for the Theta Body.  
@@ -87,17 +81,13 @@ We also have collected several examples of combinatorial problems that we can ap
 \end{itemize}
 \end{corollary}
 \begin{proof}
-Follows immediately from \prettyref{ex:matching-blocktransitive}, \prettyref{ex:bcsp-blocktransitive}, \prettyref{thm:matching-effective}, \prettyref{lem:lowdeg-easy}, \prettyref{lem:highdeg-easy} and \prettyref{cor:lass-optimal}.
+Follows immediately from \prettyref{ex:matching-blocktransitive}, \prettyref{ex:bcsp-blocktransitive}, \prettyref{thm:matching-effective}, \prettyref{lem:lowdeg-easy}, \\ \prettyref{lem:highdeg-easy} and \prettyref{cor:lass-optimal}.
 \end{proof}
 
 \section{Optimality for \textsc{TSP}}
 While block-transitivity is a useful categorization for capturing the symmetries of many problems, sometimes it is not sufficient. Unfortunately, \textsc{TSP} is not block-transitive, so we are unable to exactly apply the framework of the previous section. However, we will find out that is very nearly block-transitive, and a few modifications are enough to prove that the SOS relaxations are optimal for \textsc{TSP}. 
-Recall that \textsc{TSP} has the following polynomial formulation on $n^2$ variables:
-\begin{align*}
-&\ptsp(n) = \tsp \\
-&\cO_{\textsc{TSP}}(n) = \left\{\sum_{ij} d_{ij}\left(\sum_{k} x_{ik}x_{j,k+1}\right) | d_{ij} \in \R^+\right\} \\
-&\phi_n(\tau) = \chi_{\tau} \text{ such that $(\chi_\tau)_{ij} = 1$ if $\tau(i) = j$ and $0$ otherwise.}
-\end{align*}
+Recall the polynomial formulation of \textsc{TSP} on $n^2$ variables from \prettyref{eq:tsp-formulation}. The map $\phi$ is defined so that for a tour $\tau$, $\phi(\tau) = \chi_\tau$, where $(\chi_\tau)_{ij} = 1$ if $\tau(i) = j$ and $0$ otherwise.
+
 This polynomial formulation is $\sym{m}$-symmetric by the action $\sigma(x_{ij}) = x_{\sigma(i)j}$, which represents simply composing a tour $\tau$ with $\sigma$ on the left. Under this action, the above formulation for \textsc{TSP} is almost block-transitive:
 \begin{lemma}\label{lem:tsp-blocktransitive}
 If $I \subseteq [m]$, then let $J = I \times [m]$. Then $A([m] \setminus I)$ acts transitively on the elements of $V(\cP)$ that agree on $J$ \emph{and} have the same parity (as tours).

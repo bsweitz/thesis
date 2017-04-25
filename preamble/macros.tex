@@ -214,12 +214,15 @@
 \newcommand{\Mbasis}{\mathbf{x^{\otimes D}}}
 
 \newcommand{\matching}{\left\{x_{ij}^2 - x_{ij} \mid i,j \in [n]\right\} \cup \left\{\sum_i x_{ij} - 1 \mid j \in [n]\right\} \cup \left\{x_{ij}x_{ik} \mid i,j,k \in [n], j\neq k\right\}}
+\newcommand{\alignmatching}{\left\{x_{ij}^2 - x_{ij} \mid i,j \in [n]\right\} \\ &\cup \left\{\sum_i x_{ij} - 1 \mid j \in [n]\right\} \nonumber \\ &\cup \left\{x_{ij}x_{ik} \mid i,j,k \in [n], j\neq k\right\} \nonumber}
 \newcommand{\tsp}{\left\{x_{ij}^2 - x_{ij} \mid i,j \in [n]\right\} \cup \left\{\sum_i x_{ij} - 1 \mid j \in [n]\right\} \cup \left\{x_{ij}x_{ik}, x_{ji}x_{ki} \mid i,j,k \in [n], j \neq k\right\}}
+\newcommand{\aligntsp}{\left\{x_{ij}^2 - x_{ij} \mid i,j \in [n]\right\} \\ &\cup \left\{\sum_i x_{ij} - 1 \mid j \in [n]\right\} \nonumber \\ &\cup \left\{x_{ij}x_{ik}, x_{ji}x_{ki} \mid i,j,k \in [n], j \neq k\right\} \nonumber}
 \newcommand{\bcsp}[2]{\left\{x_i^2 - x_i \mid i \in [#1]\right\} \cup \left\{\sum_{i=1}^n x_i - #2\right\}}
 \newcommand{\csp}{\left\{x_i^2 - x_i \mid i \in [n]\right\}}
 \newcommand{\clique}{\left\{x_i^2 - x_i \mid i \in V\right\} \cup \left\{x_ix_j \mid (i,j) \notin E\right\}}
 \newcommand{\bisec}{\left\{x_i^2 - x_i \mid i \in [n]\right\} \cup \left\{\sum_i x_i - \frac{n}{2}\right\}}
 \newcommand{\bspca}[2]{\left\{x_i^3 - x_i \mid i \in [#1]\right\} \cup \left\{\sum_i x_i^2 - #2\right\}}
+\newcommand{\vertexcover}{\left\{x_i^2 - x_i \mid i \in [n]\right\} \cup \left\{(1-x_i)(1-x_j) \mid (i,j) \in E\right\}}
 \newcommand{\ptsp}{\cP_{\textsc{TSP}}}
 \newcommand{\pmatch}{\cP_{\textsc{M}}}
 \newcommand{\pbcsp}{\cP_{\textsc{BCSP}}}

@@ -60,7 +60,7 @@ Our efforts to find a unifying theory that explains the effectiveness of this st
 \section{Effective Derivations for \textsc{Matching}}
 Fix an even integer $n$, then \textsc{Matching} has a polynomial formulation on $\binom{n}{2}$ variables with constraints
 \begin{align}
-\pmatch(n) = \matching.\label{eq:matching-formulation}
+\label{eq:matching-formulation}\pmatch(n) &= \alignmatching.
 \end{align}
 We abuse notation slightly and use $x_{ij}$ and $x_{ji}$ equivalently. We omit the dependence on $n$ when it is clear from context. For an element $\sigma$ of the symmetric group $\sym{n}$, we define the action of $\sigma$ on a variable by $\sigma x_{ij} = x_{\sigma(i)\sigma(j)}$.
 We define the action of $\sigma$ on a monomial by extending this action multiplicatively, and the action of $\sigma$ on a full polynomial by extending linearly.
@@ -270,9 +270,9 @@ Because transpositions generate the symmetric group, the above argument implies 
 \section{Effective Derivations for \textsc{TSP}}
 
 For each integer $n$, a polynomial formulation with $n^2$ variables for \textsc{TSP} on $n$ vertices uses the following polynomials:
-\begin{align*}
-\ptsp(n) &= \tsp,\label{eq:tsp-formulation}
-\end{align*}
+\begin{align}
+\label{eq:tsp-formulation}\ptsp(n) &= \aligntsp,
+\end{align}
 where a tour $\tau \in \sym{n}$ (which is a feasible solution for \textsc{TSP}) is identified with the vector $\chi_\tau(i,j) = 1$ if $\tau(i) = j$ and $0$ otherwise. We omit the dependence on $n$ if it is clear from context. For an element $\sigma$ of the symmetric group $\sym{n}$, we define the action of $\sigma$ on a variable by $\sigma x_{ij} = x_{\sigma(i)j}$.
 We define the action of $\sigma$ on a monomial by extending this action multiplicatively, and the action of $\sigma$ on a full polynomial by extending linearly.
 Then $\ptsp$ is fixed by the action of every $\sigma$, as are its solutions $V(\ptsp)$ corresponding to the tours. 
@@ -348,7 +348,7 @@ We use induction on \(k - d\).
 The start of the induction is with \(k = d\),
 when the sides of \prettyref{eq:tsp-partial-matching}
 are actually equal. If \(k > d\), let \(i\) be a fixed vertex not in \(M_L\).
-Applying \prettyref{lem:tsp-matching+a} to \(M\) and \(i\)
+Applying \prettyref{lem:tsp+a} to \(M\) and \(i\)
 followed by the inductive hypothesis gives:
 \begin{equation*}
 	\begin{split}
@@ -517,7 +517,7 @@ Let $L \in \gen{\pbcsp(n,c)}_d$. Then $L\cdot (x_{n+1} - x_{n+2}) \in \gen{\pbcs
 \begin{proof}
 It is sufficient to prove the lemma for $L \in \pbcsp(n,c)$. If $L = x_i^2 - x_i$ for some $i$, then $L \in \pbcsp(n+2,c+1)$ and so the lemma is clearly true. If $L = \sum_{i=0}^n x_i - c$, then 
 \begin{align*}
-L\cdot (x_{n+1} - x_{n+2}) - \left(\sum_{i=0}^{n+2} x_i - (c+1)\right)(x_{n+1} - x_{n+2}) &= (1-x_{n+1} - x_{n+2}) \cdot (x_{n+1} - x_{n+2}) \\
+L\cdot (x_{n+1} - x_{n+2}) &- \left(\sum_{i=0}^{n+2} x_i - (c+1)\right)(x_{n+1} - x_{n+2}) = (1-x_{n+1} - x_{n+2}) \cdot (x_{n+1} - x_{n+2}) \\
 &= x_{n+1} - x_{n+2} - x_{n+1}^2 - x_{n+1}x_{n+2} + x_{n+1}x_{n+2} + x_{n+2}^2 \\
 &\cong_2 0.
 \end{align*} 
@@ -620,9 +620,9 @@ The proof is by double induction on $n$ and $c$. The base case is the lemma stat
 
 \section{\textsc{Boolean Sparse PCA}}
 The last example we give for our proof strategy is the \textsc{Boolean Sparse PCA} problem, which has a formulation on $n$ variables with constraints
-\begin{align}
+\begin{align*}
 \pspca(n,c) = \left\{x_i^3 - x_i \mid i \in [n]\right\} \cup \left\{\sum_i x_i^2 - c\right\}.\label{eq:bspca-formulation}
-\end{align}
+\end{align*}
 This problem arises when trying to reconstruct a planted sparse vector from noisy samples, see for example \cite{MW15}.
 
 These constraints are similar to the \textsc{Balanced-CSP} constraints of the previous section with one crucial difference: The variables are ternary instead of binary.
@@ -710,15 +710,23 @@ We include a corollary here summarizing all the results of this chapter:
 \begin{corollary}\label{cor:effective_list}
 The following polynomial formulations of combinatorial optimization problems admit $k$-effective derivations:
 \begin{itemize}
-\item \textsc{CSP}: $\pcsp(n) = \csp$, $k = 1$.
-\item \textsc{Clique}: $\pclique(V,E) = \clique$, $k = 1$.
-\item \textsc{Matching}: $\pmatch(n) = \matching$, $k = 2$.
-\item \textsc{TSP}: $\ptsp(n) = \tsp$, $k = 2$.
-\item \textsc{Bisection}: $\pbcsp(n,n/2) = \bisec$, $k = 1$.
+\item \textsc{CSP}: $\pcsp(n) = \csp$, for $k = 1$.
+\item \textsc{Clique}: $\pclique(V,E) = \clique$, for $k = 1$.
+\item \textsc{Matching}: 
+\begin{align*}
+\pmatch(n) &= \alignmatching,
+\end{align*} 
+for $k = 2$.
+\item \textsc{TSP}: 
+\begin{align*}
+\ptsp(n) &= \aligntsp,
+\end{align*}
+for $k = 2$.
+\item \textsc{Bisection}: $\pbcsp(n,n/2) = \bisec$, for $k = 1$.
 \end{itemize}
 The following sets of constraints admit $k$-effective derivations up to degree $c$:
 \begin{itemize}
-\item \textsc{Balanced CSP}: $\pbcsp(n,c) = \bcsp{n}{c}$, $k = 1$.
-\item \textsc{Boolean Sparse PCA}: $\pspca(n,c) = \bspca{n}{2c}$, $k = 3$.
+\item \textsc{Balanced CSP}: $\pbcsp(n,c) = \bcsp{n}{c}$, for $k = 1$.
+\item \textsc{Boolean Sparse PCA}: $\pspca(n,2c) = \bspca{n}{2c}$, for $k = 3$.
 \end{itemize}
 \end{corollary}
