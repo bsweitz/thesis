@@ -1107,6 +1107,53 @@
   \field{year}{1985}
 \endentry
 
+\entry{JH16}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Josz}{J.}%
+     {C{\'e}dric}{C.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Henrion}{H.}%
+     {Didier}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{JCHD1}
+  \strng{fullhash}{JCHD1}
+  \field{sortinit}{J}
+  \field{abstract}{%
+  A polynomial optimization problem (POP) consists of minimizing a multivariate
+  real polynomial on a semi-algebraic set {\$}{\$}K{\$}{\$} K described by
+  polynomial inequalities and equations. In its full generality it is a
+  non-convex, multi-extremal, difficult global optimization problem. More than
+  an decade ago, J. B. Lasserre proposed to solve POPs by a hierarchy of convex
+  semidefinite programming (SDP) relaxations of increasing size. Each problem
+  in the hierarchy has a primal SDP formulation (a relaxation of a moment
+  problem) and a dual SDP formulation (a sum-of-squares representation of a
+  polynomial Lagrangian of the POP). In this note, we show that there is no
+  duality gap between each primal and dual SDP problem in Lasserre's hierarchy,
+  provided one of the constraints in the description of set {\$}{\$}K{\$}{\$} K
+  is a ball constraint. Our proof uses elementary results on SDP duality, and
+  it does not assume that {\$}{\$}K{\$}{\$} K has a strictly feasible point.%
+  }
+  \verb{doi}
+  \verb 10.1007/s11590-015-0868-5
+  \endverb
+  \field{issn}{1862-4480}
+  \field{number}{1}
+  \field{pages}{3\bibrangedash 10}
+  \field{title}{Strong duality in Lasserre's hierarchy for polynomial
+  optimization}
+  \verb{url}
+  \verb http://dx.doi.org/10.1007/s11590-015-0868-5
+  \endverb
+  \field{volume}{10}
+  \field{journaltitle}{Optimization Letters}
+  \field{year}{2016}
+\endentry
+
 \entry{KPT10}{inproceedings}{}
   \name{author}{3}{}{%
     {{}%
