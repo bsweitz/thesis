@@ -881,6 +881,52 @@
   \field{year}{1995}
 \endentry
 
+\entry{GPT10}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Gouveia}{G.}%
+     {Jo\~{a}o}{J.~a.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Parrilo}{P.}%
+     {Pablo~A.}{P.~A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Thomas}{T.}%
+     {Rekha~R.}{R.~R.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{2}{%
+    {Society for Industrial}%
+    {Applied Mathematics}%
+  }
+  \keyw{moment matrices, polynomial ideals, semidefinite programming, sums of
+  squares, theta bodies}
+  \strng{namehash}{GJaPPATRR1}
+  \strng{fullhash}{GJaPPATRR1}
+  \field{sortinit}{G}
+  \verb{doi}
+  \verb 10.1137/090746525
+  \endverb
+  \field{issn}{1052-6234}
+  \field{number}{4}
+  \field{pages}{2097\bibrangedash 2118}
+  \field{title}{Theta Bodies for Polynomial Ideals}
+  \verb{url}
+  \verb http://dx.doi.org/10.1137/090746525
+  \endverb
+  \field{volume}{20}
+  \list{location}{1}{%
+    {Philadelphia, PA, USA}%
+  }
+  \field{journaltitle}{SIAM J. on Optimization}
+  \field{month}{03}
+  \field{year}{2010}
+\endentry
+
 \entry{Gri01b}{article}{}
   \name{author}{1}{}{%
     {{}%
@@ -1452,6 +1498,38 @@
     {Cambridge, MA, USA}%
   }
   \field{year}{2015}
+\endentry
+
+\entry{MM82}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Mayr}{M.}%
+     {Ernst~W}{E.~W.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Meyer}{M.}%
+     {Albert~R}{A.~R.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{MEWMAR1}
+  \strng{fullhash}{MEWMAR1}
+  \field{sortinit}{M}
+  \verb{doi}
+  \verb http://dx.doi.org/10.1016/0001-8708(82)90048-2
+  \endverb
+  \field{issn}{0001-8708}
+  \field{number}{3}
+  \field{pages}{305 \bibrangedash  329}
+  \field{title}{The complexity of the word problems for commutative semigroups
+  and polynomial ideals}
+  \verb{url}
+  \verb http://www.sciencedirect.com/science/article/pii/0001870882900482
+  \endverb
+  \field{volume}{46}
+  \field{journaltitle}{Advances in Mathematics}
+  \field{year}{1982}
 \endentry
 
 \entry{MPW15}{inproceedings}{}

@@ -40,7 +40,7 @@ The \emph{dual} of an SDP $(C, \{A_i, b_i\}_{i=1}^m)$ is the optimization proble
 \end{align*}
 The \emph{value} of the dual is the value of the optimum $b \cdot y^*$. 
 \end{definition}
-The following is a well-known fact about duality for SDPs. 
+The following is a well-known fact about strong duality for SDPs. 
 \begin{lemma}\label{lem:duality}
 Let $P$ be the SDP $(C, \{A_i, b_i\}_{i=1}^m)$ and let $D$ be its dual. If $X$ is feasible for $P$ and $(y,S)$ is feasible for $D$, then $C \cdot X \leq b \cdot y$. Moreover, if there exists a \emph{strictly feasible} point $X$ for $P$ or $(y,S)$ $D$, that is a feasible $X$ with $X \succ 0$ or a feasibly $(y,S)$ with $S \succ 0$, then $\val{P} = \val{D}$.
 \end{lemma}
@@ -233,6 +233,7 @@ Now for any vertex $\alpha$ of $P$, there is a $(x_\alpha^+,x_\alpha^-,z_\alpha)
 %The Matching Polytope is an exact formulation of the Maximum Matching problem. The Matching Polytope is defined as follows for each $n \in \Z$: Let $M$ be a maximum matching of the complete graph $K_n$, and let $\chi_M \in \R^{\binom{n}{2}}$ be the characteristic vector of this matching, i.e. $(\chi_M)_{ij} = 1$ iff $(i,j) \in M$. The matching polytope is $\conv\face{\chi_M | M \text{ a matching of $K_n$}}$. To embed this in the cone of PSD matrices rather than the positive orthant, we simply take $P_n = \conv\face{\diag{\chi_M} | M \text{ a matching of $K_n$}}$. Because $P_n$ is a polytope, there is another description $P_n = \{X: \forall i: A_i(X) \leq b_i\}$. To get the same form as in our definition, TODO
 %This can be seen to be an SDP formulation by taking the feasible solutions to be $\chi_M$, the objective function $f_E$ can be expressed as $w^{f_E} = \sum_{ij \in E} x_{ij}$. The achievement guarantee is satisfied because $\max_{x \in P_n} w^{f_E}(x)$ must be achieved at a vertex, and any vertex of the polytope must be a $\chi_M$, so $\max_{x \in P_n} w^{f_E}(x) = w^{f_E}(\chi_{M^*}) = f_E(M^*) = \max_{M \in \cS} f_E(M)$. 
 \end{example}
+
 \begin{theorem}[Generalization of Yannakakis' Factorization Theorem, original proof in \cite{BPZ15}]\label{thm:yannakakis}
 Let $\cM$ be a combinatorial optimization problem with $(c,s)$-Slack Matrix $M(\alpha,f)$. There exists an $(c,s)$-approximate SDP relaxation of size $d$ for $\cM$ if and only if there exists $X^\alpha,Y_f \in \psd{d}$ and $\mu_f \in \R_+$ such that $X^\alpha \cdot Y_f + \mu_f = M(\alpha,f)$ for each $\alpha \in \cS $ and $f \in \cF$ with $\max_{\alpha \in \cS} f(\alpha) \leq s(f)$. Such $X^\alpha$ and $Y_f$ are called a \emph{PSD factorization of size $d$}.
 \end{theorem}
@@ -265,7 +266,7 @@ A polynomial formulation for $\cM$ defines a polynomial optimization problem: gi
 \end{align*} 
 Solving this optimization problem is equivalent to solving the combinatorial optimization $\cM$. 
 
-In \prettyref{sec:polyproofs} we discussed how polynomial optimization problems could sometimes be solved by searching for PC$_>$ proofs of nonnegativity. Furthermore, these proofs can be found using semidefinite programming. It should come as no surprise then that, having rephrased $\cM$ as a polynomial optimization problem, there are SDP relaxations based on finding certificates of nonnegativity. The first, called the Theta Body relaxation, we only consider when the polynomial formulation has no inequality constraints. It finds a certificate of nonnegativity for $r(x)$ which is an SOS polynomial $s(x)$ together with a polynomial $g \in \gen{\cP}$ such that $r(x) = s(x) + g(x)$. 
+In \prettyref{sec:polyproofs} we discussed how polynomial optimization problems could sometimes be solved by searching for PC$_>$ proofs of nonnegativity. Furthermore, these proofs can be found using semidefinite programming. It should come as no surprise then that, having rephrased $\cM$ as a polynomial optimization problem, there are SDP relaxations based on finding certificates of nonnegativity. The Theta Body relaxation, first considered in \cite{GPT10}, is defined only for formulations without inequality constraints. It finds a certificate of nonnegativity for $r(x)$ which is an SOS polynomial $s(x)$ together with a polynomial $g \in \gen{\cP}$ such that $r(x) = s(x) + g(x)$. 
 
 Let $(\cP, \cO, \phi)$ be a degree-$d$ polynomial formulation for $\cM$. Recall that every polynomial $p$ of degree at most $2d$ has a $d \times d$ matrix of coefficients $\widehat{p}$ such that $p(\alpha) = \widehat{p} \cdot \mbasis{d}(\alpha)(\mbasis{d}(\alpha))^T$.
 \begin{definition}
@@ -289,12 +290,13 @@ The dual is
 The equality constraint of the dual is a constraint on matrices, but we can also think of it as a constraint on degree $2D$ polynomials via the map $\widehat{p} \leftrightarrow p$. Recall $\widehat{s} \succeq 0$, if and only if $s$ is a sum-of-squares polynomial. Thus this constraint is equivalent to asking that the polynomial $c - o^f(x)$ be $2D$-SOS modulo $\gen{\cP}$.
 \end{proof}
 
-Part of the certificate of the Theta Body is a polynomial $g \in \gen{\cP}$. However, because it does not find a proof that $g \in \gen{\cP}$ the Theta Body can be a bit unwieldy to work with. Its primal has a constraint for every $g \in \gen{\cP}$. Ideally we would only need constraints for polynomials in $\cP$. We can instead ask for a certificate which is an SOS polynomial $s$, a polynomial $g$, and a certificate that $g \in \gen{\cP}$. More generally, even when $\cQ \neq \emptyset$, we can write an SDP to find a PC$_>$ proof of nonnegativity as a certificate. These are the Lasserre or SOS relaxations. 
+The Theta Body does not find PC$_>$ proofs of non-negativity, but instead finds a different kind of proof that uses any low degree $g \in \gen{\cP}$. To write down the $D$th Theta Body relaxation, we need to know all the degree $D$ polynomials in $\gen{\cP}$. In particular, we need a basis of polynomials for the vector space of degree $D$ polynomials in $\gen{\cP}$. To get our hands on this, we would need to be able to \emph{at least} solve the membership problem for $\gen{\cP}$ up to degree $D$. Unfortunately, this problem is frequently intractable, and so even trying to formulate the $D$th Theta Body is intractable. We can define a weaker SDP relaxation which does not merely use an arbitrary $g \in \gen{\cP}$, but provides a derivation for $g$ from $\cP$, i.e. it finds a PC$_>$ proof. More generally, even when $\cQ \neq \emptyset$, we can define the Lasserre or SOS relaxations as follows:
+
 \begin{definition}
 Let $(\cP, \cQ, \cO, \phi)$ be a degree-$d$ polynomial formulation for $\cM = (\cS, \cF)$, and let $\cQ = \{q_1, \dots, q_k\}$. For $D \geq d$, the \emph{$D$th Lasserre Relaxation} or \emph{$D$th Sum-of-Squares Relaxation (SOS)} is an SDP relaxation for $\cM$ consisting of:
 \begin{itemize}
-\item Semidefinite program: $X = \diag{X_1, X_{q_1}, X_{q_2}, \dots, X_{q_k}}$. We include the constraints $(X_{q_i})_{UV} = X_1 \cdot \widehat{q_ix_Ux_V}$. This means if $X_1 = \widehat{p}$ for some polynomial $p$, then $X_{q_i} = \widehat{q_ip}$. For every $p \in \cP$ and polynomial $\lambda$ such that $\lambda p$ has degree at most $2d$, we have the constraint $\widehat{\lambda p} \cdot X_1 = 0$. Finally, we have $\widehat{1} \cdot X_1 = 1$ and $X \succeq 0$. For each polynomial $o^f \in \cO$, we define the affine objective function $w^f(X) = \widehat{o^f} \cdot X$.
-\item Feasible solutions: Let $X_0^\alpha = \mbasis{D}(\phi(\alpha))(\mbasis{D}(\phi(\alpha)))^T$ and $X_i^\alpha = X_0^\alpha q_i(\alpha)$. Then let
+\item Semidefinite program: $X = \diag{X_1, X_{q_1}, X_{q_2}, \dots, X_{q_k}}$. Let $D_0 = D$ and $D_i = D - \deg q_i$. The matrix $X_1$ is a $\binom{n+D-1}{D} \times \binom{n+D-1}{D}$ matrix whose columns and rows are indexed by monomials up to degree $D$. The matrix $X_{q_i}$ is a $\binom{n+D_i - 1}{D_i} \times \binom{n+D_i - 1}{D_i}$ matrix whose columns and rows are indexed by monomials up to degree $D_i$. We include the constraints $(X_{q_i})_{UV} = X_1 \cdot \widehat{q_ix_Ux_V}$. This means if $\tilde{c}$ is the vector of coefficients of a polynomial $c(x)$ and $X_1 = \mbasis{D}(\mbasis{D})^T$, then $\tilde{c}^TX_i\tilde{c} = q(x)c(x)^2$. For every $p \in \cP$ and polynomial $\lambda$ such that $\lambda p$ has degree at most $2d$, we have the constraint $\widehat{\lambda p} \cdot X_1 = 0$. Finally, we have $\widehat{1} \cdot X_1 = 1$ and $X \succeq 0$. For each polynomial $o^f \in \cO$, we define the affine objective function $w^f(X) = \widehat{o^f} \cdot X$.
+\item Feasible solutions: Let $X_0^\alpha = \mbasis{D}(\phi(\alpha))(\mbasis{D}(\phi(\alpha)))^T$ and each \\ $X_i^\alpha = \mbasis{D_i}(\phi(\alpha))(\mbasis{D_i}(\phi(\alpha)))^Tq_i(\alpha)$. Then let
 \[X^\alpha = \diag{X_0^\alpha, X_1^\alpha,\dots,X_k^\alpha}.\]
 \end{itemize}
 \end{definition}
@@ -312,6 +314,10 @@ where in the last sum the second nonzero diagonal is in the $i$th place. Clearly
 \[\widehat{1}y_1 - \widehat{o^f} = \widehat{s_1} + \sum_{\substack{p \in \gen{\cP} \\ \lambda}} \widehat{\lambda p} y_{\lambda p} + \sum_{i=1}^k \widehat{s_i q_i}.\] 
 As a constraint on polynomials, this simply reads that $y_1 - o^f(x)$ must have a degree $2D$ PC$_>$ proof of nonnegativity from $\cP$ and $\cQ$. 
 \end{proof}
+
+\begin{remark}
+The observant reader may notice that as presented, the Theta Body and SOS relaxations do not satisfy the assumption of \prettyref{lem:duality}, so it may not be valid to consider their duals instead of their primals. One can handle this by taking $\mbasis{D}$ to be a basis for the low-degree elements of $\R[x_1,\dots,x_n]/\gen{\cP}$, rather than a basis for every low-degree polynomial. Then \cite{JH16} show that if $V(\cP) \cap H(\cQ)$ is compact, there is no duality gap.
+\end{remark}
 
 The $D$th Theta Body and SOS relaxations are each relaxations of size $N = \binom{n+D-1}{D}$, since their feasible solutions have one coordinate for each monomial up to total degree $D$. For both hierarchies, it is clear that by projecting onto the coordinates up to degree $D' < D$, the feasible region of the $D'$th relaxation is contained in the feasible region of the $D'$th relaxation. Thus if the $D$th relaxation achieves a $(c,s)$-approximation, so does the $D$th. Furthermore, sometimes if we go high enough in the hierarchy we get a perfect relaxation.
 \begin{lemma}
@@ -341,7 +347,7 @@ This implies that $(c^*, s(x), \lambda_p(x))$ are feasible solutions for the $kD
 \begin{example}
 For \textsc{CSP}, $\cP = \{x_i^2 - 1 \mid i \in [n]\}$, and by \prettyref{cor:csp-effective}, $\cP$ is $1$-effective. Thus the $D$th Theta Body and Lasserre Relaxations are identical in this case.
 \end{example}
-\prettyref{prop:tb_to_sos} allows us to translate results about the Theta Body relaxations to Lasserre relaxations. In particular, in \prettyref{cha:symmetric_sdps} we will see how easy it is prove that Theta Body relaxations are optimal among symmetric relaxations of a given size. If the constraints are effective, this allows us to conclude that Lasserre relaxations which are not too much larger are just as good. This allows us to lower bound the size of \emph{any} symmetric SDP relaxation by finding lower bounds for Lasserre relaxations. 
+\prettyref{prop:tb_to_sos} allows us to translate results about the Theta Body relaxations to Lasserre relaxations. In particular, in \prettyref{cha:symmetric_sdps} we will see how easy it is prove that Theta Body relaxations are optimal among symmetric relaxations of a given size. If the constraints are effective, this allows us to conclude that Lasserre relaxations which are not too much larger achieve the same guarantees. This allows us to lower bound the size of \emph{any} symmetric SDP relaxation by finding lower bounds for Lasserre relaxations. 
 
 \section{Symmetric Relaxations}
 Often, combinatorial optimization problems will have underlying symmetries in their solution spaces. This extra structure allows us to prove things about these problems more easily. In this section we define what we mean by symmetric versions of all the problem formulations we have presented above. First, we recall some basic group theory.
