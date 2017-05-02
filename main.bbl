@@ -1959,6 +1959,48 @@
   \field{year}{2008}
 \endentry
 
+\entry{Slater2014}{inbook}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Slater}{S.}%
+     {Morton}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \name{editor}{2}{}{%
+    {{}%
+     {Giorgi}{G.}%
+     {Giorgio}{G.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kjeldsen}{K.}%
+     {Tinne~Hoff}{T.~H.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer Basel}%
+  }
+  \strng{namehash}{SM1}
+  \strng{fullhash}{SM1}
+  \field{sortinit}{S}
+  \field{booktitle}{Traces and Emergence of Nonlinear Programming}
+  \verb{doi}
+  \verb 10.1007/978-3-0348-0439-4_14
+  \endverb
+  \field{isbn}{978-3-0348-0439-4}
+  \field{pages}{293\bibrangedash 306}
+  \field{title}{Lagrange Multipliers Revisited}
+  \verb{url}
+  \verb http://dx.doi.org/10.1007/978-3-0348-0439-4_14
+  \endverb
+  \list{location}{1}{%
+    {Basel}%
+  }
+  \field{year}{2014}
+\endentry
+
 \entry{TS15}{inproceedings}{}
   \name{author}{2}{}{%
     {{}%
@@ -2058,6 +2100,40 @@
     {Philadelphia, PA, USA}%
   }
   \field{year}{1999}
+\endentry
+
+\entry{Yann88}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Yannakakis}{Y.}%
+     {Mihalis}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \strng{namehash}{YM1}
+  \strng{fullhash}{YM1}
+  \field{sortinit}{Y}
+  \field{booktitle}{Proceedings of the Twentieth Annual ACM Symposium on Theory
+  of Computing}
+  \verb{doi}
+  \verb 10.1145/62212.62232
+  \endverb
+  \field{isbn}{0-89791-264-0}
+  \field{pages}{223\bibrangedash 228}
+  \field{series}{STOC '88}
+  \field{title}{Expressing Combinatorial Optimization Problems by Linear
+  Programs}
+  \verb{url}
+  \verb http://doi.acm.org/10.1145/62212.62232
+  \endverb
+  \list{location}{1}{%
+    {Chicago, Illinois, USA}%
+  }
+  \field{year}{1988}
+  \warn{\item Can't use 'location' + 'address'}
 \endentry
 
 \lossort

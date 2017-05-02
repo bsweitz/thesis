@@ -1,9 +1,10 @@
 \chapter{Introduction}\label{cha:introduction}
 
-\Tnote{maybe put a header here that is called ``combinatorial optimization and approximation''?}
+\section{Combinatorial Optimization and Approximation}
 Combinatorial optimization problems have been intensely studied by mathematicians and computer scientists for many years.
-Here  we mean any computational task which involves maximizing a function over some discrete set of feasible solutions, with the admissible functions and solutions changing depending on what the task is \Tnote{the wording of this sentence is awkward}.
-Here are a few examples of problems which will appear again and again throughout this thesis: \Tnote{again and again $\to$ repeatedly?}
+Here we mean any computational task which involves maximizing a function over some discrete set of feasible solutions.
+The function to maximize is given as input to an algorithm, which attempts to find the feasible solution which achieves the best value. 
+Here are a few examples of problems which will appear repeatedly throughout this thesis: 
 \begin{example}
 The \textsc{Matching} problem is, given a graph $G = (V,E)$, compute the size of the largest subset $F \subseteq E$ such that any two edges $e_1,e_2 \in F$ are disjoint.
 \end{example}
@@ -14,9 +15,8 @@ The \textsc{Traveling Salesperson}, or \textsc{TSP} problem is, given a set of p
 The \textsc{$c$-Balanced CSP} problem is, given boolean formulas $\phi_1,\dots,\phi_m$, compute the largest number of $\phi_1,\dots,\phi_m$ that can be simultaneously satisfied by an assignment with exactly $c$ variables assigned true.
 \end{example}
 
-Because the framework of combinatorial optimization problems is so general, such computational tasks appear frequently in both practice and theory.
-\Tnote{right now this sounds like it is a coincidence that that is the case, when in fact it is by design.}
-For example, \textsc{TSP} naturally arises when trying to plan school bus routes and \textsc{Matching} clearly shows up when trying to match medical school graduates to hospitals \Tnote{for residency}. Unfortunately for the the school bus driver, solving \textsc{TSP} is computationally intractable because \textsc{TSP} is \np-complete\cite{Karp1972}. Indeed, almost all combinatorial optimization problems are \np-complete \Tnote{\np-hard? maybe just qualify this with ``problems of interest''} (\textsc{Matching} is a notable exception), and this well-established barrier has been in place since the 1970s.\Tnote{do you need to say that \np-hard problems are believed to be intractable before referring to it as a barrier?}
+Computer scientists initially began studying combinatorial optimization problems because they appear frequently in both practice and theory.
+For example, \textsc{TSP} naturally arises when trying to plan school bus routes and \textsc{Matching} clearly shows up when trying to match medical school graduates to hospitals for residency. Unfortunately for the the school bus driver, solving \textsc{TSP} is computationally intractable because \textsc{TSP} is \np-complete\cite{Karp1972}. Indeed, almost all combinatorial problems of interest are \np-hard (\textsc{Matching} is a notable exception), and this well-established barrier has been in place since the 1970s.\Tnote{do you need to say that \np-hard problems are believed to be intractable before referring to it as a barrier?}
 
 
 In an attempt to overcome the \np-complete barrier, the framework of approximation algorithms emerged a few years later \cite{SG76}. Rather than trying to exactly solve \textsc{TSP} by finding the route that minimizes the distance traveled, an approximation algorithm attempts to find a route that is not too much longer than the minimum possible route. For example, maybe the algorithm finds a route that is guaranteed to be at most twice the length of the minimum route, even though the minimum route itself is impossible to efficiently compute. A wide variety of algorithmic techniques have been brought to bear on approximation problems. In this work we will focus on writing \emph{convex relaxations} for combinatorial problems in order ato approximate them.
