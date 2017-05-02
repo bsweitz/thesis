@@ -43,7 +43,14 @@
 \newtheorem*{observation*}{Observation}
 
 % {{{ prettyref }}}
-\usepackage{hyperref}
+\usepackage[
+    % get rid of all these options if you don't like the way the links look
+colorlinks=true,
+urlcolor=blue,
+linkcolor=blue,
+citecolor=OliveGreen,
+pdfborder={0 0 0}
+]{hyperref}
 \usepackage{prettyref}
 
 \newcommand{\savehyperref}[2]{\texorpdfstring{\hyperref[#1]{#2}}{#2}}
@@ -236,5 +243,5 @@
 %\newcommand{\supp}{\text{supp}}
 \newcommand{\cone}{\text{cone}}
 
-\usepackage{xcolor}
-\newcommand{\Tnote}[1]{[{\color{blue}T: #1]}}
+\usepackage[dvipsnames]{xcolor}
+\newcommand{\Tnote}[1]{{\color{green}[T: #1]}}
