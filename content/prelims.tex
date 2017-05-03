@@ -99,7 +99,6 @@ and $\max_i \deg(\lambda_i \cdot p_i) \leq d$. We often call this polynomial ide
 \end{definition}
 
 The problem of finding a degree-$d$ PC derivation for $r$ can be expressed as a linear program with $n^d|\cP|$ variables, since the polynomial identity is linear in the coefficients of the $\lambda_i$. Thus if such a derivation exists, it is possible to find efficiently in time polynomial in $n^d|\cP|$, $\log \|\cP\|$ and $\log \|r\|$. These parameters are all related to the size required to specify the input: $(r,\cP,d)$.
-\Tnote{wasn't k-effective already defined? maybe it was different? maybe good to clarify?}
 \begin{definition}
 We say that $\cP$ is \emph{$k$-effective} if $\cP$ is complete and every polynomial $p \in \gen{\cP}$ of degree $d$ has a PC proof from $\cP$ in degree $kd$.
 \end{definition}
@@ -366,7 +365,7 @@ For \textsc{CSP}, $\cP = \{x_i^2 - 1 \mid i \in [n]\}$. By \prettyref{cor:csp-ef
 \end{example}
 \prettyref{prop:tb_to_sos} allows us to translate results about the Theta Body relaxations to Lasserre relaxations. In particular, in \prettyref{cha:symmetric_sdps} we will see how easy it is to prove that Theta Body relaxations are optimal among symmetric relaxations of a given size. If the constraints are effective, this allows us to conclude that Lasserre relaxations which are not too much larger achieve the same guarantees. This allows us to lower bound the size of \emph{any} symmetric SDP relaxation by finding lower bounds for Lasserre relaxations.
 
-\section{Symmetric Relaxations}
+\section{Symmetric Relaxations}\prettyref{sec:symmetric-defs}
 Often, the solutions to a combinatorial optimization problem exhibit many symmetries. For example, in the \textsc{Matching} problem, a maximum matching of $K_n$ is still a maximum matching even if the vertices are permuted arbitrarily. This additional structure allows for easier analysis. It is natural, then, to consider relaxations that exhibit similar symmetries. Rounding these relaxations is often more straightforward and intuitive. In this section we formally define what we mean by symmetric versions of all the problem formulations we have presented above. First, we recall some basic group theory.
 \begin{definition}
 Let $G$ be a group and $X$ be a set. We say \emph{$G$ acts on $X$} if there is a map $\phi: G \rightarrow (X \rightarrow X)$ satisfying $\phi(1)(x) = x$ and $\phi(g_1)(\phi(g_2)(x)) = \phi(g_1g_2)(x)$. In practice we omit the $\phi$ and simply write $gx$ for $\phi(g)(x)$.
@@ -392,7 +391,7 @@ An SDP relaxation $(\{X^\alpha\},\{(A_i,b_i)\},\{w^f\})$ for a $G$-symmetric pro
 \end{definition}
 \begin{example}
 The usual linear relaxation for the \textsc{Matching} problem on $n$ vertices is
-\[K = \{x \in \R^{\binom{n}{2} \mid \forall i: \sum_j x_{ij} \leq 1, \forall ij: 0 \leq x_{ij} \leq 1\},\]
+\[K = \{x \in \R^{\binom{n}{2}} \mid \forall i: \sum_j x_{ij} \leq 1, \forall ij: 0 \leq x_{ij} \leq 1\},\]
 with objective functions $w^{f_E}(x) = \sum_{(i,j) \in E} x_{ij}$. This relaxation is $\sym{n}$-coordinate-symmetric under the action $(g\alpha)_{ij} = \alpha_{gi,gj}$ for any $\alpha \in \R^{\binom{n}{2}}$. This action essentially represents the permutation of the vertices of the underlying graph. It is simple to confirm that this action satisfies the above requirements. 
 \end{example}
 Asymmetric relaxations are harder to come by, since they are unintuitive to design. The above example has the nice interpretation that $x_{ij}$ is a variable that is supposed to represent the presence of the edge $(i,j)$ in the matching. Asymmetric relaxations do not have such simple interpretations. We do not have many examples of cases where asymmetry actually helps, but the reader can refer to \cite{KPT10} for one example for the \textsc{Matching} problem with only $\log n$ edges.

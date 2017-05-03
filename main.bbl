@@ -1663,6 +1663,23 @@
   \field{year}{2016}
 \endentry
 
+\entry{Parr00}{report}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Parrilo}{P.}%
+     {Pablo~A.}{P.~A.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{PPA1}
+  \strng{fullhash}{PPA1}
+  \field{sortinit}{P}
+  \field{title}{Structured Semidefinite Programs and Semialgebraic Geometry
+  Methods in Robustness and Optimization}
+  \field{type}{techreport}
+  \field{year}{2000}
+\endentry
+
 \entry{PW07}{article}{}
   \name{author}{2}{}{%
     {{}%
