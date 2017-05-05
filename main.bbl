@@ -234,54 +234,51 @@
   \field{year}{2016}
 \endentry
 
-\entry{BCVVZ12}{inproceedings}{}
+\entry{BIKPP94}{inproceedings}{}
   \name{author}{5}{}{%
     {{}%
-     {Bhaskara}{B.}%
-     {Aditya}{A.}%
+     {Beame}{B.}%
+     {P.}{P.}%
      {}{}%
      {}{}}%
     {{}%
-     {Charikar}{C.}%
-     {Moses}{M.}%
+     {Impagliazzo}{I.}%
+     {R.}{R.}%
      {}{}%
      {}{}}%
     {{}%
-     {Vijayaraghavan}{V.}%
-     {Aravindan}{A.}%
+     {Krajicek}{K.}%
+     {J.}{J.}%
      {}{}%
      {}{}}%
     {{}%
-     {Guruswami}{G.}%
-     {Venkatesan}{V.}%
+     {Pitassi}{P.}%
+     {T.}{T.}%
      {}{}%
      {}{}}%
     {{}%
-     {Zhou}{Z.}%
-     {Yuan}{Y.}%
+     {Pudlak}{P.}%
+     {P.}{P.}%
      {}{}%
      {}{}}%
   }
-  \list{publisher}{2}{%
-    {Society for Industrial}%
-    {Applied Mathematics}%
-  }
-  \strng{namehash}{BA+1}
-  \strng{fullhash}{BACMVAGVZY1}
+  \keyw{computability;computational complexity;Hilbert's
+  Nullstellensatz;algebraic equations;fixed cardinality;modular counting
+  principle;propositional formulas;propositional proofs;Computer
+  science;Concrete;Equations;Galois
+  fields;Geometry;Mathematics;Polynomials;Testing;Upper bound}
+  \strng{namehash}{BP+1}
+  \strng{fullhash}{BPIRKJPTPP1}
   \field{sortinit}{B}
-  \field{booktitle}{Proceedings of the Twenty-third Annual ACM-SIAM Symposium
-  on Discrete Algorithms}
-  \field{pages}{388\bibrangedash 405}
-  \field{series}{SODA '12}
-  \field{title}{Polynomial Integrality Gaps for Strong SDP Relaxations of
-  Densest K-subgraph}
-  \verb{url}
-  \verb http://dl.acm.org/citation.cfm?id=2095116.2095150
+  \field{booktitle}{Proceedings 35th Annual Symposium on Foundations of
+  Computer Science}
+  \verb{doi}
+  \verb 10.1109/SFCS.1994.365714
   \endverb
-  \list{location}{1}{%
-    {Philadelphia, PA, USA}%
-  }
-  \field{year}{2012}
+  \field{pages}{794\bibrangedash 806}
+  \field{title}{Lower bounds on Hilbert's Nullstellensatz and propositional
+  proofs}
+  \field{year}{1994}
 \endentry
 
 \entry{BCVGZ12}{inproceedings}{}
@@ -498,6 +495,145 @@
   \field{journaltitle}{J. Symb. Comput.}
   \field{month}{03}
   \field{year}{2006}
+\endentry
+
+\entry{BGIP01}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Buss}{B.}%
+     {Sam}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Grigoriev}{G.}%
+     {Dima}{D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Impagliazzo}{I.}%
+     {Russell}{R.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Pitassi}{P.}%
+     {Toniann}{T.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Academic Press, Inc.}%
+  }
+  \strng{namehash}{BS+1}
+  \strng{fullhash}{BSGDIRPT1}
+  \field{sortinit}{B}
+  \verb{doi}
+  \verb 10.1006/jcss.2000.1726
+  \endverb
+  \field{issn}{0022-0000}
+  \field{number}{2}
+  \field{pages}{267\bibrangedash 289}
+  \field{title}{Linear Gaps Between Degrees for the Polynomial Calculus Modulo
+  Distinct Primes}
+  \verb{url}
+  \verb http://dx.doi.org/10.1006/jcss.2000.1726
+  \endverb
+  \field{volume}{62}
+  \list{location}{1}{%
+    {Orlando, FL, USA}%
+  }
+  \field{journaltitle}{J. Comput. Syst. Sci.}
+  \field{month}{03}
+  \field{year}{2001}
+\endentry
+
+\entry{BT98}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Buss}{B.}%
+     {Samuel~R}{S.~R.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Pitassi}{P.}%
+     {Toniann}{T.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Academic Press, Inc.}%
+  }
+  \strng{namehash}{BSRPT1}
+  \strng{fullhash}{BSRPT1}
+  \field{sortinit}{B}
+  \verb{doi}
+  \verb 10.1006/jcss.1998.1585
+  \endverb
+  \field{issn}{0022-0000}
+  \field{number}{2}
+  \field{pages}{162\bibrangedash 171}
+  \field{title}{Good Degree Bounds on Nullstellensatz Refutations of the
+  Induction Principle}
+  \verb{url}
+  \verb http://dx.doi.org/10.1006/jcss.1998.1585
+  \endverb
+  \field{volume}{57}
+  \list{location}{1}{%
+    {Orlando, FL, USA}%
+  }
+  \field{journaltitle}{J. Comput. Syst. Sci.}
+  \field{month}{10}
+  \field{year}{1998}
+\endentry
+
+\entry{CLRS16}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Chan}{C.}%
+     {Siu~On}{S.~O.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Lee}{L.}%
+     {James~R.}{J.~R.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Raghavendra}{R.}%
+     {Prasad}{P.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Steurer}{S.}%
+     {David}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{LP hierarchies, Linear programming, extended formulations,
+  approximation complexity, constraint satisfaction problems, lower bounds}
+  \strng{namehash}{CSO+1}
+  \strng{fullhash}{CSOLJRRPSD1}
+  \field{sortinit}{C}
+  \verb{doi}
+  \verb 10.1145/2811255
+  \endverb
+  \field{issn}{0004-5411}
+  \field{number}{4}
+  \field{pages}{34:1\bibrangedash 34:22}
+  \field{title}{Approximate Constraint Satisfaction Requires Large LP
+  Relaxations}
+  \verb{url}
+  \verb http://doi.acm.org/10.1145/2811255
+  \endverb
+  \field{volume}{63}
+  \list{location}{1}{%
+    {New York, NY, USA}%
+  }
+  \field{journaltitle}{J. ACM}
+  \field{month}{10}
+  \field{year}{2016}
 \endentry
 
 \entry{CMM09}{article}{}
@@ -783,6 +919,96 @@
   \field{year}{1996}
 \endentry
 
+\entry{FSP13}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {{Fawzi}}{F.}%
+     {H.}{H.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {{Saunderson}}{S.}%
+     {J.}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {{Parrilo}}{P.}%
+     {P.~A.}{P.~A.}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{Mathematics - Optimization and Control, Mathematics - Combinatorics}
+  \strng{namehash}{FHSJPPA1}
+  \strng{fullhash}{FHSJPPA1}
+  \field{sortinit}{F}
+  \verb{eprint}
+  \verb 1312.6662
+  \endverb
+  \field{title}{{Equivariant semidefinite lifts and sum-of-squares
+  hierarchies}}
+  \field{journaltitle}{ArXiv e-prints}
+  \field{eprinttype}{arXiv}
+  \field{eprintclass}{math.OC}
+  \field{month}{12}
+  \field{year}{2013}
+\endentry
+
+\entry{FMPTHW15}{article}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Fiorini}{F.}%
+     {Samuel}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Massar}{M.}%
+     {Serge}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Pokutta}{P.}%
+     {Sebastian}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Tiwary}{T.}%
+     {Hans~Raj}{H.~R.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Wolf}{W.}%
+     {Ronald~De}{R.~D.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{Combinatorial optimization, communication complexity, linear
+  programming, quantum communication complexity, semidefinite programming}
+  \strng{namehash}{FS+1}
+  \strng{fullhash}{FSMSPSTHRWRD1}
+  \field{sortinit}{F}
+  \verb{doi}
+  \verb 10.1145/2716307
+  \endverb
+  \field{issn}{0004-5411}
+  \field{number}{2}
+  \field{pages}{17:1\bibrangedash 17:23}
+  \field{title}{Exponential Lower Bounds for Polytopes in Combinatorial
+  Optimization}
+  \verb{url}
+  \verb http://doi.acm.org/10.1145/2716307
+  \endverb
+  \field{volume}{62}
+  \list{location}{1}{%
+    {New York, NY, USA}%
+  }
+  \field{journaltitle}{J. ACM}
+  \field{month}{05}
+  \field{year}{2015}
+\endentry
+
 \entry{Foll01}{article}{}
   \name{author}{1}{}{%
     {{}%
@@ -1039,6 +1265,33 @@
   \field{year}{2001}
 \endentry
 
+\entry{Gri98}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Grigoriev}{G.}%
+     {D.}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{Boolean functions;polynomials;theorem proving;Nullstellensatz
+  proofs;Tseitin's tautologies;boolean setting;explicitly constructed
+  systems;logarithmic degree;lower bounds;polynomials;Calculus;Computer
+  science;Design methodology;Mathematics;Polynomials;Upper bound}
+  \strng{namehash}{GD1}
+  \strng{fullhash}{GD1}
+  \field{sortinit}{G}
+  \field{booktitle}{Proceedings 39th Annual Symposium on Foundations of
+  Computer Science (Cat. No.98CB36280)}
+  \verb{doi}
+  \verb 10.1109/SFCS.1998.743515
+  \endverb
+  \field{issn}{0272-5428}
+  \field{pages}{648\bibrangedash 652}
+  \field{title}{Tseitin's tautologies and lower bounds for Nullstellensatz
+  proofs}
+  \field{year}{1998}
+\endentry
+
 \entry{Gri01}{article}{}
   \name{author}{1}{}{%
     {{}%
@@ -1094,6 +1347,28 @@
     {London, UK, UK}%
   }
   \field{year}{1999}
+\endentry
+
+\entry{Hermann1926}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Hermann}{H.}%
+     {G.}{G.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{HG1}
+  \strng{fullhash}{HG1}
+  \field{sortinit}{H}
+  \field{pages}{736\bibrangedash 788}
+  \field{title}{Die Frage der endlich vielen Schritte in der Theorie der
+  Polynomideale. (Unter Benutzung nachgelassener Sätze von K. Hentzelt)}
+  \verb{url}
+  \verb http://eudml.org/doc/159153
+  \endverb
+  \field{volume}{95}
+  \field{journaltitle}{Mathematische Annalen}
+  \field{year}{1926}
 \endentry
 
 \entry{Hilbert1893}{article}{}
@@ -1417,6 +1692,38 @@
     {Boston, MA}%
   }
   \field{year}{1972}
+\endentry
+
+\entry{Khot02}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Khot}{K.}%
+     {Subhash}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \strng{namehash}{KS1}
+  \strng{fullhash}{KS1}
+  \field{sortinit}{K}
+  \field{booktitle}{Proceedings of the Thiry-fourth Annual ACM Symposium on
+  Theory of Computing}
+  \verb{doi}
+  \verb 10.1145/509907.510017
+  \endverb
+  \field{isbn}{1-58113-495-9}
+  \field{pages}{767\bibrangedash 775}
+  \field{series}{STOC '02}
+  \field{title}{On the Power of Unique 2-prover 1-round Games}
+  \verb{url}
+  \verb http://doi.acm.org/10.1145/509907.510017
+  \endverb
+  \list{location}{1}{%
+    {New York, NY, USA}%
+  }
+  \field{year}{2002}
 \endentry
 
 \entry{Las01}{inbook}{}
@@ -2011,6 +2318,39 @@
   \field{year}{1998}
 \endentry
 
+\entry{Roth14}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Rothvoss}{R.}%
+     {Thomas}{T.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {ACM}%
+  }
+  \keyw{combinatorial optimization, linear programming relaxations, polytopes}
+  \strng{namehash}{RT1}
+  \strng{fullhash}{RT1}
+  \field{sortinit}{R}
+  \field{booktitle}{Proceedings of the Forty-sixth Annual ACM Symposium on
+  Theory of Computing}
+  \verb{doi}
+  \verb 10.1145/2591796.2591834
+  \endverb
+  \field{isbn}{978-1-4503-2710-7}
+  \field{pages}{263\bibrangedash 272}
+  \field{series}{STOC '14}
+  \field{title}{The Matching Polytope Has Exponential Extension Complexity}
+  \verb{url}
+  \verb http://doi.acm.org/10.1145/2591796.2591834
+  \endverb
+  \list{location}{1}{%
+    {New York, NY, USA}%
+  }
+  \field{year}{2014}
+\endentry
+
 \entry{SG76}{article}{}
   \name{author}{2}{}{%
     {{}%
@@ -2223,6 +2563,34 @@
     {Philadelphia, PA, USA}%
   }
   \field{year}{1999}
+\endentry
+
+\entry{WSbook11}{book}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Williamson}{W.}%
+     {David~P.}{D.~P.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Shmoys}{S.}%
+     {David~B.}{D.~B.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Cambridge University Press}%
+  }
+  \strng{namehash}{WDPSDB1}
+  \strng{fullhash}{WDPSDB1}
+  \field{sortinit}{W}
+  \field{edition}{1st}
+  \field{isbn}{0521195276, 9780521195270}
+  \field{title}{The Design of Approximation Algorithms}
+  \list{location}{1}{%
+    {New York, NY, USA}%
+  }
+  \field{year}{2011}
 \endentry
 
 \entry{Yann88}{inproceedings}{}

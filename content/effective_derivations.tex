@@ -591,7 +591,7 @@ We define variables $y_{ij}$ with the intention that $y_{ij} = 1$ if the $i$th v
 Note that each term in the last equation contains a constraint in $\nphp(n-c,n-c-1)$. Thus the degree of this derivation must be at least  $(n-c+1)/2$.
 \end{proof}
 
-\subsection{Effective PC$_>$ Derivations for High Degree Polynomials in $\pbcsp(n,c)$}
+\subsection{Effective PC$_>$ Derivations for High Degree Polynomials}
 \prettyref{lem:bcsp-highdeg-hard} tells us that we cannot hope to prove that $\pbcsp(n,c)$ has effective PC proofs, but we are not soley interested in PC proofs. In particular, because the applications we consider in this thesis are primarily focused on Semidefinite Programming, we have access to the more powerful PC$_>$ proof system. In this system, $\nphp$ is not difficult to refute, and indeed once we allow ourselves PC$_>$ proofs we can show that \textsc{Balanced-CSP} admits effective derivations.
 \begin{lemma}\label{lem:highdeg-easy}
 Let $p = x_1x_2\dots x_c x_{c+1}$. Then $p$ has a PC$_>$ proof $\Pi$ from $\pbcsp(n,c)$ in degree $2(c+1)$ with $\|\Pi\| \leq 1$. 
@@ -602,7 +602,7 @@ Recall that a PC$_>$ proof consists of two proofs of nonnegativity: one for $p$ 
 The first two terms each have factors in $\pbcsp(n,c)$, and the last term is a sum of monomials with nonnegative coefficients. These monomials all have proofs of nonnegativity, and thus so does $-p$. It is simple to check that these proofs involve coefficients of merely constant size. 
 \end{proof}
 
-\subsection{Effective PC Derivations for Low Degree Polynomials in $\pbcsp(n,c)$}
+\subsection{Effective PC Derivations for Low Degree Polynomials}
 It remains to prove that the low-degree polynomials in $\pbcsp(n,c)$ have efficient derivations. We will be able to use simple PC derivations for these polynomials. The proof is very similar to the one for \textsc{Bisection}, but we have to do a double induction on $n$ and $c$ since the balance changes in the inductive step. We will take $c \leq n/2$, since the other case is symmetric.
 \begin{lemma}\label{lem:lowdeg-easy}
 Fix $c \leq n/2$. Let $p \in \gen{\pbcsp(n,c)}$ with $\deg p \leq c$. Then $p$ has a derivation from $\pbcsp(n,c)$ in degree $\deg p$. 
