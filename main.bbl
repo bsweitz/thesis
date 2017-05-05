@@ -2422,6 +2422,33 @@
   \field{year}{2008}
 \endentry
 
+\entry{Shor1987}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Shor}{S.}%
+     {N.~Z.}{N.~Z.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{SNZ1}
+  \strng{fullhash}{SNZ1}
+  \field{sortinit}{S}
+  \verb{doi}
+  \verb 10.1007/BF01074929
+  \endverb
+  \field{issn}{1573-8337}
+  \field{number}{5}
+  \field{pages}{695\bibrangedash 700}
+  \field{title}{An approach to obtaining global extremums in polynomial
+  mathematical programming problems}
+  \verb{url}
+  \verb http://dx.doi.org/10.1007/BF01074929
+  \endverb
+  \field{volume}{23}
+  \field{journaltitle}{Cybernetics}
+  \field{year}{1987}
+\endentry
+
 \entry{Slater2014}{inbook}{}
   \name{author}{1}{}{%
     {{}%

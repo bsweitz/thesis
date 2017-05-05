@@ -1,5 +1,5 @@
 \chapter{Effective Derivations}\label{cha:effective_derivations}
-In this section we prove that many natural sets of polynomials $\cP$ arising from polynomial formulations for combinatorial optimization problems are effective. This means that the problem of determining if a polynomial $p$ is in the ideal $\gen{\cP}$ has a simple solution in time polynomial in $n^{\deg p}$ and $\log \|p\|$, which is the size required to specify the input $p$. When $\cP$ is complete, this is equivalent to determining if $p(\alpha) = 0$ for every $\alpha \in V(\cP)$. In \prettyref{cha:bit_complexity} and \prettyref{cha:symmetric_sdps} we will see two applications of solving this problem. We start with the sets of polynomials that are totally explain their ideals.
+In this section we prove that many natural sets of polynomials $\cP$ arising from polynomial formulations for combinatorial optimization problems are effective. This means that the problem of determining if a polynomial $p$ is in the ideal $\gen{\cP}$ has a simple solution in time polynomial in $n^{\deg p}$ and $\log \|p\|$, which is the size required to specify the input $p$. When $\cP$ is complete, this is equivalent to determining if $p(\alpha) = 0$ for every $\alpha \in V(\cP)$. In \prettyref{cha:bit_complexity} and \prettyref{cha:symmetric_sdps} we will see two applications of solving this problem. We start with the sets of polynomials designed to solve this problem.
 
 \section{Gr\"obner Bases}
 Recall the definition of Gr\"obner basis from \prettyref{def:grobner}. The following lemma is an obvious consequence of the division algorithm.
@@ -36,7 +36,7 @@ Then $r_2(\chi_C) = r_C$. But $p(\chi_C) = 0$ for every $p \in \cP$, and $r_2 \i
 zero polynomial.
 \end{proof}
 
-Of course, not every problem is so neatly a Gr\"obner basis. There are many natural problems whose solution spaces have a small set of generating
+Of course, not every problem is so neatly described by a small Gr\"obner basis. There are many natural problems whose solution spaces have a small set of generating
 polynomials which are not Gr\"obner bases, and indeed their Gr\"obner bases can be exponentially large and exceedingly difficult to compute. 
 Even though the generating polynomials are not a Gr\"obner basis, they can still be $k$-effective for constant $k$, and thus admit a good algorithm for membership.
 
@@ -49,8 +49,8 @@ The action will be a natural permutation of the solutions. For example, for \tex
 After the group action is defined, our proof strategy follows in three steps:
 \begin{enumerate}
 \item[(1)] Prove that $\cP$ is complete. This is usually done by exhibiting a degree $n$ derivation from $\cP$ for any polynomial $p$ which is zero on $V(\cP)$. This step is essential for the induction in step (3). 
-\item[(2)] Prove that for every $p \in \gen{\cP}$, the polynomial $\frac{1}{n!} \sum_{\sigma \in \sym{m}} \sigma p$ has a derivation from $\cP$ in degree $\deg p$. This is usually fairly easy because of the high amount of structure this forces on the polynomial. 
-\item[(3)] Prove that for every $\sigma \in \sym{m}$, $p - \sigma p$ has a derivation from $\cP$ in degree at most $k \deg p$, for some constant $k$. This is performed by induction on a natural parameter of the combinatorial optimization problem. The more complicated the solution space for the problem, the worse the constant $k$ gets. 
+\item[(2)] Prove that for every $p \in \gen{\cP}$, the polynomial $\frac{1}{n!} \sum_{\sigma \in \sym{m}} \sigma p$ has a derivation from $\cP$ in degree $\deg p$. This is usually fairly easy because of the large amount of structure this symmetrization forces on the polynomial. 
+\item[(3)] Prove that for every $\sigma \in \sym{m}$, $p - \sigma p$ has a derivation from $\cP$ in degree at most $k \deg p$, for some constant $k$. This is performed by induction on a natural parameter of the combinatorial optimization problem. Generally speaking, the more complicated the solution space for the problem, the worse bounds we can prove for the constant $k$. 
 \end{enumerate}
 We use this general strategy to prove that many polynomial formulations for different natural combinatorial optimization problems admit effective derivations. 
 Our efforts to find a unifying theory that explains the effectiveness of this strategy on the different problems have failed, so we have to prove that each $\cP$ is effective on a case-by-case basis.  
@@ -277,7 +277,7 @@ where a tour $\tau \in \sym{n}$ (which is a feasible solution for \textsc{TSP}) 
 We define the action of $\sigma$ on a monomial by extending this action multiplicatively, and the action of $\sigma$ on a full polynomial by extending linearly.
 Then $\ptsp$ is fixed by the action of every $\sigma$, as are its solutions $V(\ptsp)$ corresponding to the tours. 
 
-Note that $V(\ptsp)$ corresponds to a matching on $K_{n,n}$, the complete bipartite graph on $2n$ vertices. Thus it should come as no surprise that the same proof strategy as the one we used for matchings on the complete graph $K_n$ should go through. This section will be extremely similar to the previous one, and the reader loses very little by skipping ahead to \prettyref{sec:bcsp}. It would be more elegant if we could just reduce $\ptsp(n)$ to $\pmatch(2n)$. This requires proving that any polynomial which is zero on $V(\ptsp(n))$ is the projection of a polynomial of similar degree which is zero on $V(\pmatch(2n))$. Unfortunately we do not know how to prove this except by proving that $\ptsp$ is effective, so we will have to live with some repetition. 
+Note that $V(\ptsp)$ corresponds to a matching on $K_{n,n}$, the complete bipartite graph on $2n$ vertices. Thus it should come as no surprise that the same proof strategy as the one we used for matchings on the complete graph $K_n$ should work just fine. This section will be extremely similar to the previous one, and the reader loses very little by skipping ahead to \prettyref{sec:bcsp}. It would be more elegant if we could just reduce $\ptsp(n)$ to $\pmatch(2n)$. This requires proving that any polynomial which is zero on $V(\ptsp(n))$ is the projection of a polynomial of similar degree which is zero on $V(\pmatch(2n))$. Unfortunately we do not know how to prove this except by proving that $\ptsp$ is effective, so the reader will have to live with some repetition. 
 
 For a partial matching $M$ of $K_{n,n}$, i.e. a set of disjoint pairs from $[n] \times [n]$, define $x_M = \prod_{e \in M} x_e$ with the convention that $x_{\emptyset} = 1$. We also define $M_L = \{i \in [n] \mid \exists j: (i,j) \in M\}$ and $M_R = \{j \in [n] \mid \exists i: (i,j) \in M\}$. 
 \begin{lemma}\label{lem:tsp-monomials}
@@ -512,7 +512,7 @@ Now we move on to the third and final step, where we specialize to the \textsc{B
 Recall the third step of our strategy is to show that $p - \sigma p$ can be derived from $\pbcsp$ in low degree. It will be easier in this case as compared to \textsc{Matching} because we do not have to increase the degree of $p - \sigma p$ in order to isolate a variable to remove and do the induction. Because of this, we will be able to show that \textsc{Bisection} is actually $1$-effective and we will not lose a factor of two this time.
 We need a lemma to help us do the induction:
 \begin{lemma}\label{lem:bcsp-induct}
-Let $L \in \gen{\pbcsp(n,c)}_d$. Then $L\cdot (x_{n+1} - x_{n+2}) \in \gen{\pbcsp(n,c)}_{d+1}$.
+Let $L \in \gen{\pbcsp(n,c)}_d$. Then $L\cdot (x_{n+1} - x_{n+2}) \in \gen{\pbcsp(n+2,c+1)}_{d+1}$.
 \end{lemma}
 \begin{proof}
 It is sufficient to prove the lemma for $L \in \pbcsp(n,c)$. If $L = x_i^2 - x_i$ for some $i$, then $L \in \pbcsp(n+2,c+1)$ and so the lemma is clearly true. If $L = \sum_{i=0}^n x_i - c$, then 
@@ -592,18 +592,18 @@ Note that each term in the last equation contains a constraint in $\nphp(n-c,n-c
 \end{proof}
 
 \subsection{Effective PC$_>$ Derivations for High Degree Polynomials}
-\prettyref{lem:bcsp-highdeg-hard} tells us that we cannot hope to prove that $\pbcsp(n,c)$ has effective PC proofs, but we are not soley interested in PC proofs. In particular, because the applications we consider in this thesis are primarily focused on Semidefinite Programming, we have access to the more powerful PC$_>$ proof system. In this system, $\nphp$ is not difficult to refute, and indeed once we allow ourselves PC$_>$ proofs we can show that \textsc{Balanced-CSP} admits effective derivations.
+\prettyref{lem:bcsp-highdeg-hard} tells us that we cannot hope to prove that $\pbcsp(n,c)$ has effective HN proofs, but we are not soley interested in HN proofs. In particular, because the applications we consider in this thesis are primarily focused on Semidefinite Programming, we have access to the more powerful PC$_>$ proof system. In this system, $\nphp$ is not difficult to refute, and indeed once we allow ourselves PC$_>$ proofs we can show that \textsc{Balanced-CSP} admits effective derivations.
 \begin{lemma}\label{lem:highdeg-easy}
 Let $p = x_1x_2\dots x_c x_{c+1}$. Then $p$ has a PC$_>$ proof $\Pi$ from $\pbcsp(n,c)$ in degree $2(c+1)$ with $\|\Pi\| \leq 1$. 
 \end{lemma}
 \begin{proof}
-Recall that a PC$_>$ proof consists of two proofs of nonnegativity: one for $p$ and one for $-p$. The first is trivial: every monomial is the multilinearization of itself squared. Thus every monomial has a proof of nonnegativity in twice its degree. For the second, we observe the following identity
+Recall that a PC$_>$ proof consists of two proofs of non-negativity: one for $p$ and one for $-p$. The first is trivial: every monomial is the multilinearization of itself squared. Thus every monomial has a proof of non-negativity in twice its degree. For the second, we observe the following identity
 \[-x_1x_2\dots x_{c+1} = x_1x_2\dots x_c\left(c - \sum_i x_i\right) + \sum_{i \leq c} -(x_i^2 - x_i) \prod_{j \leq c, j\neq i} x_j + \left(\prod_{i \leq c} x_i\right) \sum_{i > c+1} x_i. \]
-The first two terms each have factors in $\pbcsp(n,c)$, and the last term is a sum of monomials with nonnegative coefficients. These monomials all have proofs of nonnegativity, and thus so does $-p$. It is simple to check that these proofs involve coefficients of merely constant size. 
+The first two terms each have factors in $\pbcsp(n,c)$, and the last term is a sum of monomials with non-negative coefficients. These monomials all have proofs of non-negativity, and thus so does $-p$. It is simple to check that these proofs involve coefficients of merely constant size. 
 \end{proof}
 
-\subsection{Effective PC Derivations for Low Degree Polynomials}
-It remains to prove that the low-degree polynomials in $\pbcsp(n,c)$ have efficient derivations. We will be able to use simple PC derivations for these polynomials. The proof is very similar to the one for \textsc{Bisection}, but we have to do a double induction on $n$ and $c$ since the balance changes in the inductive step. We will take $c \leq n/2$, since the other case is symmetric.
+\subsection{Effective HN Derivations for Low Degree Polynomials}
+It remains to prove that the low-degree polynomials in $\pbcsp(n,c)$ have efficient derivations. We will be able to use simple HN derivations for these polynomials. The proof is very similar to the one for \textsc{Bisection}, but we have to do a double induction on $n$ and $c$ since the balance changes in the inductive step. We will take $c \leq n/2$, since the other case is symmetric.
 \begin{lemma}\label{lem:lowdeg-easy}
 Fix $c \leq n/2$. Let $p \in \gen{\pbcsp(n,c)}$ with $\deg p \leq c$. Then $p$ has a derivation from $\pbcsp(n,c)$ in degree $\deg p$. 
 \end{lemma}
@@ -627,7 +627,7 @@ This problem arises when trying to reconstruct a planted sparse vector from nois
 
 These constraints are similar to the \textsc{Balanced-CSP} constraints of the previous section with one crucial difference: The variables are ternary instead of binary.
 This will complicate the analysis, but it turns out that with a bit more casework we will be able to push it through.
-However, the Pigeonhole Principle obstacle remains, and we will once again only be able to prove that low-degree polynomials have effective PC derivations.
+However, the Pigeonhole Principle obstacle remains, and we will once again only be able to prove that low-degree polynomials have effective HN derivations.
 \begin{lemma}\label{lem:bspca-complete}
 $\pspca(n,c)$ is complete for every $n$ and $c \leq n$.
 \end{lemma}
