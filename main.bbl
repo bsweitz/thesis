@@ -680,6 +680,81 @@
   \field{year}{2007}
 \endentry
 
+\entry{DM15}{inproceedings}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Deshpande}{D.}%
+     {Yash}{Y.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Montanari}{M.}%
+     {Andrea}{A.}%
+     {}{}%
+     {}{}}%
+  }
+  \name{editor}{3}{}{%
+    {{}%
+     {Grünwald}{G.}%
+     {Peter}{P.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hazan}{H.}%
+     {Elad}{E.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kale}{K.}%
+     {Satyen}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {PMLR}%
+  }
+  \strng{namehash}{DYMA1}
+  \strng{fullhash}{DYMA1}
+  \field{sortinit}{D}
+  \field{abstract}{%
+  Given a large data matrix A∈\mathbbR^n\times n, we consider the problem of
+  determining whether its entries are i.i.d. from some known marginal
+  distribution A_ij∼P_0, or instead A contains a principal submatrix A_\sf
+  Q,\sf Q whose entries have marginal distribution A_ij∼P_1≠P_0. As a
+  special case, the hidden (or planted) clique problem is finding a planted
+  clique in an otherwise uniformly random graph. Assuming unbounded
+  computational resources, this hypothesis testing problem is statistically
+  solvable provided |\sf Q|\ge C \log n for a suitable constant C. However,
+  despite substantial effort, no polynomial time algorithm is known that
+  succeeds with high probability when |\sf Q| = o(\sqrtn). Recently,
+  \citemeka2013association proposed a method to establish lower bounds for the
+  hidden clique problem within the Sum of Squares (SOS) semidefinite hierarchy.
+  Here we consider the degree-4 SOS relaxation, and study the construction of
+  \citemeka2013association to prove that SOS fails unless k\ge C\,n^1/3/\log n.
+  An argument presented by \citeBarakLectureNotes implies that this lower bound
+  cannot be substantially improved unless the witness construction is changed
+  in the proof. Our proof uses the moment method to bound the spectrum of a
+  certain random association scheme, i.e. a symmetric random matrix whose rows
+  and columns are indexed by the edges of an Erdös-Renyi random graph.%
+  }
+  \field{booktitle}{Proceedings of The 28th Conference on Learning Theory}
+  \field{pages}{523\bibrangedash 562}
+  \field{series}{Proceedings of Machine Learning Research}
+  \field{title}{Improved Sum-of-Squares Lower Bounds for Hidden Clique and
+  Hidden Submatrix Problems}
+  \verb{url}
+  \verb http://proceedings.mlr.press/v40/Deshpande15.html
+  \endverb
+  \field{volume}{40}
+  \list{location}{1}{%
+    {Paris, France}%
+  }
+  \verb{file}
+  \verb http://proceedings.mlr.press/v40/Deshpande15.pdf
+  \endverb
+  \field{year}{2015}
+\endentry
+
 \entry{DM96}{book}{}
   \name{author}{2}{}{%
     {{}%
@@ -1040,6 +1115,37 @@
   \field{volume}{42}
   \field{journaltitle}{Mathematische Annalen}
   \field{year}{1893}
+\endentry
+
+\entry{HKP15}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Hopkins}{H.}%
+     {Samuel~B.}{S.~B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kothari}{K.}%
+     {Pravesh~K.}{P.~K.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Potechin}{P.}%
+     {Aaron}{A.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{HSBKPKPA1}
+  \strng{fullhash}{HSBKPKPA1}
+  \field{sortinit}{H}
+  \field{title}{SoS and Planted Clique: Tight Analysis of {MPW} Moments at all
+  Degrees and an Optimal Lower Bound at Degree Four}
+  \verb{url}
+  \verb http://arxiv.org/abs/1507.05230
+  \endverb
+  \field{volume}{abs/1507.05230}
+  \field{journaltitle}{CoRR}
+  \field{year}{2015}
 \endentry
 
 \entry{HSS15}{article}{}
@@ -2147,10 +2253,9 @@
   \verb http://doi.acm.org/10.1145/62212.62232
   \endverb
   \list{location}{1}{%
-    {Chicago, Illinois, USA}%
+    {New York, NY, USA}%
   }
   \field{year}{1988}
-  \warn{\item Can't use 'location' + 'address'}
 \endentry
 
 \lossort

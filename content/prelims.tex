@@ -365,7 +365,7 @@ For \textsc{CSP}, $\cP = \{x_i^2 - 1 \mid i \in [n]\}$. By \prettyref{cor:csp-ef
 \end{example}
 \prettyref{prop:tb_to_sos} allows us to translate results about the Theta Body relaxations to Lasserre relaxations. In particular, in \prettyref{cha:symmetric_sdps} we will see how easy it is to prove that Theta Body relaxations are optimal among symmetric relaxations of a given size. If the constraints are effective, this allows us to conclude that Lasserre relaxations which are not too much larger achieve the same guarantees. This allows us to lower bound the size of \emph{any} symmetric SDP relaxation by finding lower bounds for Lasserre relaxations.
 
-\section{Symmetric Relaxations}\prettyref{sec:symmetric-defs}
+\section{Symmetric Relaxations}\label{sec:symmetric-defs}
 Often, the solutions to a combinatorial optimization problem exhibit many symmetries. For example, in the \textsc{Matching} problem, a maximum matching of $K_n$ is still a maximum matching even if the vertices are permuted arbitrarily. This additional structure allows for easier analysis. It is natural, then, to consider relaxations that exhibit similar symmetries. Rounding these relaxations is often more straightforward and intuitive. In this section we formally define what we mean by symmetric versions of all the problem formulations we have presented above. First, we recall some basic group theory.
 \begin{definition}
 Let $G$ be a group and $X$ be a set. We say \emph{$G$ acts on $X$} if there is a map $\phi: G \rightarrow (X \rightarrow X)$ satisfying $\phi(1)(x) = x$ and $\phi(g_1)(\phi(g_2)(x)) = \phi(g_1g_2)(x)$. In practice we omit the $\phi$ and simply write $gx$ for $\phi(g)(x)$.
