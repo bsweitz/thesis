@@ -2,13 +2,14 @@
 In this chapter we define and discuss the basic mathematical concepts needed for this dissertation.
 
 \section{Notation}
-In this section we clarify the basic notation that will be used throughout this thesis. We will use $[n]$ for the set $\{1,2,\dots,n\}$, and $[\binom{n}{2}]$ for the set $\{(i,j) \mid i,j \in [n], i \neq j\}$. For two vectors $u$ and $v$, we use $u \cdot v$ to denote the inner product $\sum_i u_i v_i$. For matrices $A$ and $B$ with the same dimensions, we use $A^T$ to denote the transpose and $A \cdot B$ to denote the inner product $\Tr[AB^T] = \sum_{ij} A_{ij}B_{ij}$. We will also use $\cdot$ to emphasize multiplication. We use $\R_+$ to denote the space of positive reals, and $\R^{m \times n}$ to denote the space of $m \times n$ matrices. We use $\mathbb{S}^{n}$ to denote the space of $n \times n$ symmetric matrices.
+In this section we clarify the basic notation that will be used throughout this thesis. We will use $[n]$ for the set $\{1,2,\dots,n\}$, and $[\binom{n}{2}]$ for the set $\{(i,j) \mid i,j \in [n], i \neq j\}$. For two vectors $u$ and $v$, we use $u \cdot v$ to denote the inner product $\sum_i u_i v_i$. For a matrix $A$, we use $A^T$ to denote the transpose of $A$. For matrices $A$ and $B$ with the same dimensions, we use $A \cdot B$ or $\langle A,B \rangle$ to denote the inner product $\Tr[AB^T] = \sum_{ij} A_{ij}B_{ij}$. We will also use $\cdot$ to emphasize multiplication. We use $\R_+$ to denote the space of positive reals, and $\R^{m \times n}$ to denote the space of $m \times n$ matrices. We use $\mathbb{S}^{n}$ to denote the space of $n \times n$ symmetric matrices.
 \begin{definition}
-A matrix $A \in \mathbb{S}^{n}$ is called \emph{positive semidefinite} if any of the following equivalent conditions holds:
+A matrix $A \in \mathbb{S}^{n}$ is called \emph{positive semidefinite} (PSD) if any of the following equivalent conditions holds:
 \begin{itemize}
 \item $v^TAv \geq 0$ for every $v \in \R^n$.
 \item $A = \sum_i \lambda_i v_iv_i^T$ for some $\lambda_i \geq 0$ and $v_i \in \R^n$.
 \item Every eigenvalue of $A$ is non-negative.
+\item $A \cdot B \geq 0$ for every positive semidefinite $B$.
 \end{itemize}
 \end{definition}
 We use $\psd{n}$ to denote the space of positive semidefinite $n \times n$ matrices, and we write $A \succeq 0$ interchangeably with $A \in \psd{n}$. If every eigenvalue of $A$ is \emph{positive}, then we say $A$ is \emph{positive definite} and write $A \succ 0$. The set of positive definite matrices is the interior of the set of positive semidefinite matrices.
@@ -50,7 +51,7 @@ Let $P$ be the SDP $(C, \{A_i, b_i\}_{i=1}^m)$ and let $D$ be its dual. If $X$ i
 \section{Polynomial Ideals and Polynomial Proof Systems}\label{sec:polyproofs}
 We write $p(x)$ or sometimes just $p$ for a polynomial in $\R[x_1,\dots,x_n]$, and $\cP$ for a set of polynomials.
 We will often also use $q$ and $r$ for polynomials and $\cQ$ for a second set of polynomials.
-\begin{definition}
+\begin{definition}\label{def:ideals}
 Let $\cP,\cQ$ be any sets of polynomials in $\R[x_1,\dots,x_n]$, and let $S$ be any set of points in $\R^n$.
 \begin{itemize}
 \item We call $V(\cP) = \{x \in \R^n \mid \forall p \in \cP: p(x) = 0\}$ the \emph{real variety} of $\cP$.
