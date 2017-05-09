@@ -71,7 +71,7 @@ For the rest of this chapter, we pick $\mu$ to be the uniform distribution over 
 \subsection{Robust Satisfaction}
 How difficult is it to ensure that $S$ robustly satisfies the inequalities $\cQ$? For one, if $\epsilon = \min_{q \in \cQ} \min_{\alpha \in V(\cP) \setminus H(\cQ)} |q(\alpha)| > 0$, then we can perturb the constraints in $\cQ$ slightly without changing the underlying solution space $S$ so that $S$ $\epsilon/2$-robustly satisfies $\cQ$. Simply make $\cQ'$ by replacing each $q \in \cQ$ with $q' = q + \epsilon/2$. Clearly for $\alpha \in S$, $q'(\alpha) = q(\alpha) + \epsilon/2 \geq \epsilon/2$. Furthermore, we still have $S = V(\cP) \cap H(\cQ')$ by the definition of $\epsilon$. For many combinatorial optimization problems, their solution spaces are discrete and separated, and so this $\epsilon$ is appreciably large, so there is no issue. 
 \begin{example}
-Consider the \textsc{Balanced-Separator} constraints: $\cP = \{x_i^2 - x_i \mid i \in [n]\}$ and $\cQ = \{2n/3 - \sum_i x_i, \sum_i x_i - n/3\}$. The solution space $S$ is the set of binary strings with between $n/3$ and $2n/3$ ones. If $n$ is divisble by $3$, then $S$ does not robustly satisfy $\cQ$, since there are strings with exactly $n/3$ ones. However there is a very simple fix by setting $\cQ' = \{2n/3 + 1/2 - \sum_i x_i, \sum_i x_i + 1/2 - n/3\}$. Then $S$ is $1/2$-robust for $\cQ'$, and since $\sum_i x_i$ is a sum of Boolean variables, any point in $V(\cP)$ changes the sum by integer numbers. Thus adding $1/2$ to the constraints does not change $V(\cP) \cap H(\cQ)$.
+Consider the \textsc{Balanced-Separator} constraints: $\cP = \{x_i^2 - x_i \mid i \in [n]\}$ and $\cQ = \{2n/3 - \sum_i x_i, \sum_i x_i - n/3\}$. The solution space $S$ is the set of binary strings with between $n/3$ and $2n/3$ ones. If $n$ is divisible by $3$, then $S$ does not robustly satisfy $\cQ$, since there are strings with exactly $n/3$ ones. However there is a very simple fix by setting $\cQ' = \{2n/3 + 1/2 - \sum_i x_i, \sum_i x_i + 1/2 - n/3\}$. Then $S$ is $1/2$-robust for $\cQ'$, and since $\sum_i x_i$ is a sum of Boolean variables, any point in $V(\cP)$ changes the sum by integer numbers. Thus adding $1/2$ to the constraints does not change $V(\cP) \cap H(\cQ)$.
 \end{example}
 While we do not have a generic theorem that shows most problems satisfy robust satisfaction, we have not yet encountered a situation where it was the bottleneck. The technique described above has always sufficed.
 
@@ -232,10 +232,10 @@ Define $\phi$ by linearly extending its action on monomials, defined by:
 Clearly $\phi[\epsilon - x_1] = -\epsilon$, thus satisfying condition (1). Condition (2) is obviously satisfied if $\sigma$ is a monomial, and linearity of $\phi$ implies that it holds for any polynomial $\sigma$. For condition (3), if $\lambda$ is a monomial, then $\phi[\lambda x_n^2] \leq \phi[x_n^2] = (2\epsilon)^{2^{n}}$. If $\lambda$ is not a monomial, it has at most $n^d$ monomials, and maximum coefficient at most $\|\lambda\|$. Then by linearity of $\phi$, we have $\phi[\lambda x_n^2] \leq (2\epsilon)^{2^n}n^d\|\lambda\|$. For condition (4), note that $\phi$ is multiplicative. Then clearly $\phi[p^2] = \phi[p]^2 \geq 0$. 
 \end{proof}
 
-Even though $r$ does not have any efficient PC$_>$ proofs of non-negativity, this example does not achieve our goal of exhibiting a system that contains all the boolean constraints. We show how to modify it in the following section.
+Even though $r$ does not have any efficient PC$_>$ proofs of non-negativity, this example does not achieve our goal of exhibiting a system that contains all the Boolean constraints. We show how to modify it in the following section.
 
 \subsection{A Boolean System}
-One simple way to try to make the system boolean is to just add the constraints $x_i^2 - x_i$ to $\cP$. Unfortunately, this introduces new proofs for $\epsilon - x_i$, and they have low bit complexity. To see this, it is clear that $x_i^2 - x_i \cong x_{i+1} - x_i$, and by adding these together, we can get a telescoping sum and derive $x_n - x_1$. But now $x_n - x_1 \cong x_n^2 - x_1 \cong -x_1$, and thus $x_1 \in \gen{\cP}_2$. Because HN proofs are linear, $x_1$ has a derivation $\sum_p \lambda_p p$ with low bit complexity, which can be used to write a PC$_>$ proof for 
+One simple way to try to make the system Boolean is to just add the constraints $x_i^2 - x_i$ to $\cP$. Unfortunately, this introduces new proofs for $\epsilon - x_i$, and they have low bit complexity. To see this, it is clear that $x_i^2 - x_i \cong x_{i+1} - x_i$, and by adding these together, we can get a telescoping sum and derive $x_n - x_1$. But now $x_n - x_1 \cong x_n^2 - x_1 \cong -x_1$, and thus $x_1 \in \gen{\cP}_2$. Because HN proofs are linear, $x_1$ has a derivation $\sum_p \lambda_p p$ with low bit complexity, which can be used to write a PC$_>$ proof for 
 \[\epsilon - x_1 = \sqrt{\epsilon}^2 + \lambda_p p.\]
 By constraining the variables $x_i$ we add new ways to formulate proofs. We want to add constraints in a way that PC$_>$ proofs do not realize that the $x_i$ are actually constrained further.
 
@@ -263,7 +263,7 @@ Let $0 < \delta < 1$. Then there exists a linear function $\phi_\delta: \R[X]_d 
 \item[(3)] $\phi_\delta[p^2] \geq 0$ for any polynomial $p$ of degree at most $Ck/2$.
 \end{enumerate}
 \end{lemma}
-The lemma is equivalent to claiming that a PC$_>$ refutation for that system of equations (Knapsack) requires degree $Ck$. Since $\delta$ is not an integer and each $w_{ij}$ is boolean, obviously $\sum_j w_{ij} - k - \delta = 0$ is unsatisfiable, but because there is no PC$_>$ proof until degree $Ck$, the linear function $\phi_\delta$ exists. We will use these linear functions to pretend that $\sum_j w_{ij} - k = (2\epsilon)^{2^{i-1}}$ and mimic the proof in \prettyref{lem:nonbool-complex}.
+The lemma is equivalent to claiming that a PC$_>$ refutation for that system of equations (Knapsack) requires degree $Ck$. Since $\delta$ is not an integer and each $w_{ij}$ is Boolean, obviously $\sum_j w_{ij} - k - \delta = 0$ is unsatisfiable, but because there is no PC$_>$ proof until degree $Ck$, the linear function $\phi_\delta$ exists. We will use these linear functions to pretend that $\sum_j w_{ij} - k = (2\epsilon)^{2^{i-1}}$ and mimic the proof in \prettyref{lem:nonbool-complex}.
 
 \begin{lemma}\label{lem:boolean-complex}
 Let $r = \epsilon - \left(\sum_j w_{ij} - k\right)$ and $\epsilon < 1/2$. Then any degree-$Ck$ PC$_>$ proof of non-negativity for $r$ from $\cP'$ contains a polynomial of norm at least $\Omega\left(\frac{1}{(nk)^d} \cdot \left(\frac{1}{2\epsilon}\right)^{2^n}\right)$.
@@ -287,7 +287,7 @@ Again, linearity implies that the same holds for any polynomial of degree at mos
 \[\Phi\left[\lambda\cdot \left(\left(\sum_{j} w_{ij} - k\right)^2 - \left(\sum_j w_{i+1,j} - k\right)\right)\right] = 0,\]
 as well as
 \[\left|\Phi\left[\lambda \cdot \left(\sum_j w_{nj} - k\right)^2\right]\right| = (2\epsilon)^{2^n}\left|\Phi[\lambda]\right| \leq (2\epsilon)^{2^n}(nk)^d\|\lambda\|,\]
-where the $(nk)^d$ appears because there are at most that many monomials of degree $d$, and since every variable is boolean, $\Phi$ is at most $1$ on any monomial. 
+where the $(nk)^d$ appears because there are at most that many monomials of degree $d$, and since every variable is Boolean, $\Phi$ is at most $1$ on any monomial. 
 
 The only remaining condition to prove is that $\Phi$ is non-negative on squares. Define the linear operator $T_i: \R[W_1, W_2,\dots,W_i] \rightarrow \R[W_1,\dots,W_{i-1}]$ with $T_i[\prod_{j\leq i} \sigma_j] = \phi_i[\sigma_i] \cdot \prod_{j < i} \sigma_j$. Clearly $\Phi[\lambda] = T_1T_2\dots T_n[\lambda]$. We claim that for any $i$, and any $\lambda$, $T_i[\lambda^2]$ is a sum-of-squares polynomial. This, together with the fact that each $\phi_i$ is non-negative on squares, implies that $\Phi$ is non-negative on squares.
 
