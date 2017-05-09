@@ -2,7 +2,7 @@
 In this chapter we define and discuss the basic mathematical concepts needed for this dissertation.
 
 \section{Notation}
-In this section we clarify the basic notation that will be used throughout this thesis. For two vectors $u$ and $v$, we use $u \cdot v$ to denote the inner product $\sum_i u_i v_i$. For matrices $A$ and $B$ with the same dimensions, we use $A^T$ to denote the transpose and $A \cdot B$ to denote the inner product $\Tr[AB^T] = \sum_{ij} A_{ij}B_{ij}$. We will also use $\cdot$ to emphasize multiplication. We use $\R_+$ to denote the space of positive reals, and $\R^{m \times n}$ to denote the space of $m \times n$ matrices. We use $\mathbb{S}^{n}$ to denote the space of $n \times n$ symmetric matrices.
+In this section we clarify the basic notation that will be used throughout this thesis. We will use $[n]$ for the set $\{1,2,\dots,n\}$, and $[\binom{n}{2}]$ for the set $\{(i,j) \mid i,j \in [n], i \neq j\}$. For two vectors $u$ and $v$, we use $u \cdot v$ to denote the inner product $\sum_i u_i v_i$. For matrices $A$ and $B$ with the same dimensions, we use $A^T$ to denote the transpose and $A \cdot B$ to denote the inner product $\Tr[AB^T] = \sum_{ij} A_{ij}B_{ij}$. We will also use $\cdot$ to emphasize multiplication. We use $\R_+$ to denote the space of positive reals, and $\R^{m \times n}$ to denote the space of $m \times n$ matrices. We use $\mathbb{S}^{n}$ to denote the space of $n \times n$ symmetric matrices.
 \begin{definition}
 A matrix $A \in \mathbb{S}^{n}$ is called \emph{positive semidefinite} if any of the following equivalent conditions holds:
 \begin{itemize}
@@ -100,6 +100,24 @@ Let $\cP = \{p_1, p_2, \dots, p_n\}$ be a set of polynomials. We say that \emph{
 and $\max_i \deg(\lambda_i \cdot p_i) \leq d$. We often call this polynomial identity a Nullstellensatz (HN) proof, derivation, or certificate from $\cP$. We also write $r_1 \cong_d r_2$ if $r_1 - r_2$ has a derivation from $\cP$ in degree $d$. We write $\gen{\cP}_d$ for the polynomials with degree $d$ derivations from $\cP$ (\emph{not} the degree $d$ polynomials in $\gen{\cP}$!).
 \end{definition}
 
+The following is an important result which connects derivations to the feasibility of a polynomial system of equations.
+\begin{lemma}[Hilbert's Weak Nullstellensatz \cite{}]\label{lem:nullstellensatz}
+$1 \in \gen{\cP}$ if and only if $\cP$ is infeasible. In other words, there is no $\alpha \in \R^n$ such that $p(\alpha) = 0$ for every $p \in \cP$.
+\end{lemma}
+A derivation of $1$ from $\cP$ is called an \emph{HN refutation of $\cP$}.
+It is a study of considerable interest to bound the degree of refutations for various systems of polynomial equations \cite{BIKPP94,BT98,Gri98,BGIP01}.
+However, in this thesis we will primarily concern ourselves with feasible systems of polynomial equations, so we will mostly use the Nullstellensatz to argue that the only constant polynomial in $\gen{\cP}$ is the zero polynomial. 
+
+The following lemma is an easy but important fact, which we will use to construct derivations in \prettyref{cha:effective_derivations}.
+\begin{lemma}\label{lem:derivation-chain}
+If $q_0 \cong_{d_1} q_1$ and $q_1 \cong_{d_2} q_2$, then $q_0 \cong_d q_2$ where $d = \max(d_1, d_2)$.
+\end{lemma}
+\begin{proof}
+We have the polynomial identities
+\[q_i - q_{i+1} = \sum_{p \in \cP} \lambda_{ip} \cdot p\]
+for $i = 0$ and $i = 1$. Adding the two identities together gives a derivation for $q_0 - q_2$. The degrees of the polynomials appearing in derivation are clearly bounded by $\max(d_1,d_2)$. 
+\end{proof}
+
 The problem of finding a degree-$d$ HN derivation for $r$ can be expressed as a linear program with $n^d|\cP|$ variables, since the polynomial identity is linear in the coefficients of the $\lambda_i$. Thus if such a derivation exists, it is possible to find efficiently in time polynomial in $n^d|\cP|$, $\log \|\cP\|$ and $\log \|r\|$. These parameters are all polynomially related to the size required to specify the input: $(r,\cP,d)$.
 \begin{definition}
 We say that $\cP$ is \emph{$k$-effective} if $\cP$ is complete and every polynomial $p \in \gen{\cP}$ of degree $d$ has a HN proof from $\cP$ in degree $kd$.
@@ -144,7 +162,7 @@ Let $\cP$ and $\cQ$ be two sets of polynomials. A polynomial $r(x)$ is said to h
 where $s(x)$, and each $s_q(x)$ are SOS polynomials, and $\max_{pq}(\deg s, \deg s_qq, \deg \lambda_pp) \leq d$. We often call this polynomial identity a Positivestellensatz Calculus (PC$_>$) proof of non-negativity, derivation, or certificate from $\cP$ and $\cQ$.
 We often identify the proof with the set of polynomials $\Pi = \{s\} \cup \{s_q \mid q\in \cQ\} \cup \{\lambda_p \mid p \in \cP\}$.
 
-%If $\cQ = \emptyset$ and both $r(x)$ and $-r(x)$ have PC$_>$ proofs of non-negativity from $\cP$, then we say that $r$ has a PC$_>$ derivation.
+If $\cQ = \emptyset$ and both $r(x)$ and $-r(x)$ have PC$_>$ proofs of non-negativity from $\cP$, then we say that $r$ has a PC$_>$ derivation.
 \end{definition}
 
 If $r$ has a PC$_>$ proof of non-negativity from $\cP$ and $\cQ$, then $r$ is non-negative on $S = V(\cP) \cap H(\cQ)$. This can be seen by noticing that the first two terms in the proof are non-negative because they are sums of products of polynomials which are non-negative on $S$, and the final term is of course zero on $S$ because it is in $\gen{\cP}$.

@@ -1,20 +1,19 @@
 \chapter{Effective Derivations}\label{cha:effective_derivations}
-In this section we prove that many natural sets of polynomials $\cP$ arising from polynomial formulations for combinatorial optimization problems are effective. This means that the problem of determining if a polynomial $p$ is in the ideal $\gen{\cP}$ has a simple solution in time polynomial in $n^{\deg p}$ and $\log \|p\|$, which is the size required to specify the input $p$. When $\cP$ is complete, this is equivalent to determining if $p(\alpha) = 0$ for every $\alpha \in V(\cP)$. In \prettyref{cha:bit_complexity} and \prettyref{cha:symmetric_sdps} we will see two applications of solving this problem. We start with the sets of polynomials designed to solve this problem.
+In this section we prove that many natural sets of polynomials $\cP$ arising from polynomial formulations for combinatorial optimization problems are $k$-effective with $k$ a constant. This means that the problem of determining if a polynomial $p$ is in the ideal $\gen{\cP}$ can be solved simply by solving a linear system with $n^{O(\deg p)}$ variables. This can be done in time polynomial in $n^{\deg p}$ and $\log \|p\|$, which is the size required to specify the input $p$. When $\cP$ is complete, this is equivalent to determining if $p(\alpha) = 0$ for every $\alpha \in V(\cP)$. In \prettyref{cha:bit_complexity} and \prettyref{cha:symmetric_sdps} we will see that determining if $\cP$ is $k$-effective has important consequences for studying the Sum-of-Squares relaxations on the polynomial optimization problem determined by the equality constraints $\cP$. 
 
 \section{Gr\"obner Bases}
-Recall the definition of Gr\"obner basis from \prettyref{def:grobner}. The following lemma is an obvious consequence of the division algorithm.
+Recall the definition of Gr\"obner basis from \prettyref{def:grobner}, and in particular recall that we can define a multivariate divison algorithm with respect to a Gr\"obner basis such that every polynomial has a unique remainder. The following lemma is an obvious consequence of the division algorithm.
 \begin{lemma}\label{lem:grobnereffective}
 Let $\cP$ be a Gr\"obner basis. Then $\cP$ is $1$-effective.
 \end{lemma}
 \begin{proof}
-By \prettyref{prop:grobner-unique}, total reduction by $\cP$ is well-defined, and in fact there is a unique 
-remainder. Let $r \in \gen{\cP}$ be of degree $d$, and consider the total reduction of $r$ by $\cP$. Because $r \in \gen{\cP}$, the only total reduction of $r$ by $\cP$ is $0$. If we enumerate the polynomials that are produced by the iterative reductions $r = r_0, r_1, \dots, r_N = 0$, then 
+Let $r \in \gen{\cP}$ be of degree $d$, and consider the remainder of $r$ after dividing by $\cP$. Because $r \in \gen{\cP}$, and remainders are unique, the only possible remainder is the zero polynomial. If we enumerate the polynomials that are produced by the iterative reductions $r = r_0, r_1, \dots, r_N = 0$, then 
 $r_i = r_{i+1} + q_{i+1}p_{i+1}$, where $p_{i+1} \in \cP$, $\deg r_{i+1} \leq \deg r_i$, and $\deg q_{i+1}p_{i+1} \leq \deg r_i$. Combining all these sums into one, we get
 $r = \sum_i q_i p_i$, which is a derivation of degree $d$. 
 \end{proof}
 \prettyref{lem:grobnereffective} is unsurprising, as Gr\"obner bases first originated as a method to solve the polynomial ideal problem \cite{Buch65}. 
 While Gr\"obner bases yield positive results, they are often unwieldy, complicated, and above all extremely expensive to compute. 
-Even so, there are several important combinatorial optimization problems that have constraints which are Gr\"obner bases, like \prettyref{ex:grobner}:
+Even so, there are several important combinatorial optimization problems that have constraints which are Gr\"obner bases, one of which we used in \prettyref{ex:grobner}.
 \begin{corollary}\label{cor:csp-effective}
 The \textsc{CSP} formulation $\pcsp = \csp$ is $1$-effective.
 \end{corollary}
@@ -37,10 +36,10 @@ zero polynomial.
 \end{proof}
 
 Of course, not every problem is so neatly described by a small Gr\"obner basis. There are many natural problems whose solution spaces have a small set of generating
-polynomials which are not Gr\"obner bases, and indeed their Gr\"obner bases can be exponentially large and exceedingly difficult to compute. 
+polynomials which are not Gr\"obner bases, and indeed their Gr\"obner basis can be exponentially. 
 Even though the generating polynomials are not a Gr\"obner basis, they can still be $k$-effective for constant $k$, and thus admit a good algorithm for membership.
 
-\section{Proof Strategy for Symmetric Solution Spaces}
+\section{Proof Strategy for Symmetric Solution Spaces}\label{sec:strategy}
 In this section we describe our main proof strategy to show that a set of polynomials $\cP$ is effective. 
 We apply this strategy to combinatorial optimization problems which have a natural symmetry to their solution spaces $V(\cP)$. 
 For each of these problems, we will define an $\sym{m}$-action on $[n]$, which extends to an action on $\R[x_1,\dots,x_n]$ as well as $\R^n$ by permutation of variable names and indices respectively. 
@@ -53,35 +52,35 @@ After the group action is defined, our proof strategy follows in three steps:
 \item[(3)] Prove that for every $\sigma \in \sym{m}$, $p - \sigma p$ has a derivation from $\cP$ in degree at most $k \deg p$, for some constant $k$. This is performed by induction on a natural parameter of the combinatorial optimization problem. Generally speaking, the more complicated the solution space for the problem, the worse bounds we can prove for the constant $k$. 
 \end{enumerate}
 We use this general strategy to prove that many polynomial formulations for different natural combinatorial optimization problems admit effective derivations. 
-Our efforts to find a unifying theory that explains the effectiveness of this strategy on the different problems have failed, so we have to prove that each $\cP$ is effective on a case-by-case basis.  
+Our efforts to find a unifying theory that explains the effectiveness of this strategy on the different problems have failed, so we have to prove that each set of polynomials is effective on a case-by-case basis.  
 
 %Intuitively speaking, this means that their solution spaces are simple and easily explained. Any polynomial fact over the solution space
 %can be proven using a proof of only roughly the same complexity of the fact.  
 \section{Effective Derivations for \textsc{Matching}}
-Fix an even integer $n$, then \textsc{Matching} has a polynomial formulation on $\binom{n}{2}$ variables with constraints
+Fix an even integer $n$. Then the \textsc{Matching} problem has a polynomial formulation on $\binom{n}{2}$ variables with constraints
 \begin{align}
 \label{eq:matching-formulation}\pmatch(n) &= \alignmatching.
 \end{align}
-We abuse notation slightly and use $x_{ij}$ and $x_{ji}$ equivalently. We omit the dependence on $n$ when it is clear from context. For an element $\sigma$ of the symmetric group $\sym{n}$, we define the action of $\sigma$ on a variable by $\sigma x_{ij} = x_{\sigma(i)\sigma(j)}$.
+The first group of polynomials ensures the variables are boolean. The second group of polynomials ensures each vertex is matched to another vertex. The last group of polynomials ensures that each vertex is not matched to multiple vertices. We abuse notation slightly and use $x_{ij}$ and $x_{ji}$ equivalently. We omit the dependence on $n$ when it is clear from context. For an element $\sigma$ of the symmetric group $\sym{n}$, we define the action of $\sigma$ on a variable by $\sigma x_{ij} = x_{\sigma(i)\sigma(j)}$.
 We define the action of $\sigma$ on a monomial by extending this action multiplicatively, and the action of $\sigma$ on a full polynomial by extending linearly.
 Note that $\pmatch$ is fixed by the action of every $\sigma$, as are its solutions $V(\pmatch)$ corresponding to the matchings of $K_n$. 
-Thus for any $p \in \pmatch$, we also have $\sigma p \in \pmatch$. For a partial matching $M$, i.e. a set of disjoint pairs from $[n]$, define $x_M = \prod_{e \in M} x_e$ with the convention that $x_{\emptyset} = 1$.
+Thus for any $p \in \pmatch$, we also have $\sigma p \in \pmatch$. For a partial matching $M$, i.e. a set of disjoint pairs from $[\binom{n}{2}]$, define $x_M = \prod_{e \in M} x_e$ with the convention that $x_{\emptyset} = 1$.
 First, we note an easy lemma on the structure of polynomials in $\gen{\pmatch}$:
 \begin{lemma}\label{lem:monomials}
-  Let $p$ be any polynomial. Then there is a multilinear polynomial $q$ such that every monomial of $q$ is a partial matching monomial, and $p-q \in \gen{\pmatch}_d$.
+  Let $p$ be any polynomial. Then there is a multilinear polynomial $q$ such that every monomial of $q$ is a partial matching monomial, and $p-q \in \gen{\pmatch}_{\deg p}$.
 \end{lemma}
 \begin{proof}
 It suffices to prove the lemma when \(p\) is a monomial. Let
 \(p = \prod_{e \in A} x_{e}^{k_{e}}\)
 for a set \(A\) of edges with multiplicities \(k_{e} \geq 1\).
 From the constraint \(x_{e}^{2} - x_e\), it follows that
-$\prod_{e \in A} x_e^{k_e} - \prod_{e \in A} x_e$ has a derivation from $\pmatch$ in degree $\deg p$.
+$\prod_{e \in A} x_e^{k_e} - C\prod_{e \in A} x_e$ has a derivation from $\pmatch$ in degree $\deg p$, for some constant $C$.
 Now if $A$ is a partial matching we are done, otherwise there exist edges $f,g \in A$ which are not disjoint.
 But then $x_fx_g \in \pmatch$, and so $\prod_{e \in A} x_e$ has a derivation from $\pmatch$ in degree $|A|$, which implies the statement.
 \end{proof}
 With \prettyref{lem:monomials} in hand, we complete step (1) of our strategy:
 \begin{lemma}\label{lem:matching-complete}
-Then $\gen{\pmatch(n)}$ is complete for any even $n$. 
+$\gen{\pmatch(n)}$ is complete for any even $n$. 
 \end{lemma}
 \begin{proof}
 Let $p$ be a polynomial such that $p(\alpha) = 0$ for each $\alpha \in V(\pmatch)$. By \prettyref{lem:monomials}, we can assume that $p(x)$ is a multilinear polynomial whose monomials correspond to partial matchings. For such a partial matching $M$, clearly $x_M - x_M\prod_{u \notin M} \sum_v x_{uv}$ has a derivation in degree $n$ using the constraints $\sum_v x_{uv} - 1 \in \pmatch$. By eliminating terms which do not correspond to partial matchings, we get $x_M - \sum_{M': M \subset M'} x_{M'} \in \gen{\pmatch}$. Doing this to every monomial, we determine there is a polynomial $p'$ which is homogeneous of degree $n$ such that $p - p' \in \gen{\pmatch}$. Now since the coefficients of $p'$ correspond exactly to perfect matchings, for each monomial in $p'$, theres an $\alpha \in V(\pmatch)$ such that the coefficient of the monomial is $p'(\alpha)$. Since $p'(\alpha) = 0$ for every $\alpha \in V(\pmatch)$, it must be that $p' = 0$, and so $p \in \gen{\pmatch}$.
@@ -192,7 +191,7 @@ we obtain:
   \end{split}
   .
 \end{equation*}
-where in the second step the factor \(2(k - d)\) accounts for the different choices of $\{u,v\}$ that can lead to extending $M$ to $M'$.
+where in the second step the factor \(2(k - d)\) accounts for the different choices of $\{i,j\}$ that can lead to extending $M$ to $M'$.
 \end{proof}
 Finally, we can prove the first main lemma:
 
@@ -213,17 +212,16 @@ Finally, apply \prettyref{lem:partial-matching} with $d = 0$:
   \end{split}
 \end{equation*}
 \end{proof}
-As a corollary, we get that when $p \in \gen{\pmatch}$, then the constant must be zero.
 \begin{corollary}\label{cor:constantiszero}
 If $p \in \gen{\pmatch}$, then $\sum_{\sigma \in \sym{n}} \sigma p$ has a derivation from $\pmatch$ in degree $\deg p$.
 \end{corollary}
 \begin{proof}
 Apply \prettyref{lem:constant} to obtain a constant $c_p$ such that $\sum_{\sigma \in \cS_n} \sigma p \cong c_p$. 
-Now since $p \in \gen{\pmatch}$, $c_p \in \gen{\pmatch}$ as well. But the only constant polynomial in $\gen{\pmatch}$ is $0$.
+Now since $p \in \gen{\pmatch}$, $c_p \in \gen{\pmatch}$ as well. But the only constant polynomial in $\gen{\pmatch}$ is $0$ by \prettyref{lem:nullstellensatz}.
 \end{proof}
 
 \subsection{Getting to a Symmetric Polynomial}
-In order to apply \prettyref{lem:constant} to a general polynomial $p$, we need to show how to derive the difference polynomial $p - \sum_{\sigma \in \sym{n}} \sigma p$ from $\pmatch$. Our proof will be by an induction on the number of vertices $n$. Because the number of vertices will be changing in this section, we will stop omitting the dependence on $n$.
+Now by \prettyref{lem:derivation-chain} and \prettyref{lem:constant}, it suffices to exhibit a derivation of the difference polynomial $p - \sum_{\sigma \in \sym{n}} \sigma p$ from $\pmatch$ in low degree. Our proof will be by an induction on the number of vertices $n$. Because the number of vertices will be changing in this section, we will stop omitting the dependence on $n$.
 The next lemma will allow us to apply induction:
 \begin{lemma}
   \label{lem:degree-increase}
@@ -232,22 +230,22 @@ The next lemma will allow us to apply induction:
 \end{lemma}
 \begin{proof}
 It suffices to prove the statement for $L \in \pmatch(n)$. 
-If $L = x_{ij}^2 - x_{ij}$ or $L = x_{ij}x_{ik}$, the claim clearly true because $L \in \pmatch(n+2)$.
-Then let $L = \sum_j x_{ij} - 1$ for some $i \in [n]$, and note that 
+If $L = x_{ij}^2 - x_{ij}$ or $L = x_{ij}x_{ik}$, the claim is clearly true because $L \in \pmatch(n+2)$.
+So consider $L = \sum_j x_{ij} - 1$ for some $i \in [n]$, and note that 
 \begin{align*}
 L\cdot x_{n+1,n+2} - \left(\sum_{j=1}^{n+2} x_{ij} - 1\right)x_{n+1,n+2} &= -x_{i,n+1}x_{n+1,n+2} - x_{i,n+2}x_{n+1,n+2} \\
 &\cong_2 0.
 \end{align*}
 \end{proof}
 
-We are now ready to prove the main theorem of this section, that the matching constraints $\pmatch(n)$ admit effective derivations. 
+We are now ready to prove the main theorem of this section.
 \begin{theorem}\label{thm:matching-effective}
 Let $p \in \gen{\pmatch(n)}$, and let $d = \deg p$. Then $p$ has a derivation from $\pmatch(n)$ in degree $2d$. 
 \end{theorem}
 \begin{proof}
-By \prettyref{lem:monomials}, we can assume that $p$ is a multilinear polynomial whose monomials correspond to partial matchings.
+By \prettyref{lem:monomials}, we can assume without loss of generality that $p$ is a multilinear polynomial whose monomials correspond to partial matchings.
 As promised, our proof is by induction on $n$. Consider the base case of $n = 2$. 
-Then $V(\pmatch(2)) = \{1\}$ and either $p$ is a constant or linear polynomial.
+Then $V(\pmatch(2)) = \{1\}$ and since there is only one variable, either $p$ is a constant or linear polynomial.
 The only such polynomials that are zero on $V(\pmatch(2))$ are $0$ and scalar multiples of $x_{12} - 1$. 
 The former case has the trivial derivation, and the latter case is simply an element of $\pmatch(2)$. 
 
@@ -256,10 +254,10 @@ Let $p \in \gen{\pmatch(n)}$ be multilinear of degree $d$ whose monomials corres
 We consider the polynomial $\Delta = p - \sigma p$. Note that $\Delta \in \gen{\pmatch(n)}$, and any monomial which does not match either $i$ or $j$, or a monomial which matches $i$ to $j$, will not appear in $\Delta$ as it will be canceled by the subtraction.
 Thus we can write
 \[\Delta = \sum_{e: i \in e \text{ or } j \in e} L_e x_e,\]
-with each $L_e$ having degree at most $d-1$. Our goal is to remove two of the variables in these matchings in order to apply induction. In order to do that, we will need each term to depend not only on either $i$ or $j$, but both. To this end, we multiply each term by the appropriate polynomial $\sum_k x_{ik}$ or $\sum_k x_{jk}$ to obtain
+with each $L_e$ having degree at most $d-1$. Our goal is to remove two of the variables in these matchings in order to apply induction. In order to do that, we will need each term to depend not only on either $i$ or $j$, but both. To this end, we multiply each term by the appropriate polynomial $\sum_k x_{ik}$ or $\sum_k x_{jk}$ (recall that $\sum_k x_{ik} - 1 \in \cP(n)$) to obtain
 \[\Delta \cong_{d+1} \sum_{k_1k_2} L_{k_1k_2} x_{ik_1}x_{jk_2}.\]
 We can think of the RHS polynomial as being a partition over the possible different ways to match $i$ and $j$.
-Furthermore, because of the constraints of type $x_{ij}x_{ik}$, we can take $L_{k_1k_2}$ to be independent of $x_e$ for any $e$ incident to any of $i,j,k_1,k_2$. 
+Furthermore, because of the elements of $\cP$ of type $x_{ij}x_{ik}$, we can take $L_{k_1k_2}$ to be independent of $x_e$ for any $e$ incident to any of $i,j,k_1,k_2$. 
 We argue that $L_{k_1k_2} \in \pmatch(n-4)$. We know that $\Delta(\alpha) = 0$ for any $\alpha \in V(\pmatch(n))$. Let $\alpha \in V(\pmatch(n))$ such that $\alpha_{ik_1} = 1$ and $\alpha_{jk_2} = 1$. 
 Then it must be that $\alpha_{ik} = 0$ and $\alpha_{jk} = 0$ for any other $k$, since otherwise $\alpha \notin V(\pmatch(n))$.
 Thus $\Delta(\alpha) = L_{k_1k_2}(\alpha)$. Since $L_{k_1k_2}$ is independent of any edge incident to $i,j,k_1,k_2$, it does not involve those variables, so $L_{k_1k_2}(\alpha) = L_{k_1k_2}(\beta)$, where $\beta$ is the restriction of $\alpha$ to the $\binom{n-4}{2}$ variables which $L_{k_1k_2}$ depends on. But such a $\beta$ is simply an element of $V(\pmatch(n-4))$, and all elements of $V(\pmatch(n-4))$ can be obtained this way. Thus $L_{k_1k_2}$ is zero on all of $V(\pmatch(n-4))$, and by \prettyref{lem:matching-complete}, $L_{k_1k_2} \in \gen{\pmatch(n-4)}$. Now by the inductive hypothesis, $L_{k_1k_2}$ has a derivation from $\pmatch(n-4)$ of degree at most $2d-2$. By two applications of \prettyref{lem:degree-increase}, $L_{k_1k_2}x_{ik_1}x_{jk_2}$ has a derivation from $\pmatch(n)$ of degree at most $2d$, and thus so does $\Delta$.
@@ -271,9 +269,9 @@ Because transpositions generate the symmetric group, the above argument implies 
 
 For each integer $n$, a polynomial formulation with $n^2$ variables for \textsc{TSP} on $n$ vertices uses the following polynomials:
 \begin{align}
-\label{eq:tsp-formulation}\ptsp(n) &= \aligntsp,
+\label{eq:tsp-formulation}\ptsp(n) &= \aligntsp.
 \end{align}
-where a tour $\tau \in \sym{n}$ (which is a feasible solution for \textsc{TSP}) is identified with the vector $\chi_\tau(i,j) = 1$ if $\tau(i) = j$ and $0$ otherwise. We omit the dependence on $n$ if it is clear from context. For an element $\sigma$ of the symmetric group $\sym{n}$, we define the action of $\sigma$ on a variable by $\sigma x_{ij} = x_{\sigma(i)j}$.
+The first group of polynomials ensurwhere the variables are Boolean, the second group of polynomials ensures that each city $i$ is visited at some point in the tour, and the last set of polynomials ensures that no city is visited multiple times in the tour. A tour $\tau \in \sym{n}$ (which is a feasible solution for \textsc{TSP}) is identified with the vector $\chi_\tau(i,j) = 1$ if $\tau(i) = j$ and $0$ otherwise. We omit the dependence on $n$ if it is clear from context. For an element $\sigma$ of the symmetric group $\sym{n}$, we define the action of $\sigma$ on a variable by $\sigma x_{ij} = x_{\sigma(i)j}$.
 We define the action of $\sigma$ on a monomial by extending this action multiplicatively, and the action of $\sigma$ on a full polynomial by extending linearly.
 Then $\ptsp$ is fixed by the action of every $\sigma$, as are its solutions $V(\ptsp)$ corresponding to the tours. 
 
@@ -291,13 +289,13 @@ With \prettyref{lem:tsp-monomials} in hand, we prove the following easy result:
 $\gen{\ptsp(n)}$ is complete for any $n$.  
 \end{lemma}
 \begin{proof}
-Let $p$ be a polynomial such that $p(\alpha) = 0$ for each $\alpha \in V(\ptsp)$. By \prettyref{lem:tsp-monomials}, we can assume that $p(x)$ is a multilinear polynomial whose monomials correspond to partial matchings. For such a partial matching $M$, clearly $x_M - x_M\prod_{i \notin M} \sum_j x_{ij}$ has a derivation in degree $n$ using the constraints $\sum_j x_{ij} - 1 \in \ptsp$. By eliminating terms which do not correspond to partial matchings, we get $x_M - \sum_{M': M \subset M'} x_{M'} \in \gen{\cP}$. Doing this to every monomial, we determine there is a polynomial $p'$ which is homogeneous of degree $n$ such that $p - p' \in \gen{\cP}$. Now since the monomials of $p'$ correspond to perfect matchings, each monomial has an $\alpha$ such that the coefficient of that monomial is exactly $p'(\alpha)$. Since $p'(\alpha) = 0$ for every $\alpha \in V(\ptsp)$, it must be that $p' = 0$, and so $p \in \gen{\ptsp}$.
+Let $p$ be a polynomial such that $p(\alpha) = 0$ for each $\alpha \in V(\ptsp)$. By \prettyref{lem:tsp-monomials}, we can assume that $p(x)$ is a multilinear polynomial whose monomials correspond to partial matchings. For such a partial matching $M$, clearly $x_M - x_M\prod_{i \notin M} \sum_j x_{ij}$ has a derivation in degree $n$ using the constraints $\sum_j x_{ij} - 1 \in \ptsp$. By eliminating terms which do not correspond to partial matchings, we get $x_M - C_M\sum_{M': M \subset M'} x_{M'} \in \gen{\cP}$, for some constant $C_M$. Doing this to every monomial, we determine there is a polynomial $p'$ which is homogeneous of degree $n$ such that $p - p' \in \gen{\cP}$. Now since the monomials of $p'$ correspond to perfect matchings, each monomial has an $\alpha$ such that the coefficient of that monomial is exactly $p'(\alpha)$. Since $p'(\alpha) = 0$ for every $\alpha \in V(\ptsp)$, it must be that $p' = 0$, and so $p \in \gen{\ptsp}$.
 \end{proof}
 Now we move on to the second step of our proof. 
 
 \subsection{Symmetric Polynomials}
 
-We will complete this step of our proof using the same helper lemmas as for \textsc{Matching}. The numbers appearing are slightly different due to the difference in the number of partial matchings for $K_n$ and $K_{n,n}$, and the action of $\sym{n}$ is slightly different, but they are all basically the same lemmas.
+We will complete this step of our proof using the same helper lemmas as for \textsc{Matching}. The numbers appearing are slightly different due to the difference in the number of partial matchings for $K_n$ and $K_{n,n}$, and the action of $\sym{n}$ is slightly different, but they are all basically the same.
 
 \begin{lemma}
   \label{lem:tsp+a}
@@ -418,13 +416,12 @@ Finally, apply \prettyref{lem:tsp-partial-matching} with $d = 0$:
   \end{split}
 \end{equation*}
 \end{proof}
-As a corollary, we get that when $p \in \gen{\cP}$, then the constant must be zero 
 \begin{corollary}\label{cor:tsp-constantiszero}
 If $p \in \gen{\ptsp}$, then $\sum_{\sigma \in \sym{n}} \sigma p$ has a derivation from $\ptsp$ in degree $\deg p$.
 \end{corollary}
 \begin{proof}
 Apply \prettyref{lem:tsp-constant} to obtain a constant $c_p$ such that $\sum_{\sigma \in \sym{n}} \sigma p \cong c_p$. 
-Now since $p \in \gen{\ptsp}$, $c_p \in \gen{\ptsp}$ as well. But the only constant polynomial in $\gen{\ptsp}$ is $0$.
+Now since $p \in \gen{\ptsp}$, $c_p \in \gen{\ptsp}$ as well. But by \prettyref{lem:nullstellensatz}, the only constant polynomial in $\gen{\ptsp}$ is $0$.
 \end{proof}
 
 \subsection{Getting to a Symmetric Polynomial}
@@ -437,23 +434,23 @@ The third step also proceeds in an almost identical manner.
 \begin{proof}
 It suffices to prove the statement for $L \in \ptsp(n)$. 
 If $L = x_{ij}^2 - x_{ij}$, $L = x_{ij}x_{ik}$, or $L = x_{ji}x_{ki}$, the claim is clearly true because $L \in \ptsp(n+2)$.
-Then let $L = \sum_j x_{ij} - 1$ for some $i$, and note that 
+So consider $L = \sum_j x_{ij} - 1$ for some $i$, and note that 
 \begin{align*}
-Lx_{n+1,n+2}x_{n+2,n+1} &- \left(\sum_{j=1}^{n+2} x_{ij} - \right)x_{n+1,n+2}x_{n+2,n+1} = \left(x_{i,n+1} + x_{i,n+2}\right)x_{n+1,n+2}x_{n+2,n+1} \\
+Lx_{n+1,n+2}x_{n+2,n+1} &- \left(\sum_{j=1}^{n+2} x_{ij} - 1\right)x_{n+1,n+2}x_{n+2,n+1} = \left(x_{i,n+1} + x_{i,n+2}\right)x_{n+1,n+2}x_{n+2,n+1} \\
 &= \left(x_{i,n+1}x_{n+2,n+1}\right)x_{n+1,n+2} + \left(x_{i,n+2}x_{n+1,n+2}\right)x_{n+2,n+1} \\
-&\cong 0
+&\cong_3 0
 \end{align*}
 The case for $L = \sum_i x_{ij} - 1$ is symmetric.
 \end{proof}
 
-We are now ready to prove the main theorem of this section, that the \textsc{TSP} constraints $\ptsp$ admit effective derivations. 
+We are now ready to prove the main theorem of this section. 
 \begin{theorem}\label{thm:tsp-effective}
 Let $p \in \gen{\ptsp(n)}$ for any $n$, and let $d = \deg p$. Then $p$ has a derivation from $\ptsp(n)$ in degree $2d$. 
 \end{theorem}
 \begin{proof}
 By \prettyref{lem:tsp-monomials}, we can assume that $p$ is a multilinear polynomial whose monomials correspond to partial matchings on $K_{n,n}$.
 As before, our proof is by induction on $n$. Consider the base case of $n = 1$. 
-Then $V(\ptsp(1)) = \{1\}$ and either $p$ is a constant or linear polynomial (since there is only one varaible, $x_{11}$).
+Then $V(\ptsp(1)) = \{1\}$ and either $p$ is a constant or linear polynomial (since there is only one variable, $x_{11}$).
 The only such polynomials that are zero on $V(\ptsp(1))$ are $0$ and scalar multiples of $x_{11} - 1$. 
 The former case has the trivial derivation, and the latter case is simply an element of $\ptsp(1)$. 
 
@@ -463,14 +460,14 @@ We consider the polynomial $\Delta = p - \sigma p$. Note that $\Delta \in \gen{\
 Thus we can write
 \[\Delta = \sum_{e: e = (i,k) \text{ or } e = (j,k)} L_e x_e,\]
 with each $L_e$ having degree at most $d-1$. Proceeding as before, we multiply each term by the appropriate constraint $\sum_k x_{ik}$ or $\sum_j x_{jk}$ to obtain a decomposition
-\[\Delta \cong \sum_{k_1,k_2} L_{k_1k_2} x_{ik_1}x_{jk_2}.\]
+\[\Delta \cong_{d+1} \sum_{k_1,k_2} L_{k_1k_2} x_{ik_1}x_{jk_2}.\]
 We can think of the RHS polynomial as being a partition over the possible different ways to match $i$ and $j$.
 Furthermore we can take $L_{k_1k_2}$ to be independent of $x_e$ for any $e$ incident to any of $i,j,k_1,k_2$. 
 We argue that $L_{k_1k_2} \in \ptsp(n-2)$. We know that $\Delta(\alpha) = 0$ for any $\alpha \in V(\ptsp(n))$. Let $\alpha \in V(\ptsp(n))$ such that $\alpha_{ik_1} = 1$ and $\alpha_{jk_2} = 1$. 
 Then it must be that $\alpha_{ik} = 0$ and $\alpha_{jk} = 0$ for any other $k$, since otherwise $\alpha \notin V(\ptsp(n))$.
 Thus $\Delta(\alpha) = L_{k_1k_2}(\alpha)$. Since $L_{k_1k_2}$ is independent of any edge incident to $i,j,k_1,k_2$, it does not involve those variables, so $L_{k_1k_2}(\alpha) = L_{k_1k_2}(\beta)$, where $\beta$ is the restriction of $\alpha$ to the $(n-2)^2$ variables which $L_{k_1k_2}$ depends on. But such a $\beta$ is simply an element of $V(\ptsp(n-2))$, and all elements of $V(\ptsp(n-2))$ can be obtained this way. Thus $L_{k_1k_2}$ is zero on all of $V(\ptsp(n-2))$, and by \prettyref{lem:tsp-complete}, $L_{k_1k_2} \in \gen{\ptsp(n-2)}$. Now by the inductive hypothesis, $L_{k_1k_2}$ has a derivation from $\ptsp(n-2)$ of degree at most $2d-2$. By \prettyref{lem:tsp-degree-increase}, $L_{k_1k_2}x_{ik_1}x_{jk_2}$ has a derivation from $\ptsp(n)$ of degree at most $2d$, and thus so does $\Delta$.
 
-Because transpositions generate the symmetric group, the above argument implies that $p - \frac{1}{n!}\sum_{\sigma \in \sym{n}} \sigma p$ has a derivation from $\ptsp(n)$ of degree at most $2d$. Combined with \prettyref{cor:tsp-constantiszero}, this is enough to prove the theorem statement. 
+Because transpositions generate the symmetric group, the above argument implies that $p - \frac{1}{n!}\sum_{\sigma \in \sym{n}} \sigma p$ has a derivation from $\ptsp(n)$ of degree at most $2d$. Combined with \prettyref{cor:tsp-constantiszero} and \prettyref{lem:derivation-chain}, this is enough to prove the theorem statement. 
 \end{proof}
 
 \section{Effective Derivations for \textsc{Balanced-CSP}}\label{sec:bcsp}
@@ -478,21 +475,23 @@ Fix integers $n$ and $c \leq n$. Then the \textsc{Balanced-CSP} problem has a po
 \begin{align}
 \pbcsp(n,c) = \left\{x_i^2 - x_i\mid i \in [n]\right\} \cup \left\{\sum_i x_i - c\right\}.\label{eq:bcsp-formulation}
 \end{align}
-The \textsc{Bisection} constraints are the special case when $n$ is even and $c = n/2$. 
+The first set of polynomials ensures that the variables are Boolean, and the final polynomial is a balance constraint that forces a specific number of variables to be $1$. The \textsc{Bisection} constraints are the special case when $n$ is even and $c = n/2$. 
 As before, we need to define the appropriate symmetric action. For an element $\sigma \in \sym{n}$, we define $\sigma x_i = x_{\sigma(i)}$ and extend this action multiplicatively and linearly to get an action on every polynomial. 
 Once again, note that $\pbcsp$ and $V(\pbcsp)$ are fixed by $\sym{n}$ under this action, and thus if $p \in \gen{\pbcsp}$, then $\sigma p \in \gen{\pbcsp}$. 
-We will begin with the special case of \textsc{Bisection}, as we will encounter an obstacle for general $c$. 
-Because $\pbcsp$ contains the boolean constraints $\{x_i^2 - x_i \mid i \in [n]\}$, we will take $p$ to be a multilinear polynomial. 
-Our proof strategy is the same three-step strategy as before. 
+We will begin by proving $1$-effectiveness for the special case of \textsc{Bisection}, as we will encounter an obstacle for general $c$. 
+Because $\pbcsp$ contains the boolean constraints $\{x_i^2 - x_i \mid i \in [n]\}$, we will take $p$ to be a multilinear polynomial without loss of generality. 
+For a set $A \subseteq [n]$, let $x_A = \prod_{i \in A} x_i$.
+Our proof strategy is the same three-step strategy referenced in \prettyref{sec:strategy}.
 \begin{lemma}\label{lem:bcsp-complete}
 $\gen{\pbcsp(n,c)}$ is complete for any $n$ and $c \leq n$.
 \end{lemma}
 \begin{proof}
-Let $p$ be a multilinear polynomial which is zero on all of $V(\pbcsp)$. First, we argue that if $A$ is such that $|A| > c$ then $x_A \in \gen{\pbcsp}$. We prove this by backwards induction from $n$ to $c+1$. For the base case of $|A| = n$, note that 
-\[x_A \cong \frac{1}{n-c} x_A\left(\sum_i x_i - c\right).\]
+Let $p$ be a multilinear polynomial which is zero on all of $V(\pbcsp)$. First, we argue that if $A \subseteq [n]$ is such that $|A| > c$ then $x_A \in \gen{\pbcsp}$. We prove this by backwards induction from $n$ to $c+1$. For the base case of $|A| = n$, note that 
+\[x_A \cong \frac{1}{n-c} x_A\left(\sum_i x_i - c\right),\]
+and the RHS is clearly an element of $\gen{\cP}$.
 Now if $|A| = k$ with $c+1 \leq k < n$, we have
 \[\left(k-c\right)x_A + \sum_{i \notin A} x_{A \cup \{i\}} \cong x_A\left(\sum_i x_i - c\right).\]
-By the inductive hypothesis, the second term is in $\gen{\pbcsp}$, and obviously the RHS is in $\gen{\pbcsp}$, and thus so is $x_A$. Thus we can assume that the monomials of $p$ are all of degree at most $c$. For any monomial $x_A$ of $p$, we have $x_A(\sum_i x_i - 1) \cong \sum_{i \notin A} x_{A \cup \{i\}} - (c-|A|)x_A$, and so $x_A - \frac{1}{c - |A|}\sum_{i \notin A} x_{A \cup \{i\}} \in \gen{\pbcsp}$, and so we can replace $x_A$ with monomials of one higher degree. Repeatedly applying this up to degree $c$ (at which point we must stop to avoid dividing by zero), we determine there is a polynomial $p'$ which is homogenous of degree $c$ such that $p - p' \in \gen{\pbcsp}$. Now if $p'_{i_1,\dots,i_c}x_{i_1}\dots x_{i_c}$ is a monomial of $p'$, let $\alpha$ be the element of $V(\pbcsp)$ with $i_1,\dots,i_c$ coordinates equal to $1$ and all other coordinates equal to zero. Then $p'(\alpha) = p'_{i_1,\dots,i_c}$, but $p'(\alpha) = 0$. Thus in fact $p' = 0$, and so $p \in \gen{\pbcsp}$.
+By the inductive hypothesis, the second term of the LHS is in $\gen{\pbcsp}$, and obviously the RHS is in $\gen{\pbcsp}$, and thus so is $x_A$. Thus we can assume that the monomials of $p$ are all of degree at most $c$. For any monomial $x_A$ of $p$, we have $x_A(\sum_i x_i - 1) \cong \sum_{i \notin A} x_{A \cup \{i\}} - (c-|A|)x_A$, and so $x_A - \frac{1}{c - |A|}\sum_{i \notin A} x_{A \cup \{i\}} \in \gen{\pbcsp}$, and so we can replace $x_A$ with monomials of one higher degree. Repeatedly applying this up to degree $c$ (at which point we must stop to avoid dividing by zero), we determine there is a polynomial $p'$ which is homogenous of degree $c$ such that $p - p' \in \gen{\pbcsp}$. Now let $p'_{i_1,\dots,i_c}$ be the coefficient of the monomial $x_{i_1}\dots x_{i_c}$ in $p'$ and let $\alpha$ be the element of $V(\pbcsp)$ with $i_1,\dots,i_c$ coordinates equal to $1$ and all other coordinates equal to zero. Then $p'(\alpha) = p'_{i_1,\dots,i_c}$, but $p'(\alpha) = 0$. Thus in fact $p' = 0$, and so $p \in \gen{\pbcsp}$.
 \end{proof}
 
 \subsection{Symmetric Polynomials}
@@ -502,14 +501,14 @@ Let $p$ be a multilinear polynomial in $\R^n$. Then there exists a constant $c_p
 \end{lemma}
 \begin{proof}
 It is sufficient to prove the lemma for monomials $x_A = \prod_{i \in A} x_i$. We will induct on the degree of the monomial $|A|$. 
-If $|A| = 1$, then $p = x_i$ for some $i \in [n]$, and $p' = \sum_{\sigma \in \cS_n} \sigma x_i = (n-1)!\sum_i x_i \cong (n-1)!\cdot c$, which can clearly be performed in degree one. Now assume $|A| = k$, so that $p' = \sum_{\sigma \in \cS_n} \sigma x_A = (n-k)! \sum_{|B|=k} x_B$. Then $p'' = p' - \frac{(n-k)!}{k!}\left(\sum_i x_i - c\right)^k$ is a polynomial which, after multilinearizing by reducing by the boolean constraints, has degree at most $k-1$. Furthermore, $p''$ is clearly in $\gen{\pbcsp}$ and is fixed by every $\sigma$. Thus by the inductive hypothesis, $p''$ has a derivation from some constant in degree $k-1$. Since $p' \cong_k p''$, this implies the statement for $|A| = k$ and completes the proof by induction.
+If $|A| = 1$, then $p = x_i$ for some $i \in [n]$, and $p' = \sum_{\sigma \in \cS_n} \sigma x_i = (n-1)!\sum_i x_i \cong (n-1)!\cdot c$, which can clearly be performed in degree one. Now assume $|A| = k$, so that $p' = \sum_{\sigma \in \cS_n} \sigma x_A = (n-k)! \sum_{|B|=k} x_B$. Then $p'' = p' - \frac{(n-k)!}{k!}\left(\sum_i x_i - c\right)^k$ is a polynomial which, after multilinearizing by reducing by the boolean constraints, has degree at most $k-1$ (the coefficient $\frac{(n-k)!}{k!}$ was chosen to cancel the highest degree term of $p'$). Furthermore, $p''$ is in $\gen{\pbcsp}$ because $p$ and $p'$ are, and $(\sum_i x_i - c)^k$ is an element of $\gen{\cP}$. Finally, $p''$ is fixed by every $\sigma$. Thus by the inductive hypothesis, $p''$ has a derivation from some constant in degree $k-1$. Since $p' \cong_k p''$, this implies the statement for $|A| = k$ and completes the proof by induction.
 
-The second line of the lemma follows immediately, since if $p \in \gen{\pbcsp}$ then $c_p \in \gen{\pbcsp}$, but the only constant polynomial in $\gen{\pbcsp}$ is $0$.
+The second line of the lemma follows immediately, since if $p \in \gen{\pbcsp}$ then $c_p \in \gen{\pbcsp}$, but the only constant polynomial in $\gen{\pbcsp}$ is $0$ by \prettyref{lem:nullstellensatz}.
 \end{proof}
 Now we move on to the third and final step, where we specialize to the \textsc{Bisection} constraints $\pbcsp(n,n/2)$.
 
 \subsection{Getting to a Symmetric Polynomial}
-Recall the third step of our strategy is to show that $p - \sigma p$ can be derived from $\pbcsp$ in low degree. It will be easier in this case as compared to \textsc{Matching} because we do not have to increase the degree of $p - \sigma p$ in order to isolate a variable to remove and do the induction. Because of this, we will be able to show that \textsc{Bisection} is actually $1$-effective and we will not lose a factor of two this time.
+Recall the third step of our strategy is to show that $p - \sigma p$ can be derived from $\pbcsp$ in low degree. It will be easier in this case as compared to \textsc{Matching} because we do not have to increase the degree of $p - \sigma p$ in order to isolate a variable to remove and do the induction. Because of this, we will be able to show that \textsc{Bisection} is actually $1$-effective and not lose a factor of two.
 We need a lemma to help us do the induction:
 \begin{lemma}\label{lem:bcsp-induct}
 Let $L \in \gen{\pbcsp(n,c)}_d$. Then $L\cdot (x_{n+1} - x_{n+2}) \in \gen{\pbcsp(n+2,c+1)}_{d+1}$.
@@ -530,8 +529,8 @@ Let $n$ be even and $p \in \gen{\pbcsp(n,n/2)}$ and $d = \deg p$. Then $p$ has a
 By reducing by the boolean constraints, we can assume $p$ is a multilinear polynomial. 
 We will induct on the number of vertices $n$, so first we must handle the base case of $n = 2$ (recall $n$ is even). 
 The only degree zero polynomial in $\pbcsp(2,1)$ is the zero polynomial which has the trivial derivation. 
-If $p = ax_1 + bx_2 + c$, we know $p(0,1) = p(1,0) = 0$. This implies $p$ is a multiple of $\sum_i x_i - 1$, which clearly has a derivation of degree $1$.
-Finally, $x_1x_2$ has the derivation $x_1x_2 = x_1(x_1+x_2-1) + (-1)\cdot(x_1^2 - x_1)$. So any quadratic polynomial in $\gen{\pbcsp(2,1)}$ can be reduced to a linear polynomial in degree two, but we already showed that every linear polynomial has a degree one derivation. This proves the base case. 
+If $p = ax_1 + bx_2 + c$, we know $p(0,1) = p(1,0) = 0$. This implies $a = b = -c$, and so $p$ is a multiple of $\sum_i x_i - 1$, which clearly has a derivation of degree $1$.
+Finally, $x_1x_2$ has the derivation $x_1x_2 = x_1(x_1+x_2-1) + (-1)\cdot(x_1^2 - x_1)$. So any quadratic polynomial in $\gen{\pbcsp(2,1)}$ can be reduced to a linear polynomial in degree $2$, but we already showed that every linear polynomial has a degree $1$ derivation. This proves the base case. 
 
 Now assume the theorem statement for $\pbcsp(n',n'/2)$ with $n' < n$. 
 Let $\sigma = (i,j)$ be a transposition between two vertices. 
@@ -544,14 +543,14 @@ where the last congruence is by \prettyref{lem:bcsp-symmetric}. Thus $p$ has a d
 \end{proof}
 
 \subsection{Obstacles for General $c$}
-We proved that $\pbcsp(n,n/2)$ is effective, but what about for general $c$?
-We want to prove that these constraints admit effective derivations.
+We will consider general $c < n/2$ since the case of $c > n/2$ is symmetric via the linear transformation $y_i = 1 - x_i$.
+We would like to argue that $\pbcsp(n,c)$ is effective even in the case of general $c$.
 What goes wrong if we just try to imitate the proof of \prettyref{thm:bisec-effective}?
 If we do so, eventually we arrive at the base case of the induction: $\pbcsp(n-2c,0)$.
 The problem is that the linear monomials $x_i$ are in $\gen{\pbcsp(n-2c,0)}$ but it is not obvious how to derive $x_i$ from $\pbcsp(n-2c,0)$. 
-In fact, it turns out that derivations of $x_i$ require degree $(n-2c+1)/2$. 
+In fact, it turns out that derivations of $x_i$ require degree $(n-2c+1)/2$. If $c = \Omega(n)$, the gap between this and the degree of $x_i$, namely $1$, is as large as $\Omega(n)$!
 
-This obstacle is not an artifact of our proof strategy, there are essentially two kinds of polynomials in $\gen{\pbcsp(n,c)}$:
+This obstacle is not an artifact of our proof strategy, but an intrinsic obstacle. There are essentially two kinds of polynomials in $\gen{\pbcsp(n,c)}$:
 Polynomials of degree at most $c$, and polynomials of degree $c+1$ or greater. 
 The former have efficient derivations:
 \begin{lemma}\label{lem:bcsp-lowdeg}
@@ -559,7 +558,7 @@ Let $p \in \gen{\pbcsp(n,c)}$ have degree at most $c$. Then $p$ has a derivation
 \end{lemma}
 We delay the proof of this lemma until the next section. 
 However, the polynomials of degree $c+1$ or greater actually have no derivations until degree $(n-c+1)/2$, so if $c << n$, then $\pbcsp(n,c)$ is not $k$-effective for any constant $k$.
-We will see that this phenomenon is because of the fact that the Pigeonhole Principle requires high degree to prove in the polynomial calculus. 
+We will see that this phenomenon is because of the fact that the Pigeonhole Principle requires high degree for HN derivations. 
 The negation of the Pigeonhole Principle is the following set of constraints:
 \begin{align*}
 \nphp(m,n) &= \left\{x_{ij}^2 - x_{ij} \mid i \in [m], j \in [n]\right\} \\
@@ -567,28 +566,26 @@ The negation of the Pigeonhole Principle is the following set of constraints:
 &\cup \left\{x_{ij}x_{ik} \mid i \in [m], j,k \in [n], j \neq k\right\} \\
 &\cup \left\{x_{ij}x_{kj} \mid i,k \in [m], j \in [n], i \neq k\right\}
 \end{align*}
-$\nphp(m,n)$ asserts the existence of an injective mapping from $[m]$ into $[n]$. If $m > n$, then clearly there is no such mapping, so the set of constraints is unsatisfiable. This implies that $1 \in \gen{\nphp(m,n)}$. However, Razborov proved that any derivation of $1$ from $\nphp(m,n)$ has degree at least $n/2 + 1$ \cite{Raz98}.
-This allows us to prove the following:
+$\nphp(m,n)$ asserts the existence of an injective mapping from $[m]$ into $[n]$. If $m > n$, then clearly there is no such mapping, so the set of polynomials is infeasible. This implies that $1 \in \gen{\nphp(m,n)}$ by \prettyref{lem:nullstellensatz}. However, Razborov proved that any derivation of $1$ from $\nphp(m,n)$ has degree at least $n/2 + 1$ \cite{Raz98}.
+This allows us to prove the following by reduction:
 \begin{lemma}\label{lem:bcsp-highdeg-hard}
 Let $p = x_1x_2\dots x_c x_{c+1}$. Then $p \in \gen{\pbcsp(n,c)}$, but any derivation of $p$ from $\pbcsp(n,c)$ has degree at least $(n-c+1)/2$. 
 \end{lemma}
 \begin{proof}
-To see that $p \in \gen{\pbcsp(n,c)}$, notice that $V(\pbcsp(n,c))$ are the boolean vectors with exactly $c$ variables equal to $1$.
-Because $p$ is a product of $c+1$ variables, at least one of those variables must be equal to $0$, and thus the product is $0$. 
-This is essentially a Pigeonhole Principle argument where the pigeons are the $n-c$ zeros, and the holes are the $n-c-1$ variables not appearing in $p$.
-More formally, we show how to manipulate any derivation of $p$ from $\pbcsp(n,c)$ to get a derivation of $1$ from $\nphp(n-c,n-c-1)$.
+We argued $p \in \gen{\pbcsp(n,c)}$ in \prettyref{lem:bcsp-complete}, and essentially used a Pigeonhole Principle argument where the pigeons are the $n-c$ zeros, and the holes are the $n-c-1$ variables not appearing in $p$.
+More formally, we show how to manipulate any derivation of $p$ from $\pbcsp(n,c)$ to get a refutation of $\nphp(n-c,n-c-1)$.
 
 Any derivation of $p$ from $\pbcsp(n,c)$ is a polynomial identity of the following form:
 \[x_1x_2\dots x_{c+1} = \lambda \cdot \left(\sum_i x_i - c\right) + \sum_i \lambda_i \cdot (x_i^2 - x_i).\]
 Now set $x_1 = x_2 = \dots = x_{c+1} = 1$ to get
-\[1 = \lambda' \cdot \left(\sum_{i > c+1} x_i + 1\right) + \sum_{i > c+1} \lambda_i \cdot (x_i^2 - x_i).\]
+\[1 = \lambda' \cdot \left(\sum_{i > c+1} x_i + 1\right) + \sum_{i > c+1} \lambda_i' \cdot (x_i^2 - x_i).\]
 We define variables $y_{ij}$ with the intention that $y_{ij} = 1$ if the $i$th variable is the $j$th zero. Thus we replace $x_i \rightarrow 1 - \sum_{j=1}^{n-c} y_{ij}$ and get
 \begin{align*}
-1 &= \lambda'(y) \cdot \left(\sum_{i > c+1} \left(1 - \sum_{j=1}^{n-c} y_{ij}\right) + 1\right) + \sum_{i > c+1} \lambda_i(y) \cdot \left( \left(1 - \sum_{j=1}^{n-c} y_{ij}\right)^2 - 1 + \sum_{j=1}^{n-c} y_{ij}\right) \\
-&= \lambda'(y) \cdot \left(n-c-1 - \sum_{i> c+1, j} y_{ij} + 1\right) + \sum_{i > c+1} \lambda_i(y) \cdot \left(\sum_{j=1}^{n-c} y_{ij}^2 - \sum_{j=1}^{n-c} y_{ij} + 2\sum_{j\neq j'} y_{ij}y_{ij'}\right) \\
-&= \sum_{j=1}^{n-c} -\lambda'(y)\cdot\left(\sum_{i > c+1} y_{ij} - 1\right) + \sum_{i > c+1} \lambda_i(y) \cdot \left(\sum_j \left(y_{ij}^2 - y_{ij}\right) + 2\sum_{j\neq j'} y_{ij}y_{ij'}\right).
+1 &= \lambda'(y) \cdot \left(\sum_{i > c+1} \left(1 - \sum_{j=1}^{n-c} y_{ij}\right) + 1\right) + \sum_{i > c+1} \lambda_i'(y) \cdot \left( \left(1 - \sum_{j=1}^{n-c} y_{ij}\right)^2 - 1 + \sum_{j=1}^{n-c} y_{ij}\right) \\
+&= \lambda'(y) \cdot \left(n-c-1 - \sum_{i> c+1, j} y_{ij} + 1\right) + \sum_{i > c+1} \lambda'_i(y) \cdot \left(\sum_{j=1}^{n-c} y_{ij}^2 - \sum_{j=1}^{n-c} y_{ij} + 2\sum_{j\neq j'} y_{ij}y_{ij'}\right) \\
+&= \sum_{j=1}^{n-c} -\lambda'(y)\cdot\left(\sum_{i > c+1} y_{ij} - 1\right) + \sum_{i > c+1} \lambda'_i(y) \cdot \left(\sum_j \left(y_{ij}^2 - y_{ij}\right) + 2\sum_{j\neq j'} y_{ij}y_{ij'}\right).
 \end{align*}
-Note that each term in the last equation contains a constraint in $\nphp(n-c,n-c-1)$. Thus the degree of this derivation must be at least  $(n-c+1)/2$.
+Note that each term in the last equation contains a constraint in $\nphp(n-c,n-c-1)$. Thus the degree of this derivation must be at least $(n-c+1)/2$. Fixing $x_1, \dots, x_{c+1}$ can only reduce the degree, so the degree of the original derivation must be at least $(n-c+1)/2$ as well. 
 \end{proof}
 
 \subsection{Effective PC$_>$ Derivations for High Degree Polynomials}
@@ -599,7 +596,7 @@ Let $p = x_1x_2\dots x_c x_{c+1}$. Then $p$ has a PC$_>$ proof $\Pi$ from $\pbcs
 \begin{proof}
 Recall that a PC$_>$ proof consists of two proofs of non-negativity: one for $p$ and one for $-p$. The first is trivial: every monomial is the multilinearization of itself squared. Thus every monomial has a proof of non-negativity in twice its degree. For the second, we observe the following identity
 \[-x_1x_2\dots x_{c+1} = x_1x_2\dots x_c\left(c - \sum_i x_i\right) + \sum_{i \leq c} -(x_i^2 - x_i) \prod_{j \leq c, j\neq i} x_j + \left(\prod_{i \leq c} x_i\right) \sum_{i > c+1} x_i. \]
-The first two terms each have factors in $\pbcsp(n,c)$, and the last term is a sum of monomials with non-negative coefficients. These monomials all have proofs of non-negativity, and thus so does $-p$. It is simple to check that these proofs involve coefficients of merely constant size. 
+The first two terms each have factors in $\pbcsp(n,c)$, and the last term is a sum of monomials with non-negative coefficients. These monomials all have proofs of non-negativity, and thus so does $-p$. It is simple to check that these proofs involve coefficients of unit size. 
 \end{proof}
 
 \subsection{Effective HN Derivations for Low Degree Polynomials}
@@ -608,7 +605,7 @@ It remains to prove that the low-degree polynomials in $\pbcsp(n,c)$ have effici
 Fix $c \leq n/2$. Let $p \in \gen{\pbcsp(n,c)}$ with $\deg p \leq c$. Then $p$ has a derivation from $\pbcsp(n,c)$ in degree $\deg p$. 
 \end{lemma}
 \begin{proof}
-The proof is by double induction on $n$ and $c$. The base case is the lemma statement for $\pbcsp(n,0)$ for all $n$. In this case $p$ is a constant polynomial, and the only constant polynomial in $\pbcsp(n,0)$ is the zero polynomial, which has the trivial derivation. Now consider the case when $p \in \pbcsp(n,c)$ for $c \leq n/2$. Then following the same argument as in \prettyref{thm:bisec-effective}, we define $\Delta = p - \sigma p = (r_i - r_j)\cdot (x_i - x_j)$, where $r_i$ and $r_j$ do not depend on $x_i$ or $x_j$. Setting $x_i = 1$ and $x_0 = 0$, we again conclude that $(r_i - r_j) \in \gen{\pbcsp(n-2,c-1)}$. Since $c \leq n/2$, clearly $c-1 \leq (n-2)/2$. Also, since $r_i - r_j$ has degree $\deg p - 1$, we still have $\deg (r_i - r_j) \leq c-1$. Thus we can apply the inductive hypothesis to get a derivation for $r_i - r_j$ from $\pbcsp(n-2,c-1)$ in degree $\deg p - 1$. Then \prettyref{lem:bcsp-induct} tells us that $\Delta$ has a derivation from $\pbcsp(n,c)$ in degree $\deg p$, completing the induction. Taken with \prettyref{lem:bcsp-symmetric}, this implies the statement. 
+The proof is by double induction on $n$ and $c$. The base case is the lemma statement for $\pbcsp(n,0)$ for all $n$. In this case $p$ is a constant polynomial, and the only constant polynomial in $\pbcsp(n,0)$ is the zero polynomial, which has the trivial derivation. Now consider the case when $p \in \pbcsp(n,c)$ for $c \leq n/2$. Then following the same argument as in \prettyref{thm:bisec-effective}, we define $\Delta = p - \sigma p = (r_i - r_j)\cdot (x_i - x_j)$, where $r_i$ and $r_j$ do not depend on $x_i$ or $x_j$. Setting $x_i = 1$ and $x_j = 0$, we again conclude that $(r_i - r_j) \in \gen{\pbcsp(n-2,c-1)}$. Since $c \leq n/2$, clearly $c-1 \leq (n-2)/2$. Also, since $r_i - r_j$ has degree $\deg p - 1$, we still have $\deg (r_i - r_j) \leq c-1$. Thus we can apply the inductive hypothesis to get a derivation for $r_i - r_j$ from $\pbcsp(n-2,c-1)$ in degree $\deg p - 1$. Then \prettyref{lem:bcsp-induct} tells us that $\Delta$ has a derivation from $\pbcsp(n,c)$ in degree $\deg p$, completing the induction. Taken with \prettyref{lem:bcsp-symmetric}, this implies the statement. 
 \end{proof}
 %Together, we now have a proof of the following theorem:
 %\begin{theorem}
@@ -623,7 +620,7 @@ The last example we give for our proof strategy is the \textsc{Boolean Sparse PC
 \begin{align*}
 \pspca(n,c) = \left\{x_i^3 - x_i \mid i \in [n]\right\} \cup \left\{\sum_i x_i^2 - c\right\}.\label{eq:bspca-formulation}
 \end{align*}
-This problem arises when trying to reconstruct a planted sparse vector from noisy samples, see for example \cite{MW15}.
+The first set of polynomials ensures that the variables are \emph{ternary}, and lie in $\{0,\pm 1\}$. The last polynomial is another balance constraint, and sets the number of variables that can be nonzero. We define a symmetric action by $\sigma x_i = x_{\sigma(i)}$ for $\sigma \in \sym{n}$ and extend it appropriately. These constraints arise when trying to reconstruct a planted sparse vector from noisy samples, see for example \cite{MW15}.
 
 These constraints are similar to the \textsc{Balanced-CSP} constraints of the previous section with one crucial difference: The variables are ternary instead of binary.
 This will complicate the analysis, but it turns out that with a bit more casework we will be able to push it through.
@@ -632,11 +629,11 @@ However, the Pigeonhole Principle obstacle remains, and we will once again only 
 $\pspca(n,c)$ is complete for every $n$ and $c \leq n$.
 \end{lemma}
 \begin{proof}
-For $\sigma \in \sym{n}$, we again define $\sigma x_i = x_{\sigma(i)}$ and extend the action appropriately. Recall that by pigeonhole principle any monomial that involves $c+1$ or more distinct variables will be zero over $V(\pspca)$. Our first step is to show that these are in $\gen{\pspca}$. The proof will be a reverse induction on the number of distinct variables, going from $n$ to $c+1$.  
+Recall that by pigeonhole principle any monomial that involves $c+1$ or more distinct variables will be zero over $V(\pspca)$. Our first step is to show that these are in $\gen{\pspca}$. The proof will be a reverse induction on the number of distinct variables, going from $n$ to $c+1$.  
 For the base case, let $x_A$ be any monomial with $n$ distinct variables. Then $x_A \cong \frac{1}{n-c} x_A(\sum_i x_i^2 - c)$, so clearly $x_A \in \gen{\pspca}$.
 Now let $x_A$ be any monomial with $c+1 \leq k < n$ distinct variables. Then
 \[\left(k-c\right)x_A + \sum_{i \notin A} x_{A \cup \{i,i\}} \cong x_A\left(\sum_i x^2_i - c\right).\]
-By the inductive hypothesis, the second term is in $\gen{\pspca}$, and thus so is $x_A$. 
+By the inductive hypothesis, the second term of the LHS is in $\gen{\pspca}$, and thus so is $x_A$. 
 Now let $p$ be a polynomial such that $p(\alpha) = 0$ for every $\alpha \in V(\pspca)$. 
 We can assume that the monomials of $p$ involve at most $c$ distinct variables. For any monomial $x_A$ of $p$, we have $x_A(\sum_i x_i - 1) \cong \sum_{i \notin A} x_{A \cup \{i,i\}} - (c-|A|)x_A$, and so $x_A - \frac{1}{c - |A|}\sum_{i \notin A} x_{A \cup \{i,i\}} \in \gen{\pspca}$, and so we can replace $x_A$ with monomials of one higher degree. Repeatedly applying this up to degree $c$ (at which point we must stop to avoid dividing by zero), we determine there is a polynomial $p'$ which has only monomials involving exactly $c$ distinct variables such that $p - p' \in \gen{\pspca}$. Fix two disjoint sets $U_1$ and $U_2$ of the variables with $|U_1 \cup U_2| = c$ and let $p'_{U_1U_2}$ be the coefficient of the monomial of $p'$ corresponding to the variables in $U_1 \cup U_2$ with the variables in $U_1$ appearing with degree one and the variables in $U_2$ appearing with degree two. We will prove by induction that $p'_{U_1U_2} = 0$ for every $U_1,U_2$. For the base case, let $U_1 = \emptyset$. Then if we average every monomial of $p'$ over the $\alpha \in V(\pspca)$ that assign nonzero values exactly to the variables in $U_1 \cup U_2$, every monomial except $p'_{U_1U_2}$ is zero, and that monomial has value one. Since $p'(\alpha) = 0$ for each $\alpha \in V(\pspca)$, this implies that $p'_{U_1U_2} = 0$. Proceeding by induction, let $|U_1| = k$. Then if we average over all the $\alpha \in V(\pspca)$ that assign nonzero values exactly to the variables in $U_1 \cup U_2$ and assigns value $1$ to the variables in $U_1$, every monomial is zero except $p'_{UV}$ with $U \cup V = U_1 \cup U_2$ and $U \subseteq U_1$. By the inductive hypothesis these all have zero coefficients except $p'_{U_1U_2}$, and now since $p'$ is zero on all these points, we once again have $p'_{U_1U_2}$. Doing this for every $U_1,U_2$, we determine $p' = 0$ and thus $p \in \gen{\pspca}$. 
 \end{proof}
@@ -661,19 +658,19 @@ By \prettyref{lem:bpca-symmetric}, we know that there is a univariate polynomial
 \subsection{Getting to a Symmetric Polynomial}
 This process should be familiar by now. Since there are more choices for values for the variables we are going to strip off, we are going to need to do a little more casework, but the general strategy is the same. We start with a lemma that allows us to perform induction.
 \begin{lemma}\label{lem:bpca-induct}
-Let $L$ be a polynomial with a degree $d$ derivation from $\pspca(n,c)$. Then $L(x_{n+1}^2-x_{n+2}^2)$ has a degree $d+2$ derivation from $\pspca(n+2,c+1)$, and $L(x_{n+1}x_{n+2})$ has a degree $d+2$ derivation from $\pspca(n+2,c+2)$.
+Let $L$ be a polynomial with a degree $d$ derivation from $\pspca(n,c)$. Then $L\cdot (x_{n+1}^2-x_{n+2}^2)$ has a degree $d+2$ derivation from $\pspca(n+2,c+1)$, and $L\cdot (x_{n+1}x_{n+2})$ has a degree $d+2$ derivation from $\pspca(n+2,c+2)$.
 \end{lemma}
 \begin{proof}
 It suffices to prove the theorem for $L \in \pspca(n,c)$. If $L = x_i^3 - x_i$ for some $i$, then clearly the statement is true as $L \in \pspca(n+2,c+1)$ and $L \in \pspca(n+2,c+2)$, so let $L = \sum_i x_i^2 - c$. Now notice that 
 \begin{align*}
-L(x_{n+1}^2 - x_{n+2}^2) - \left(\sum_{i=1}^{n+2} x_i^2 - (c+1)\right)(x_{n+1}^2-x_{n+2}^2) &= (1-x_{n+1}^2+x_{n+2}^2)(x_{n+1}^2-x_{n+2}^2) \\
+L\cdot (x_{n+1}^2 - x_{n+2}^2) - \left(\sum_{i=1}^{n+2} x_i^2 - (c+1)\right)(x_{n+1}^2-x_{n+2}^2) &= (1-x_{n+1}^2+x_{n+2}^2)(x_{n+1}^2-x_{n+2}^2) \\
 &= x_{n+1}^2 - x_{n+2}^2 - x_{n+1}^4 + x_{n+2}^4  \\
 &\cong_4 x_{n+1}^2 - x_{n+2}^2 - x_{n+1}^2 + x_{n+2}^2 \\
 &= 0
 \end{align*}
 and 
 \begin{align*}
-Lx_{n+1}x_{n+2} - \left(\sum_{i=1}^{n-2} x_i^2 - (c+2)\right)x_{n+1}x_{n+2} &= (2-x_{n+1}^2 + x_{n+2}^2)x_{n+1}x_{n+2} \\
+Lx_{n+1}x_{n+2} - \left(\sum_{i=1}^{n+2} x_i^2 - (c+2)\right)x_{n+1}x_{n+2} &= (2-x_{n+1}^2 + x_{n+2}^2)x_{n+1}x_{n+2} \\
 &= 2x_{n+1}x_{n+2} - x_{n+1}^3x_{n+2} + x_{n+1}x_{n+2}^3 \\
 &\cong_4 2x_{n+1}x_{n+2} - x_{n+1}x_{n+2} + x_{n+1}x_{n+2} \\
 &= 0
